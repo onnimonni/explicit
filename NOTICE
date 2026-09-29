@@ -1,0 +1,88 @@
+explicit
+========
+
+This product includes software derived from third-party projects.
+
+------------------------------------------------------------------------------
+aislop
+------------------------------------------------------------------------------
+
+The comment slop rules in src/rules/slop/comments.rs (slop/comment-plan,
+slop/comment-history, slop/comment-narrative, slop/comment-banner) are ported
+from aislop:
+
+  Source:    https://github.com/scanaislop/aislop
+  Commit:    7d50952bf26a450e94244760b73eec15efad3724
+  Files:     src/engines/ai-slop/meta-comment.ts
+             src/engines/ai-slop/narrative-comments.ts
+             src/engines/ai-slop/narrative-comments-patterns.ts
+             src/engines/ai-slop/comment-blocks.ts
+             src/engines/ai-slop/comments.ts
+             tests/meta-comment.test.ts
+             tests/engines/narrative-comments.test.ts
+
+MIT License
+
+Copyright (c) 2025 heavykenny
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+------------------------------------------------------------------------------
+llm-cliche-highlighter (simonw/tools)
+------------------------------------------------------------------------------
+
+The structural cliche rules in src/rules/slop/cliche.rs (slop/negation-chain,
+slop/dont-verb-it, slop/echo-sentences, slop/stacked-questions, slop/anaphora,
+slop/stranded-auxiliary, slop/colon-triple, slop/not-but), the catalogue entries
+in the "LLM cliche highlighter" section of src/rules/slop/phrases.toml (plus the
+broadened heres-the-thing, important-to-note, plays-a-role and landscape
+patterns), and the ported self-tests in src/rules/slop/cliche.rs are derived
+from Simon Willison's LLM cliche highlighter:
+
+  Source:    https://github.com/simonw/tools/blob/main/llm-cliche-highlighter.html
+  Commit:    a48d9920ff1cf203cd0070c3e8321283df50bf11
+  Files:     llm-cliche-highlighter.html (pattern list, finder helpers, self-tests)
+
+Copyright Simon Willison
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at
+
+  https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.
+
+Changes from upstream: patterns translated to Rust regex syntax (negative
+lookaheads emulated with a post-match `not_followed_by` check or code),
+several patterns narrowed to reduce false positives in technical writing
+(noun lists for "is the whole/entire", suffix-aligned sentence echoes,
+subordinate clauses skipped for stranded auxiliaries, file names kept inside
+sentences), and findings mapped onto explicit's rule and severity model.
+
+The upstream "Signs of AI writing" pattern group (ai-vocab, not-just, not-but,
+note-that, testament, crucial-role, landscape, vague-experts,
+despite-challenges, participle-tail, promo, ai-leftovers) is itself adapted by
+upstream from Wikipedia's "Signs of AI writing" guide
+(https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), licensed under
+CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). Only the ideas
+behind those patterns are used here; no Wikipedia text is reproduced.

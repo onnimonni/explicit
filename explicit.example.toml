@@ -1,0 +1,66 @@
+# explicit configuration. All keys are optional.
+
+[general]
+exclude = ["vendor/**", "CHANGELOG.md"]
+fail_on = "warning" # info | warning | error
+
+# Rule id or glob -> off | info | warn | error. Run `explicit rules` for the list.
+[rules]
+"md/line-length" = "off"
+"slop/*" = "warn"
+# "grammar/LongSentences" = "off"
+
+[prose]
+dialect = "american"
+accept = ["devenv", "rustc"]
+# vocab_files = [".explicit/vocab.txt"]
+
+[comments]
+enabled = true
+doc_only_grammar = false
+
+[markdown]
+line_length = 120
+list_marker = "consistent"
+heading_style = "consistent"
+heading_case = "off" # sentence | title
+# allowed_languages = ["mylang"]
+hr_style = "consistent"          # consistent | exact text, e.g. "---"
+code_fence_style = "consistent"  # consistent | backtick | tilde
+emphasis_style = "consistent"    # consistent | asterisk | underscore
+strong_style = "consistent"      # consistent | asterisk | underscore
+non_descriptive_link_text = ["click here", "here", "link", "more", "read more", "this", "this link"]
+max_heading_length = 60          # md/max-heading-length (off by default)
+allowed_html = ["br", "details", "summary", "img", "sup", "sub", "kbd", "a", "picture", "source", "video"] # md/no-inline-html (off by default)
+# front_matter_required = ["title", "description"] # md/front-matter-required (off by default)
+
+[links]
+remote = true
+timeout_secs = 10
+exclude = ['^https?://localhost']
+# allow_private = false          # request localhost/private addresses (and redirects to them)
+
+[slop]
+# extra = [".explicit/slop.toml"]
+# disable = ["robust"]
+
+# Documentation-site rules: docs/toc-sync, docs/orphan-page (off by default),
+# docs/include-missing, docs/readme-absolute-image.
+# Code block rules (`codeblock/*`) need no config; add `skip-lint` to a fence's
+# info string (```json skip-lint) to skip one block.
+[docs]
+root = "docs"                     # docs/orphan-page: pages here must be linked from another file
+orphan_exempt = ["docs/drafts/*"] # globs never reported as orphans (index.md, README.md, _*.md always are)
+include_dirs = ["_includes"]      # docs/include-missing: extra include search directories (after the file's directory and project root)
+
+# Vale-style rules.
+[[style]]
+name = "no-simply"
+kind = "existence"
+tokens = ["simply", "just", "easily"]
+message = "Avoid minimizing words like '{}'"
+
+[[style]]
+name = "terms"
+kind = "substitution"
+swap = { "javascript" = "JavaScript", "github" = "GitHub" }

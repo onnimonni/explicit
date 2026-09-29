@@ -1,0 +1,12 @@
+[profile.dev]
+debug = "line-tables-only"
+# Incremental caches grew past a gigabyte; full rebuilds of this crate are fast enough.
+incremental = false
+
+[profile.dev.package."*"]
+debug = false
+strip = true
+opt-level = 1
+
+[profile.test]
+incremental = false

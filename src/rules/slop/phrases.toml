@@ -1,0 +1,2111 @@
+# explicit-disable-file slop/* prose/* grammar/* spelling -- rule data lists the phrases it flags
+# Built-in slop catalogue.
+#
+# Schema of each [[phrase]] entry:
+#   id             unique id; user catalogues (`[slop] extra`) replace entries by id,
+#                  `[slop] disable` removes them
+#   match          literal phrase or list of variants (ASCII case-insensitive, whole words;
+#                  a straight apostrophe also matches a curly one)
+#   pattern        regex instead of `match` (case-insensitive by default; `'` matches ' and ’;
+#                  a named group `m` narrows the reported range)
+#   category       boilerplate | filler | hype | hedge | metaphor | vocabulary | sycophancy | closer | opener
+#   kind           "phrase" -> slop/phrase (always reported), "word" -> slop/word (info, feeds density)
+#   severity       optional override of the rule default: "error" | "warning" | "info"
+#   not_followed_by regex that must not match right after the hit (after the named group `nf`
+#                  when the pattern has one); stands in for a negative lookahead
+#   message        what is wrong
+#   replace        simple replacements offered as suggestions
+#   advice         rewrite advice when a replacement is not enough
+#   example        text the entry must match (checked by a unit test)
+#   counterexample text the entry must not match
+
+# --- Sycophancy ---------------------------------------------------------------
+
+[[phrase]]
+id = "great-question"
+match = ["great question", "good question", "excellent question", "what a great question", "fantastic question"]
+category = "sycophancy"
+kind = "phrase"
+message = "praises the question instead of answering it"
+advice = "Delete it and start with the answer."
+example = "Great question! The cache is flushed on exit."
+counterexample = "The question is when the cache is flushed."
+
+[[phrase]]
+id = "great-point"
+match = ["great point", "excellent point", "that's a great point", "that's a fair point", "fantastic point"]
+category = "sycophancy"
+kind = "phrase"
+message = "flatters the reader instead of engaging with the point"
+advice = "Delete it and respond to the substance."
+example = "That's a great point about retries."
+counterexample = "The point about retries still stands."
+
+[[phrase]]
+id = "absolutely-right"
+match = ["you're absolutely right", "you are absolutely right", "you're completely right", "you are completely right", "you're totally right", "you're right to point"]
+category = "sycophancy"
+kind = "phrase"
+message = "sycophantic agreement"
+advice = "Say what was wrong and what changes, without the flattery."
+example = "You're absolutely right, the index is off by one."
+counterexample = "The index is off by one."
+
+[[phrase]]
+id = "certainly-opener"
+match = ["certainly!", "absolutely!", "of course!", "sure thing!", "great!", "perfect!"]
+category = "sycophancy"
+kind = "phrase"
+message = "chatbot-style exclamation opener"
+advice = "Delete it; start with the content."
+example = "Certainly! Here is the updated config."
+counterexample = "It certainly works for small inputs."
+
+[[phrase]]
+id = "happy-to-help"
+match = ["i'd be happy to help", "i would be happy to help", "i'm happy to help", "happy to help!", "i'd be glad to help", "glad i could help"]
+category = "sycophancy"
+kind = "phrase"
+message = "assistant boilerplate"
+advice = "Delete it."
+example = "I'd be happy to help with the migration."
+counterexample = "The migration guide helps with upgrades."
+
+[[phrase]]
+id = "hope-this-helps"
+match = ["i hope this helps", "hope this helps", "hope that helps", "i hope that helps", "hope you find this helpful", "hope you find this useful", "i hope you found this helpful"]
+category = "closer"
+kind = "phrase"
+message = "assistant sign-off"
+advice = "Delete it; end with the last useful sentence."
+example = "Run the migration first. Hope this helps!"
+counterexample = "Run the migration first; it helps with locking."
+
+[[phrase]]
+id = "let-me-know"
+pattern = "\\blet me know if you (?:have any (?:other |further |more )?questions|need (?:anything|any) ?(?:else|more|further|help)|would like|'d like|want me to)"
+category = "closer"
+kind = "phrase"
+message = "assistant sign-off"
+advice = "Delete it, or point to a concrete support channel."
+example = "Let me know if you have any questions."
+counterexample = "Let me know the port number."
+
+[[phrase]]
+id = "dont-hesitate"
+match = ["don't hesitate to", "do not hesitate to", "please don't hesitate"]
+category = "closer"
+kind = "phrase"
+message = "customer-service boilerplate"
+advice = "Say what to do directly: \"Open an issue if ...\"."
+example = "Don't hesitate to open an issue."
+counterexample = "Open an issue if the build fails."
+
+[[phrase]]
+id = "anything-else"
+match = ["is there anything else i can help", "anything else you'd like me to", "anything else i can do for you"]
+category = "closer"
+kind = "phrase"
+message = "assistant sign-off"
+advice = "Delete it."
+example = "Is there anything else I can help with?"
+counterexample = "Nothing else depends on this flag."
+
+[[phrase]]
+id = "as-an-ai"
+match = ["as an ai", "as an ai language model", "as a large language model", "as a language model"]
+category = "boilerplate"
+kind = "phrase"
+message = "leaked assistant self-reference"
+advice = "Delete it."
+example = "As an AI, I cannot run the tests."
+counterexample = "The AI module runs the tests."
+
+[[phrase]]
+id = "apologize-confusion"
+match = ["i apologize for the confusion", "apologies for the confusion", "sorry for the confusion", "i apologize for any confusion", "i apologize for the oversight"]
+category = "sycophancy"
+kind = "phrase"
+message = "assistant apology boilerplate"
+advice = "Delete it and state the correction."
+example = "I apologize for the confusion; the flag is --force."
+counterexample = "The flag caused confusion; it is now --force."
+
+[[phrase]]
+id = "understand-frustration"
+match = ["i understand your frustration", "i completely understand", "i totally understand your"]
+category = "sycophancy"
+kind = "phrase"
+message = "scripted empathy"
+advice = "Delete it and address the problem."
+example = "I understand your frustration with the build times."
+counterexample = "Build times are frustrating; caching cuts them in half."
+
+# --- Openers ------------------------------------------------------------------
+
+[[phrase]]
+id = "heres-the-thing"
+pattern = "\\bhere(?:'s| is) (?:the (?:thing|kicker|deal|twist|catch|rub)|(?:a|my|one) (?:twist|kicker|catch|rub))\\b|\\bthe kicker is\\b"
+category = "opener"
+kind = "phrase"
+message = "throat-clearing setup"
+advice = "Delete it and state the point."
+example = "Here's the thing: the lock is never released."
+counterexample = "The lock is never released."
+
+[[phrase]]
+id = "heres-a-breakdown"
+pattern = "\\bhere(?:'s| is) (?:a|an) (?:quick |brief |detailed |comprehensive |concise |high-level )?(?:breakdown|overview|rundown|summary|look)\\b"
+category = "opener"
+kind = "phrase"
+message = "chatbot preamble"
+advice = "Delete it; a heading or the content itself does this job."
+example = "Here's a quick breakdown of the options."
+counterexample = "The options are listed below."
+
+[[phrase]]
+id = "what-you-need-to-know"
+match = ["here's what you need to know", "here is what you need to know", "everything you need to know", "all you need to know"]
+category = "opener"
+kind = "phrase"
+message = "clickbait opener"
+advice = "Delete it and start with the facts."
+example = "Here's what you need to know about tokens."
+counterexample = "Tokens expire after an hour."
+
+[[phrase]]
+id = "lets-break-it-down"
+match = ["let's break it down", "let's break this down", "let me break it down", "let me break this down", "let's unpack", "let's unpack this", "let me unpack"]
+category = "opener"
+kind = "phrase"
+message = "chatbot transition"
+advice = "Delete it; go straight to the parts."
+example = "Let's break it down step by step."
+counterexample = "The build breaks down into three steps."
+
+[[phrase]]
+id = "lets-dive-in"
+match = ["let's dive in", "let's dive right in", "let's jump in", "let's jump right in", "let's get started", "let's get into it"]
+category = "opener"
+kind = "phrase"
+message = "chatbot transition"
+advice = "Delete it."
+example = "Let's dive in!"
+counterexample = "Start by installing the CLI."
+
+[[phrase]]
+id = "dive-into"
+match = ["dive into", "dives into", "diving into", "dove into", "dive deep", "dive deeper", "diving deep", "dive deeply"]
+category = "vocabulary"
+kind = "phrase"
+message = "stock AI verb"
+replace = ["look at", "examine", "cover"]
+example = "This guide will dive into the internals."
+counterexample = "This guide covers the internals."
+
+[[phrase]]
+id = "deep-dive"
+match = ["deep dive", "deep-dive", "deep dives", "deep-dives"]
+category = "vocabulary"
+kind = "phrase"
+message = "stock AI noun"
+replace = ["detailed look", "walkthrough", "analysis"]
+example = "A deep dive into the scheduler."
+counterexample = "A detailed look at the scheduler."
+
+[[phrase]]
+id = "lets-explore"
+match = ["let's explore", "let us explore", "let's take a look", "let's take a closer look", "let's examine"]
+category = "opener"
+kind = "phrase"
+message = "chatbot transition"
+advice = "Delete it and present the material."
+example = "Let's explore how the parser works."
+counterexample = "The parser works in two passes."
+
+[[phrase]]
+id = "without-further-ado"
+match = ["without further ado", "buckle up", "grab a coffee", "grab a cup of coffee"]
+category = "opener"
+kind = "phrase"
+message = "filler opener"
+advice = "Delete it."
+example = "So, without further ado, the results."
+counterexample = "The results follow."
+
+[[phrase]]
+id = "in-this-article"
+pattern = "\\bin this (?:article|post|blog post|guide|tutorial|piece|section),? (?:we(?:'ll| will)|i(?:'ll| will)|you(?:'ll| will) (?:learn|discover))"
+category = "opener"
+kind = "phrase"
+message = "formulaic article opener"
+advice = "Delete it and start with the first real point."
+example = "In this article, we'll explore caching."
+counterexample = "This article covers caching."
+
+[[phrase]]
+id = "imagine-a-world"
+match = ["imagine a world where", "imagine a world in which", "in a world where", "picture this"]
+category = "opener"
+kind = "phrase"
+message = "cinematic opener"
+advice = "Delete it and state the actual situation."
+example = "Imagine a world where builds never fail."
+counterexample = "Builds fail less often with pinned inputs."
+
+[[phrase]]
+id = "have-you-ever-wondered"
+match = ["have you ever wondered", "ever wondered why", "ever wondered how"]
+category = "opener"
+kind = "phrase"
+message = "rhetorical-question opener"
+advice = "Delete it and give the answer."
+example = "Have you ever wondered why DNS is slow?"
+counterexample = "DNS is slow when the resolver times out."
+
+[[phrase]]
+id = "in-todays-world"
+pattern = "\\bin today's (?:[\\w-]+ ){0,2}(?:world|age|era|landscape|environment|society|market)\\b"
+category = "opener"
+kind = "phrase"
+message = "cliche scene-setting opener"
+advice = "Delete it; the reader knows what year it is."
+example = "In today's fast-paced world, speed matters."
+counterexample = "Today's release fixes the crash."
+
+[[phrase]]
+id = "ever-evolving-landscape"
+pattern = "\\bin the (?:ever-|constantly |rapidly |fast-)(?:evolving|changing|growing|moving) (?:world|landscape|field|realm|space|domain) of\\b"
+category = "opener"
+kind = "phrase"
+message = "cliche scene-setting opener"
+advice = "Delete it and start with the point."
+example = "In the ever-evolving landscape of web development, tools change."
+counterexample = "Web tooling changes every year."
+
+[[phrase]]
+id = "ever-evolving"
+match = ["ever-evolving", "ever evolving", "ever-changing", "ever-growing", "ever-expanding", "constantly evolving"]
+category = "hype"
+kind = "phrase"
+message = "cliche intensifier"
+advice = "Delete it or say what actually changes and how often."
+example = "An ever-evolving ecosystem of plugins."
+counterexample = "A plugin ecosystem with monthly releases."
+
+[[phrase]]
+id = "digital-age"
+match = ["in the digital age", "in the age of ai", "in this day and age", "in the modern era"]
+category = "opener"
+kind = "phrase"
+message = "cliche scene-setting phrase"
+advice = "Delete it."
+example = "In the digital age, backups are vital."
+counterexample = "Back up the database daily."
+
+[[phrase]]
+id = "whether-youre"
+pattern = "\\bwhether you're (?:a |an )?(?:seasoned|beginner|novice|experienced|newcomer|veteran|just starting|new to)"
+category = "opener"
+kind = "phrase"
+message = "formulaic audience framing"
+advice = "Delete it, or say who the text is for in one plain sentence."
+example = "Whether you're a seasoned developer or a beginner, this helps."
+counterexample = "This guide assumes basic Git knowledge."
+
+[[phrase]]
+id = "this-is-where-comes-in"
+pattern = "\\bthis is where (?:[\\w-]+ ){1,4}comes? in\\b"
+category = "opener"
+kind = "phrase"
+message = "formulaic product introduction"
+advice = "Name the tool and say what it does."
+example = "This is where our caching layer comes in."
+counterexample = "The caching layer stores parsed files."
+
+[[phrase]]
+id = "heres-why-it-matters"
+pattern = "\\bhere's why (?:this|it|that) matters\\b|\\bwhy (?:this|it) matters:"
+category = "opener"
+kind = "phrase"
+message = "formulaic importance framing"
+advice = "State the consequence directly."
+example = "Here's why this matters: users lose data."
+counterexample = "Users lose data when the write fails."
+
+# --- Closers ------------------------------------------------------------------
+
+[[phrase]]
+id = "in-conclusion"
+match = ["in conclusion", "to conclude", "in closing"]
+category = "closer"
+kind = "phrase"
+message = "essay-style closer"
+advice = "Delete it; if a summary is needed, use a heading."
+example = "In conclusion, the cache helps."
+counterexample = "The conclusion is that the cache helps."
+
+[[phrase]]
+id = "in-summary"
+match = ["in summary", "to summarize", "to sum up", "in sum", "summing up"]
+category = "closer"
+kind = "phrase"
+message = "essay-style closer"
+advice = "Delete it; repeat nothing the reader just read."
+example = "In summary, use the new API."
+counterexample = "The summary table lists every API."
+
+[[phrase]]
+id = "key-takeaway"
+match = ["the key takeaway", "key takeaways", "the main takeaway", "the big takeaway", "the takeaway here"]
+category = "closer"
+kind = "phrase"
+message = "formulaic recap"
+advice = "Delete it and state the conclusion plainly."
+example = "The key takeaway is to pin versions."
+counterexample = "Pin versions to keep builds reproducible."
+
+[[phrase]]
+id = "at-the-end-of-the-day"
+match = ["at the end of the day", "when all is said and done", "all in all", "all things considered"]
+category = "closer"
+kind = "phrase"
+message = "cliche wrap-up"
+advice = "Delete it."
+example = "At the end of the day, tests matter."
+counterexample = "The job runs at the end of each day's build."
+
+[[phrase]]
+id = "bottom-line"
+match = ["the bottom line is", "bottom line:", "the bottom line:"]
+category = "closer"
+kind = "phrase"
+message = "cliche wrap-up"
+advice = "Delete it and state the conclusion."
+example = "The bottom line is that it works."
+counterexample = "The bottom row of the table is empty."
+
+[[phrase]]
+id = "happy-coding"
+match = ["happy coding", "happy hacking", "happy building"]
+category = "closer"
+kind = "phrase"
+message = "chatbot sign-off"
+advice = "Delete it."
+example = "That's it. Happy coding!"
+counterexample = "That's it."
+
+[[phrase]]
+id = "by-following-these"
+pattern = "\\bby following these (?:steps|best practices|tips|guidelines|simple steps)\\b"
+category = "closer"
+kind = "phrase"
+message = "formulaic recap"
+advice = "Delete it."
+example = "By following these steps, you will succeed."
+counterexample = "Follow these steps to install."
+
+[[phrase]]
+id = "stay-tuned"
+match = ["stay tuned", "watch this space", "only time will tell", "the future is bright", "the possibilities are endless", "the sky's the limit"]
+category = "closer"
+kind = "phrase"
+message = "cliche closer"
+advice = "Delete it, or state the concrete plan."
+example = "More features soon, stay tuned!"
+counterexample = "Version 2 ships in March."
+
+[[phrase]]
+id = "final-thoughts"
+match = ["final thoughts", "closing thoughts", "parting thoughts"]
+category = "closer"
+kind = "phrase"
+message = "essay-style closer"
+advice = "Delete the section or give it a descriptive name."
+example = "Final thoughts: pin your versions."
+counterexample = "Pin your versions."
+
+[[phrase]]
+id = "moving-forward"
+match = ["moving forward", "going forward"]
+category = "filler"
+kind = "word"
+message = "corporate filler"
+replace = ["from now on", "later"]
+advice = "Delete it; the future tense already says this."
+example = "Moving forward, we will use Rust."
+counterexample = "We will use Rust for new code."
+
+[[phrase]]
+id = "ship-it"
+match = ["ship it", "ship it!", "let's ship it"]
+category = "closer"
+kind = "phrase"
+message = "hype sign-off"
+advice = "Delete it."
+example = "Tests pass. Ship it!"
+counterexample = "We ship its binaries on GitHub."
+
+[[phrase]]
+id = "every-step-of-the-way"
+match = ["every step of the way", "on every step of your journey"]
+category = "closer"
+kind = "phrase"
+message = "marketing cliche"
+advice = "Delete it."
+example = "We support you every step of the way."
+counterexample = "Each step logs its duration."
+
+# --- Boilerplate and filler --------------------------------------------------
+
+[[phrase]]
+id = "worth-noting"
+match = ["it's worth noting", "it is worth noting", "worth noting that", "it's worth mentioning", "it is worth mentioning", "it bears mentioning", "it should be noted"]
+category = "filler"
+kind = "phrase"
+message = "throat-clearing filler"
+advice = "Delete it and state the fact."
+example = "It's worth noting that the API is async."
+counterexample = "Note that the API is async."
+
+[[phrase]]
+id = "important-to-note"
+pattern = "\\bit(?:'s|\\s+is|\\s+was)\\s+(?:also\\s+)?(?:(?:important|crucial|essential|vital|key|critical|worth)\\s+(?:to\\s+(?:note|remember|understand|recognize|keep\\s+in\\s+mind|mention|highlight|emphasize|consider|pause|ask))|worth\\s+(?:remembering|pausing|considering|asking))\\b"
+category = "filler"
+kind = "phrase"
+message = "throat-clearing filler"
+advice = "Delete it; if it is important, the sentence alone shows that."
+example = "It is important to note that keys are case-sensitive."
+counterexample = "Keys are case-sensitive; this is important for lookups."
+
+[[phrase]]
+id = "needless-to-say"
+match = ["needless to say", "it goes without saying", "it should go without saying"]
+category = "filler"
+kind = "phrase"
+message = "filler that contradicts itself"
+advice = "Delete it; if it needs no saying, don't say it."
+example = "Needless to say, back up first."
+counterexample = "Back up first."
+
+[[phrase]]
+id = "that-being-said"
+match = ["that being said", "with that being said", "with that said", "having said that", "that said,"]
+category = "filler"
+kind = "phrase"
+message = "transitional filler"
+replace = ["but", "still", "however"]
+example = "That being said, it is slow."
+counterexample = "It is slow, but correct."
+
+[[phrase]]
+id = "when-it-comes-to"
+match = ["when it comes to", "when it comes down to"]
+category = "filler"
+kind = "phrase"
+message = "wordy filler"
+replace = ["for", "with", "in"]
+example = "When it comes to speed, Rust wins."
+counterexample = "For speed, Rust wins."
+
+[[phrase]]
+id = "in-the-realm-of"
+match = ["in the realm of", "in the world of", "in the sphere of", "in the domain of"]
+category = "filler"
+kind = "phrase"
+message = "inflated filler"
+replace = ["in"]
+example = "In the realm of databases, indexes matter."
+counterexample = "Indexes matter in databases."
+
+[[phrase]]
+id = "realm"
+pattern = "\\b(?:the )?realms? of\\b"
+category = "vocabulary"
+kind = "word"
+message = "inflated word"
+replace = ["field of", "area of"]
+example = "It opens the realm of possibilities."
+counterexample = "Create a Keycloak realm for tests."
+
+[[phrase]]
+id = "in-terms-of"
+match = ["in terms of"]
+category = "filler"
+kind = "word"
+message = "vague connector"
+advice = "Name the relationship: \"for\", \"by\", \"measured in\"."
+example = "In terms of speed, it is fine."
+counterexample = "Measured in requests per second, it is fine."
+
+[[phrase]]
+id = "wide-array"
+match = ["a wide array of", "a vast array of", "a diverse array of", "a broad array of", "a diverse range of"]
+category = "filler"
+kind = "phrase"
+message = "inflated quantifier"
+replace = ["many"]
+advice = "Give the number or name the items."
+example = "Supports a wide array of formats."
+counterexample = "Supports JSON, YAML and TOML."
+
+[[phrase]]
+id = "wide-range"
+match = ["a wide range of", "a wide variety of", "a broad range of"]
+category = "filler"
+kind = "word"
+message = "vague quantifier"
+replace = ["many"]
+advice = "Give the number or name the items."
+example = "It handles a wide range of inputs."
+counterexample = "It handles UTF-8 and UTF-16 inputs."
+
+[[phrase]]
+id = "plethora"
+match = ["a plethora of", "plethora", "a myriad of", "a multitude of"]
+category = "vocabulary"
+kind = "phrase"
+message = "inflated quantifier"
+replace = ["many", "lots of"]
+example = "There is a plethora of options."
+counterexample = "There are many options."
+
+[[phrase]]
+id = "myriad"
+match = ["myriad"]
+category = "vocabulary"
+kind = "word"
+message = "inflated quantifier"
+replace = ["many", "countless"]
+example = "Myriad plugins exist."
+counterexample = "Many plugins exist."
+
+[[phrase]]
+id = "plays-a-role"
+pattern = "\\bplay(?:s|ed|ing)?\\s+(?:a|an)\\s+(?:\\w+\\s+)?(?:crucial|pivotal|vital|key|critical|significant|essential|important|central|major|instrumental)\\s+role\\b"
+category = "filler"
+kind = "phrase"
+message = "vague importance claim"
+advice = "Say what it actually does."
+example = "The cache plays a crucial role in latency."
+counterexample = "The cache cuts latency by 40%."
+
+[[phrase]]
+id = "serves-as"
+match = ["serves as a", "serve as a", "serving as a", "serves as an", "serves as the"]
+category = "filler"
+kind = "word"
+message = "wordy verb"
+replace = ["is"]
+example = "This module serves as a bridge."
+counterexample = "This module is a bridge."
+
+[[phrase]]
+id = "stands-as"
+match = ["stands as a", "stands as an", "stands as the", "stand as a"]
+category = "hype"
+kind = "phrase"
+message = "inflated verb"
+replace = ["is"]
+example = "It stands as a model of clarity."
+counterexample = "It stands alone as a binary."
+
+[[phrase]]
+id = "testament"
+match = ["a testament to", "testament to", "is a testament", "stands as a testament"]
+category = "hype"
+kind = "phrase"
+message = "cliche praise"
+advice = "Say what the evidence shows."
+example = "This is a testament to the team's work."
+counterexample = "The team shipped it in two weeks."
+
+[[phrase]]
+id = "underscore"
+pattern = "\\bunderscor(?:es|ing|ed) (?:the|how|that|its|our|their|a|an|this|why|just)\\b|\\bunderscore (?:the|how|that|why) (?:importance|need|significance|fact|value)\\b"
+category = "vocabulary"
+kind = "phrase"
+message = "stock AI verb"
+replace = ["shows", "stresses"]
+example = "This underscores the importance of tests."
+counterexample = "Private fields start with an underscore."
+
+[[phrase]]
+id = "importance-of"
+pattern = "\\b(?:highlights?|highlighting|emphasizes?|emphasizing|stresses|reinforces?) the (?:importance|significance|need|value) of\\b"
+category = "filler"
+kind = "phrase"
+message = "vague importance claim"
+advice = "State the consequence instead of calling it important."
+example = "This highlights the importance of backups."
+counterexample = "Without backups the data is gone."
+
+[[phrase]]
+id = "navigate-complexities"
+pattern = "\\bnavigat(?:e|es|ing|ed) (?:the )?(?:complexities|intricacies|challenges|nuances|landscape|waters|maze|world)\\b"
+category = "metaphor"
+kind = "phrase"
+message = "stock AI metaphor"
+replace = ["handle", "deal with"]
+example = "Navigate the complexities of Kubernetes."
+counterexample = "Navigate to the settings page."
+
+[[phrase]]
+id = "embark-journey"
+pattern = "\\bembark(?:s|ed|ing)? (?:on|upon) (?:a|an|this|our|your|the) (?:[\\w-]+ )?(?:journey|quest|adventure|mission|path)\\b"
+category = "metaphor"
+kind = "phrase"
+message = "stock AI metaphor"
+replace = ["start", "begin"]
+example = "Embark on a journey through Rust."
+counterexample = "Start learning Rust."
+
+[[phrase]]
+id = "harness-power"
+pattern = "\\bharness(?:es|ing|ed)? the (?:full |true )?(?:power|potential|capabilities|strength) of\\b"
+category = "hype"
+kind = "phrase"
+message = "marketing cliche"
+replace = ["use"]
+example = "Harness the power of async I/O."
+counterexample = "Use async I/O."
+
+[[phrase]]
+id = "unlock-potential"
+pattern = "\\bunlock(?:s|ing|ed)? (?:the |your |its )?(?:full |true |new )?(?:potential|power|value|possibilities|opportunities|secrets|capabilities)\\b"
+category = "hype"
+kind = "phrase"
+message = "marketing cliche"
+advice = "Say what the reader can do that they could not before."
+example = "Unlock the full potential of your data."
+counterexample = "Unlock the mutex before returning."
+
+[[phrase]]
+id = "elevate"
+pattern = "\\belevat(?:e|es|ing) (?:your|the|our|their|its|this|every)\\b"
+category = "hype"
+kind = "word"
+message = "marketing verb"
+replace = ["improve"]
+example = "Elevate your workflow."
+counterexample = "The process runs with elevated privileges."
+
+[[phrase]]
+id = "streamline"
+match = ["streamline", "streamlines", "streamlining", "streamlined"]
+category = "vocabulary"
+kind = "word"
+message = "vague marketing verb"
+replace = ["simplify", "speed up"]
+advice = "Say what gets shorter or faster."
+example = "Streamline your deploys."
+counterexample = "Deploys take one command."
+
+[[phrase]]
+id = "seamless"
+match = ["seamless", "seamlessly"]
+category = "hype"
+kind = "phrase"
+message = "hype word that promises nothing concrete"
+advice = "Say what the user no longer has to do."
+example = "It integrates seamlessly with CI."
+counterexample = "It runs in CI without extra setup."
+
+[[phrase]]
+id = "robust"
+match = ["robust", "robustly"]
+category = "vocabulary"
+kind = "word"
+message = "vague quality claim"
+advice = "Say what failure it survives."
+example = "A robust parser."
+counterexample = "A parser that recovers from malformed input."
+
+[[phrase]]
+id = "leverage"
+match = ["leverage", "leverages", "leveraging", "leveraged"]
+category = "vocabulary"
+kind = "word"
+message = "corporate verb"
+replace = ["use"]
+example = "We leverage Tokio for I/O."
+counterexample = "We use Tokio for I/O."
+
+[[phrase]]
+id = "utilize"
+match = ["utilize", "utilizes", "utilizing", "utilized", "utilise", "utilises", "utilising"]
+category = "vocabulary"
+kind = "word"
+message = "inflated verb"
+replace = ["use"]
+example = "It utilizes a thread pool."
+counterexample = "It uses a thread pool."
+
+[[phrase]]
+id = "game-changer"
+match = ["game-changer", "game changer", "game-changing", "game changing"]
+category = "hype"
+kind = "phrase"
+message = "hype cliche"
+advice = "Say what changed and by how much."
+example = "This feature is a game-changer."
+counterexample = "This feature halves build time."
+
+[[phrase]]
+id = "crucial"
+match = ["crucial", "crucially"]
+category = "vocabulary"
+kind = "word"
+message = "overused intensifier"
+replace = ["important", "required"]
+example = "Tests are crucial."
+counterexample = "Tests are required for merges."
+
+[[phrase]]
+id = "pivotal"
+match = ["pivotal"]
+category = "vocabulary"
+kind = "word"
+message = "overused intensifier"
+replace = ["key", "important"]
+example = "A pivotal change."
+counterexample = "A breaking change."
+
+[[phrase]]
+id = "landscape"
+pattern = "\\b(?:the|today's|current|evolving|changing|shifting|competitive|digital|tech|technology|security|threat|ai|software|modern|business|regulatory) landscape\\b"
+category = "vocabulary"
+kind = "word"
+message = "vague abstraction"
+advice = "Name the actual field, market or set of tools."
+example = "The current landscape of build tools."
+counterexample = "Rotate the page to landscape orientation."
+
+[[phrase]]
+id = "foster"
+match = ["foster", "fosters", "fostering", "fostered"]
+category = "vocabulary"
+kind = "word"
+message = "stock AI verb"
+replace = ["encourage", "build"]
+example = "We foster collaboration."
+counterexample = "We review every pull request."
+
+[[phrase]]
+id = "multifaceted"
+match = ["multifaceted", "multi-faceted"]
+category = "vocabulary"
+kind = "phrase"
+message = "stock AI adjective"
+replace = ["complex"]
+advice = "Name the facets instead."
+example = "A multifaceted problem."
+counterexample = "A problem with three causes."
+
+[[phrase]]
+id = "intricate"
+match = ["intricate", "intricately", "intricacies"]
+category = "vocabulary"
+kind = "word"
+message = "stock AI adjective"
+replace = ["complex", "detailed"]
+example = "The intricate details of the protocol."
+counterexample = "The details of the protocol."
+
+[[phrase]]
+id = "meticulous"
+match = ["meticulous", "meticulously"]
+category = "vocabulary"
+kind = "phrase"
+message = "stock AI adjective"
+replace = ["careful", "carefully"]
+example = "Meticulously crafted APIs."
+counterexample = "Carefully reviewed APIs."
+
+[[phrase]]
+id = "bustling"
+match = ["bustling"]
+category = "vocabulary"
+kind = "phrase"
+message = "stock AI adjective"
+replace = ["busy", "active"]
+example = "A bustling community of contributors."
+counterexample = "An active community of contributors."
+
+[[phrase]]
+id = "vibrant"
+match = ["vibrant"]
+category = "vocabulary"
+kind = "word"
+message = "stock AI adjective"
+replace = ["active", "lively"]
+example = "A vibrant ecosystem."
+counterexample = "An active ecosystem."
+
+[[phrase]]
+id = "showcase"
+match = ["showcase", "showcases", "showcasing", "showcased"]
+category = "vocabulary"
+kind = "word"
+message = "stock AI verb"
+replace = ["show", "demonstrate"]
+example = "This example showcases the API."
+counterexample = "This example shows the API."
+
+[[phrase]]
+id = "holistic"
+match = ["holistic", "holistically"]
+category = "vocabulary"
+kind = "word"
+message = "vague buzzword"
+advice = "Say which parts are considered together."
+example = "A holistic approach to security."
+counterexample = "Security reviews cover code and infrastructure."
+
+[[phrase]]
+id = "synergy"
+match = ["synergy", "synergies", "synergistic", "synergize"]
+category = "hype"
+kind = "phrase"
+message = "corporate buzzword"
+advice = "Say what the combination does."
+example = "The synergy between the tools."
+counterexample = "The tools share one config file."
+
+[[phrase]]
+id = "empower"
+match = ["empower", "empowers", "empowering", "empowered", "empowerment"]
+category = "hype"
+kind = "word"
+message = "marketing verb"
+replace = ["let", "enable", "help"]
+example = "We empower developers to ship."
+counterexample = "Developers can ship without approval."
+
+[[phrase]]
+id = "revolutionize"
+match = ["revolutionize", "revolutionizes", "revolutionizing", "revolutionized", "revolutionise", "revolutionises", "revolutionising"]
+category = "hype"
+kind = "phrase"
+message = "hype verb"
+advice = "Say what changes, measurably."
+example = "This will revolutionize testing."
+counterexample = "This makes tests run in parallel."
+
+[[phrase]]
+id = "supercharge"
+match = ["supercharge", "supercharges", "supercharged", "supercharging", "turbocharge", "turbocharged"]
+category = "hype"
+kind = "phrase"
+message = "hype verb"
+replace = ["speed up", "improve"]
+example = "Supercharge your builds."
+counterexample = "Cache builds to speed them up."
+
+[[phrase]]
+id = "nuanced"
+match = ["nuanced"]
+category = "vocabulary"
+kind = "word"
+message = "stock AI adjective"
+advice = "Say what the subtlety is."
+example = "A nuanced take on errors."
+counterexample = "Errors are retried only when idempotent."
+
+[[phrase]]
+id = "paradigm-shift"
+match = ["paradigm shift", "paradigm-shifting", "paradigm-shift"]
+category = "hype"
+kind = "phrase"
+message = "hype cliche"
+advice = "Describe the actual change."
+example = "A paradigm shift in deployment."
+counterexample = "Deployments no longer need SSH."
+
+[[phrase]]
+id = "cutting-edge"
+match = ["cutting-edge", "cutting edge", "bleeding-edge"]
+category = "hype"
+kind = "phrase"
+message = "marketing cliche"
+replace = ["new", "latest"]
+example = "Built on cutting-edge technology."
+counterexample = "Built on Rust 1.85."
+
+[[phrase]]
+id = "state-of-the-art"
+match = ["state-of-the-art", "state of the art"]
+category = "hype"
+kind = "word"
+message = "vague superlative"
+advice = "Cite the benchmark or name the technique."
+example = "A state-of-the-art tokenizer."
+counterexample = "A tokenizer based on BPE."
+
+[[phrase]]
+id = "delve"
+match = ["delve", "delves", "delving", "delved"]
+category = "vocabulary"
+kind = "phrase"
+message = "stock AI verb"
+replace = ["explore", "look at", "examine"]
+example = "Let's delve into the details."
+counterexample = "Let's look at the details."
+
+[[phrase]]
+id = "tapestry"
+match = ["tapestry", "tapestries", "rich tapestry"]
+category = "metaphor"
+kind = "phrase"
+message = "stock AI metaphor"
+advice = "Name the actual parts."
+example = "A rich tapestry of libraries."
+counterexample = "A set of twelve libraries."
+
+[[phrase]]
+id = "load-bearing"
+match = ["load-bearing", "load bearing"]
+category = "metaphor"
+kind = "phrase"
+message = "overused AI metaphor"
+replace = ["essential", "critical"]
+advice = "Say what breaks without it."
+example = "This is a load-bearing assumption."
+counterexample = "Removing this assumption breaks the parser."
+
+[[phrase]]
+id = "smoking-gun"
+match = ["smoking gun", "smoking-gun"]
+category = "metaphor"
+kind = "phrase"
+message = "overused AI metaphor"
+replace = ["clear evidence", "root cause"]
+example = "The log line is the smoking gun."
+counterexample = "The log line shows the root cause."
+
+[[phrase]]
+id = "honestly"
+match = ["honestly", "to be honest", "to be fair", "frankly"]
+category = "filler"
+kind = "word"
+message = "sincerity marker that implies the rest is not"
+advice = "Delete it."
+example = "Honestly, the old API was better."
+counterexample = "The old API was simpler."
+
+[[phrase]]
+id = "genuinely"
+match = ["genuinely"]
+category = "filler"
+kind = "word"
+message = "empty intensifier"
+advice = "Delete it."
+example = "This is genuinely useful."
+counterexample = "This is useful."
+
+[[phrase]]
+id = "let-me-be-clear"
+match = ["let me be clear", "let's be clear", "make no mistake", "let's be honest", "let's face it"]
+category = "filler"
+kind = "phrase"
+message = "rhetorical throat-clearing"
+advice = "Delete it and make the statement."
+example = "Let me be clear: this is a breaking change."
+counterexample = "This is a breaking change."
+
+[[phrase]]
+id = "real-question"
+match = ["the real question is", "the real question here", "the question becomes", "the real issue is"]
+category = "filler"
+kind = "phrase"
+message = "rhetorical setup"
+advice = "Ask or answer the question directly."
+example = "The real question is whether it scales."
+counterexample = "Does it scale past ten nodes?"
+
+[[phrase]]
+id = "not-a-bug"
+pattern = "\\bnot a bug,? (?:it's|but) a feature\\b"
+category = "metaphor"
+kind = "phrase"
+message = "tired joke"
+advice = "Explain why the behavior is intended."
+example = "That's not a bug, it's a feature."
+counterexample = "That's a bug in the feature flag."
+
+[[phrase]]
+id = "belt-and-suspenders"
+match = ["belt and suspenders", "belt-and-suspenders", "belt and braces", "belt-and-braces"]
+category = "metaphor"
+kind = "phrase"
+message = "overused AI metaphor"
+replace = ["redundant check", "defense in depth"]
+example = "A belt-and-suspenders check."
+counterexample = "A redundant check."
+
+[[phrase]]
+id = "north-star"
+match = ["north star", "north-star", "guiding light"]
+category = "metaphor"
+kind = "phrase"
+message = "corporate metaphor"
+replace = ["goal", "main metric"]
+example = "Latency is our north star."
+counterexample = "Latency is our main metric."
+
+[[phrase]]
+id = "double-edged-sword"
+match = ["double-edged sword", "double edged sword", "two-edged sword"]
+category = "metaphor"
+kind = "phrase"
+message = "cliche metaphor"
+advice = "State the benefit and the cost."
+example = "Caching is a double-edged sword."
+counterexample = "Caching is fast but can serve stale data."
+
+[[phrase]]
+id = "low-hanging-fruit"
+match = ["low-hanging fruit", "low hanging fruit"]
+category = "metaphor"
+kind = "phrase"
+message = "corporate cliche"
+replace = ["easy wins", "quick fixes"]
+example = "Start with the low-hanging fruit."
+counterexample = "Start with the quick fixes."
+
+[[phrase]]
+id = "boils-down"
+match = ["boils down to", "boil down to", "it all boils down", "comes down to"]
+category = "filler"
+kind = "phrase"
+message = "cliche simplification"
+replace = ["is", "depends on"]
+example = "It boils down to memory usage."
+counterexample = "It depends on memory usage."
+
+[[phrase]]
+id = "quietly"
+match = ["quietly"]
+category = "vocabulary"
+kind = "word"
+message = "overused AI adverb"
+replace = ["silently"]
+advice = "Delete it, or say \"silently\" if nothing is logged."
+example = "The function quietly drops the error."
+counterexample = "The function drops the error without logging."
+
+[[phrase]]
+id = "masterclass"
+match = ["a masterclass in", "masterclass"]
+category = "hype"
+kind = "phrase"
+message = "hype cliche"
+advice = "Say what is done well."
+example = "The codebase is a masterclass in clarity."
+counterexample = "The codebase has short, well-named functions."
+
+[[phrase]]
+id = "hits-different"
+match = ["hits different", "chef's kiss", "slaps", "it just works"]
+category = "hype"
+kind = "phrase"
+message = "slang hype"
+advice = "Say what is good about it."
+example = "The new CLI hits different."
+counterexample = "The new CLI starts in 5 ms."
+
+[[phrase]]
+id = "unsung-hero"
+match = ["unsung hero", "unsung heroes"]
+category = "metaphor"
+kind = "phrase"
+message = "cliche praise"
+advice = "Say what it does."
+example = "The linker is the unsung hero."
+counterexample = "The linker removes dead code."
+
+[[phrase]]
+id = "secret-sauce"
+match = ["secret sauce", "magic sauce", "special sauce"]
+category = "metaphor"
+kind = "phrase"
+message = "cliche metaphor"
+advice = "Name the technique."
+example = "Incremental parsing is the secret sauce."
+counterexample = "Incremental parsing makes it fast."
+
+[[phrase]]
+id = "elephant-in-the-room"
+match = ["elephant in the room"]
+category = "metaphor"
+kind = "phrase"
+message = "cliche metaphor"
+advice = "Name the problem."
+example = "The elephant in the room is memory."
+counterexample = "The main problem is memory."
+
+[[phrase]]
+id = "sentence-connector"
+pattern = "(?m)(?:^\\s*|[.!?:]\\s+)(?P<m>(?-i:Furthermore|Moreover|Additionally|In addition|Consequently|Notably|Importantly|Interestingly))\\b"
+category = "filler"
+kind = "word"
+message = "stiff sentence-initial connector"
+advice = "Delete it; adjacent sentences already connect."
+example = "It is fast. Furthermore, it is small."
+counterexample = "It is fast and, in addition to that, small."
+
+[[phrase]]
+id = "interestingly"
+match = ["interestingly", "notably", "importantly", "remarkably"]
+category = "filler"
+kind = "word"
+message = "editorializing adverb"
+advice = "Delete it; let the fact speak."
+example = "It is, interestingly, faster."
+counterexample = "It is faster."
+
+[[phrase]]
+id = "ultimately"
+match = ["ultimately"]
+category = "filler"
+kind = "word"
+message = "filler adverb"
+advice = "Delete it."
+example = "Ultimately, the choice is yours."
+counterexample = "The choice is yours."
+
+[[phrase]]
+id = "overall-opener"
+pattern = "(?m)(?:^\\s*|[.!?]\\s+)(?P<m>(?-i:Overall)),"
+category = "closer"
+kind = "word"
+message = "summary opener"
+advice = "Delete it."
+example = "Overall, the design is sound."
+counterexample = "The overall design is sound."
+
+# --- Hype ---------------------------------------------------------------------
+
+[[phrase]]
+id = "transformative"
+match = ["transformative", "transformational"]
+category = "hype"
+kind = "word"
+message = "hype adjective"
+advice = "Say what it changes."
+example = "A transformative release."
+counterexample = "A release that drops Python 2."
+
+[[phrase]]
+id = "groundbreaking"
+match = ["groundbreaking", "ground-breaking", "earth-shattering", "mind-blowing"]
+category = "hype"
+kind = "phrase"
+message = "hype adjective"
+advice = "Say what is new."
+example = "A groundbreaking approach."
+counterexample = "A new approach."
+
+[[phrase]]
+id = "innovative"
+match = ["innovative", "innovatively"]
+category = "hype"
+kind = "word"
+message = "hype adjective"
+advice = "Say what is new."
+example = "An innovative caching layer."
+counterexample = "A caching layer keyed by content hash."
+
+[[phrase]]
+id = "world-class"
+match = ["world-class", "world class", "best-in-class", "best in class", "industry-leading", "top-notch"]
+category = "hype"
+kind = "phrase"
+message = "marketing superlative"
+advice = "Cite the evidence or delete it."
+example = "World-class performance."
+counterexample = "Handles 50k requests per second."
+
+[[phrase]]
+id = "next-level"
+match = ["next-level", "to the next level", "next level"]
+category = "hype"
+kind = "phrase"
+message = "marketing cliche"
+advice = "Say what improves."
+example = "Take your tests to the next level."
+counterexample = "Run tests in parallel."
+
+[[phrase]]
+id = "effortless"
+match = ["effortless", "effortlessly"]
+category = "hype"
+kind = "word"
+message = "hype adjective"
+replace = ["easy", "easily"]
+example = "Effortless setup."
+counterexample = "Setup takes one command."
+
+[[phrase]]
+id = "unparalleled"
+match = ["unparalleled", "unrivaled", "unrivalled", "second to none"]
+category = "hype"
+kind = "phrase"
+message = "marketing superlative"
+advice = "Cite a comparison or delete it."
+example = "Unparalleled speed."
+counterexample = "Twice as fast as the old parser."
+
+[[phrase]]
+id = "comprehensive"
+match = ["comprehensive", "comprehensively"]
+category = "hype"
+kind = "word"
+message = "vague completeness claim"
+advice = "Say what is covered."
+example = "A comprehensive guide."
+counterexample = "A guide to every config option."
+
+[[phrase]]
+id = "blazingly-fast"
+match = ["blazingly fast", "blazing fast", "blazing-fast", "lightning-fast", "lightning fast"]
+category = "hype"
+kind = "phrase"
+message = "hype cliche"
+advice = "Give a number."
+example = "A blazingly fast linter."
+counterexample = "A linter that checks 10k files per second."
+
+[[phrase]]
+id = "powerful"
+match = ["powerful", "powerfully"]
+category = "hype"
+kind = "word"
+message = "vague hype adjective"
+advice = "Say what it can do."
+example = "A powerful query language."
+counterexample = "A query language with joins and window functions."
+
+[[phrase]]
+id = "beacon"
+match = ["a beacon of", "beacon of", "treasure trove", "a treasure trove of", "a symphony of", "labyrinth", "labyrinthine"]
+category = "metaphor"
+kind = "phrase"
+message = "purple-prose metaphor"
+advice = "Say it literally."
+example = "The docs are a treasure trove of tips."
+counterexample = "The docs contain many tips."
+
+[[phrase]]
+id = "intricate-dance"
+pattern = "\\b(?:intricate|delicate|complex|careful) (?:dance|interplay|balancing act)\\b|\\bdelicate balance\\b"
+category = "metaphor"
+kind = "phrase"
+message = "stock AI metaphor"
+advice = "Describe the actual trade-off."
+example = "The intricate dance between threads."
+counterexample = "Threads share one lock."
+
+[[phrase]]
+id = "commendable"
+match = ["commendable", "unwavering", "whimsical", "nestled"]
+category = "vocabulary"
+kind = "phrase"
+message = "stock AI vocabulary"
+advice = "Use a plain word or delete it."
+example = "An unwavering commitment to quality."
+counterexample = "A commitment to quality."
+
+[[phrase]]
+id = "noteworthy"
+match = ["noteworthy", "paramount", "indispensable", "invaluable"]
+category = "vocabulary"
+kind = "word"
+message = "inflated adjective"
+replace = ["important", "useful"]
+example = "Security is paramount."
+counterexample = "Security reviews are required."
+
+[[phrase]]
+id = "aforementioned"
+match = ["aforementioned"]
+category = "vocabulary"
+kind = "word"
+message = "stilted word"
+replace = ["this", "that", "the"]
+example = "The aforementioned flag."
+counterexample = "The --force flag."
+
+[[phrase]]
+id = "endeavor"
+match = ["endeavor", "endeavors", "endeavour", "endeavours"]
+category = "vocabulary"
+kind = "word"
+message = "inflated word"
+replace = ["effort", "project", "try"]
+example = "A worthwhile endeavor."
+counterexample = "A worthwhile project."
+
+[[phrase]]
+id = "facilitate"
+match = ["facilitate", "facilitates", "facilitating", "facilitated"]
+category = "vocabulary"
+kind = "word"
+message = "inflated verb"
+replace = ["help", "enable", "allow"]
+example = "It facilitates debugging."
+counterexample = "It helps with debugging."
+
+[[phrase]]
+id = "bolster"
+match = ["bolster", "bolsters", "bolstering", "bolstered", "spearhead", "spearheads", "spearheaded", "spearheading"]
+category = "vocabulary"
+kind = "word"
+message = "inflated verb"
+replace = ["strengthen", "lead"]
+example = "This bolsters security."
+counterexample = "This adds rate limiting."
+
+[[phrase]]
+id = "garner"
+match = ["garner", "garners", "garnered", "garnering"]
+category = "vocabulary"
+kind = "word"
+message = "inflated verb"
+replace = ["get", "gain"]
+example = "The project garnered attention."
+counterexample = "The project got 2k stars."
+
+[[phrase]]
+id = "resonate"
+match = ["resonate", "resonates", "resonating", "resonated"]
+category = "vocabulary"
+kind = "word"
+message = "vague verb"
+advice = "Say what the reader agrees with or feels."
+example = "This message resonates with users."
+counterexample = "Users asked for this in 40 issues."
+
+[[phrase]]
+id = "cornerstone"
+match = ["cornerstone", "cornerstones", "linchpin", "bedrock"]
+category = "metaphor"
+kind = "word"
+message = "inflated metaphor"
+replace = ["basis", "core"]
+example = "Tests are the cornerstone of quality."
+counterexample = "Tests catch regressions."
+
+[[phrase]]
+id = "at-its-core"
+match = ["at its core", "at their core", "at the heart of", "at its heart"]
+category = "filler"
+kind = "phrase"
+message = "cliche framing"
+advice = "Delete it and state the thing."
+example = "At its core, it is a parser."
+counterexample = "It is a parser."
+
+[[phrase]]
+id = "first-and-foremost"
+match = ["first and foremost", "last but not least", "in a nutshell", "in essence"]
+category = "filler"
+kind = "phrase"
+message = "cliche filler"
+advice = "Delete it."
+example = "First and foremost, install Rust."
+counterexample = "First, install Rust."
+
+[[phrase]]
+id = "deep-understanding"
+pattern = "\\ba (?:deep|deeper|profound|thorough|solid|nuanced) understanding of\\b"
+category = "filler"
+kind = "phrase"
+message = "vague learning claim"
+advice = "Say what the reader will be able to do."
+example = "Gain a deep understanding of lifetimes."
+counterexample = "Learn when to add lifetime annotations."
+
+[[phrase]]
+id = "profound"
+match = ["profound", "profoundly"]
+category = "vocabulary"
+kind = "word"
+message = "inflated adjective"
+replace = ["large", "deep"]
+example = "A profound impact."
+counterexample = "A large impact."
+
+[[phrase]]
+id = "rest-assured"
+match = ["rest assured", "peace of mind"]
+category = "boilerplate"
+kind = "phrase"
+message = "marketing reassurance"
+advice = "Say what guarantee exists."
+example = "Rest assured, your data is safe."
+counterexample = "Data is encrypted at rest."
+
+[[phrase]]
+id = "carefully-crafted"
+pattern = "\\b(?:carefully|thoughtfully|meticulously|lovingly|expertly|beautifully) (?:crafted|designed|curated|engineered)\\b"
+category = "hype"
+kind = "phrase"
+message = "marketing cliche"
+advice = "Show the care instead of claiming it."
+example = "A carefully crafted API."
+counterexample = "A small API with ten functions."
+
+[[phrase]]
+id = "curated"
+match = ["curated", "tailored", "tailor-made", "bespoke"]
+category = "hype"
+kind = "word"
+message = "marketing adjective"
+replace = ["chosen", "custom"]
+example = "A curated list of plugins."
+counterexample = "A list of plugins we test in CI."
+
+[[phrase]]
+id = "captivating"
+match = ["captivating", "captivate", "captivates", "enchanting", "breathtaking"]
+category = "hype"
+kind = "phrase"
+message = "purple-prose adjective"
+advice = "Delete it."
+example = "A captivating demo."
+counterexample = "A two-minute demo."
+
+[[phrase]]
+id = "hidden-gem"
+match = ["hidden gem", "hidden gems", "rich history", "rich heritage"]
+category = "hype"
+kind = "phrase"
+message = "travel-brochure cliche"
+advice = "Say it literally."
+example = "This flag is a hidden gem."
+counterexample = "This flag is undocumented."
+
+[[phrase]]
+id = "truly"
+match = ["truly", "incredibly", "remarkable", "extremely"]
+category = "filler"
+kind = "word"
+message = "empty intensifier"
+advice = "Delete it or give a number."
+example = "It is truly fast."
+counterexample = "It is fast."
+
+[[phrase]]
+id = "basically"
+match = ["basically", "essentially", "fundamentally"]
+category = "filler"
+kind = "word"
+message = "filler adverb"
+advice = "Delete it."
+example = "It is basically a queue."
+counterexample = "It is a queue."
+
+[[phrase]]
+id = "actionable-insights"
+pattern = "\\b(?:actionable|valuable|deep|key|meaningful) insights?\\b"
+category = "hype"
+kind = "phrase"
+message = "consultant cliche"
+advice = "Say what the reader learns."
+example = "Get actionable insights from logs."
+counterexample = "Find slow queries in the logs."
+
+[[phrase]]
+id = "think-of-it-as"
+match = ["think of it as", "think of it like"]
+category = "filler"
+kind = "word"
+message = "analogy setup"
+advice = "Consider stating the thing directly."
+example = "Think of it as a cache."
+counterexample = "It is a cache."
+
+[[phrase]]
+id = "plot-twist"
+match = ["plot twist", "spoiler alert", "let that sink in", "read that again", "and that's okay", "and that's ok", "and that's fine"]
+category = "filler"
+kind = "phrase"
+message = "social-media mannerism"
+advice = "Delete it."
+example = "Plot twist: the bug was in the test."
+counterexample = "The bug was in the test."
+
+[[phrase]]
+id = "harsh-truth"
+pattern = "\\bthe (?:harsh|hard|uncomfortable|brutal|simple|honest) truth\\b"
+category = "filler"
+kind = "phrase"
+message = "dramatic framing"
+advice = "State the fact."
+example = "The harsh truth is that nobody reads docs."
+counterexample = "Few users read the docs."
+
+[[phrase]]
+id = "more-than-just"
+match = ["more than just a", "more than just an", "so much more than"]
+category = "hype"
+kind = "phrase"
+message = "hype framing"
+advice = "Say what it is."
+example = "It's more than just a linter."
+counterexample = "It is a linter and formatter."
+
+[[phrase]]
+id = "new-era"
+match = ["a new era", "ushering in", "usher in", "ushers in"]
+category = "hype"
+kind = "phrase"
+message = "grandiose framing"
+advice = "Say what changes."
+example = "This ushers in a new era of builds."
+counterexample = "Builds are now incremental."
+
+[[phrase]]
+id = "never-been"
+pattern = "\\bha(?:s|ve) never been (?:more important|higher|easier|more critical|more relevant|more urgent)\\b"
+category = "hype"
+kind = "phrase"
+message = "grandiose framing"
+advice = "State the actual reason for urgency."
+example = "Security has never been more important."
+counterexample = "Security has never been audited."
+
+[[phrase]]
+id = "future-proof"
+match = ["future-proof", "future proof", "mission-critical", "hassle-free", "frictionless"]
+category = "hype"
+kind = "word"
+message = "marketing adjective"
+advice = "Say what concretely makes it so."
+example = "A future-proof design."
+counterexample = "A design with versioned APIs."
+
+[[phrase]]
+id = "under-the-hood"
+match = ["under the hood", "behind the scenes"]
+category = "metaphor"
+kind = "word"
+message = "cliche metaphor"
+replace = ["internally"]
+example = "Under the hood, it uses SQLite."
+counterexample = "Internally, it uses SQLite."
+
+[[phrase]]
+id = "shed-light"
+pattern = "\\bshed(?:s|ding)? (?:some |new )?light on\\b|\\bpav(?:e|es|ed|ing) the way\\b"
+category = "metaphor"
+kind = "phrase"
+message = "cliche metaphor"
+replace = ["explain", "enable"]
+example = "This sheds light on the bug."
+counterexample = "This explains the bug."
+
+[[phrase]]
+id = "ahead-of-the-curve"
+match = ["ahead of the curve", "move the needle", "moves the needle", "moving the needle", "circle back"]
+category = "metaphor"
+kind = "phrase"
+message = "corporate cliche"
+advice = "Say it literally."
+example = "This keeps you ahead of the curve."
+counterexample = "This supports the latest spec."
+
+[[phrase]]
+id = "where-the-magic-happens"
+match = ["where the magic happens", "the magic happens", "is a breeze", "a breeze to", "works like a charm"]
+category = "metaphor"
+kind = "phrase"
+message = "cliche"
+advice = "Say what happens or how easy it is."
+example = "This is where the magic happens."
+counterexample = "This function renders the page."
+
+[[phrase]]
+id = "grand-scheme"
+match = ["in the grand scheme of things", "tip of the iceberg", "a perfect storm", "the perfect storm"]
+category = "metaphor"
+kind = "phrase"
+message = "cliche metaphor"
+advice = "Say it literally."
+example = "This is just the tip of the iceberg."
+counterexample = "This is one of many issues."
+
+[[phrase]]
+id = "silver-bullet"
+match = ["silver bullet", "gold standard", "force multiplier", "table stakes", "battle-tested", "rock-solid", "rock solid"]
+category = "metaphor"
+kind = "word"
+message = "stock metaphor"
+advice = "Say it literally."
+example = "Tests are a force multiplier."
+counterexample = "Tests catch regressions early."
+
+[[phrase]]
+id = "rabbit-hole"
+match = ["rabbit hole", "down the rabbit hole", "can of worms"]
+category = "metaphor"
+kind = "word"
+message = "stock metaphor"
+advice = "Say it literally."
+example = "Don't go down the rabbit hole."
+counterexample = "Don't spend time on this."
+
+[[phrase]]
+id = "its-that-simple"
+match = ["it's that simple", "it's as simple as that", "it's that easy", "voila", "voilà", "and voila", "just like that"]
+category = "closer"
+kind = "phrase"
+message = "chatbot flourish"
+advice = "Delete it."
+example = "Run one command. It's that simple!"
+counterexample = "Run one command."
+
+[[phrase]]
+id = "the-reality-is"
+match = ["the reality is", "the truth is", "the fact of the matter is", "the fact is"]
+category = "filler"
+kind = "word"
+message = "throat-clearing setup"
+advice = "Delete it and state the fact."
+example = "The reality is that nobody reads logs."
+counterexample = "Nobody reads logs."
+
+[[phrase]]
+id = "feel-free"
+match = ["feel free to"]
+category = "boilerplate"
+kind = "word"
+message = "assistant boilerplate"
+advice = "Use a plain imperative: \"Open an issue if ...\"."
+example = "Feel free to open an issue."
+counterexample = "Open an issue for bugs."
+
+[[phrase]]
+id = "simply-put"
+match = ["simply put", "put simply", "in simple terms", "in layman's terms"]
+category = "filler"
+kind = "phrase"
+message = "filler framing"
+advice = "Delete it; just say it simply."
+example = "Simply put, it caches results."
+counterexample = "It caches results."
+
+[[phrase]]
+id = "significantly"
+match = ["significantly", "substantially", "dramatically", "vastly"]
+category = "filler"
+kind = "word"
+message = "unquantified intensifier"
+advice = "Give a number."
+example = "It is significantly faster."
+counterexample = "It is 3x faster."
+
+[[phrase]]
+id = "various"
+match = ["various", "a variety of", "numerous"]
+category = "filler"
+kind = "word"
+message = "vague quantifier"
+advice = "Name them or give a count."
+example = "It supports various formats."
+counterexample = "It supports JSON and YAML."
+
+[[phrase]]
+id = "ensure"
+pattern = "\\b(?:ensures?|ensuring) (?:that )?(?:a |the )?(?:seamless|smooth|robust|optimal|consistent|reliable|high-quality)\\b"
+category = "hype"
+kind = "phrase"
+message = "promise without content"
+advice = "Say what check or mechanism provides it."
+example = "This ensures a seamless experience."
+counterexample = "This ensures the file is closed."
+
+[[phrase]]
+id = "smooth-experience"
+pattern = "\\b(?:seamless|smooth|frictionless|delightful|intuitive|enhanced|optimal) (?:user |developer )?experience\\b"
+category = "hype"
+kind = "phrase"
+message = "marketing cliche"
+advice = "Say what the user does and what no longer gets in the way."
+example = "Enjoy a delightful developer experience."
+counterexample = "Errors point to the exact line."
+
+[[phrase]]
+id = "key-features"
+pattern = "(?m)^\\s*(?P<m>(?:key|core|main) (?:features|benefits|highlights)):?\\s*$"
+category = "boilerplate"
+kind = "word"
+message = "generic heading"
+advice = "Name what the list is about, or drop the heading."
+example = "Key Features:"
+counterexample = "Key features of the parser are listed in the table."
+
+[[phrase]]
+id = "why-choose"
+pattern = "\\bwhy choose (?:[\\w-]+\\s?){1,3}\\?|\\bwhy you should (?:use|choose|care)\\b"
+category = "boilerplate"
+kind = "phrase"
+message = "marketing heading"
+advice = "Compare concretely with the alternatives."
+example = "Why you should use explicit"
+counterexample = "Use explicit to lint prose."
+
+[[phrase]]
+id = "a-must"
+match = ["a must-have", "must-have", "a must-read", "must-read", "a no-brainer", "no-brainer"]
+category = "hype"
+kind = "phrase"
+message = "hype cliche"
+advice = "Say why."
+example = "This plugin is a must-have."
+counterexample = "This plugin formats on save."
+
+[[phrase]]
+id = "fast-paced"
+match = ["dynamic and ever-changing", "fast-paced", "rapidly evolving", "rapidly changing"]
+category = "hype"
+kind = "word"
+message = "cliche scene-setting"
+advice = "Delete it."
+example = "A fast-paced industry."
+counterexample = "An industry with monthly releases."
+
+[[phrase]]
+id = "crucial-step"
+pattern = "\\b(?:a|an|the) (?:crucial|critical|vital|essential|pivotal|key|important|significant) (?:step|aspect|component|element|part|factor) (?:in|of|for|towards?)\\b"
+category = "filler"
+kind = "word"
+message = "vague importance claim"
+advice = "Say what depends on it."
+example = "Validation is a crucial step in the pipeline."
+counterexample = "Validation runs before the build."
+
+[[phrase]]
+id = "whole-new"
+match = ["a whole new level", "a whole new world", "whole new level", "opens up a world of"]
+category = "hype"
+kind = "phrase"
+message = "hype cliche"
+advice = "Say what is new."
+example = "It opens up a world of options."
+counterexample = "It adds two options."
+
+[[phrase]]
+id = "vital"
+match = ["vital", "vitally"]
+category = "vocabulary"
+kind = "word"
+message = "overused intensifier"
+replace = ["important", "required"]
+example = "Logging is vital."
+counterexample = "Logging is required."
+
+# --- LLM cliche highlighter ---------------------------------------------------
+#
+# Entries below (and the broadened `heres-the-thing`, `important-to-note`,
+# `plays-a-role` and `landscape` patterns above) are adapted from Simon Willison's
+# llm-cliche-highlighter (Apache-2.0, https://github.com/simonw/tools, commit
+# a48d9920ff1cf203cd0070c3e8321283df50bf11). The Wikipedia-group ideas come from
+# https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing (CC BY-SA 4.0). See NOTICE.
+# Positive and negative cases from the upstream self-tests live in `cliche.rs`.
+
+[[phrase]]
+id = "chatbot-leftovers"
+pattern = '''\bas\s+of\s+my\s+last\s+(?:update|training|knowledge\s+update)\b|\bmy\s+(?:knowledge|training)(?:\s+data)?\s+cut-?off\b|\bI\s+(?:cannot|can't|do\s+not|don't)\s+(?:browse\s+the\s+internet|access\s+real-?time)\b|\bcontentReference\[|\boaicite(?::\d+)?|\bturn0(?:search|news|image)\d*|\battributableIndex\b|utm_source=(?:chatgpt|openai|copilot|perplexity|claude|gemini)'''
+category = "boilerplate"
+kind = "phrase"
+severity = "error"
+message = "text pasted straight from a chatbot"
+advice = "Delete the chatbot residue and check the surrounding text is still accurate."
+example = "As of my last update, the API was in beta."
+counterexample = "The last update shipped on Tuesday."
+
+[[phrase]]
+id = "sit-with-that"
+pattern = '''\bsit(?:s|ting)?\s+with\s+(?:that|this|it|(?:the|your)\s+(?:discomfort|feelings?|tension|weight|uncertainty|ambiguity|grief|silence|unease))\b(?:\s+for\s+a\s+\w+)?'''
+category = "filler"
+kind = "phrase"
+message = "therapist-voice reflection prompt"
+advice = "Delete it; if the point needs weight, give the reason it matters."
+example = "Sit with that for a moment."
+counterexample = "Come sit with us at lunch."
+
+[[phrase]]
+id = "you-already-know"
+pattern = '''\byou\s+already\s+knows?\s+the\s+answer\b|(?P<m>\byou\s+already\s+knows?)[ \t]*(?:[^\w\s]|\n|$)'''
+category = "filler"
+kind = "phrase"
+message = "knowing-wink appeal to the reader"
+advice = "State the answer instead of implying the reader has it."
+example = "Deep down, you already know."
+counterexample = "If you already know Python, skip ahead."
+
+[[phrase]]
+id = "you-already-know-what"
+pattern = '''\byou\s+already\s+knows?\s+(?:what|how|why|this|that|it|who|where)\b'''
+category = "filler"
+kind = "word"
+message = "appeal to what the reader supposedly knows"
+advice = "Say the thing, or link to where it is explained."
+example = "You already know what to do."
+counterexample = "You already have the key."
+
+[[phrase]]
+id = "the-punchline"
+pattern = '''\bthe\s+punchline(?:\s+(?:is|was|being)\b|\s*[:?])'''
+category = "filler"
+kind = "phrase"
+message = "stage-managed reveal"
+advice = "Delete the setup and state the result."
+example = "The punchline: nothing changed."
+counterexample = "He forgot the punchline entirely."
+
+[[phrase]]
+id = "worth-naming"
+pattern = '''(?:\b(?:is|are|was|were|feels?|felt|seems?|seemed)|'s)\s+(?:\w+\s+){0,2}?worth\s+naming\b|\bworth\s+naming\s*:'''
+not_followed_by = '''\s+names\b'''
+category = "filler"
+kind = "phrase"
+message = "therapist-voice framing"
+advice = "Name the thing directly instead of announcing that it deserves naming."
+example = "The grief here is worth naming."
+counterexample = "It's not worth naming names here."
+
+[[phrase]]
+id = "not-nothing"
+pattern = '''\b(?:that|this|it|which)(?:'s|\s+(?:is|was))\s+not\s+nothing\b'''
+category = "filler"
+kind = "phrase"
+message = "coy double negative"
+advice = "Say what the result is worth, ideally with a number."
+example = "Ten sign-ups in a week, and that's not nothing."
+counterexample = "There is nothing left to say."
+
+[[phrase]]
+id = "is-the-whole"
+pattern = '''(?:\b(?:is|was|are|were)|'s)\s+the\s+(?:whole|entire)\s+(?:point|game|trick|pitch|idea|story|thing|secret|problem|lesson|appeal|magic|reason|business|job|value|difference|benefit|goal|plan)\b|\bhere(?:'s|\s+is)\s+the\s+whole\s+\w+'''
+category = "filler"
+kind = "word"
+message = "rhetorical emphasis"
+advice = "State the point itself; \"the whole point\" adds drama, not information."
+example = "Consistency is the entire game."
+counterexample = "He toured the entire factory."
+
+[[phrase]]
+id = "the-entire-is"
+pattern = '''\bthe\s+entire\s+(?:point|game|trick|pitch|idea|story|thing|secret|problem|lesson|appeal|magic|reason|business|job|value|difference|benefit|goal|plan|team|history|industry|world|premise|argument)(?:\s+[\w-]+){0,4}?\s+(?:is|was|are|were)\b'''
+category = "filler"
+kind = "word"
+message = "rhetorical emphasis"
+advice = "Drop \"the entire\" and state the claim."
+example = "The entire point is that nobody reads."
+counterexample = "He ate the entire pizza."
+
+[[phrase]]
+id = "is-real"
+pattern = '''\bis\s+real\b(?P<nf>)[^.!?\n]*?\b(?:and|not)\b'''
+not_followed_by = '''[\s-]+(?:estate|time|life|world|quick|numbers?|users?|hardware|devices?|data|money)\b'''
+category = "filler"
+kind = "word"
+message = "\"X is real, and ...\" validation formula"
+advice = "Quantify the effect instead of vouching for its existence."
+example = "The improvement is real, and it's not subtle."
+counterexample = "The painting is real, but stolen."
+
+[[phrase]]
+id = "is-the-real"
+pattern = '''\bis\s+(?:the|a)\s+real\b(?P<nf>)[^.!?\n]*?\b(?:and|not)\s+it\b'''
+not_followed_by = '''[\s-]+(?:estate|time|life|world|quick|numbers?|users?|hardware|devices?|data|money)\b'''
+category = "filler"
+kind = "word"
+message = "\"this is the real X, and it ...\" validation formula"
+advice = "Say what makes it matter, concretely."
+example = "This is the real work, and it never ends."
+counterexample = "He is a real estate agent and it shows."
+
+[[phrase]]
+id = "performative-honesty"
+pattern = '''\bI\s+(?:will\s+not|won't)\s+pretend\b|\b(?:I'll|let's)\s+be\s+(?:honest|blunt|real)\b|\bto\s+be\s+(?:honest|blunt)\b|(?:^|[.!?–—\n])\s*(?P<m>(?:Honestly|Look|Truthfully|Frankly)\s*,)'''
+category = "filler"
+kind = "phrase"
+message = "sincerity announced rather than shown"
+advice = "Delete it; the candour should be in the content."
+example = "I won't pretend the migration was painless."
+counterexample = "Look at the diagram."
+
+[[phrase]]
+id = "to-be-clear"
+pattern = '''\bto\s+be\s+clear\b'''
+category = "filler"
+kind = "word"
+message = "throat-clearing"
+advice = "Delete it and make the statement."
+example = "To be clear, the API is unchanged."
+counterexample = "The error message needs to be clearer."
+
+[[phrase]]
+id = "thats-the-part"
+pattern = '''\b(?:that|this|it)(?:'s|\s+(?:is|was))\s+the\s+part\b|\bthe\s+part\s+that\s+(?:makes|made|gets|got|keeps|kept)\s+(?:me|you|us|it)\b|\bmy\s+favou?rite\s+part\s+of\b'''
+category = "filler"
+kind = "word"
+message = "gestures at a detail instead of stating it"
+advice = "Say what the part does and why it matters."
+example = "That's the part a counter can't reach."
+counterexample = "He played the part of the villain."
+
+[[phrase]]
+id = "the-only-x-i-trust"
+pattern = '''\bthe\s+only\s+[\w-]+(?:\s+[\w-]+){0,2}?\s+(?:I|you|we|it|he|she|they)\s+(?:trust|need|needs|care|want|wants|use|uses|believe)\b|\bthe\s+only\s+[\w-]+\s+that\s+(?:matters|counts|works|survives)\b'''
+category = "hype"
+kind = "word"
+message = "narrowing superlative reveal"
+advice = "Make the claim plainly and give the evidence."
+example = "The only benchmark that matters is retention."
+counterexample = "She was the only engineer on call."
+
+[[phrase]]
+id = "take-my-word"
+pattern = '''\b(?:you\s+)?(?:do\s+not|don't)\s+(?:have\s+to\s+)?take\s+my\s+word\s+for\s+(?:it|any\s+of\s+(?:it|this|that))\b'''
+category = "filler"
+kind = "phrase"
+message = "stock invitation to verify"
+advice = "Link the evidence or the command that reproduces it."
+example = "You don't have to take my word for it."
+counterexample = "He kept his word."
+
+[[phrase]]
+id = "turns-out"
+pattern = '''(?:^|[.!?–—\n])\s*(?P<m>Turns\s+out)\b|\bit\s+turns\s+out\s+that\b'''
+category = "filler"
+kind = "word"
+message = "casual-revelation opener"
+advice = "State the finding directly."
+example = "Turns out the cache was never warm."
+counterexample = "She turns out solid work every week."
+
+[[phrase]]
+id = "dev-boilerplate"
+pattern = '''\b(?:hold|fit|fits|holds|held)\s+(?:it\s+)?in\s+your\s+head\b|\bbatteries[-\s]included\b|\bit\s+just\s+works\b|\bzero[-\s]config(?:uration)?\b|\bsane\s+defaults\b'''
+category = "hype"
+kind = "word"
+message = "dev-blog simplicity boilerplate"
+advice = "Say what the user does not have to configure, or how big it is."
+example = "Install it and it just works."
+counterexample = "We choose boring technology on purpose."
+
+[[phrase]]
+id = "heres-the-reveal"
+pattern = '''\bhere(?:'s|\s+is)\s+(?:the|a|my|one)\s+(?:problem|first|second|third|next|recent|real|best|worst|surprising|interesting|key|important)\b[\w\s-]{0,20}[:.]'''
+category = "opener"
+kind = "word"
+message = "stage-managed reveal"
+advice = "Drop the announcement and give the example or result."
+example = "Here's a surprising result: it got faster."
+counterexample = "Here's the door code."
+
+[[phrase]]
+id = "x-is-dead"
+pattern = '''\w\s+(?P<m>(?:is|are)\s+dead)\b|\blong\s+live\s+(?:the\s+)?\w+'''
+not_followed_by = '''[\s-]+(?:code|letters?|locks?|ends?|zones?|weight|simple|on\s+arrival)\b'''
+category = "hype"
+kind = "word"
+message = "obituary headline"
+advice = "Say what changed and what replaces it."
+example = "Peer code review is dead."
+counterexample = "This branch is dead code."
+
+[[phrase]]
+id = "thats-why-mattered"
+pattern = '''\b(?:that|this)(?:'s|\s+(?:is|was))\s+why\b[^.!?\n]{0,80}?\b(?:matter|matters|mattered|counts|counted)\b'''
+category = "filler"
+kind = "word"
+message = "retroactive significance"
+advice = "Say the consequence; the reader can see it mattered."
+example = "That's why being able to open the environment mattered."
+counterexample = "That is why we left early."
+
+[[phrase]]
+id = "vague-experts"
+pattern = '''\b(?:(?:many|some|several|most|numerous)\s+)?(?:experts|critics|observers|scholars|analysts|commentators)\s+(?:have\s+|often\s+|widely\s+)?(?:argu(?:e|es|ed)|not(?:e|es|ed)|suggest(?:s|ed)?|believ(?:e|es|ed)|agree[ds]?|contend(?:s|ed)?|observ(?:e|es|ed)|caution(?:s|ed)?|claim(?:s|ed)?|cit(?:e|es|ed)|point(?:s|ed)?\s+out)\b|\bindustry\s+reports?\s+(?:suggest|indicate|show)\w*\b'''
+category = "hedge"
+kind = "phrase"
+message = "vague attribution to unnamed authorities"
+advice = "Name the source and link it, or make the claim yourself."
+example = "Some critics have noted a decline in quality."
+counterexample = "Dr. Chen argued the opposite in her paper."
+
+[[phrase]]
+id = "despite-challenges"
+pattern = '''\bdespite\s+(?:these|those|such|its|their|the|numerous|significant|ongoing)\s+(?:\w+\s+)?challenges\b|\bfac(?:e|es|ed|ing)\s+(?:several|numerous|many|significant|various|a\s+number\s+of)\s+challenges\b|\bchallenges\s+remain\b|\bremains\s+to\s+be\s+seen\b|\b(?:only\s+)?time\s+will\s+tell\b'''
+category = "closer"
+kind = "phrase"
+message = "challenges-and-outlook formula"
+advice = "Name the specific open problem and what would resolve it."
+example = "Only time will tell whether it sticks."
+counterexample = "He arrived on time and will tell you himself."
+
+[[phrase]]
+id = "participle-tail"
+pattern = ''',\s+(?P<m>(?:highlighting|underscoring|emphasizing|showcasing|solidifying|cementing|underlining)\s+(?:its|his|her|their|our|the|a|an|how|that|what|both))\b'''
+category = "filler"
+kind = "phrase"
+message = "superficial analysis tacked onto the sentence"
+advice = "End the sentence at the fact; state any consequence as its own claim with evidence."
+example = "Sales doubled, underscoring the strength of the brand."
+counterexample = "She kept highlighting passages in yellow."
+
+[[phrase]]
+id = "participle-tail-soft"
+pattern = ''',\s+(?P<m>(?:reflecting|demonstrating|illustrating|signaling|signalling|reinforcing)\s+(?:its|his|her|their|our|the|a|an|how|that|what|both))\b'''
+category = "filler"
+kind = "word"
+message = "participle tail that may be padding"
+advice = "Check the tail adds a fact; otherwise end the sentence before it."
+example = "Revenue grew, reflecting the new pricing."
+counterexample = "The team, reflecting on the loss, regrouped."
+
+[[phrase]]
+id = "promo"
+pattern = '''\bin\s+the\s+heart\s+of\b|\bmust-(?:visit|see|try)\b|\brich\s+(?:cultural|historical)\s+(?:heritage|history|tapestry)\b|\bstunning\s+(?:views?|scenery|architecture|backdrop)\b'''
+category = "hype"
+kind = "phrase"
+message = "travel-brochure tone"
+advice = "Say it literally."
+example = "Located in the heart of downtown."
+counterexample = "The soup was rich and hearty."
+
+[[phrase]]
+id = "boasts"
+pattern = '''\bboasts?\s+(?:a|an|the)\b'''
+category = "hype"
+kind = "word"
+message = "brochure verb"
+replace = ["has"]
+example = "The library boasts a small API."
+counterexample = "The library has a small API."
+
+[[phrase]]
+id = "interplay"
+match = ["interplay"]
+category = "vocabulary"
+kind = "word"
+message = "stock AI noun"
+advice = "Say how the parts affect each other."
+example = "The interplay between cache and index."
+counterexample = "The cache feeds the index."
+
+[[phrase]]
+id = "serves-as-reminder"
+pattern = '''\b(?:stand|stands|stood|serve|serves|served|standing|serving)\s+as\s+(?:a|an)\s+(?:\w+\s+)?reminder\b'''
+category = "hype"
+kind = "phrase"
+message = "inflated significance"
+advice = "Say what happened and let the reader draw the lesson."
+example = "It serves as a stark reminder that nothing lasts."
+counterexample = "The alarm reminds you at nine."

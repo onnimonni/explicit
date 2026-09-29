@@ -1,0 +1,16 @@
+# explicit's own configuration (dogfooding).
+
+[general]
+exclude = ["tests/fixtures/**"]
+
+[rules]
+"grammar/OkToOkay" = "off"
+"grammar/CompoundNouns" = "off"
+"grammar/MassNouns" = "off"
+
+[prose]
+accept = [
+  "aislop", "terrastruct", "scannerless", "Scannerless", "jison", "retext", "Flesch", "Kincaid",
+  "Aho", "Corasick", "cmark", "autofix", "lexically", "Tunables", "unescaped", "Intraword",
+  "incl", "Ableist", "wordlists", "heavykenny", "merman", "textlint", "lookaround",
+]

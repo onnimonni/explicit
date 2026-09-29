@@ -1,0 +1,22 @@
+---
+source: tests/end_to_end.rs
+expression: "summary.join(\"\\n\")"
+---
+README.md:3:6 error spelling
+README.md:3:33 warning slop/phrase
+README.md:3:48 warning slop/phrase
+README.md:5:43 error links/missing-file
+README.md:5:76 error links/missing-anchor
+README.md:7:1 warning slop/phrase
+README.md:7:32 warning slop/phrase
+README.md:9:4 warning md/code-language-known
+README.md:15:6 error diagram/mermaid
+README.md:20:3 warning diagram/d2
+README.md:25:9 error codeblock/json
+README.md:28:3 error md/alert-syntax
+README.md:31:9 warning grammar/OrthographicConsistency
+README.md:31:26 warning md/descriptive-link-text
+src/lib.rs:1:4 info slop/comment-banner
+src/lib.rs:2:33 warning slop/comment-plan
+src/lib.rs:5:16 error spelling
+src/lib.rs:8:8 warning slop/comment-history
