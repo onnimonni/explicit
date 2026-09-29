@@ -21,3 +21,6 @@ devenv.local.yaml
 
 # Claude Code session state
 .claude/
+
+# nix build output
+/result

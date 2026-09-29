@@ -27,6 +27,44 @@ cargo install --git https://github.com/onnimonni/explicit
 
 Build without Mermaid support (fewer dependencies) with `--no-default-features`.
 
+### devenv
+
+Add the input and import the module in `devenv.yaml`:
+
+```yaml
+inputs:
+  explicit:
+    url: github:onnimonni/explicit
+imports:
+  - explicit/devenv
+```
+
+This puts `explicit` on the `PATH` and, when the project has the `git-hooks` input, runs
+`explicit check --offline` on staged files before each commit. Prebuilt binaries for Linux
+(`x86_64`, `aarch64`) and macOS (`aarch64`) come from
+[onnimonni.cachix.org](https://onnimonni.cachix.org), which the module adds to `cachix.pull`.
+Don't make the input follow your `nixpkgs`, or the cached binary no longer matches and
+explicit builds from source.
+
+Options in `devenv.nix`:
+
+```nix
+{
+  explicit.hook.args = [ "--offline" "--format" "github" ];
+  explicit.hook.excludes = [ "^vendor/" ];
+  # explicit.hook.enable = false;   # binary only, no git hook
+}
+```
+
+### Nix
+
+```console
+nix run github:onnimonni/explicit -- check
+nix profile install github:onnimonni/explicit
+```
+
+The flake also exports `overlays.default`, which adds `pkgs.explicit`.
+
 ## Usage
 
 ```console
