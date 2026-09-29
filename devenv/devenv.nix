@@ -9,6 +9,9 @@
 #
 # The binary comes from the flake input (prebuilt on onnimonni.cachix.org) and a git hook runs
 # `explicit check` on staged files when the git-hooks input is present.
+#
+# The default package is the lite build (no Harper). For the Harper grammar engines, in devenv.nix:
+#   explicit.package = inputs.explicit.packages.${pkgs.stdenv.hostPlatform.system}.explicit-full;
 {
   pkgs,
   lib,
@@ -34,7 +37,12 @@ in
       type = lib.types.package;
       default = if fromInput != null then fromInput else pkgs.callPackage ../nix/package.nix { };
       defaultText = lib.literalExpression "inputs.explicit.packages.\${system}.default";
-      description = "The explicit package. Builds from source when the input is not named `explicit`.";
+      example = lib.literalExpression "inputs.explicit.packages.\${system}.explicit-full";
+      description = ''
+        The explicit package: the lite build (`spellbook` engine, no Harper) by default; set it to
+        `explicit-full` for the Harper grammar engines. Builds from source when the input is not
+        named `explicit`.
+      '';
     };
 
     hook = {

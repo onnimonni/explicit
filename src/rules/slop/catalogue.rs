@@ -1,4 +1,4 @@
-//! Phrase catalogue: built-in `phrases.toml` plus user catalogues from `[slop] extra`.
+//! Phrase catalog: built-in `phrases.toml` plus user catalogs from `[slop] extra`.
 
 use std::collections::HashMap;
 use std::ops::Range;
@@ -130,7 +130,43 @@ impl std::fmt::Debug for Catalogue {
 
 /// Make `'` in a regex match straight and curly apostrophes.
 fn regex_source(pattern: &str) -> String {
+    let pattern = if pattern.is_ascii() {
+        ascii_word_boundaries(pattern)
+    } else {
+        pattern.to_string()
+    };
     format!("(?i){}", pattern.replace('\'', "['’]"))
+}
+
+/// `\b` -> `(?-u:\b)` outside character classes. A Unicode `\b` makes the regex crate's fast
+/// DFA give up on any non-ASCII text (`’`, `—`, `é`) and fall back to a far slower engine. For an
+/// all-ASCII pattern the two differ only when a hit is glued to a non-ASCII letter (`éthe`).
+fn ascii_word_boundaries(pattern: &str) -> String {
+    let mut out = String::with_capacity(pattern.len() + 16);
+    let mut class = 0usize;
+    let mut chars = pattern.chars();
+    while let Some(c) = chars.next() {
+        match c {
+            '\\' => match chars.next() {
+                Some('b') if class == 0 => out.push_str("(?-u:\\b)"),
+                Some(n) => {
+                    out.push(c);
+                    out.push(n);
+                }
+                None => out.push(c),
+            },
+            '[' => {
+                class += 1;
+                out.push(c);
+            }
+            ']' if class > 0 => {
+                class -= 1;
+                out.push(c);
+            }
+            _ => out.push(c),
+        }
+    }
+    out
 }
 
 fn is_word_char(c: char) -> bool {
@@ -393,6 +429,15 @@ mod tests {
                 e.id
             );
         }
+    }
+
+    #[test]
+    fn ascii_boundaries_outside_classes() {
+        assert_eq!(
+            ascii_word_boundaries(r"\bfoo[\b\]x]\\b\w\b"),
+            r"(?-u:\b)foo[\b\]x]\\b\w(?-u:\b)"
+        );
+        assert_eq!(regex_source("\\bé\\b"), "(?i)\\bé\\b");
     }
 
     #[test]

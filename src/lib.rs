@@ -1,5 +1,6 @@
 //! explicit: lint prose in Markdown files and code comments.
 
+pub mod cache;
 pub mod config;
 pub mod diagnostic;
 pub mod engine;

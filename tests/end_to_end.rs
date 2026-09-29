@@ -14,7 +14,7 @@ fn sample_project() {
     };
     let files = engine::discover(std::slice::from_ref(&config.root), &config).expect("discover");
     let ws = engine::build_workspace(&files, &config);
-    let diags = engine::check(&ws, &files, &config, &Options { remote: false });
+    let diags = engine::check(&ws, &files, &config, &Options::default());
     let summary: Vec<String> = diags
         .iter()
         .map(|d| {

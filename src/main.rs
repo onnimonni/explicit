@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::io::Write;
 use std::path::PathBuf;
 use std::process::ExitCode;
 
@@ -7,6 +8,10 @@ use clap::{Parser, Subcommand};
 use explicit::config::Config;
 use explicit::engine::{self, Options};
 use explicit::output::{self, Format};
+
+// Harper allocates many small vectors per sentence; the system allocator is slow at that.
+#[global_allocator]
+static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
 
 #[derive(Parser)]
 #[command(
@@ -35,6 +40,15 @@ struct CommonArgs {
     /// Skip http(s) links entirely.
     #[arg(long)]
     no_remote: bool,
+    /// Check files named on the command line even when excluded (config, .gitignore, .explicitignore).
+    #[arg(long)]
+    no_exclude: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, clap::ValueEnum)]
+enum RulesFormat {
+    Text,
+    Json,
 }
 
 #[derive(Subcommand)]
@@ -46,6 +60,15 @@ enum Command {
         /// Apply safe fixes.
         #[arg(long)]
         fix: bool,
+        /// Re-check every file instead of reusing cached results.
+        #[arg(long)]
+        no_cache: bool,
+        /// Cache directory (default: `.explicit_cache` in the project root).
+        #[arg(long, value_name = "PATH")]
+        cache_dir: Option<PathBuf>,
+        /// Spelling/grammar backend, overriding `prose.engine` (experimental).
+        #[arg(long, value_enum, hide = true)]
+        engine: Option<explicit::config::Engine>,
     },
     /// Watch files and re-check on change.
     Watch {
@@ -53,9 +76,22 @@ enum Command {
         common: CommonArgs,
     },
     /// List all rules with their default severity.
-    Rules,
-    /// Write a starter explicit.toml.
-    Init,
+    Rules {
+        /// List every concrete rule: each Harper rule as `grammar/<Name>` and each `[[style]]` rule.
+        #[arg(long)]
+        all: bool,
+        #[arg(long, value_enum, default_value_t = RulesFormat::Text)]
+        format: RulesFormat,
+        /// Path to `explicit.toml` for `style/*` rules (default: search upward from the cwd).
+        #[arg(long)]
+        config: Option<PathBuf>,
+    },
+    /// Write a starter explicit.toml in the current directory.
+    Init {
+        /// Write even if explicit.toml exists here or a config is found in a parent directory.
+        #[arg(long)]
+        force: bool,
+    },
 }
 
 fn main() -> ExitCode {
@@ -90,11 +126,40 @@ fn load_config(common: &CommonArgs) -> Result<Config, String> {
 
 fn run(cli: Cli) -> Result<ExitCode, String> {
     match cli.command {
-        Command::Check { common, fix } => {
-            let config = load_config(&common)?;
-            let files = engine::discover(&common.paths, &config)?;
+        Command::Check {
+            common,
+            fix,
+            no_cache,
+            cache_dir,
+            engine,
+        } => {
+            let mut config = load_config(&common)?;
+            if let Some(e) = engine {
+                e.check_available()?;
+                config.prose.engine = e;
+            }
+            let files = engine::discover_with(&common.paths, &config, !common.no_exclude)?;
+            let resolved_cache_dir = cache_dir.unwrap_or_else(|| {
+                config.root.join(
+                    config
+                        .general
+                        .cache_dir
+                        .as_deref()
+                        .unwrap_or(std::path::Path::new(explicit::cache::DEFAULT_DIR)),
+                )
+            });
+            // `--no-cache` disables the results cache; the link cache still uses this dir.
+            let cache_dir = (!no_cache && config.general.cache).then(|| resolved_cache_dir.clone());
+            // Stale entries are pruned only when the whole root was checked.
+            let prune_cache = common
+                .paths
+                .iter()
+                .all(|p| p.canonicalize().is_ok_and(|p| p == config.root));
             let opts = Options {
                 remote: !common.no_remote,
+                cache_dir,
+                link_cache_dir: Some(resolved_cache_dir),
+                prune_cache,
             };
             let mut ws = engine::build_workspace(&files, &config);
             let mut diags = engine::check(&ws, &files, &config, &opts);
@@ -116,6 +181,7 @@ fn run(cli: Cli) -> Result<ExitCode, String> {
                 common.format,
                 &diags,
                 &sources,
+                &config.root,
                 &mut std::io::stdout().lock(),
             )
             .map_err(|e| e.to_string())?;
@@ -127,8 +193,10 @@ fn run(cli: Cli) -> Result<ExitCode, String> {
             })
         }
         Command::Watch { common } => {
+            // Watch keeps results in memory; no disk cache.
             let opts = Options {
                 remote: !common.no_remote,
+                ..Options::default()
             };
             // CLI overrides apply on every config (re)load.
             explicit::watch::run(
@@ -139,20 +207,55 @@ fn run(cli: Cli) -> Result<ExitCode, String> {
             )?;
             Ok(ExitCode::SUCCESS)
         }
-        Command::Rules => {
-            for r in explicit::rules::RULES {
-                let sev = r.default.map_or("off", |s| s.as_str());
-                println!("{:<32} {:<8} {}", r.id, sev, r.description);
+        Command::Rules {
+            all,
+            format,
+            config,
+        } => {
+            let config = match &config {
+                Some(p) => Config::load(p)?,
+                None => Config::discover(std::path::Path::new("."))?,
+            };
+            let rows = explicit::rules::rule_rows(&config, all);
+            let mut out = std::io::stdout().lock();
+            let res = match format {
+                RulesFormat::Json => serde_json::to_writer_pretty(&mut out, &rows)
+                    .map_err(std::io::Error::from)
+                    .and_then(|()| writeln!(out)),
+                RulesFormat::Text => {
+                    let width = rows.iter().map(|r| r.id.len()).max().unwrap_or(0).max(32);
+                    rows.iter().try_for_each(|r| {
+                        let sev = r.default.map_or("off", |s| s.as_str());
+                        writeln!(out, "{:<width$} {:<8} {}", r.id, sev, r.description)
+                    })
+                }
+            };
+            // `explicit rules | head` closes the pipe early; that is not an error.
+            match res {
+                Err(e) if e.kind() != std::io::ErrorKind::BrokenPipe => Err(e.to_string()),
+                _ => Ok(ExitCode::SUCCESS),
             }
-            Ok(ExitCode::SUCCESS)
         }
-        Command::Init => {
-            let path = PathBuf::from(explicit::config::CONFIG_FILE);
-            if path.exists() {
-                return Err(format!("{} already exists", path.display()));
+        Command::Init { force } => {
+            let cwd = std::env::current_dir().map_err(|e| e.to_string())?;
+            let path = cwd.join(explicit::config::CONFIG_FILE);
+            if !force {
+                if path.exists() {
+                    return Err(format!(
+                        "{} already exists (use --force to overwrite)",
+                        path.display()
+                    ));
+                }
+                if let Some(found) = explicit::config::find_config(&cwd) {
+                    return Err(format!(
+                        "{} already applies to this directory (use --force to write {} anyway)",
+                        found.display(),
+                        path.display()
+                    ));
+                }
             }
             std::fs::write(&path, include_str!("../explicit.example.toml"))
-                .map_err(|e| e.to_string())?;
+                .map_err(|e| format!("{}: {e}", path.display()))?;
             println!("Wrote {}", path.display());
             Ok(ExitCode::SUCCESS)
         }

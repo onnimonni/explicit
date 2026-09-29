@@ -1,21 +1,41 @@
-//! Persistent remote link status cache (`~/.cache/explicit/links.json`).
+//! Persistent remote link status cache (`<root>/.explicit_cache/links.json`).
+//!
+//! Lives in the project (next to the results cache) so each git worktree has its own.
 
 use std::collections::HashMap;
-use std::ffi::OsString;
 use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use serde::{Deserialize, Serialize};
 
 use super::remote::RemoteStatus;
+use crate::config::Config;
 
 /// Entries older than this are dropped on save, even for offline use.
 const MAX_AGE_SECS: u64 = 30 * 24 * 3600;
+const FILE: &str = "links.json";
+const CACHEDIR_TAG: &str = "Signature: 8a477f597d28d172789f06886806bc55\n\
+# This file is a cache directory tag created by explicit.\n\
+# For information about cache directory tags see https://bford.info/cachedir/\n";
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct Entry {
     pub status: RemoteStatus,
     pub checked_at_unix: u64,
+    /// Final response `Content-Type` of an image check (`""` when absent); `None` for plain link checks.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub content_type: Option<String>,
+}
+
+impl Entry {
+    fn is_ok(&self) -> bool {
+        matches!(self.status, RemoteStatus::Ok | RemoteStatus::Redirect(_))
+    }
+
+    /// Whether this entry answers an image check (failures do; successes need a content type).
+    pub fn serves_image(&self) -> bool {
+        !self.is_ok() || self.content_type.is_some()
+    }
 }
 
 #[derive(Debug, Default)]
@@ -32,17 +52,34 @@ pub fn now_unix() -> u64 {
         .map_or(0, |d| d.as_secs())
 }
 
-/// `$XDG_CACHE_HOME/explicit/links.json`, else `~/.cache/explicit/links.json`.
-pub fn default_path() -> Option<PathBuf> {
-    path_from(std::env::var_os("XDG_CACHE_HOME"), std::env::var_os("HOME"))
+/// Project cache directory: `[general] cache_dir` (relative to the root) or `.explicit_cache`.
+pub fn default_dir(config: &Config) -> PathBuf {
+    config.root.join(
+        config
+            .general
+            .cache_dir
+            .as_deref()
+            .unwrap_or(Path::new(crate::cache::DEFAULT_DIR)),
+    )
 }
 
-fn path_from(xdg: Option<OsString>, home: Option<OsString>) -> Option<PathBuf> {
-    let base = match xdg.map(PathBuf::from).filter(|p| p.is_absolute()) {
-        Some(x) => x,
-        None => PathBuf::from(home.filter(|h| !h.is_empty())?).join(".cache"),
-    };
-    Some(base.join("explicit").join("links.json"))
+/// Link cache file inside the cache directory `dir`.
+pub fn path_in(dir: &Path) -> PathBuf {
+    dir.join(FILE)
+}
+
+/// Create `dir` with a `.gitignore` ignoring everything and a `CACHEDIR.TAG`, if missing.
+fn prepare_dir(dir: &Path) -> std::io::Result<()> {
+    std::fs::create_dir_all(dir)?;
+    let gi = dir.join(".gitignore");
+    if !gi.exists() {
+        std::fs::write(&gi, "# Created by explicit.\n*\n")?;
+    }
+    let tag = dir.join("CACHEDIR.TAG");
+    if !tag.exists() {
+        std::fs::write(&tag, CACHEDIR_TAG)?;
+    }
+    Ok(())
 }
 
 fn read(path: &Path) -> HashMap<String, Entry> {
@@ -67,30 +104,37 @@ impl Cache {
         self.entries.get(url)
     }
 
-    /// Cached status if it is younger than its TTL (success and failure TTLs differ).
+    /// Cached entry if it is younger than its TTL (success and failure TTLs differ).
     pub fn fresh(
         &self,
         url: &str,
         now: u64,
         ok_ttl_hours: u64,
         fail_ttl_hours: u64,
-    ) -> Option<&RemoteStatus> {
+    ) -> Option<&Entry> {
         let e = self.entries.get(url)?;
-        let ttl = if matches!(e.status, RemoteStatus::Ok | RemoteStatus::Redirect(_)) {
+        let ttl = if e.is_ok() {
             ok_ttl_hours
         } else {
             fail_ttl_hours
         };
-        (now.saturating_sub(e.checked_at_unix) < ttl * 3600).then_some(&e.status)
+        (now.saturating_sub(e.checked_at_unix) < ttl.saturating_mul(3600)).then_some(e)
     }
 
-    pub fn insert(&mut self, url: String, status: RemoteStatus, now: u64) {
+    pub fn insert(
+        &mut self,
+        url: String,
+        status: RemoteStatus,
+        content_type: Option<String>,
+        now: u64,
+    ) {
         if status == RemoteStatus::Skipped {
             return;
         }
         let e = Entry {
             status,
             checked_at_unix: now,
+            content_type,
         };
         self.entries.insert(url.clone(), e.clone());
         self.dirty.insert(url, e);
@@ -111,7 +155,7 @@ impl Cache {
         let cutoff = now_unix().saturating_sub(MAX_AGE_SECS);
         merged.retain(|_, e| e.checked_at_unix >= cutoff);
         if let Some(dir) = path.parent() {
-            std::fs::create_dir_all(dir)?;
+            prepare_dir(dir)?;
         }
         let tmp = path.with_extension(format!("json.tmp.{}", std::process::id()));
         let data = serde_json::to_vec(&merged).map_err(std::io::Error::other)?;
@@ -129,16 +173,36 @@ mod tests {
     use super::*;
 
     #[test]
-    fn paths() {
-        assert_eq!(
-            path_from(Some("/x".into()), Some("/h".into())),
-            Some(PathBuf::from("/x/explicit/links.json"))
+    fn dir_prepared_and_old_entries_load() {
+        let dir = tempfile::tempdir().unwrap();
+        let cache_dir = dir.path().join(".explicit_cache");
+        let path = path_in(&cache_dir);
+        // Pre-image-check cache files have no `content_type`.
+        std::fs::create_dir_all(&cache_dir).unwrap();
+        std::fs::write(
+            &path,
+            r#"{"https://old":{"status":"Ok","checked_at_unix":5}}"#,
+        )
+        .unwrap();
+        let mut c = Cache::load(Some(path.clone()));
+        let old = c.get("https://old").unwrap();
+        assert_eq!(old.content_type, None);
+        assert!(!old.serves_image());
+        c.insert(
+            "https://img".into(),
+            RemoteStatus::Ok,
+            Some("image/png".into()),
+            now_unix(),
         );
-        assert_eq!(
-            path_from(Some("rel".into()), Some("/h".into())),
-            Some(PathBuf::from("/h/.cache/explicit/links.json"))
+        c.save().unwrap();
+        assert!(cache_dir.join(".gitignore").exists());
+        assert!(cache_dir.join("CACHEDIR.TAG").exists());
+        let c = Cache::load(Some(path));
+        assert!(c.get("https://img").unwrap().serves_image());
+        assert!(
+            c.get("https://old").is_none(),
+            "older than 30 days: dropped"
         );
-        assert_eq!(path_from(None, None), None);
     }
 
     #[test]
@@ -147,17 +211,21 @@ mod tests {
         let path = dir.path().join("sub/links.json");
         let now = now_unix();
         let mut c = Cache::load(Some(path.clone()));
-        c.insert("https://ok".into(), RemoteStatus::Ok, now - 2 * 3600);
+        c.insert("https://ok".into(), RemoteStatus::Ok, None, now - 2 * 3600);
         c.insert(
             "https://bad".into(),
             RemoteStatus::HttpError(404),
+            None,
             now - 2 * 3600,
         );
-        c.insert("https://skip".into(), RemoteStatus::Skipped, now);
+        c.insert("https://skip".into(), RemoteStatus::Skipped, None, now);
         c.save().unwrap();
         let c = Cache::load(Some(path.clone()));
-        assert_eq!(c.fresh("https://ok", now, 24, 1), Some(&RemoteStatus::Ok));
-        assert_eq!(c.fresh("https://bad", now, 24, 1), None);
+        assert_eq!(
+            c.fresh("https://ok", now, 24, 1).map(|e| &e.status),
+            Some(&RemoteStatus::Ok)
+        );
+        assert_eq!(c.fresh("https://bad", now, 24, 1).map(|e| &e.status), None);
         assert!(c.get("https://bad").is_some());
         assert!(c.get("https://skip").is_none());
         std::fs::write(&path, "{not json").unwrap();

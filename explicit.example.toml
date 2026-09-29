@@ -3,6 +3,8 @@
 [general]
 exclude = ["vendor/**", "CHANGELOG.md"]
 fail_on = "warning" # info | warning | error
+language = "en"     # non-English ("fi", "none", ...) keeps only structure and link rules
+detect_language = true # skip English prose rules on files that do not look like English
 
 # Rule id or glob -> off | info | warn | error. Run `explicit rules` for the list.
 [rules]
@@ -12,8 +14,11 @@ fail_on = "warning" # info | warning | error
 
 [prose]
 dialect = "american"
-accept = ["devenv", "rustc"]
+accept = ["devenv", "rustc"]  # case-insensitive; hyphenated entries like "pre-commit" work
+# accept_patterns = ["[A-Z]{2,}-\\d+"]  # regexes matching whole words
 # vocab_files = [".explicit/vocab.txt"]
+# grammar_level = "info"  # grammar/* default: "info" (high-confidence rules warn), "warning", "harper"
+# engine = "spellbook"  # "spellbook" (default: Hunspell, no Harper); with the `harper` feature also "hybrid", "harper", "curated"
 
 [comments]
 enabled = true
@@ -39,19 +44,33 @@ remote = true
 timeout_secs = 10
 exclude = ['^https?://localhost']
 # allow_private = false          # request localhost/private addresses (and redirects to them)
+# cache = true                   # keep results in <cache_dir>/links.json (also with --no-cache)
+# cache_ttl_hours = 168          # reuse OK link and image results for 7 days
+# cache_failed_ttl_hours = 1     # recheck failures after an hour
+# github_repo = "owner/repo"     # for links/same-repo-url; default: parsed from the git remote
+# github_default_branch = "main" # default: origin/HEAD, else main, master or HEAD
 
 [slop]
 # extra = [".explicit/slop.toml"]
 # disable = ["robust"]
 
 # Documentation-site rules: docs/toc-sync, docs/orphan-page (off by default),
-# docs/include-missing, docs/readme-absolute-image.
+# docs/include-missing.
 # Code block rules (`codeblock/*`) need no config; add `skip-lint` to a fence's
 # info string (```json skip-lint) to skip one block.
 [docs]
 root = "docs"                     # docs/orphan-page: pages here must be linked from another file
 orphan_exempt = ["docs/drafts/*"] # globs never reported as orphans (index.md, README.md, _*.md always are)
 include_dirs = ["_includes"]      # docs/include-missing: extra include search directories (after the file's directory and project root)
+
+# Per-path settings, applied in order. `paths` are gitignore-style globs relative to this
+# file. Markdown front matter `lang: fi` also marks a file as non-English.
+[[overrides]]
+paths = ["docs/fi/**"]
+language = "fi"
+# dialect = "british"
+# accept = ["Kalevala"]
+# rules = { "md/line-length" = "off" }
 
 # Vale-style rules.
 [[style]]

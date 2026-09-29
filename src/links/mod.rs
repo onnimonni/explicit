@@ -1,6 +1,7 @@
 //! Link checking: local files and anchors, reference definitions and remote URLs.
 
 pub mod cache;
+pub mod github;
 pub mod local;
 pub mod remote;
 

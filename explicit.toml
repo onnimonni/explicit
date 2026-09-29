@@ -12,5 +12,9 @@ exclude = ["tests/fixtures/**"]
 accept = [
   "aislop", "terrastruct", "scannerless", "Scannerless", "jison", "retext", "Flesch", "Kincaid",
   "Aho", "Corasick", "cmark", "autofix", "lexically", "Tunables", "unescaped", "Intraword",
-  "incl", "Ableist", "wordlists", "heavykenny", "merman", "textlint", "lookaround",
+  "incl", "Ableist", "wordlists", "heavykenny", "merman", "textlint", "lookaround", "explicitignore", "Prenominal",
 ]
+
+[slop]
+# `curated` is the name of Harper's dictionary API (`FstDictionary::curated()`).
+disable = ["curated"]

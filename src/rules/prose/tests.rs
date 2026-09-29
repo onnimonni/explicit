@@ -270,17 +270,19 @@ fn there_is() {
 // prose/so-start
 
 #[test]
-fn so_start_fix() {
-    let src = "So we added a cache.\n";
+fn so_start_suggestion_only() {
+    // No autofix: deleting "So" drops the causal link.
+    let src = "So the cache is cold.\n";
     let f = run("prose/so-start", src);
     assert_eq!(f.len(), 1);
     assert_eq!(text(src, &f[0]), "So");
-    assert_eq!(apply(src, &f[0]), "We added a cache.\n");
+    assert!(f[0].fix.is_none());
+    assert!(f[0].help.is_some());
 
     let src = "Ok. So, ärrä works.\n";
     let f = run("prose/so-start", src);
     assert_eq!(f.len(), 1);
-    assert_eq!(apply(src, &f[0]), "Ok. Ärrä works.\n");
+    assert!(f[0].fix.is_none());
 }
 
 #[test]

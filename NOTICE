@@ -86,3 +86,46 @@ upstream from Wikipedia's "Signs of AI writing" guide
 (https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), licensed under
 CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). Only the ideas
 behind those patterns are used here; no Wikipedia text is reproduced.
+
+------------------------------------------------------------------------------
+Hunspell English dictionaries (SCOWL)
+------------------------------------------------------------------------------
+
+dictionaries/en and dictionaries/en-GB (used by the experimental
+`prose.engine = "spellbook" | "hybrid"`) come from wooorm/dictionaries:
+
+  Source:    https://github.com/wooorm/dictionaries
+  Files:     dictionaries/en/index.{aff,dic}, dictionaries/en-GB/index.{aff,dic}
+
+Their licenses (SCOWL and derived word lists) are in dictionaries/en/license
+and dictionaries/en-GB/license.
+
+------------------------------------------------------------------------------
+Harper curated dictionary
+------------------------------------------------------------------------------
+
+dictionaries/harper/words.tsv.zlib is generated from the curated English
+dictionary of harper-core (word list, dialects and word classes) by
+scripts/update-harper-words.sh; the harper-core version is in its header line.
+Builds with the `harper` cargo feature also link harper-core itself.
+
+  Source:    https://github.com/Automattic/harper
+  Files:     harper-core/dictionary.dict, harper-core/annotations.json
+             (as expanded by harper_core::spell::MutableDictionary::curated)
+
+Copyright Automattic and the Harper contributors
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at
+
+  https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.
+
+Changes from upstream: only each word's spelling, dialect flags and a fixed set
+of word-class bits (noun, verb, adjective, verb forms, ...) are kept, in a
+sorted, zlib-compressed TSV file.

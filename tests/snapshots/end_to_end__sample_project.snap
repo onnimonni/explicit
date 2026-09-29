@@ -14,7 +14,7 @@ README.md:15:6 error diagram/mermaid
 README.md:20:3 warning diagram/d2
 README.md:25:9 error codeblock/json
 README.md:28:3 error md/alert-syntax
-README.md:31:9 warning grammar/OrthographicConsistency
+README.md:31:9 warning prose/terminology
 README.md:31:26 warning md/descriptive-link-text
 src/lib.rs:1:4 info slop/comment-banner
 src/lib.rs:2:33 warning slop/comment-plan

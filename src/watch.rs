@@ -191,7 +191,7 @@ fn render(results: &HashMap<PathBuf, Vec<Diagnostic>>, ws: &Workspace, format: F
     if format == Format::Human {
         let _ = write!(out, "\x1b[2J\x1b[H");
     }
-    let _ = output::write(format, &all, &sources, &mut out);
+    let _ = output::write(format, &all, &sources, &ws.root, &mut out);
     let _ = out.flush();
 }
 

@@ -124,15 +124,12 @@ fn emphasis_space(c: &Ctx, out: &mut Out) {
                 p = if spaced { s } else { q + n };
                 continue;
             }
-            let r = l.body + s..l.body + q;
-            let trimmed = c.src[r.clone()].trim_matches([' ', '\t']).to_string();
-            out.push(
-                c.finding(
-                    "md/no-space-in-emphasis",
-                    l.body + p..l.body + q + n,
-                    "Spaces inside emphasis markers",
-                )
-                .fix(r, trimmed),
+            c.edge_spaces(
+                "md/no-space-in-emphasis",
+                "emphasis markers",
+                l.body + s..l.body + q,
+                (n, n),
+                out,
             );
             p = q + n;
         }
@@ -181,10 +178,12 @@ fn link_space(c: &Ctx, out: &mut Out) {
         if t.is_empty() || t.len() == inner.len() {
             continue;
         }
-        let r = l.range.start + 1..l.range.start + e;
-        out.push(
-            c.finding("md/no-space-in-links", r.clone(), "Spaces inside link text")
-                .fix(r, t),
+        c.edge_spaces(
+            "md/no-space-in-links",
+            "link text",
+            l.range.start + 1..l.range.start + e,
+            (1, 1),
+            out,
         );
     }
 }

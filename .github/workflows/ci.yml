@@ -23,6 +23,10 @@ jobs:
       - run: cargo fmt --check
       - run: cargo clippy --all-targets -- -D warnings
       - run: cargo test
+      - name: Full build (Harper)
+        run: |
+          cargo clippy --all-targets --features harper -- -D warnings
+          cargo test --features harper
       - name: Lint this repository with explicit
         run: cargo run --quiet -- check --no-remote --format github .
 
@@ -50,4 +54,6 @@ jobs:
           skipPush: ${{ github.event_name == 'pull_request' }}
       - run: nix build .#packages.${{ matrix.system }}.default --print-build-logs
       - run: ./result/bin/explicit --version
+      - run: nix build .#packages.${{ matrix.system }}.explicit-full --print-build-logs --out-link result-full
+      - run: ./result-full/bin/explicit --version
       - run: nix flake check --no-build

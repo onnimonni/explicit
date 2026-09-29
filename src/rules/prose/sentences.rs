@@ -6,10 +6,10 @@ use std::sync::LazyLock;
 
 use regex::Regex;
 
-use super::{WORD_RE, capitalize, quoted, sentences, sev, verbatim};
+use super::{WORD_RE, quoted, sentences, sev};
 use crate::diagnostic::Finding;
 use crate::rules::{FileCtx, Out};
-use crate::segment::{Segment, SegmentKind};
+use crate::segment::Segment;
 
 /// Irregular past participles (write-good), minus forms that are mostly adjectives or
 /// identical to common base verbs (set, put, cut, let, read, run...).
@@ -163,7 +163,7 @@ static PASSIVE_RE: LazyLock<Regex> = LazyLock::new(|| {
     .expect("hardcoded regex is valid")
 });
 
-/// Weasel words not already covered by the slop catalogue (extremely, various, truly...).
+/// Weasel words not already covered by the slop catalog (extremely, various, truly...).
 static WEASEL_RE: LazyLock<Regex> = LazyLock::new(|| {
     Regex::new(
         r"(?i)\b(?:very|really|quite|fairly|rather|mostly|largely|it is said|it has been said|it is believed|some people (?:say|think|believe)|many people (?:say|think|believe)|some say|experts (?:say|agree|believe)|studies show|research shows)\b",
@@ -219,7 +219,7 @@ pub fn check(ctx: &FileCtx, out: &mut Out) {
                     there_is(seg, s.start, text, out);
                 }
                 if so {
-                    so_start(ctx.src(), seg, s.start, text, out);
+                    so_start(seg, s.start, text, out);
                 }
                 if length {
                     let words = WORD_RE.find_iter(text).count();
@@ -322,7 +322,7 @@ fn there_is(seg: &Segment, start: usize, text: &str, out: &mut Out) {
     }
 }
 
-fn so_start(src: &str, seg: &Segment, start: usize, text: &str, out: &mut Out) {
+fn so_start(seg: &Segment, start: usize, text: &str, out: &mut Out) {
     const RULE: &str = "prose/so-start";
     let Some(c) = SO_RE.captures(text) else {
         return;
@@ -331,25 +331,16 @@ fn so_start(src: &str, seg: &Segment, start: usize, text: &str, out: &mut Out) {
     if SO_KEEP.contains(&next.as_str().to_lowercase().as_str()) {
         return;
     }
-    let first = next
-        .as_str()
-        .chars()
-        .next()
-        .expect("regex group 1 starts with a letter");
-    let fix_range = start..start + next.start() + first.len_utf8();
-    let mut f = Finding::new(
-        RULE,
-        sev(RULE),
-        seg.abs(start..start + 2),
-        "Sentence starts with \"So\"",
-    )
-    .help("Delete it; the sentence works without it.");
-    let one_line = !seg.text[fix_range.clone()].contains('\n');
-    // Heading edits would change the anchor; no fix there.
-    if one_line && seg.kind != SegmentKind::Heading && verbatim(src, seg, &fix_range) {
-        f = f.fix(seg.abs(fix_range), capitalize(&first.to_string()));
-    }
-    out.push(f);
+    // Suggestion only: "So" often carries a causal link that plain deletion loses.
+    out.push(
+        Finding::new(
+            RULE,
+            sev(RULE),
+            seg.abs(start..start + 2),
+            "Sentence starts with \"So\"",
+        )
+        .help("Delete it; the sentence works without it."),
+    );
 }
 
 fn spacing_seg(src: &str, seg: &Segment, out: &mut Out) {
@@ -378,6 +369,7 @@ fn spacing_seg(src: &str, seg: &Segment, out: &mut Out) {
 #[cfg(test)]
 mod weasel_tests {
     use super::*;
+    use crate::segment::SegmentKind;
 
     fn hits(text: &str) -> Vec<String> {
         let seg = Segment {

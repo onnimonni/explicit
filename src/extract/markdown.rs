@@ -20,7 +20,7 @@ pub static URL_RE: LazyLock<Regex> = LazyLock::new(|| {
 /// slashes or a leading `./`, `../`, `~/` or `/`, so `and/or`, `TCP/IP` and `24/7` stay prose.
 pub static PATH_RE: LazyLock<Regex> = LazyLock::new(|| {
     Regex::new(concat!(
-        r"\b[\w-]{2,}(?:/[\w.-]+)*\.[A-Za-z][A-Za-z0-9]{0,9}\b",
+        r"\b[\w-]{2,}(?:/[\w.-]+)*\.[A-Za-z][A-Za-z0-9]{0,9}\b(?::\d+(?:[-–]\d+)?)?",
         // Path segments never end in `.`, so a sentence-ending period stays prose.
         r"|\b[\w.-]*[\w-](?:/[\w.-]*[\w-]){2,}/?",
         r"|(?:\.\.?/|~/|/)[\w.-]*[\w-](?:/[\w.-]*[\w-])*/?",
@@ -68,6 +68,10 @@ mod path_re_tests {
     #[test]
     fn real_paths_are_found() {
         assert_eq!(paths("Edit explicit.toml now."), ["explicit.toml"]);
+        assert_eq!(
+            paths("See app.js:80-139 and lib.rs:7."),
+            ["app.js:80-139", "lib.rs:7"]
+        );
         assert_eq!(
             paths("See src/rules/mod and docs/x.md."),
             ["src/rules/mod", "docs/x.md"]
@@ -275,9 +279,9 @@ pub fn parse(src: &str) -> MdDoc {
                 return;
             }
             let mut seg = Segment::from_ranges(src, b.start..end, &b.keep, b.kind);
-            for u in non_prose_ranges(&seg) {
-                seg.blank(u);
-            }
+            let mut blanks = non_prose_ranges(&seg);
+            blanks.extend(crate::segment::noise_ranges(&seg));
+            seg.blank_all(&blanks);
             if !seg.is_blank() {
                 out.push(seg);
             }

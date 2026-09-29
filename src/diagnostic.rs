@@ -24,13 +24,13 @@ impl Severity {
 }
 
 /// A text edit on the original file. Only attached when applying it is safe.
-#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize)]
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub struct Fix {
     pub range: Range<usize>,
     pub replacement: String,
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct Diagnostic {
     pub path: PathBuf,
     pub rule: String,
@@ -39,13 +39,30 @@ pub struct Diagnostic {
     pub range: Range<usize>,
     pub line: usize,
     pub column: usize,
+    /// Position just past the range (1-based line, column in characters).
+    pub end_line: usize,
+    pub end_column: usize,
+    /// Flagged source text (the range), truncated to [`MAX_TEXT_CHARS`] characters.
+    pub text: String,
     pub message: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub help: Option<String>,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub suggestions: Vec<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub fix: Option<Fix>,
+}
+
+/// Longest [`Diagnostic::text`] kept, in characters.
+pub const MAX_TEXT_CHARS: usize = 200;
+
+/// `src[range]` cut to [`MAX_TEXT_CHARS`] characters (with a trailing `…` when cut).
+pub fn snippet(src: &str, range: &Range<usize>) -> String {
+    let s = src.get(range.clone()).unwrap_or("");
+    match s.char_indices().nth(MAX_TEXT_CHARS) {
+        Some((i, _)) => format!("{}…", &s[..i]),
+        None => s.to_string(),
+    }
 }
 
 /// What a rule emits; path, line and column get filled in by the engine.
@@ -94,5 +111,18 @@ impl Finding {
             replacement: replacement.into(),
         });
         self
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn snippet_truncates_on_char_boundary() {
+        let s = "ä".repeat(250);
+        let t = super::snippet(&s, &(0..s.len()));
+        assert_eq!(t.chars().count(), super::MAX_TEXT_CHARS + 1);
+        assert!(t.ends_with('…'));
+        assert_eq!(super::snippet("abc", &(1..3)), "bc");
+        assert_eq!(super::snippet("abc", &(5..9)), "");
     }
 }

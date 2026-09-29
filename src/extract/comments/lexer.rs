@@ -838,6 +838,11 @@ impl<'a> Lexer<'a> {
             }
             p = newline + 1;
         }
+        if kind == CommentKind::Docstring || (kind == CommentKind::Doc && self.lang == Lang::Elixir)
+        {
+            let column = start - self.starts[start_line];
+            self.dedent(&mut lines, column);
+        }
         self.advance(end, false);
         if line_comment
             && !trailing
@@ -867,6 +872,35 @@ impl<'a> Lexer<'a> {
             end_line: self.line,
             line_comment,
         });
+    }
+
+    /// Strip the common indentation of a docstring's continuation lines (PEP 257), so an
+    /// indented method docstring is not mistaken for an indented code block. The docstring's
+    /// own column caps the strip, so deeper lines in a module docstring stay indented code.
+    /// Blank lines become empty.
+    fn dedent(&self, lines: &mut [CommentLine], column: usize) {
+        let indent = |l: &CommentLine| {
+            self.bytes[l.content.clone()]
+                .iter()
+                .take_while(|&&b| matches!(b, b' ' | b'\t'))
+                .count()
+        };
+        let common = lines
+            .iter()
+            .skip(1)
+            .filter(|l| indent(l) < l.content.len())
+            .map(indent)
+            .min()
+            .unwrap_or(0)
+            .min(column);
+        for l in lines.iter_mut().skip(1) {
+            let shift = if indent(l) == l.content.len() {
+                l.content.len()
+            } else {
+                common
+            };
+            l.content.start += shift;
+        }
     }
 
     fn finish(mut self) -> Vec<CommentBlock> {

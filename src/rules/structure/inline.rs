@@ -102,14 +102,17 @@ fn code_spaces(c: &Ctx, out: &mut Out) {
         if lead == 1 && trail == 1 && (core.starts_with('`') || core.ends_with('`')) {
             continue;
         }
-        let f = c.finding("md/no-space-in-code", sp.clone(), "Spaces inside code span");
-        let s = sp.start + n;
-        let e = sp.end - n;
-        out.push(if core.starts_with('`') || core.ends_with('`') {
-            f
-        } else {
-            f.fix(s..e, core)
-        });
+        if core.starts_with('`') || core.ends_with('`') {
+            out.push(c.finding("md/no-space-in-code", sp.clone(), "Spaces inside code span"));
+            continue;
+        }
+        c.edge_spaces(
+            "md/no-space-in-code",
+            "code span",
+            sp.start + n..sp.end - n,
+            (n, n),
+            out,
+        );
     }
 }
 

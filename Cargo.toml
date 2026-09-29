@@ -1,6 +1,6 @@
 [package]
 name = "explicit"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 description = "Lint prose in Markdown and code comments: structure, spelling, grammar, AI slop, links and diagrams"
 license = "MIT OR Apache-2.0"
@@ -12,9 +12,11 @@ categories = ["command-line-utilities", "development-tools", "text-processing"]
 [dependencies]
 aho-corasick = "1.1.5"
 clap = { version = "4", features = ["derive"] }
-harper-core = { version = "2.11", default-features = false, features = ["concurrent"] }
+harper-core = { version = "2.11", default-features = false, features = ["concurrent"], optional = true }
 ignore = "0.4.33"
 merman-core = { version = "=0.8.0-alpha.6", optional = true, default-features = false }
+miniz_oxide = "0.9"
+mimalloc = { version = "0.1.52", default-features = false }
 notify = "8"
 notify-debouncer-mini = "0.7"
 pulldown-cmark = { version = "0.13", default-features = false }
@@ -22,6 +24,7 @@ regex = "1.13.1"
 saphyr-parser = "0.1.0"
 serde = { version = "1.0.229", features = ["derive"] }
 serde_json = "1.0.151"
+spellbook = "0.4.2"
 toml = "1"
 ureq = { version = "3", default-features = false, features = ["rustls"] }
 
@@ -32,6 +35,13 @@ tempfile = "3.27.0"
 [features]
 default = ["mermaid"]
 mermaid = ["dep:merman-core"]
+# Opt-in Harper grammar engines (`harper`, `curated`, `hybrid`): `--features harper`. The
+# default build runs `spellbook` with the same spelling and word-class data (dictionaries/harper).
+harper = ["dep:harper-core"]
+
+[[example]]
+name = "export_harper_words"
+required-features = ["harper"]
 
 [profile.release]
 lto = "thin"

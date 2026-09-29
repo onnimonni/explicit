@@ -2,10 +2,11 @@
 
 use std::collections::{HashMap, HashSet, VecDeque};
 use std::ops::Range;
-use std::path::PathBuf;
-use std::sync::{Condvar, Mutex};
+use std::path::{Path, PathBuf};
+use std::sync::{Condvar, LazyLock, Mutex};
 use std::time::{Duration, Instant};
 
+use regex::Regex;
 use serde::{Deserialize, Serialize};
 
 use super::cache::{Cache, now_unix};
@@ -26,6 +27,9 @@ pub enum RemoteStatus {
     Unreachable(String),
     /// Not checked (offline without cache entry, excluded).
     Skipped,
+    /// Image URL answers 2xx with an HTML page (login wall, soft 404); holds the Content-Type.
+    /// Derived per run for image URLs, never cached.
+    NotImage(String),
 }
 
 const MAX_REDIRECTS: usize = 5;
@@ -40,10 +44,13 @@ const USER_AGENT: &str = concat!(
     ")"
 );
 const ACCEPT: &str = "text/html,application/xhtml+xml,*/*;q=0.8";
+/// What browsers send for `<img>`; asking for HTML would invite content negotiation to an HTML viewer page.
+const ACCEPT_IMAGE: &str = "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8";
 
 /// Tunables for `check_all_with` (tests use a temp cache and no pacing).
 #[derive(Debug, Clone)]
 pub struct CheckOpts {
+    /// Link cache file; `None` disables the cache.
     pub cache_path: Option<PathBuf>,
     /// Minimum time between starting requests to the same host.
     pub min_interval: Duration,
@@ -52,19 +59,69 @@ pub struct CheckOpts {
 impl Default for CheckOpts {
     fn default() -> Self {
         CheckOpts {
-            cache_path: super::cache::default_path(),
+            cache_path: None,
             min_interval: Duration::from_millis(250),
         }
     }
 }
 
-/// Check all URLs, using and updating the on-disk cache.
-pub fn check_all(urls: &[String], config: &Config) -> HashMap<String, RemoteStatus> {
-    check_all_with(urls, config, &CheckOpts::default())
+/// A remote URL to check; `image` URLs must also serve something other than an HTML page.
+#[derive(Debug, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
+pub struct Target {
+    pub url: String,
+    pub image: bool,
+}
+
+impl Target {
+    pub fn link(url: impl Into<String>) -> Target {
+        Target {
+            url: url.into(),
+            image: false,
+        }
+    }
+
+    pub fn image(url: impl Into<String>) -> Target {
+        Target {
+            url: url.into(),
+            image: true,
+        }
+    }
+}
+
+/// Check all URLs, using and updating the link cache at `cache_path` (`None`: no cache).
+pub fn check_all(
+    targets: &[Target],
+    config: &Config,
+    cache_path: Option<PathBuf>,
+) -> HashMap<String, RemoteStatus> {
+    check_all_with(
+        targets,
+        config,
+        &CheckOpts {
+            cache_path,
+            ..CheckOpts::default()
+        },
+    )
+}
+
+/// Final Content-Type is an HTML page.
+fn is_html(content_type: &str) -> bool {
+    let mime = content_type.split(';').next().unwrap_or("").trim();
+    mime.eq_ignore_ascii_case("text/html") || mime.eq_ignore_ascii_case("application/xhtml+xml")
+}
+
+/// Status reported for a URL: image URLs that turn out to be HTML pages become `NotImage`.
+fn verdict(status: &RemoteStatus, content_type: Option<&str>, image: bool) -> RemoteStatus {
+    match (status, content_type) {
+        (RemoteStatus::Ok | RemoteStatus::Redirect(_), Some(ct)) if image && is_html(ct) => {
+            RemoteStatus::NotImage(ct.to_string())
+        }
+        _ => status.clone(),
+    }
 }
 
 pub fn check_all_with(
-    urls: &[String],
+    targets: &[Target],
     config: &Config,
     opts: &CheckOpts,
 ) -> HashMap<String, RemoteStatus> {
@@ -72,25 +129,33 @@ pub fn check_all_with(
     let mut cache = Cache::load(opts.cache_path.clone());
     let now = now_unix();
     let mut result = HashMap::new();
-    let mut todo: VecDeque<String> = VecDeque::new();
-    let mut seen = HashSet::new();
-    for url in urls {
-        let key = strip_fragment(url).to_string();
-        if !seen.insert(key.clone()) {
-            continue;
+    // A URL used both as a link and as an image is checked as an image.
+    let mut wanted: HashMap<String, bool> = HashMap::new();
+    let mut order = Vec::new();
+    for t in targets {
+        let key = strip_fragment(&t.url).to_string();
+        match wanted.get_mut(&key) {
+            Some(img) => *img |= t.image,
+            None => {
+                wanted.insert(key.clone(), t.image);
+                order.push(key);
+            }
         }
+    }
+    let mut todo: VecDeque<String> = VecDeque::new();
+    for key in order {
+        let image = wanted[&key];
         let status = if !is_http(&key) || is_excluded(config, &key) {
             Some(RemoteStatus::Skipped)
-        } else if let Some(s) =
-            cache.fresh(&key, now, lc.cache_ttl_hours, lc.cache_failed_ttl_hours)
+        } else if let Some(e) = cache
+            .fresh(&key, now, lc.cache_ttl_hours, lc.cache_failed_ttl_hours)
+            .filter(|e| !image || e.serves_image())
         {
-            Some(s.clone())
+            Some(verdict(&e.status, e.content_type.as_deref(), image))
         } else if lc.offline {
-            Some(
-                cache
-                    .get(&key)
-                    .map_or(RemoteStatus::Skipped, |e| e.status.clone()),
-            )
+            Some(cache.get(&key).map_or(RemoteStatus::Skipped, |e| {
+                verdict(&e.status, e.content_type.as_deref(), image)
+            }))
         } else {
             None
         };
@@ -120,26 +185,31 @@ pub fn check_all_with(
         cv: Condvar::new(),
         interval: opts.min_interval,
     };
-    let checked: Mutex<Vec<(String, RemoteStatus)>> = Mutex::new(Vec::new());
+    type Checked = (String, RemoteStatus, Option<String>);
+    let checked: Mutex<Vec<Checked>> = Mutex::new(Vec::new());
     let workers = lc.concurrency.max(1).min(sched.len());
     std::thread::scope(|s| {
         for _ in 0..workers {
             s.spawn(|| {
                 while let Some((url, host)) = sched.next() {
-                    let status = check_url(&agent, &url, config);
+                    let image = wanted.get(&url).copied().unwrap_or(false);
+                    let (status, content_type) = check_url(&agent, &url, config, image);
                     sched.done(&host);
-                    checked
-                        .lock()
-                        .unwrap_or_else(|e| e.into_inner())
-                        .push((url, status));
+                    checked.lock().unwrap_or_else(|e| e.into_inner()).push((
+                        url,
+                        status,
+                        content_type,
+                    ));
                 }
             });
         }
     });
     let now = now_unix();
-    for (url, status) in checked.into_inner().unwrap_or_else(|e| e.into_inner()) {
-        cache.insert(url.clone(), status.clone(), now);
-        result.insert(url, status);
+    for (url, status, content_type) in checked.into_inner().unwrap_or_else(|e| e.into_inner()) {
+        let image = wanted.get(&url).copied().unwrap_or(false);
+        let shown = verdict(&status, content_type.as_deref(), image);
+        cache.insert(url.clone(), status, content_type, now);
+        result.insert(url, shown);
     }
     if let Err(e) = cache.save() {
         eprintln!("explicit: could not write link cache: {e}");
@@ -260,13 +330,15 @@ struct Resp {
     status: u16,
     location: Option<String>,
     retry_after: Option<String>,
+    content_type: Option<String>,
 }
 
-fn send(agent: &ureq::Agent, get: bool, url: &str) -> Result<Resp, String> {
+fn send(agent: &ureq::Agent, get: bool, url: &str, image: bool) -> Result<Resp, String> {
+    let accept = if image { ACCEPT_IMAGE } else { ACCEPT };
     let r = if get {
-        agent.get(url).header("Accept", ACCEPT).call()
+        agent.get(url).header("Accept", accept).call()
     } else {
-        agent.head(url).header("Accept", ACCEPT).call()
+        agent.head(url).header("Accept", accept).call()
     };
     // The body is dropped unread: only the status line and headers matter.
     let resp = r.map_err(|e| e.to_string())?;
@@ -280,11 +352,12 @@ fn send(agent: &ureq::Agent, get: bool, url: &str) -> Result<Resp, String> {
         status: resp.status().as_u16(),
         location: header("location"),
         retry_after: header("retry-after"),
+        content_type: header("content-type"),
     })
 }
 
-fn send_retry(agent: &ureq::Agent, get: bool, url: &str) -> Result<Resp, String> {
-    let r = send(agent, get, url)?;
+fn send_retry(agent: &ureq::Agent, get: bool, url: &str, image: bool) -> Result<Resp, String> {
+    let r = send(agent, get, url, image)?;
     if r.status != 429 {
         return Ok(r);
     }
@@ -294,53 +367,68 @@ fn send_retry(agent: &ureq::Agent, get: bool, url: &str) -> Result<Resp, String>
         .and_then(|s| s.trim().parse::<u64>().ok())
         .map_or(Duration::from_secs(1), Duration::from_secs);
     std::thread::sleep(wait.min(MAX_RETRY_AFTER));
-    send(agent, get, url)
+    send(agent, get, url, image)
 }
 
 /// HEAD, falling back to GET when the server rejects HEAD.
-fn fetch(agent: &ureq::Agent, url: &str) -> Result<Resp, String> {
-    let r = send_retry(agent, false, url)?;
+fn fetch(agent: &ureq::Agent, url: &str, image: bool) -> Result<Resp, String> {
+    let r = send_retry(agent, false, url, image)?;
     if ((400..500).contains(&r.status) && r.status != 429) || r.status == 501 {
-        return send_retry(agent, true, url);
+        return send_retry(agent, true, url, image);
     }
     Ok(r)
 }
 
-fn check_url(agent: &ureq::Agent, url: &str, config: &Config) -> RemoteStatus {
+/// Status of `url` and, for image checks, the final Content-Type (`""` when absent).
+fn check_url(
+    agent: &ureq::Agent,
+    url: &str,
+    config: &Config,
+    image: bool,
+) -> (RemoteStatus, Option<String>) {
     let accept = &config.links.accept_status;
     let mut current = url.to_string();
     let mut permanent = true;
     // Resolved here (in a worker) rather than while planning, so DNS lookups run in parallel.
     if !config.links.allow_private && is_private_url(url) {
-        return RemoteStatus::Skipped;
+        return (RemoteStatus::Skipped, None);
     }
     for _ in 0..=MAX_REDIRECTS {
         if current != url
             && let Some(refused) = refuse_hop(config, &current)
         {
-            return refused;
+            return (refused, None);
         }
-        let r = match fetch(agent, &current) {
+        let r = match fetch(agent, &current, image) {
             Ok(r) => r,
-            Err(e) => return RemoteStatus::Unreachable(e),
+            Err(e) => return (RemoteStatus::Unreachable(e), None),
         };
         if (200..300).contains(&r.status) || accept.contains(&r.status) {
-            return if current != url && permanent {
+            let status = if current != url && permanent {
                 RemoteStatus::Redirect(current)
             } else {
                 RemoteStatus::Ok
             };
+            // Accepted non-2xx statuses (e.g. 429) carry an error page, not the resource.
+            let ct = (200..300)
+                .contains(&r.status)
+                .then_some(r.content_type)
+                .flatten();
+            return (status, image.then(|| ct.unwrap_or_default()));
         }
         match (r.status, r.location) {
             (301 | 302 | 303 | 307 | 308, Some(loc)) => {
                 permanent &= matches!(r.status, 301 | 308);
                 current = join_url(&current, loc.trim());
             }
-            (s, _) if BLOCKED_STATUSES.contains(&s) => return RemoteStatus::Blocked(s),
-            (s, _) => return RemoteStatus::HttpError(s),
+            (s, _) if BLOCKED_STATUSES.contains(&s) => return (RemoteStatus::Blocked(s), None),
+            (s, _) => return (RemoteStatus::HttpError(s), None),
         }
     }
-    RemoteStatus::Unreachable(format!("more than {MAX_REDIRECTS} redirects"))
+    (
+        RemoteStatus::Unreachable(format!("more than {MAX_REDIRECTS} redirects")),
+        None,
+    )
 }
 
 /// Why a redirect target must not be requested: excluded, not http(s), or a private address.
@@ -439,6 +527,20 @@ fn is_private_url(url: &str) -> bool {
 struct Occurrence {
     url: String,
     range: Range<usize>,
+    image: bool,
+}
+
+/// `srcset` attributes of `<img>` / `<source>` tags.
+static SRCSET_RE: LazyLock<Regex> = LazyLock::new(|| {
+    Regex::new(r#"(?i)<(?:img|source)\b[^>]*?\ssrcset\s*=\s*["']([^"']+)["']"#)
+        .expect("hardcoded regex is valid")
+});
+
+/// First URL of a `srcset` value (`a.png 1x, b.png 2x` -> `a.png`).
+fn srcset_first(v: &str) -> Option<&str> {
+    let first = v.trim_start().split(char::is_whitespace).next()?;
+    let first = first.trim_end_matches(',');
+    (!first.is_empty()).then_some(first)
 }
 
 fn occurrences(ctx: &FileCtx) -> Vec<Occurrence> {
@@ -454,8 +556,15 @@ fn occurrences(ctx: &FileCtx) -> Vec<Occurrence> {
             v.push(Occurrence {
                 url: link.dest.clone(),
                 range: exact.unwrap_or_else(|| report_range(src, link)),
+                image: link.is_image,
             });
         }
+        let image_labels: HashSet<&str> = md
+            .links
+            .iter()
+            .filter(|l| l.kind == LinkKind::Reference && l.is_image)
+            .filter_map(|l| l.label.as_deref())
+            .collect();
         for d in md.ref_defs.iter().filter(|d| is_http(&d.dest)) {
             let exact = src
                 .get(d.range.clone())
@@ -464,21 +573,77 @@ fn occurrences(ctx: &FileCtx) -> Vec<Occurrence> {
             v.push(Occurrence {
                 url: d.dest.clone(),
                 range: exact.unwrap_or(d.range.clone()),
+                image: image_labels.contains(d.label.as_str()),
             });
         }
+        for r in &md.html {
+            let Some(raw) = src.get(r.clone()) else {
+                continue;
+            };
+            for c in SRCSET_RE.captures_iter(raw) {
+                let (Some(m), Some(url)) =
+                    (c.get(1), c.get(1).and_then(|m| srcset_first(m.as_str())))
+                else {
+                    continue;
+                };
+                if !is_http(url) {
+                    continue;
+                }
+                let at = r.start + m.start() + m.as_str().find(url).unwrap_or(0);
+                v.push(Occurrence {
+                    url: url.to_string(),
+                    range: at..at + url.len(),
+                    image: true,
+                });
+            }
+        }
+        v.sort_by_key(|o| o.range.start);
     } else {
         for (url, range) in super::local::comment_urls(ctx.a) {
-            v.push(Occurrence { url, range });
+            v.push(Occurrence {
+                url,
+                range,
+                image: false,
+            });
         }
     }
     v
 }
 
+/// Finding for an image URL that fails, or `None` when it is fine.
+fn image_finding(url: &str, status: &RemoteStatus, range: Range<usize>) -> Option<Finding> {
+    let rule = "links/image-url";
+    let f = |msg: String| Finding::new(rule, sev(rule), range.clone(), msg);
+    Some(match status {
+        RemoteStatus::HttpError(code) => f(format!("Image `{url}` returns HTTP {code}")),
+        RemoteStatus::Blocked(code) => f(format!(
+            "Image `{url}` returns HTTP {code}: blocked or requires auth"
+        ))
+        .help("Readers without access see a broken image; host it in the repository or a public location"),
+        RemoteStatus::Unreachable(e) => f(format!("Image `{url}` is unreachable: {e}")),
+        RemoteStatus::NotImage(ct) => f(format!(
+            "Image `{url}` returns an HTML page, not an image (Content-Type `{ct}`)"
+        ))
+        .help("Usually a login wall, a soft 404 or an image viewer page; link the raw image file"),
+        RemoteStatus::Ok | RemoteStatus::Redirect(_) | RemoteStatus::Skipped => return None,
+    })
+}
+
 /// Report statuses for the remote links of one file.
 pub fn report(ctx: &FileCtx, statuses: &HashMap<String, RemoteStatus>, out: &mut Out) {
+    let image_rule = ctx.enabled("links/image-url");
     for o in occurrences(ctx) {
         let url = &o.url;
-        match statuses.get(strip_fragment(url)) {
+        let status = statuses.get(strip_fragment(url));
+        if o.image
+            && image_rule
+            && let Some(s) = status
+            && let Some(f) = image_finding(url, s, o.range.clone())
+        {
+            out.push(f);
+            continue;
+        }
+        match status {
             Some(RemoteStatus::HttpError(code)) => {
                 out.push(Finding::new(
                     "links/http-error",
@@ -522,16 +687,40 @@ pub fn report(ctx: &FileCtx, statuses: &HashMap<String, RemoteStatus>, out: &mut
                     .suggest(new),
                 );
             }
-            Some(RemoteStatus::Ok | RemoteStatus::Skipped) | None => {}
+            // Only image occurrences care whether the response is an HTML page.
+            Some(RemoteStatus::Ok | RemoteStatus::Skipped | RemoteStatus::NotImage(_)) | None => {}
         }
     }
 }
 
-/// Remote URLs linked from a file, without fragments.
-pub fn urls(ctx: &FileCtx) -> Vec<String> {
-    let mut v: Vec<String> = occurrences(ctx)
+/// Remote URLs of a file to check, without fragments: images when `links/image-url` is on
+/// (else as plain links), other links when any `links/http-*` rule is on.
+pub fn urls(ctx: &FileCtx) -> Vec<Target> {
+    let image_rule = ctx.enabled("links/image-url");
+    let http_rules = ctx.family_enabled("links/http");
+    // URLs that `links/same-repo-url` rewrites to local paths need no request.
+    let same_repo = ctx
+        .a
+        .md
+        .as_ref()
+        .filter(|_| ctx.enabled("links/same-repo-url"))
+        .and_then(|_| super::github::repo(ctx));
+    let from = ctx.a.file.path.parent().unwrap_or(Path::new(""));
+    let mut v: Vec<Target> = occurrences(ctx)
         .into_iter()
-        .map(|o| strip_fragment(&o.url).to_string())
+        .filter(|o| {
+            same_repo
+                .as_ref()
+                .is_none_or(|r| !super::github::is_rewritable(r, &o.url, from))
+        })
+        .filter_map(|o| {
+            let url = strip_fragment(&o.url).to_string();
+            match (o.image && image_rule, http_rules) {
+                (true, _) => Some(Target::image(url)),
+                (false, true) => Some(Target::link(url)),
+                (false, false) => None,
+            }
+        })
         .collect();
     v.sort();
     v.dedup();
@@ -609,6 +798,12 @@ mod tests {
             "/bot-wall" => (403, String::new()),
             "/to-admin" => (302, format!("Location: {base}/admin\r\n")),
             "/admin" => (200, String::new()),
+            "/img.png" => (200, "Content-Type: image/png\r\n".into()),
+            "/login.png" => (200, "Content-Type: text/html; charset=utf-8\r\n".into()),
+            "/moved.png" => (301, "Location: /login.png\r\n".into()),
+            "/raw.bin" => (200, "Content-Type: application/octet-stream\r\n".into()),
+            "/noct.png" => (200, String::new()),
+            "/page" => (200, "Content-Type: text/html\r\n".into()),
             _ => (404, String::new()),
         };
         let body = if method == "HEAD" { "" } else { "body" };
@@ -628,6 +823,10 @@ mod tests {
         // The fake server listens on 127.0.0.1.
         c.links.allow_private = true;
         c
+    }
+
+    fn links(urls: &[String]) -> Vec<Target> {
+        urls.iter().map(Target::link).collect()
     }
 
     fn opts(dir: &tempfile::TempDir) -> CheckOpts {
@@ -657,7 +856,7 @@ mod tests {
         .iter()
         .map(|p| u(p))
         .collect();
-        let r = check_all_with(&urls, &cfg(), &opts(&dir));
+        let r = check_all_with(&links(&urls), &cfg(), &opts(&dir));
         assert_eq!(r[&u("/ok")], RemoteStatus::Ok);
         assert_eq!(r[&u("/moved")], RemoteStatus::Redirect(u("/ok")));
         assert_eq!(r[&u("/temp")], RemoteStatus::Ok);
@@ -688,7 +887,7 @@ mod tests {
             .iter()
             .map(|p| u(p))
             .collect();
-        let r = check_all_with(&urls, &cfg(), &opts(&dir));
+        let r = check_all_with(&links(&urls), &cfg(), &opts(&dir));
         assert_eq!(r[&u("/forbidden")], RemoteStatus::Blocked(403));
         assert_eq!(r[&u("/auth")], RemoteStatus::Blocked(401));
         assert_eq!(r[&u("/linkedin")], RemoteStatus::Blocked(999));
@@ -706,7 +905,7 @@ mod tests {
         let mut c = cfg();
         c.links.exclude.push("/admin$".into());
         let url = format!("{base}/to-admin");
-        let r = check_all_with(std::slice::from_ref(&url), &c, &opts(&dir));
+        let r = check_all_with(&links(std::slice::from_ref(&url)), &c, &opts(&dir));
         assert_eq!(r[&url], RemoteStatus::Skipped);
         assert_eq!(hits.lock().unwrap().get("/admin"), None);
     }
@@ -718,7 +917,7 @@ mod tests {
         let mut c = cfg();
         c.links.allow_private = false;
         let url = format!("{base}/ok");
-        let r = check_all_with(std::slice::from_ref(&url), &c, &opts(&dir));
+        let r = check_all_with(&links(std::slice::from_ref(&url)), &c, &opts(&dir));
         assert_eq!(r[&url], RemoteStatus::Skipped);
         assert!(hits.lock().unwrap().is_empty());
         // Redirect hops are checked too.
@@ -775,9 +974,13 @@ mod tests {
             .port();
         let dir = tempfile::tempdir().unwrap();
         let dead = format!("http://127.0.0.1:{port}/x");
-        let r = check_all_with(std::slice::from_ref(&dead), &cfg(), &opts(&dir));
+        let r = check_all_with(&links(std::slice::from_ref(&dead)), &cfg(), &opts(&dir));
         assert!(matches!(r[&dead], RemoteStatus::Unreachable(_)), "{r:?}");
-        let r = check_all_with(std::slice::from_ref(&dead), &Config::default(), &opts(&dir));
+        let r = check_all_with(
+            &links(std::slice::from_ref(&dead)),
+            &Config::default(),
+            &opts(&dir),
+        );
         assert_eq!(
             r[&dead],
             RemoteStatus::Skipped,
@@ -792,18 +995,23 @@ mod tests {
         let o = opts(&dir);
         let old = now_unix() - 2 * 3600;
         let mut c = Cache::load(o.cache_path.clone());
-        // Stale failure (1h TTL): re-checked. Fresh success (24h TTL) on a 404 path: not re-checked.
-        c.insert(format!("{base}/ok"), RemoteStatus::HttpError(500), old);
-        c.insert(format!("{base}/missing"), RemoteStatus::Ok, old);
+        // Stale failure (1h TTL): re-checked. Fresh success (7 day TTL) on a 404 path: not re-checked.
+        c.insert(
+            format!("{base}/ok"),
+            RemoteStatus::HttpError(500),
+            None,
+            old,
+        );
+        c.insert(format!("{base}/missing"), RemoteStatus::Ok, None, old);
         c.save().unwrap();
         let urls = vec![format!("{base}/ok"), format!("{base}/missing")];
-        let r = check_all_with(&urls, &cfg(), &o);
+        let r = check_all_with(&links(&urls), &cfg(), &o);
         assert_eq!(r[&urls[0]], RemoteStatus::Ok);
         assert_eq!(r[&urls[1]], RemoteStatus::Ok);
         assert_eq!(hits.lock().unwrap().get("/missing"), None);
         assert_eq!(hits.lock().unwrap()["/ok"], 1);
         // Second run: everything cached.
-        let r = check_all_with(&urls, &cfg(), &o);
+        let r = check_all_with(&links(&urls), &cfg(), &o);
         assert_eq!(r[&urls[0]], RemoteStatus::Ok);
         assert_eq!(hits.lock().unwrap()["/ok"], 1);
     }
@@ -817,13 +1025,14 @@ mod tests {
         c.insert(
             format!("{base}/moved"),
             RemoteStatus::HttpError(410),
+            None,
             now_unix() - 48 * 3600,
         );
         c.save().unwrap();
         let mut config = cfg();
         config.links.offline = true;
         let urls = vec![format!("{base}/moved"), format!("{base}/ok")];
-        let r = check_all_with(&urls, &config, &o);
+        let r = check_all_with(&links(&urls), &config, &o);
         assert_eq!(
             r[&urls[0]],
             RemoteStatus::HttpError(410),
@@ -841,7 +1050,7 @@ mod tests {
         o.min_interval = Duration::from_millis(60);
         let urls: Vec<String> = (0..4).map(|i| format!("{base}/ok?{i}")).collect();
         let t = Instant::now();
-        let r = check_all_with(&urls, &cfg(), &o);
+        let r = check_all_with(&links(&urls), &cfg(), &o);
         assert!(r.values().all(|s| *s == RemoteStatus::Ok));
         assert!(
             t.elapsed() >= Duration::from_millis(180),
@@ -881,12 +1090,13 @@ mod tests {
         };
         assert_eq!(
             urls(&ctx),
-            vec![
+            [
                 "https://a.org/old",
                 "https://b.org/gone",
                 "https://c.org/down",
                 "https://d.org/private"
             ]
+            .map(Target::link)
         );
         let statuses: HashMap<String, RemoteStatus> = [
             (
@@ -928,5 +1138,251 @@ mod tests {
         assert_eq!(&src[out[0].range.clone()], "https://a.org/old#sec");
         assert_eq!(out[0].suggestions, ["https://example.org/new#sec"]);
         assert_eq!(&src[out[1].range.clone()], "https://b.org/gone");
+    }
+
+    #[test]
+    fn image_content_types() {
+        let (base, hits) = server();
+        let dir = tempfile::tempdir().unwrap();
+        let u = |p: &str| format!("{base}{p}");
+        let targets = vec![
+            Target::image(u("/img.png")),
+            Target::image(u("/login.png")),
+            Target::image(u("/gone.png")),
+            Target::image(u("/raw.bin")),
+            Target::image(u("/noct.png")),
+            Target::image(u("/moved.png")),
+            // Same URL as a link and an image: checked once, as an image.
+            Target::link(u("/page")),
+            Target::image(u("/page")),
+            // HTML is fine for plain links.
+            Target::link(u("/ok")),
+        ];
+        let o = opts(&dir);
+        let r = check_all_with(&targets, &cfg(), &o);
+        assert_eq!(r[&u("/img.png")], RemoteStatus::Ok);
+        assert_eq!(
+            r[&u("/login.png")],
+            RemoteStatus::NotImage("text/html; charset=utf-8".into())
+        );
+        assert_eq!(r[&u("/gone.png")], RemoteStatus::HttpError(404));
+        assert_eq!(r[&u("/raw.bin")], RemoteStatus::Ok);
+        assert_eq!(r[&u("/noct.png")], RemoteStatus::Ok);
+        assert!(matches!(r[&u("/moved.png")], RemoteStatus::NotImage(_)));
+        assert_eq!(r[&u("/page")], RemoteStatus::NotImage("text/html".into()));
+        assert_eq!(r[&u("/ok")], RemoteStatus::Ok);
+        assert_eq!(hits.lock().unwrap()["HEAD /page"], 1);
+        // The cache keeps the raw status plus the content type, not the derived verdict.
+        let c = Cache::load(o.cache_path.clone());
+        let e = c.get(&u("/login.png")).unwrap();
+        assert_eq!(e.status, RemoteStatus::Ok);
+        assert_eq!(e.content_type.as_deref(), Some("text/html; charset=utf-8"));
+        assert_eq!(
+            c.get(&u("/noct.png")).unwrap().content_type.as_deref(),
+            Some("")
+        );
+        assert_eq!(c.get(&u("/ok")).unwrap().content_type, None);
+        // Second run: served from cache, verdict re-derived.
+        let r2 = check_all_with(&targets, &cfg(), &o);
+        assert_eq!(r, r2);
+        assert_eq!(hits.lock().unwrap()["HEAD /img.png"], 1);
+        // A plain-link cache entry lacks a content type, so an image use re-checks it.
+        let r3 = check_all_with(&[Target::image(u("/ok"))], &cfg(), &o);
+        assert_eq!(r3[&u("/ok")], RemoteStatus::Ok);
+        assert_eq!(hits.lock().unwrap()["HEAD /ok"], 2);
+    }
+
+    #[test]
+    fn image_cache_ttl_and_offline() {
+        let (base, hits) = server();
+        let dir = tempfile::tempdir().unwrap();
+        let o = opts(&dir);
+        let now = now_unix();
+        let u = |p: &str| format!("{base}{p}");
+        let mut c = Cache::load(o.cache_path.clone());
+        // OK image checked 3 days ago: still fresh (7 day TTL), though the server now says 404.
+        c.insert(
+            u("/gone.png"),
+            RemoteStatus::Ok,
+            Some("image/png".into()),
+            now - 72 * 3600,
+        );
+        // OK image checked 8 days ago: stale.
+        c.insert(
+            u("/img.png"),
+            RemoteStatus::Ok,
+            Some("image/png".into()),
+            now - 192 * 3600,
+        );
+        // Failure checked 2 hours ago: stale (1h TTL), re-checked and now OK.
+        c.insert(
+            u("/raw.bin"),
+            RemoteStatus::HttpError(404),
+            None,
+            now - 2 * 3600,
+        );
+        c.save().unwrap();
+        let targets = [u("/gone.png"), u("/img.png"), u("/raw.bin")].map(Target::image);
+        let r = check_all_with(&targets, &cfg(), &o);
+        assert_eq!(r[&u("/gone.png")], RemoteStatus::Ok);
+        assert_eq!(r[&u("/img.png")], RemoteStatus::Ok);
+        assert_eq!(r[&u("/raw.bin")], RemoteStatus::Ok);
+        let h = hits.lock().unwrap().clone();
+        assert_eq!(h.get("/gone.png"), None);
+        assert_eq!(h["/img.png"], 1);
+        assert_eq!(h["/raw.bin"], 1);
+
+        // Offline: cached verdicts (even stale ones) only, no requests.
+        let mut c = Cache::load(o.cache_path.clone());
+        c.insert(
+            u("/login.png"),
+            RemoteStatus::Ok,
+            Some("text/html".into()),
+            now - 20 * 24 * 3600,
+        );
+        c.save().unwrap();
+        let mut config = cfg();
+        config.links.offline = true;
+        let targets = [u("/login.png"), u("/noct.png")].map(Target::image);
+        let r = check_all_with(&targets, &config, &o);
+        assert_eq!(
+            r[&u("/login.png")],
+            RemoteStatus::NotImage("text/html".into())
+        );
+        assert_eq!(r[&u("/noct.png")], RemoteStatus::Skipped);
+        assert_eq!(hits.lock().unwrap().get("/login.png"), None);
+        assert_eq!(hits.lock().unwrap().get("/noct.png"), None);
+    }
+
+    #[test]
+    fn image_occurrences_and_findings() {
+        use crate::rules::Analyzed;
+        use crate::source::{FileKind, SourceFile};
+        let src = "![a](https://i.org/a.png) [l](https://i.org/page) ![r][pic]\n\n\
+            <img src=\"https://i.org/b.png\"> <picture><source srcset=\"https://i.org/c.webp 1x, https://i.org/d.webp 2x\"></picture>\n\n\
+            [pic]: https://i.org/ref.png\n";
+        let a = Analyzed::new(SourceFile::new(
+            "/t/a.md".into(),
+            "a.md".into(),
+            FileKind::Markdown,
+            src.into(),
+        ));
+        let config = Config::default();
+        let ctx = FileCtx {
+            a: &a,
+            config: &config,
+        };
+        let mut want = vec![
+            Target::image("https://i.org/a.png"),
+            Target::image("https://i.org/b.png"),
+            Target::image("https://i.org/c.webp"),
+            Target::link("https://i.org/page"),
+            Target::image("https://i.org/ref.png"),
+        ];
+        want.sort();
+        assert_eq!(urls(&ctx), want);
+        let statuses: HashMap<String, RemoteStatus> = [
+            (
+                "https://i.org/a.png",
+                RemoteStatus::NotImage("text/html".into()),
+            ),
+            ("https://i.org/b.png", RemoteStatus::HttpError(404)),
+            (
+                "https://i.org/c.webp",
+                RemoteStatus::Unreachable("dns".into()),
+            ),
+            ("https://i.org/ref.png", RemoteStatus::Blocked(403)),
+            (
+                "https://i.org/page",
+                RemoteStatus::NotImage("text/html".into()),
+            ),
+        ]
+        .map(|(k, v)| (k.to_string(), v))
+        .into();
+        let mut out = Vec::new();
+        report(&ctx, &statuses, &mut out);
+        let got: Vec<(&str, &str)> = out
+            .iter()
+            .map(|f| (f.rule.as_str(), &src[f.range.clone()]))
+            .collect();
+        assert_eq!(
+            got,
+            vec![
+                ("links/image-url", "https://i.org/a.png"),
+                ("links/image-url", "https://i.org/b.png"),
+                ("links/image-url", "https://i.org/c.webp"),
+                ("links/image-url", "https://i.org/ref.png"),
+            ],
+            "no http-* double reports; HTML is fine for the plain link"
+        );
+        assert!(
+            out[0]
+                .message
+                .contains("returns an HTML page, not an image")
+        );
+        assert!(out[1].message.contains("HTTP 404"));
+
+        // With links/image-url off, images fall back to the http-* rules.
+        let mut config = Config::default();
+        config
+            .rules
+            .insert("links/image-url".into(), crate::config::Level::Off);
+        let ctx = FileCtx {
+            a: &a,
+            config: &config,
+        };
+        assert!(urls(&ctx).iter().all(|t| !t.image));
+        let mut out = Vec::new();
+        report(&ctx, &statuses, &mut out);
+        let rules: Vec<&str> = out.iter().map(|f| f.rule.as_str()).collect();
+        assert_eq!(
+            rules,
+            vec![
+                "links/http-error",
+                "links/http-unreachable",
+                "links/http-unreachable"
+            ]
+        );
+    }
+
+    #[test]
+    fn engine_keeps_link_cache_in_project() {
+        let (base, hits) = server();
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path().canonicalize().unwrap();
+        std::fs::write(
+            root.join("a.md"),
+            format!("# A\n\n![Logo]({base}/login.png)\n"),
+        )
+        .unwrap();
+        let mut config = cfg();
+        config.root = root.clone();
+        let files = vec![root.join("a.md")];
+        let ws = crate::engine::build_workspace(&files, &config);
+        // `--no-cache` (no results cache dir) still keeps the link cache in the project.
+        let mut eo = crate::engine::Options {
+            remote: true,
+            cache_dir: None,
+            prune_cache: false,
+            ..Default::default()
+        };
+        let d = crate::engine::check(&ws, &files, &config, &eo);
+        assert!(d.iter().any(|d| d.rule == "links/image-url"), "{d:?}");
+        let cache_dir = root.join(crate::cache::DEFAULT_DIR);
+        assert!(cache_dir.join("links.json").exists());
+        assert!(cache_dir.join(".gitignore").exists());
+        assert!(cache_dir.join("CACHEDIR.TAG").exists());
+        // `--cache-dir` moves it.
+        eo.cache_dir = Some(root.join("ci-cache"));
+        crate::engine::check(&ws, &files, &config, &eo);
+        assert!(root.join("ci-cache/links.json").exists());
+        assert_eq!(hits.lock().unwrap()["HEAD /login.png"], 2);
+        // `links.cache = false` turns it off: nothing written, every run hits the network.
+        config.links.cache = false;
+        eo.cache_dir = Some(root.join("off"));
+        crate::engine::check(&ws, &files, &config, &eo);
+        crate::engine::check(&ws, &files, &config, &eo);
+        assert!(!root.join("off/links.json").exists());
+        assert_eq!(hits.lock().unwrap()["HEAD /login.png"], 4);
     }
 }

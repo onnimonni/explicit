@@ -263,60 +263,6 @@ fn includes_crlf_and_include_dirs() {
     assert_eq!(got, ["other.md"]);
 }
 
-const IMG: &str = "docs/readme-absolute-image";
-
-#[test]
-fn readme_images() {
-    let src = concat!(
-        "# Ä\n\n",
-        "![logo](https://github.com/me/proj/raw/main/assets/logo.png)\n",
-        "![shot](https://raw.githubusercontent.com/me/proj/refs/heads/main/assets/shot%201.png)\n",
-        "![blob](https://github.com/me/proj/blob/main/assets/logo.png?raw=true)\n",
-        "![gone](https://github.com/me/proj/raw/main/assets/none.png)\n",
-        "![other](https://github.com/else/lib/raw/main/assets/logo.png)\n",
-        "<img src=\"https://raw.githubusercontent.com/me/proj/main/assets/logo.png\">\n",
-    );
-    let e = Env::new(&[
-        ("README.md", src),
-        ("assets/logo.png", "x"),
-        ("assets/shot 1.png", "x"),
-        (
-            ".git/config",
-            "[remote \"origin\"]\n\turl = git@github.com:me/proj.git\n",
-        ),
-    ]);
-    let f = e.run("README.md");
-    let f = only(&f, IMG);
-    assert_eq!(f.len(), 4, "{f:?}");
-    let mut fixed = src.to_string();
-    for x in f.iter().rev() {
-        fixed = apply(&fixed, x);
-    }
-    assert!(fixed.contains("![logo](assets/logo.png)"));
-    assert!(fixed.contains("![shot](assets/shot%201.png)"));
-    assert!(fixed.contains("![blob](assets/logo.png)"));
-    assert!(fixed.contains("<img src=\"assets/logo.png\">"));
-    assert!(fixed.contains("none.png") && fixed.contains("else/lib"));
-}
-
-#[test]
-fn readme_image_subdir_and_non_readme() {
-    let src = "![l](https://github.com/me/proj/raw/main/assets/logo.png)\n";
-    let e = Env::new(&[
-        ("pkg/README.md", src),
-        ("pkg/guide.md", src),
-        ("assets/logo.png", "x"),
-    ]);
-    let f = e.run("pkg/README.md");
-    let f = only(&f, IMG);
-    assert_eq!(f.len(), 1);
-    assert_eq!(
-        f[0].fix.as_ref().expect("fix").replacement,
-        "../assets/logo.png"
-    );
-    assert!(only(&e.run("pkg/guide.md"), IMG).is_empty());
-}
-
 #[test]
 fn toc_marker_fix_keeps_inline_markup() {
     let src = "# T\n\n<!-- toc -->\n<!-- tocstop -->\n\n## The `foo` command\n\n## *Fast* mode ##\n\n## Custom {#cid}\n\nSetext **bold**\n--------------\n";

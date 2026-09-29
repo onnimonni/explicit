@@ -2,7 +2,7 @@
 
 use std::collections::HashMap;
 use std::io::{self, IsTerminal, Write};
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 use crate::diagnostic::{Diagnostic, Severity};
 
@@ -14,7 +14,45 @@ pub enum Format {
     Github,
 }
 
+/// Path to show for `path` (relative to `root`, or absolute): relative to `cwd` when the file
+/// is under it, else relative to `root`, else absolute.
+pub fn display_path(root: &Path, path: &Path, cwd: Option<&Path>) -> PathBuf {
+    let abs = root.join(path);
+    if let Some(cwd) = cwd
+        && let Ok(rel) = abs.strip_prefix(cwd)
+        && !rel.as_os_str().is_empty()
+    {
+        return rel.to_path_buf();
+    }
+    path.to_path_buf()
+}
+
+/// Write diagnostics whose paths are relative to `root`, showing paths relative to the cwd.
 pub fn write(
+    format: Format,
+    diags: &[Diagnostic],
+    sources: &HashMap<PathBuf, String>,
+    root: &Path,
+    w: &mut dyn Write,
+) -> io::Result<()> {
+    let cwd = std::env::current_dir()
+        .ok()
+        .map(|c| c.canonicalize().unwrap_or(c));
+    let root = root.canonicalize().unwrap_or_else(|_| root.to_path_buf());
+    let show = |p: &Path| display_path(&root, p, cwd.as_deref());
+    let diags: Vec<Diagnostic> = diags
+        .iter()
+        .map(|d| Diagnostic {
+            path: show(&d.path),
+            ..d.clone()
+        })
+        .collect();
+    let sources: HashMap<PathBuf, String> =
+        sources.iter().map(|(p, s)| (show(p), s.clone())).collect();
+    write_as_is(format, &diags, &sources, w)
+}
+
+fn write_as_is(
     format: Format,
     diags: &[Diagnostic],
     sources: &HashMap<PathBuf, String>,
@@ -166,7 +204,15 @@ fn sarif(diags: &[Diagnostic]) -> serde_json::Value {
                 "locations": [{
                     "physicalLocation": {
                         "artifactLocation": { "uri": d.path.to_string_lossy().replace('\\', "/") },
-                        "region": { "startLine": d.line, "startColumn": d.column, "byteOffset": d.range.start, "byteLength": d.range.len() }
+                        "region": {
+                            "startLine": d.line,
+                            "startColumn": d.column,
+                            "endLine": d.end_line,
+                            "endColumn": d.end_column,
+                            "byteOffset": d.range.start,
+                            "byteLength": d.range.len(),
+                            "snippet": { "text": d.text }
+                        }
                     }
                 }]
             })
@@ -185,4 +231,56 @@ fn sarif(diags: &[Diagnostic]) -> serde_json::Value {
             "results": results
         }]
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn diag() -> Diagnostic {
+        Diagnostic {
+            path: PathBuf::from("docs/a.md"),
+            rule: "spelling".into(),
+            severity: Severity::Error,
+            range: 2..7,
+            line: 1,
+            column: 3,
+            end_line: 1,
+            end_column: 8,
+            text: "helo!".into(),
+            message: "typo".into(),
+            help: None,
+            suggestions: Vec::new(),
+            fix: None,
+        }
+    }
+
+    #[test]
+    fn paths_relative_to_cwd() {
+        let root = Path::new("/r/proj");
+        let p = Path::new("docs/a.md");
+        assert_eq!(
+            display_path(root, p, Some(Path::new("/r/proj/docs"))),
+            Path::new("a.md")
+        );
+        assert_eq!(
+            display_path(root, p, Some(Path::new("/r"))),
+            Path::new("proj/docs/a.md")
+        );
+        assert_eq!(display_path(root, p, Some(Path::new("/elsewhere"))), p);
+        assert_eq!(display_path(root, p, None), p);
+    }
+
+    #[test]
+    fn json_and_sarif_carry_text_and_end() {
+        let mut buf = Vec::new();
+        write_as_is(Format::Json, &[diag()], &HashMap::new(), &mut buf).unwrap();
+        let v: serde_json::Value = serde_json::from_slice(&buf).unwrap();
+        assert_eq!(v[0]["text"], "helo!");
+        assert_eq!(v[0]["end_column"], 8);
+        let s = sarif(&[diag()]);
+        let region = &s["runs"][0]["results"][0]["locations"][0]["physicalLocation"]["region"];
+        assert_eq!(region["snippet"]["text"], "helo!");
+        assert_eq!(region["endColumn"], 8);
+    }
 }

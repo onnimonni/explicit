@@ -117,6 +117,35 @@ impl Segment {
     }
 }
 
+/// Tokens that are prose-adjacent but not words: numbers with units (`10.5s`, `200ms`, `4GB`,
+/// `12.5 s`), list enumerators in brackets (`(a)`, `(iv)`, `[b]`), task boxes (`[ ]`) and
+/// letter-number ids (`S-3`, `RFC-042`, `#594`, `§3.6`). Harper splits them into letters it
+/// then flags as misspellings (`s`, `f`) or grammar slips (`(i)` -> `(I)`, `(a)` -> `an`).
+static NOISE_RE: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| {
+    regex::Regex::new(concat!(
+        // Number immediately followed by a unit or letters: 10.5s, 200ms, 3x, 4GB, 2nd.
+        r"\b\d+(?:[.,]\d+)*[A-Za-zµ]+\b",
+        // Number, one space, a common unit: `12.5 s`, `3 ms`.
+        r"|\b\d+(?:[.,]\d+)*[ \u{a0}](?:ns|[uµ]s|ms|s|min|h|[kKMGT]i?B|px|em|rem)\b",
+        // Enumerators in brackets: (a) (iv) [b] (XII) and task boxes [ ] [x].
+        r"|[(\[](?:[A-Za-z]|x{0,3}(?:ix|iv|v?i{0,3})|X{0,3}(?:IX|IV|V?I{0,3})|\d{1,3})[)\]]",
+        r"|\[ \]",
+        // Ids: S-3, RFC-042, UC-1a, #594, §3.6.
+        r"|\b[A-Z][A-Za-z]*-\d+[A-Za-z]?\b|#\d+\b|§\s?\d+(?:\.\d+)*",
+    ))
+    .expect("hardcoded regex is valid")
+});
+
+/// Absolute ranges of non-word tokens (units, enumerators, ids) inside `seg`; see [`NOISE_RE`].
+pub fn noise_ranges(seg: &Segment) -> Vec<Range<usize>> {
+    NOISE_RE
+        .find_iter(&seg.text)
+        // `()` / `[]` match the empty numeral alternatives; they are punctuation, keep them.
+        .filter(|m| !matches!(m.as_str(), "()" | "[]" | "(]" | "[)"))
+        .map(|m| seg.abs(m.range()))
+        .collect()
+}
+
 /// `r` (absolute) intersected with `outer`, in offsets local to `outer`; `None` when empty.
 fn clamp(r: &Range<usize>, outer: &Range<usize>) -> Option<Range<usize>> {
     let s = r.start.max(outer.start).saturating_sub(outer.start);
@@ -133,6 +162,26 @@ mod tests {
         let src = "aaa bbb\nccc";
         let s = Segment::from_ranges(src, 4..11, &[0..2, 4..7, 20..30], SegmentKind::Paragraph);
         assert_eq!(s.text, "bbb\n   ");
+    }
+
+    #[test]
+    fn noise_tokens() {
+        let src = "Took 10.5s and 200ms (3x, 4GB, 12.5 s) per (f) and (iv) [b] [ ] S-3 RFC-042 #594 §3.6 (mix) (a b) () 3 sheep";
+        let all = 0..src.len();
+        let seg = Segment::from_ranges(
+            src,
+            all.clone(),
+            std::slice::from_ref(&all),
+            SegmentKind::Paragraph,
+        );
+        let found: Vec<&str> = noise_ranges(&seg).into_iter().map(|r| &src[r]).collect();
+        assert_eq!(
+            found,
+            [
+                "10.5s", "200ms", "3x", "4GB", "12.5 s", "(f)", "(iv)", "[b]", "[ ]", "S-3",
+                "RFC-042", "#594", "§3.6"
+            ]
+        );
     }
 
     #[test]

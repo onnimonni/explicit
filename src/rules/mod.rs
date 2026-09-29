@@ -4,10 +4,14 @@ pub mod codeblock;
 pub mod diagram;
 pub mod docs;
 pub mod grammar;
+pub mod lint;
+pub mod patterns;
 pub mod prose;
 pub mod slop;
+pub mod spell;
 pub mod structure;
 pub mod style;
+pub mod words;
 
 use crate::config::Config;
 use crate::diagnostic::{Finding, Severity};
@@ -68,11 +72,16 @@ impl<'a> FileCtx<'a> {
 
     /// Whether a rule would produce output (so expensive checks can be skipped).
     pub fn enabled(&self, rule: &str) -> bool {
-        let default = RULES.iter().find(|r| r.id == rule).map(|r| r.default);
-        self.config
-            .severity(rule, default.unwrap_or(Some(Severity::Warning)))
-            .is_some()
+        rule_enabled(self.config, rule)
     }
+}
+
+/// Whether `rule` would produce output under `config`.
+pub fn rule_enabled(config: &Config, rule: &str) -> bool {
+    let default = RULES.iter().find(|r| r.id == rule).map(|r| r.default);
+    config
+        .severity(rule, default.unwrap_or(Some(Severity::Warning)))
+        .is_some()
 }
 
 pub type Out = Vec<Finding>;
@@ -154,15 +163,18 @@ rules! {
 
     // English.
     "spelling" => E, "Spelling (Harper)";
-    "grammar/*" => W, "Harper grammar and style rules, one id per Harper rule; severity follows Harper's lint kind";
+    "grammar/*" => I, "Harper grammar and style rules, one id per Harper rule; info, except a few high-confidence rules at warning (see prose.grammar_level)";
 
     // Links.
     "links/missing-file" => E, "Relative link or image target exists";
+    "links/absolute-image-path" => E, "Images use paths relative to the Markdown file, not absolute or root-relative paths";
     "links/missing-anchor" => E, "Link #fragment matches a heading or anchor";
     "links/undefined-ref" => E, "Reference link label is defined";
     "links/unused-ref" => W, "Reference definition is used";
     "links/http-error" => E, "Remote link responds with success";
     "links/http-unreachable" => W, "Remote link host is reachable";
+    "links/same-repo-url" => W, "Links into this GitHub repository's default branch use relative paths";
+    "links/image-url" => E, "Remote image URL exists and serves an image, not an HTML page";
     "links/http-redirect" => I, "Remote link permanently redirects";
     "links/insecure" => I, "Link uses http:// instead of https://";
     "links/undefined-footnote" => E, "Footnote reference has a definition";
@@ -205,7 +217,6 @@ rules! {
     "docs/toc-sync" => W, "Table of contents matches the headings that follow it";
     "docs/orphan-page" => OFF, "Page under docs.root is linked from another Markdown file";
     "docs/include-missing" => E, "Include directive (snippets, Jekyll, Hugo, markdown-include) target exists";
-    "docs/readme-absolute-image" => I, "README image uses a local path instead of a GitHub URL to this repo";
 
     // Prose style (write-good, alex, retext-simplify, textlint terminology, Vale metrics).
     "prose/inclusive" => W, "Insensitive or exclusionary wording (alex/retext-equality)";
@@ -224,6 +235,97 @@ rules! {
 
     // Vale-style rules from explicit.toml.
     "style/*" => W, "User-defined existence/substitution/repetition/occurrence/capitalization rules";
+}
+
+/// One row of `explicit rules`.
+#[derive(Debug, Clone, serde::Serialize)]
+pub struct RuleRow {
+    pub id: String,
+    /// `None` = off by default.
+    pub default: Option<Severity>,
+    pub description: String,
+}
+
+/// Rule list for `explicit rules`. With `all`, the `grammar/*` and `style/*` families expand to
+/// one row per Harper rule and per `[[style]]` rule in `config`.
+pub fn rule_rows(config: &Config, all: bool) -> Vec<RuleRow> {
+    let mut rows = Vec::new();
+    for r in RULES {
+        let row = RuleRow {
+            id: r.id.to_string(),
+            default: r.default,
+            description: r.description.to_string(),
+        };
+        match r.id {
+            "grammar/*" if all => rows.extend(harper_rows(config)),
+            "style/*" if all => rows.extend(config.style.iter().map(|s| {
+                RuleRow {
+                    id: format!("style/{}", s.name),
+                    default: s.level.severity(),
+                    description: s
+                        .message
+                        .clone()
+                        .unwrap_or_else(|| format!("{:?} rule", s.kind).to_lowercase()),
+                }
+            })),
+            _ => rows.push(row),
+        }
+    }
+    rows
+}
+
+/// Every Harper rule except spell checking (`spelling`), sorted by name, plus our own pattern
+/// rules. Rules Harper leaves off or `prose.disable` turns off are listed as off; the rest with
+/// their `prose.grammar_level` severity (under `harper`, the real severity follows each lint's
+/// kind; shown as warning). Without the `harper` feature: only our pattern rules.
+fn harper_rows(config: &Config) -> Vec<RuleRow> {
+    let disabled = &config.prose.disable;
+    let severity = |name: &str| {
+        grammar::default_severity(name, lint::LintKind::Grammar, config.prose.grammar_level)
+    };
+    let mut rows: Vec<RuleRow> = Vec::new();
+    #[cfg(feature = "harper")]
+    {
+        use harper_core::linting::LintGroup;
+        use harper_core::spell::FstDictionary;
+        let group =
+            LintGroup::new_curated(FstDictionary::curated(), harper_core::Dialect::American);
+        rows.extend(
+            group
+                .all_descriptions()
+                .into_iter()
+                .filter(|(name, _)| *name != "SpellCheck")
+                .map(|(name, desc)| {
+                    let on =
+                        group.config.is_rule_enabled(name) && !disabled.iter().any(|d| d == name);
+                    RuleRow {
+                        id: format!("grammar/{name}"),
+                        default: on.then(|| severity(name)),
+                        description: desc.split_whitespace().collect::<Vec<_>>().join(" "),
+                    }
+                }),
+        );
+    }
+    #[cfg(not(feature = "harper"))]
+    rows.extend(patterns::HARPER_NAMED.iter().map(|(name, desc)| {
+        let on = !disabled.iter().any(|d| d == name);
+        RuleRow {
+            id: format!("grammar/{name}"),
+            default: on.then(|| severity(name)),
+            description: desc.to_string(),
+        }
+    }));
+    // Our own word-confusion rules, which every engine runs.
+    rows.extend(patterns::OWN_DESCRIPTIONS.iter().map(|(name, desc)| {
+        let on = !disabled.iter().any(|d| d == name);
+        RuleRow {
+            id: format!("grammar/{name}"),
+            default: on.then(|| severity(name)),
+            description: desc.to_string(),
+        }
+    }));
+    rows.sort_by(|a, b| a.id.cmp(&b.id));
+    rows
 }
 
 /// Default severity for a rule id; `grammar/X` and `style/X` use their family default.
@@ -264,6 +366,48 @@ fn key_may_match_family(k: &str, family: &str) -> bool {
 #[cfg(test)]
 mod tests {
     use super::key_may_match_family;
+
+    #[test]
+    fn all_rules_expand_families() {
+        use crate::config::{Config, StyleKind, StyleRule};
+        let mut c = Config::default();
+        c.style.push(StyleRule {
+            name: "no-simply".into(),
+            kind: StyleKind::Existence,
+            message: None,
+            level: crate::config::Level::Error,
+            tokens: vec!["simply".into()],
+            swap: Default::default(),
+            regex: false,
+            ignore_case: None,
+            max: None,
+            case: None,
+            exceptions: Vec::new(),
+            scope: None,
+        });
+        let short = super::rule_rows(&c, false);
+        assert!(short.iter().any(|r| r.id == "grammar/*"));
+        let all = super::rule_rows(&c, true);
+        assert!(!all.iter().any(|r| r.id.contains('*')));
+        let get = |id: &str| all.iter().find(|r| r.id == id);
+        assert!(get("grammar/SpellCheck").is_none() && get("spelling").is_some());
+        let grammar = all.iter().filter(|r| r.id.starts_with("grammar/")).count();
+        #[cfg(feature = "harper")]
+        {
+            assert!(get("grammar/OxfordComma").is_some_and(|r| r.default.is_none()));
+            assert!(grammar > 100);
+        }
+        // Without Harper: our pattern rules only.
+        #[cfg(not(feature = "harper"))]
+        {
+            assert!(get("grammar/OxfordComma").is_none());
+            assert!(get("grammar/AnA").is_some_and(|r| r.default.is_some()));
+            assert!(grammar > 20);
+        }
+        let s = get("style/no-simply").unwrap();
+        assert_eq!(s.default, Some(crate::diagnostic::Severity::Error));
+        assert_eq!(s.description, "existence rule");
+    }
 
     #[test]
     fn family_keys() {

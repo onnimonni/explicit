@@ -345,8 +345,24 @@ fn emphasis_as_heading() {
 #[test]
 fn space_in_code() {
     let src = "Use ` foo ` here.\n";
-    assert_eq!(rule(src, "md/no-space-in-code").len(), 1);
+    assert_eq!(rule(src, "md/no-space-in-code").len(), 2);
     assert_eq!(fixed(src, "md/no-space-in-code"), "Use `foo` here.\n");
+    // Long span: fixes touch only the edge spaces, never the content.
+    let body = "x".repeat(1000);
+    let src = format!("Use `  {body} ` here.\n");
+    let fs = rule(&src, "md/no-space-in-code");
+    assert_eq!(fs.len(), 2);
+    for f in &fs {
+        let fx = f.fix.as_ref().unwrap();
+        assert!(fx.replacement.is_empty());
+        assert!(src[fx.range.clone()].bytes().all(|b| b == b' '), "{fx:?}");
+    }
+    assert_eq!(fs[0].fix.as_ref().unwrap().range.len(), 2);
+    assert_eq!(fs[1].fix.as_ref().unwrap().range.len(), 1);
+    assert_eq!(
+        fixed(&src, "md/no-space-in-code"),
+        format!("Use `{body}` here.\n")
+    );
     assert_eq!(
         fixed("Use `foo ` here.\n", "md/no-space-in-code"),
         "Use `foo` here.\n"
@@ -612,7 +628,11 @@ fn list_marker_space() {
 fn space_in_emphasis() {
     let src = "Some ** bold ** and * em* text.\n";
     let fs = rule(src, "md/no-space-in-emphasis");
-    assert_eq!(fs.len(), 2);
+    assert_eq!(fs.len(), 3, "one finding per spaced edge");
+    assert!(
+        fs.iter()
+            .all(|f| f.fix.as_ref().unwrap().replacement.is_empty())
+    );
     assert_eq!(
         fixed(src, "md/no-space-in-emphasis"),
         "Some **bold** and *em* text.\n"
@@ -633,7 +653,9 @@ fn space_in_emphasis() {
 #[test]
 fn space_in_links() {
     let src = "A [ link ](x.md) here.\n";
-    assert_eq!(rule(src, "md/no-space-in-links").len(), 1);
+    let fs = rule(src, "md/no-space-in-links");
+    assert_eq!(fs.len(), 2, "one finding per spaced edge");
+    assert!(fs.iter().all(|f| f.fix.as_ref().unwrap().range.len() == 1));
     assert_eq!(fixed(src, "md/no-space-in-links"), "A [link](x.md) here.\n");
     assert_eq!(
         fixed("A [ä ][r]\r\n\r\n[r]: x.md\r\n", "md/no-space-in-links"),

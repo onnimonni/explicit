@@ -86,6 +86,47 @@ impl<'a> Ctx<'a> {
         Finding::new(rule, sev, range, msg)
     }
 
+    /// One finding per spaced edge of `inner` (content between delimiters `open` and `close`
+    /// bytes long); each fix deletes only that edge's spaces/tabs, never the content.
+    pub fn edge_spaces(
+        &self,
+        rule: &str,
+        what: &str,
+        inner: Range<usize>,
+        (open, close): (usize, usize),
+        out: &mut Out,
+    ) {
+        let t = &self.src[inner.clone()];
+        let is_sp = |b: &u8| *b == b' ' || *b == b'\t';
+        let lead = t.bytes().take_while(is_sp).count();
+        let trail = t.bytes().rev().take_while(is_sp).count();
+        if lead == t.len() {
+            return;
+        }
+        if lead > 0 {
+            let r = inner.start..inner.start + lead;
+            out.push(
+                self.finding(
+                    rule,
+                    inner.start - open..r.end,
+                    format!("Leading space inside {what}"),
+                )
+                .fix(r, ""),
+            );
+        }
+        if trail > 0 {
+            let r = inner.end - trail..inner.end;
+            out.push(
+                self.finding(
+                    rule,
+                    r.start..inner.end + close,
+                    format!("Trailing space inside {what}"),
+                )
+                .fix(r, ""),
+            );
+        }
+    }
+
     /// Attach a fix inserting a blank line at `at` (start of a line), once per offset.
     pub fn with_blank_line(&mut self, f: Finding, at: usize, line: usize) -> Finding {
         if !self.inserted.insert(at) {

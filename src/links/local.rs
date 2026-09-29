@@ -176,6 +176,21 @@ fn is_line_anchor(frag: &str) -> bool {
     }
 }
 
+/// `file.rs:12` or `file.rs:12:5` -> `file.rs`; `None` when there is no numeric suffix.
+fn strip_line_suffix(p: &Path) -> Option<PathBuf> {
+    let name = p.file_name()?.to_str()?;
+    let mut base = name;
+    for _ in 0..2 {
+        match base.rsplit_once(':') {
+            Some((head, tail)) if !tail.is_empty() && tail.bytes().all(|b| b.is_ascii_digit()) => {
+                base = head;
+            }
+            _ => break,
+        }
+    }
+    (base != name && !base.is_empty() && !base.ends_with(':')).then(|| p.with_file_name(base))
+}
+
 fn root_dir(config: &crate::config::Config) -> PathBuf {
     let r = match &config.links.root_dir {
         Some(d) if d.is_absolute() => d.clone(),
@@ -197,6 +212,57 @@ struct Checker<'a> {
     project_root: PathBuf,
     want_file: bool,
     want_anchor: bool,
+}
+
+/// Filesystem-absolute or root-relative path: `/img.png`, `~/x`, `file:///x`, `C:\x`, `\\host\x`.
+fn is_absolute_path(dest: &str) -> bool {
+    let d = dest.trim();
+    let b = d.as_bytes();
+    (d.starts_with('/') && !d.starts_with("//"))
+        || d.starts_with('~')
+        || d.starts_with("\\\\")
+        || d.get(..5).is_some_and(|s| s.eq_ignore_ascii_case("file:"))
+        || (b.len() > 2
+            && b[0].is_ascii_alphabetic()
+            && b[1] == b':'
+            && matches!(b[2], b'\\' | b'/'))
+}
+
+/// Relative path from directory `from` to `to` (both absolute and normalized).
+pub(crate) fn relative_path(from: &Path, to: &Path) -> PathBuf {
+    let from: Vec<_> = from.components().collect();
+    let to_c: Vec<_> = to.components().collect();
+    let common = from.iter().zip(&to_c).take_while(|(a, b)| a == b).count();
+    let mut out = PathBuf::new();
+    for _ in common..from.len() {
+        out.push("..");
+    }
+    for c in &to_c[common..] {
+        out.push(c);
+    }
+    out
+}
+
+fn absolute_image(c: &Checker, dest: &str, range: Range<usize>) -> Finding {
+    let rule = "links/absolute-image-path";
+    let mut f = Finding::new(
+        rule,
+        sev(rule),
+        range,
+        format!("Image path `{}` is absolute; it breaks on GitHub, in other checkouts and on other machines", dest.trim()),
+    )
+    .help("Use a path relative to this Markdown file, e.g. `images/diagram.png` or `../assets/logo.svg`.");
+    // A root-relative `/docs/x.png` that exists in the project has an obvious relative form.
+    let trimmed = dest.trim();
+    if trimmed.starts_with('/') && !trimmed.starts_with("//") {
+        let decoded = percent_decode(trimmed.split(['?', '#']).next().unwrap_or(trimmed));
+        let target = normalize(&c.link_root.join(decoded.trim_start_matches('/')));
+        if target.exists() {
+            let rel = relative_path(&normalize(&c.base), &target);
+            f = f.suggest(rel.to_string_lossy().replace('\\', "/"));
+        }
+    }
+    f
 }
 
 pub fn check(ctx: &FileCtx, ws: &Workspace, out: &mut Out) {
@@ -229,17 +295,40 @@ pub fn check(ctx: &FileCtx, ws: &Workspace, out: &mut Out) {
         want_file: ctx.enabled("links/missing-file"),
         want_anchor: ctx.enabled("links/missing-anchor"),
     };
-    if c.want_file || c.want_anchor {
+    let want_abs_image = ctx.enabled("links/absolute-image-path");
+    if c.want_file || c.want_anchor || want_abs_image {
         for link in &md.links {
-            if matches!(
+            if !matches!(
                 link.kind,
                 LinkKind::Inline | LinkKind::Reference | LinkKind::Html
             ) {
-                c.link(md, &link.dest, report_range(ctx.src(), link), out);
+                continue;
+            }
+            let range = report_range(ctx.src(), link);
+            if link.is_image && is_absolute_path(&link.dest) {
+                if want_abs_image {
+                    out.push(absolute_image(&c, &link.dest, range));
+                }
+                continue;
+            }
+            if !(c.want_file || c.want_anchor) {
+                continue;
+            }
+            let before = out.len();
+            c.link(md, &link.dest, range, out);
+            if link.is_image {
+                for f in &mut out[before..] {
+                    if f.rule == "links/missing-file" {
+                        f.message = f.message.replacen("Link target", "Image", 1);
+                    }
+                }
             }
         }
     }
     refs(ctx, md, out);
+    if ctx.enabled("links/same-repo-url") {
+        super::github::check(ctx, out);
+    }
     if ctx.enabled("links/insecure") {
         let src = ctx.src();
         for link in md.links.iter().filter(|l| l.kind != LinkKind::Reference) {
@@ -283,7 +372,15 @@ impl Checker<'_> {
                 } else {
                     self.base.clone()
                 };
-                match self.fs.lookup(&path, &trusted) {
+                let mut found = self.fs.lookup(&path, &trusted);
+                if found == Exists::Missing
+                    && let Some(stripped) = strip_line_suffix(&path)
+                    && self.fs.lookup(&stripped, &trusted) == Exists::File
+                {
+                    // `path:12` / `path:12:5` editor-style line reference.
+                    found = Exists::File;
+                }
+                match found {
                     Exists::Missing => {
                         if self.want_file {
                             out.push(self.missing(dest, raw_path, &path, range));
@@ -813,5 +910,117 @@ mod tests {
         assert!(is_line_anchor("L1C2-L3C4"));
         assert!(!is_line_anchor("Label"));
         assert!(!is_line_anchor("L"));
+        assert!(is_line_anchor("L12C3"));
+        assert!(!is_line_anchor("L12C"));
+        assert!(!is_line_anchor("L12-"));
+    }
+
+    #[test]
+    fn line_suffix_stripping() {
+        let s = |p: &str| strip_line_suffix(Path::new(p)).map(|p| p.display().to_string());
+        assert_eq!(s("src/a.rs:12").as_deref(), Some("src/a.rs"));
+        assert_eq!(s("src/a.rs:12:5").as_deref(), Some("src/a.rs"));
+        assert_eq!(s("src/a.rs"), None);
+        assert_eq!(s("src/a.rs:x"), None);
+        assert_eq!(s("src/a.rs:"), None);
+    }
+
+    #[test]
+    fn github_line_anchors_on_code_files() {
+        let e = env(&[
+            (
+                "docs/a.md",
+                "[1](../src/file.rs#L12) [2](../src/file.rs#L12-L20) [3](../src/file.rs#L12C3) [4](../src/file.rs#L1C2-L3C4)\n",
+            ),
+            ("src/file.rs", "fn main() {}\n"),
+        ]);
+        assert!(run(&e, "docs/a.md").is_empty());
+    }
+
+    #[test]
+    fn colon_line_suffix() {
+        let e = env(&[
+            (
+                "docs/a.md",
+                "[1](../src/file.rs:12) [2](../src/file.rs:12:5) [3](../src/gone.rs:12) [4](../src/file.rs:x)\n",
+            ),
+            ("src/file.rs", "fn main() {}\n"),
+        ]);
+        let f = run(&e, "docs/a.md");
+        assert_eq!(
+            rules(&f),
+            vec!["links/missing-file", "links/missing-file"],
+            "{f:?}"
+        );
+        assert!(f[0].message.contains("gone.rs:12"), "{}", f[0].message);
+        assert!(f[1].message.contains("file.rs:x"), "{}", f[1].message);
+    }
+
+    #[test]
+    fn absolute_image_paths() {
+        let e = env(&[
+            (
+                "docs/a.md",
+                "![1](/docs/img/ok.png) ![2](/gone.png) ![3](~/x.png) ![4](file:///tmp/x.png)\n\n![5](C:\\img\\x.png) ![6](//cdn.example.com/x.png) ![7](img/ok.png) ![8](img/missing.png)\n\n<img src=\"/docs/img/ok.png\">\n",
+            ),
+            ("docs/img/ok.png", "png"),
+        ]);
+        let f = run(&e, "docs/a.md");
+        assert_eq!(
+            rules(&f),
+            vec![
+                "links/absolute-image-path",
+                "links/absolute-image-path",
+                "links/absolute-image-path",
+                "links/absolute-image-path",
+                "links/absolute-image-path",
+                "links/missing-file",
+                "links/absolute-image-path",
+            ],
+            "{f:?}"
+        );
+        assert_eq!(f[0].suggestions, vec!["img/ok.png"]);
+        assert!(f[1].suggestions.is_empty(), "missing target: no suggestion");
+        assert_eq!(f[6].suggestions, vec!["img/ok.png"]);
+        // Only the relative missing image gets a missing-file finding, with image wording.
+        assert!(
+            f[5].message
+                .starts_with("Image `img/missing.png` does not exist"),
+            "{}",
+            f[5].message
+        );
+    }
+
+    #[test]
+    fn absolute_path_detection() {
+        for d in [
+            "/x.png",
+            " /x.png",
+            "~/x.png",
+            "file:///x.png",
+            "FILE:x",
+            "C:\\x.png",
+            "c:/x.png",
+            "\\\\host\\x.png",
+        ] {
+            assert!(is_absolute_path(d), "{d}");
+        }
+        for d in [
+            "//cdn.example.com/x.png",
+            "x.png",
+            "./x.png",
+            "../x.png",
+            "https://a.b/x.png",
+        ] {
+            assert!(!is_absolute_path(d), "{d}");
+        }
+        assert_eq!(
+            relative_path(Path::new("/r/docs"), Path::new("/r/docs/img/ok.png")),
+            PathBuf::from("img/ok.png")
+        );
+        assert_eq!(
+            relative_path(Path::new("/r/docs/sub"), Path::new("/r/img/x.png")),
+            PathBuf::from("../../img/x.png")
+        );
     }
 }

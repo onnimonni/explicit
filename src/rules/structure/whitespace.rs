@@ -48,6 +48,12 @@ fn trailing_spaces(c: &Ctx, out: &mut Out) {
         let next_text = c.lines.v.get(i + 1).is_some_and(|n| !n.blank && !n.code);
         let keep_break = !blank && spaces_only && ws.len() > 2 && next_text;
         let range = l.start + trimmed.len()..l.end;
+        // Keeping a hard break: delete only the spaces beyond two.
+        let fix_range = if keep_break {
+            range.start + 2..range.end
+        } else {
+            range.clone()
+        };
         let msg = if spaces_only {
             format!("{} trailing spaces", ws.len())
         } else {
@@ -55,7 +61,7 @@ fn trailing_spaces(c: &Ctx, out: &mut Out) {
         };
         let f = c
             .finding("md/no-trailing-spaces", range.clone(), msg)
-            .fix(range, if keep_break { "  " } else { "" });
+            .fix(fix_range, "");
         out.push(if keep_break {
             f.help("Use exactly two spaces for a hard line break")
         } else {

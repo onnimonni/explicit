@@ -3,7 +3,9 @@
 
   nixConfig = {
     extra-substituters = [ "https://onnimonni.cachix.org" ];
-    extra-trusted-public-keys = [ "onnimonni.cachix.org-1:bAPuRbTAiFMLNLoojt7KlqhQcpdeTN/OMIL22fP3LyM=" ];
+    extra-trusted-public-keys = [
+      "onnimonni.cachix.org-1:bAPuRbTAiFMLNLoojt7KlqhQcpdeTN/OMIL22fP3LyM="
+    ];
   };
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -21,12 +23,17 @@
     in
     {
       packages = forAllSystems (pkgs: rec {
+        # Lite build: `spellbook` engine, no Harper (see README).
         explicit = pkgs.callPackage ./nix/package.nix { };
+        # With the Harper grammar engines (cargo feature `harper`).
+        explicit-full = pkgs.callPackage ./nix/package.nix { full = true; };
+        explicit-lite = explicit;
         default = explicit;
       });
 
       overlays.default = final: _prev: {
         explicit = final.callPackage ./nix/package.nix { };
+        explicit-full = final.callPackage ./nix/package.nix { full = true; };
       };
 
       # devenv module; import it with `imports: [ explicit/devenv ]` in devenv.yaml.

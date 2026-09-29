@@ -407,3 +407,130 @@ fn yaml_block_scalar_bodies_are_not_comments() {
     validate(src, &blocks);
     assert_eq!(prose(Lang::Yaml, src), ["header", "yes", "final", "plain"]);
 }
+
+#[test]
+fn python_nested_docstrings_are_dedented() {
+    let src = r#####"import os
+
+
+@decorator(option={"a": 1})
+@other
+class Outer(Base, metaclass=Meta):
+    """Outer prose.
+
+    Continued outer prose.
+        Indented example stays code.
+    """
+
+    # a comment before the docstring
+    class Inner:
+        R"""Raw inner prose."""
+
+        @staticmethod
+        def method(
+            self,
+            mapping: dict[str, int] = {"k": 1, "j": (2, 3)},
+            label: str = "x: (y",
+            *,
+            key=lambda v: v,
+        ) -> dict[str, "Outer"]:
+            # comment line first
+            '''Method prose.
+
+            Second line.
+            '''
+            value = "not a docstring"
+            call("not a docstring")
+            return value
+
+    async def run(self) -> None:
+        u"""Async prose."""
+        await call(
+            """not a docstring""",
+        )
+
+    def one(self): """One-liner prose."""
+
+    def two(self):
+        'Single-quoted prose.'
+
+x = """not a docstring"""
+if x:
+    def nested():
+        """Nested prose."""
+"#####;
+    let blocks = extract(Lang::Python, src);
+    validate(src, &blocks);
+    let docs: Vec<Vec<&str>> = blocks
+        .iter()
+        .filter(|b| b.kind == CommentKind::Docstring)
+        .map(|b| b.prose_lines(src))
+        .collect();
+    assert_eq!(
+        docs,
+        [
+            vec![
+                "Outer prose.",
+                "",
+                "Continued outer prose.",
+                "    Indented example stays code.",
+                ""
+            ],
+            vec!["Raw inner prose."],
+            vec!["Method prose.", "", "Second line.", ""],
+            vec!["Async prose."],
+            vec!["One-liner prose."],
+            vec!["Single-quoted prose."],
+            vec!["Nested prose."],
+        ]
+    );
+    let segs = segments(src, &blocks);
+    assert!(segs[0].text.contains("Continued outer prose."));
+    assert!(!segs[0].text.contains("Indented example"));
+    // Dedented content still maps to the source bytes.
+    let method = segs
+        .iter()
+        .find(|s| s.text.contains("Second line."))
+        .unwrap();
+    let at = method.text.find("Second line.").unwrap();
+    assert_eq!(&src[method.abs(at..at + 12)], "Second line.");
+}
+
+#[test]
+fn comment_directives_mentions_and_owner_tags_are_blanked() {
+    let words = |s: &Segment| s.text.split_whitespace().collect::<Vec<_>>().join(" ");
+    let src = "x = 1  # noqa: E501\n\
+y = f()  # type: ignore[attr-defined]\n\
+# pylint: disable=invalid-name,too-many-args\n\
+\n\
+# TODO(alice): ask @bob about @param handling, mail sdk@acme.example\n\
+z = 2  # noqa: BLE001 - a scheduler must survive its jobs\n\
+# fmt: off\n\
+# pragma: no cover\n";
+    let blocks = extract(Lang::Python, src);
+    let text: Vec<String> = segments(src, &blocks).iter().map(words).collect();
+    assert_eq!(
+        text,
+        [
+            ": ask about handling, mail sdk",
+            "- a scheduler must survive its jobs"
+        ]
+    );
+
+    // An email address is not a handle; its local part survives the directive pass.
+    let found: Vec<_> = directive_ranges("mail sdk@acme.example or @bob")
+        .map(|r| r.start)
+        .collect();
+    assert_eq!(found, [25]);
+
+    let js = "// eslint-disable-next-line no-console, @typescript-eslint/no-explicit-any\n\
+foo(); // nolint:errcheck because reasons\n\
+// See #[allow(dead_code)] and FIXME(bob) for why.\n\
+// We run eslint in CI.\n";
+    let blocks = extract(Lang::TypeScript, js);
+    let text: Vec<String> = segments(js, &blocks).iter().map(words).collect();
+    assert_eq!(
+        text,
+        ["because reasons", "See and for why. We run eslint in CI."]
+    );
+}

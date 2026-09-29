@@ -1,8 +1,7 @@
-//! Documentation-site checks: TOC sync, orphan pages, include directives, README images.
+//! Documentation-site checks: TOC sync, orphan pages, include directives.
 
 mod include;
 mod orphan;
-mod readme_image;
 mod toc;
 
 pub(crate) use orphan::InboundLinks;
@@ -24,9 +23,6 @@ pub fn check(ctx: &FileCtx, ws: &Workspace, out: &mut Out) {
     }
     if ctx.enabled("docs/include-missing") {
         include::check(ctx, out);
-    }
-    if ctx.enabled("docs/readme-absolute-image") {
-        readme_image::check(ctx, out);
     }
 }
 
@@ -55,20 +51,6 @@ pub(crate) fn project_root(ctx: &FileCtx) -> PathBuf {
         .root
         .canonicalize()
         .unwrap_or_else(|_| ctx.config.root.clone())
-}
-
-/// `path` relative to directory `from`, both absolute and normalized, with `/` separators.
-pub(crate) fn relative_to(path: &Path, from: &Path) -> String {
-    let p: Vec<Component> = path.components().collect();
-    let f: Vec<Component> = from.components().collect();
-    let common = p.iter().zip(&f).take_while(|(a, b)| a == b).count();
-    let mut parts: Vec<String> = std::iter::repeat_n("..".to_string(), f.len() - common).collect();
-    parts.extend(
-        p[common..]
-            .iter()
-            .map(|c| c.as_os_str().to_string_lossy().into_owned()),
-    );
-    parts.join("/")
 }
 
 #[cfg(test)]

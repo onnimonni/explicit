@@ -82,7 +82,7 @@ pub fn segments(src: &str, blocks: &[CommentBlock]) -> Vec<Segment> {
                     continue;
                 }
                 let indented_code = b.is_doc() && content.starts_with("    ");
-                if in_fence || indented_code || looks_like_code(trimmed) {
+                if in_fence || indented_code || looks_like_code(trimmed) || is_directive(trimmed) {
                     continue;
                 }
                 keep.push(l.content.clone());
@@ -98,9 +98,13 @@ pub fn segments(src: &str, blocks: &[CommentBlock]) -> Vec<Segment> {
                 .map(|m| seg.abs(m.range()))
                 .collect();
             blanks.extend(crate::extract::markdown::non_prose_ranges(&seg));
-            for r in blanks {
-                seg.blank(r);
-            }
+            blanks.extend(crate::segment::noise_ranges(&seg));
+            blanks.extend(
+                DIRECTIVE_RE
+                    .find_iter(&seg.text)
+                    .map(|m| seg.abs(m.range())),
+            );
+            seg.blank_all(&blanks);
             seg
         })
         .filter(|s| !s.is_blank())
@@ -122,6 +126,57 @@ static CODE_LINE_RE: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::ne
     )
     .expect("hardcoded regex is valid")
 });
+
+/// Tool directives and owner tags inside comments: `noqa: E501`, `type: ignore[attr]`,
+/// `eslint-disable-next-line no-console`, `pylint: disable=C0103`, `nolint:errcheck`,
+/// `#[allow(dead_code)]`, `TODO(alice)`, plus handles (`@alice`, `@param`, see
+/// [`directive_ranges`]). Not prose, so spell and grammar rules would only flag them.
+static DIRECTIVE_RE: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| {
+    regex::Regex::new(concat!(
+        r"(?i:\bnoqa\b(?::\s*[A-Z]+[0-9]+(?:\s*,\s*[A-Z]+[0-9]+)*)?)",
+        r"|\b(?:type|pyright|mypy):\s*ignore(?:\[[^\]\n]*\])?",
+        r"|\beslint-(?:disable(?:-next-line|-line)?|enable)(?:[ \t]+[\w@/-]+(?:[ \t]*,[ \t]*[\w@/-]+)*)?",
+        r"|\b(?:pylint|flake8|isort|fmt|ruff|pragma|nosemgrep)[ \t]*:[ \t]*",
+        r"(?:disable|enable|skip-file|skip|off|on|no[ \t]+cover)\b(?:[=:][ \t]*[\w,-]*\w)?",
+        r"|\bshellcheck[ \t]+(?:disable|enable|source)=[\w,./-]+",
+        r"|\b(?i:nolint)(?:nextline|begin|end)?\b(?:[:(][\w,()-]*)?",
+        r"|\bnosec\b(?:[ \t]+[A-Z]\d+)?",
+        r"|#!?\[(?:allow|deny|warn|expect|forbid|cfg|cfg_attr)\([^\n\]]*\)\]",
+        r"|\b(?:TODO|FIXME|XXX|HACK|NOTE|BUG)\([^)\n]*\)",
+        r"|\b(?:prettier-ignore|istanbul[ \t]+ignore(?:[ \t]+(?:next|else|if|file))?)",
+        r"|\bgo:(?:build|generate|embed|linkname|noinline)\b.*",
+        r"|@[A-Za-z_][\w./-]*\w|@[A-Za-z]",
+    ))
+    .expect("hardcoded regex is valid")
+});
+
+/// Ranges of [`DIRECTIVE_RE`] matches in `text`, local offsets. A `@` preceded by a word
+/// character is an email address (`sdk@acme.example`), not a handle, and is kept.
+fn directive_ranges(text: &str) -> impl Iterator<Item = Range<usize>> + '_ {
+    DIRECTIVE_RE
+        .find_iter(text)
+        .filter(|m| {
+            !m.as_str().starts_with('@')
+                || !text[..m.start()]
+                    .chars()
+                    .next_back()
+                    .is_some_and(|c| c.is_alphanumeric() || matches!(c, '_' | '.' | '+' | '-'))
+        })
+        .map(|m| m.range())
+}
+
+/// The whole line is tool directives (`# noqa`, `// eslint-disable-line`, `# type: ignore`).
+fn is_directive(line: &str) -> bool {
+    let mut rest = line.to_owned();
+    let mut any = false;
+    for r in directive_ranges(line) {
+        any = true;
+        rest.replace_range(r.clone(), &" ".repeat(r.len()));
+    }
+    any && rest
+        .chars()
+        .all(|c| c.is_whitespace() || matches!(c, ',' | ';' | '-' | '*' | '/' | ':'))
+}
 
 /// Commented-out code rather than prose.
 fn looks_like_code(line: &str) -> bool {

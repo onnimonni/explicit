@@ -1,9 +1,10 @@
 //! `explicit.toml` configuration.
 
 use std::collections::BTreeMap;
+use std::collections::HashMap;
 use std::hash::{DefaultHasher, Hash, Hasher};
 use std::path::{Path, PathBuf};
-use std::sync::{Arc, OnceLock};
+use std::sync::{Arc, Mutex, OnceLock, PoisonError};
 
 use serde::Deserialize;
 
@@ -50,6 +51,8 @@ pub struct Config {
     /// Vale-style rules.
     #[serde(rename = "style")]
     pub style: Vec<StyleRule>,
+    /// Per-path settings (`[[overrides]]`), applied in order.
+    pub overrides: Vec<Override>,
     /// Derived values computed on first use.
     /// Public only so `Config { .., ..Default::default() }` works; the contents are opaque.
     #[serde(skip)]
@@ -63,6 +66,43 @@ pub struct ConfigCache {
     /// (fingerprint of the inputs, value): a config mutated after first use is recomputed.
     accepted: OnceLock<(u64, Arc<Vec<String>>)>,
     link_excludes: OnceLock<(u64, Arc<Vec<regex::Regex>>)>,
+    overrides: OverrideCache,
+}
+
+/// Compiled `[[overrides]]` globs and effective configs keyed by the matched override indices.
+#[derive(Debug, Default)]
+struct OverrideCache {
+    matchers: OnceLock<Vec<ignore::gitignore::Gitignore>>,
+    effective: Mutex<HashMap<Vec<usize>, Arc<Config>>>,
+}
+
+impl Clone for OverrideCache {
+    /// A clone may be mutated, so it starts empty.
+    fn clone(&self) -> Self {
+        OverrideCache::default()
+    }
+}
+
+/// Settings for files matching `paths`.
+#[derive(Debug, Clone, Default, Deserialize)]
+#[serde(default, deny_unknown_fields)]
+pub struct Override {
+    /// Gitignore-style globs relative to the project root.
+    pub paths: Vec<String>,
+    /// Replaces `prose.dialect`.
+    pub dialect: Option<String>,
+    /// Replaces `general.language`; anything but `en*` turns off spelling, grammar, prose and slop rules.
+    pub language: Option<String>,
+    /// Merged over `[rules]`.
+    pub rules: BTreeMap<String, Level>,
+    /// Appended to `prose.accept`.
+    pub accept: Vec<String>,
+}
+
+/// Whether a language code (`en`, `en-GB`, `fi`, `none`) means English. Empty counts as English.
+pub fn is_english(lang: &str) -> bool {
+    let l = lang.trim().to_ascii_lowercase();
+    l.is_empty() || l == "en" || l.starts_with("en-") || l.starts_with("en_") || l == "english"
 }
 
 fn fingerprint(v: &impl Hash) -> u64 {
@@ -94,6 +134,7 @@ impl Default for Config {
             slop: Slop::default(),
             docs: Docs::default(),
             style: Vec::new(),
+            overrides: Vec::new(),
             cache: ConfigCache::default(),
         }
     }
@@ -109,6 +150,14 @@ pub struct General {
     pub respect_gitignore: bool,
     /// Minimum severity that makes `check` exit with 1.
     pub fail_on: Severity,
+    /// Prose language (`en`, `fi`, `none`, ...). Non-English files get only structure and link rules.
+    pub language: String,
+    /// Skip spelling, grammar, prose and slop rules on files that do not look like English.
+    pub detect_language: bool,
+    /// Reuse results for unchanged files (`check` only).
+    pub cache: bool,
+    /// Cache directory, relative to the root (default `.explicit_cache`).
+    pub cache_dir: Option<PathBuf>,
 }
 
 impl Default for General {
@@ -118,6 +167,10 @@ impl Default for General {
             include: Vec::new(),
             respect_gitignore: true,
             fail_on: Severity::Warning,
+            language: "en".into(),
+            detect_language: true,
+            cache: true,
+            cache_dir: None,
         }
     }
 }
@@ -127,16 +180,76 @@ impl Default for General {
 pub struct Prose {
     /// american, british, canadian, australian, indian
     pub dialect: String,
-    /// Words accepted by the spell checker.
+    /// Words accepted by the spell checker, matched case-insensitively. Hyphenated entries
+    /// (`pre-commit`, `Wi-Fi`) are accepted as whole tokens.
     pub accept: Vec<String>,
+    /// Regexes for accepted words, matched against whole words (`^(?:pattern)$`).
+    pub accept_patterns: Vec<String>,
     /// Files with one accepted word per line.
     pub vocab_files: Vec<PathBuf>,
     /// Harper rules to disable everywhere (by harper rule name).
     pub disable: Vec<String>,
+    /// Default severity of `grammar/*` findings.
+    pub grammar_level: GrammarLevel,
+    /// Spelling/grammar backend (`spellbook` is the default).
+    pub engine: Engine,
     /// `prose/sentence-length`: maximum words per sentence.
     pub max_sentence_words: usize,
     /// `prose/readability`: maximum Flesch-Kincaid grade per section.
     pub max_grade: f64,
+}
+
+/// How `grammar/*` findings get their default severity (`[rules]` still overrides it).
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Hash, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum GrammarLevel {
+    /// `info`, except a hand-picked set of high-confidence rules that stay `warning`.
+    #[default]
+    Info,
+    /// Every grammar rule is a `warning`.
+    Warning,
+    /// Severity follows Harper's lint kind (typos error, style info, the rest warning).
+    Harper,
+}
+
+/// Spelling and grammar backend. `spellbook` is the default; the others need the `harper`
+/// cargo feature.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Hash, Deserialize, clap::ValueEnum)]
+#[serde(rename_all = "lowercase")]
+pub enum Engine {
+    /// Harper with all its enabled rules; spelling on Harper's dictionary.
+    Harper,
+    /// Harper limited to an allowlist of high-precision rules.
+    Curated,
+    /// No Harper: Hunspell spelling (spellbook) and our own pattern rules.
+    #[default]
+    Spellbook,
+    /// `spellbook`, plus Harper's part-of-speech rules on full sentences only.
+    Hybrid,
+}
+
+impl Engine {
+    /// Spelling through Hunspell dictionaries instead of Harper's.
+    pub fn hunspell(self) -> bool {
+        matches!(self, Engine::Spellbook | Engine::Hybrid)
+    }
+
+    /// Runs Harper, so needs a build with the `harper` feature.
+    pub fn needs_harper(self) -> bool {
+        self != Engine::Spellbook
+    }
+
+    /// An error for an engine this build lacks.
+    pub fn check_available(self) -> Result<(), String> {
+        if self.needs_harper() && !cfg!(feature = "harper") {
+            let name = format!("{self:?}").to_lowercase();
+            return Err(format!(
+                "prose.engine = \"{name}\" needs Harper, but explicit was built without it \
+                 (cargo feature `harper`); use engine = \"spellbook\""
+            ));
+        }
+        Ok(())
+    }
 }
 
 impl Default for Prose {
@@ -144,8 +257,11 @@ impl Default for Prose {
         Prose {
             dialect: "american".into(),
             accept: Vec::new(),
+            accept_patterns: Vec::new(),
             vocab_files: Vec::new(),
             disable: vec!["ExpandConfiguration".into(), "OxfordComma".into()],
+            grammar_level: GrammarLevel::Info,
+            engine: Engine::default(),
             max_sentence_words: 30,
             max_grade: 12.0,
         }
@@ -183,6 +299,7 @@ impl Default for Comments {
                 "MissingTo".into(),
                 "PhrasalVerbAsCompoundNoun".into(),
                 "OrthographicConsistency".into(),
+                "ExpandDirectory".into(),
             ],
         }
     }
@@ -266,12 +383,20 @@ pub struct Links {
     pub exclude: Vec<String>,
     /// HTTP status codes counted as OK besides 2xx.
     pub accept_status: Vec<u16>,
+    /// Keep remote results in `<cache_dir>/links.json` (independent of `general.cache`).
+    pub cache: bool,
+    /// How long OK results (links and images) are reused.
     pub cache_ttl_hours: u64,
+    /// How long failures are reused; short so fixes show up quickly.
     pub cache_failed_ttl_hours: u64,
     /// Where root-relative links (`/docs/x.md`) resolve. Defaults to project root.
     pub root_dir: Option<PathBuf>,
     /// Allow requests (and redirects) to localhost, private, link-local and unique-local addresses.
     pub allow_private: bool,
+    /// This repository on GitHub (`owner/repo`); default: parsed from the git remote.
+    pub github_repo: Option<String>,
+    /// Default branch for `links/same-repo-url`; default: `origin/HEAD`, else main/master/HEAD.
+    pub github_default_branch: Option<String>,
 }
 
 impl Default for Links {
@@ -286,10 +411,13 @@ impl Default for Links {
                 r"^https?://example\.(com|org|net)".into(),
             ],
             accept_status: vec![429],
-            cache_ttl_hours: 24,
+            cache: true,
+            cache_ttl_hours: 168,
             cache_failed_ttl_hours: 1,
             root_dir: None,
             allow_private: false,
+            github_repo: None,
+            github_default_branch: None,
         }
     }
 }
@@ -297,7 +425,7 @@ impl Default for Links {
 #[derive(Debug, Clone, Deserialize)]
 #[serde(default, deny_unknown_fields)]
 pub struct Slop {
-    /// Extra phrase catalogues (same schema as the built-in one).
+    /// Extra phrase catalogs (same schema as the built-in one).
     pub extra: Vec<PathBuf>,
     /// Built-in entry ids to disable.
     pub disable: Vec<String>,
@@ -397,19 +525,8 @@ impl Config {
         let start = start
             .canonicalize()
             .map_err(|e| format!("{}: {e}", start.display()))?;
-        let mut dir = if start.is_file() {
-            start.parent().unwrap_or(&start).to_path_buf()
-        } else {
-            start.clone()
-        };
-        loop {
-            let candidate = dir.join(CONFIG_FILE);
-            if candidate.is_file() {
-                return Config::load(&candidate);
-            }
-            if dir.join(".git").exists() || !dir.pop() {
-                break;
-            }
+        if let Some(candidate) = find_config(&start) {
+            return Config::load(&candidate);
         }
         let root = if start.is_file() {
             start.parent().unwrap_or(&start).to_path_buf()
@@ -427,15 +544,24 @@ impl Config {
         let text = std::fs::read_to_string(path).map_err(|e| format!("{}: {e}", path.display()))?;
         let mut cfg: Config =
             toml::from_str(&text).map_err(|e| format!("{}: {e}", path.display()))?;
-        cfg.root = path
+        // Absolute root, so paths relative to it can be re-expressed relative to the cwd.
+        let parent = path
             .parent()
-            .map(Path::to_path_buf)
-            .unwrap_or_else(|| PathBuf::from("."));
+            .filter(|p| !p.as_os_str().is_empty())
+            .unwrap_or(Path::new("."));
+        cfg.root = parent
+            .canonicalize()
+            .unwrap_or_else(|_| parent.to_path_buf());
         cfg.validate()?;
         Ok(cfg)
     }
 
     fn validate(&self) -> Result<(), String> {
+        self.prose.engine.check_available()?;
+        for p in &self.prose.accept_patterns {
+            regex::Regex::new(p)
+                .map_err(|e| format!("prose.accept_patterns: bad regex {p:?}: {e}"))?;
+        }
         for r in &self.style {
             if r.regex {
                 for t in r.tokens.iter().chain(r.swap.keys()) {
@@ -447,7 +573,67 @@ impl Config {
         for p in &self.links.exclude {
             regex::Regex::new(p).map_err(|e| format!("links.exclude: bad regex {p:?}: {e}"))?;
         }
+        for (i, o) in self.overrides.iter().enumerate() {
+            if o.paths.is_empty() {
+                return Err(format!("overrides[{i}]: `paths` is empty"));
+            }
+            build_matcher(&self.root, &o.paths).map_err(|e| format!("overrides[{i}]: {e}"))?;
+        }
         Ok(())
+    }
+
+    /// Config for the file at `rel` (relative to the root) with matching `[[overrides]]` applied;
+    /// `None` when no override matches. Built once per distinct set of matching overrides.
+    pub fn for_path(&self, rel: &Path) -> Option<Arc<Config>> {
+        if self.overrides.is_empty() || rel.has_root() {
+            return None;
+        }
+        let matchers = self.cache.overrides.matchers.get_or_init(|| {
+            self.overrides
+                .iter()
+                .map(|o| {
+                    build_matcher(&self.root, &o.paths)
+                        .unwrap_or_else(|_| ignore::gitignore::Gitignore::empty())
+                })
+                .collect()
+        });
+        let hits: Vec<usize> = matchers
+            .iter()
+            .enumerate()
+            .filter(|(_, m)| m.matched_path_or_any_parents(rel, false).is_ignore())
+            .map(|(i, _)| i)
+            .collect();
+        if hits.is_empty() {
+            return None;
+        }
+        let mut map = self
+            .cache
+            .overrides
+            .effective
+            .lock()
+            .unwrap_or_else(PoisonError::into_inner);
+        Some(
+            map.entry(hits)
+                .or_insert_with_key(|hits| Arc::new(self.with_overrides(hits)))
+                .clone(),
+        )
+    }
+
+    fn with_overrides(&self, hits: &[usize]) -> Config {
+        let mut c = self.clone();
+        c.overrides = Vec::new();
+        c.cache = ConfigCache::default();
+        for o in hits.iter().filter_map(|&i| self.overrides.get(i)) {
+            if let Some(d) = &o.dialect {
+                c.prose.dialect.clone_from(d);
+            }
+            if let Some(l) = &o.language {
+                c.general.language.clone_from(l);
+            }
+            c.rules.extend(o.rules.iter().map(|(k, v)| (k.clone(), *v)));
+            c.prose.accept.extend(o.accept.iter().cloned());
+        }
+        c
     }
 
     /// Effective severity of a rule: exact id wins, then the longest matching glob, then the default.
@@ -510,6 +696,38 @@ impl Config {
             },
         )
     }
+}
+
+/// `explicit.toml` that applies to `start` (a file or directory): the nearest one walking up,
+/// stopping at the repository root.
+pub fn find_config(start: &Path) -> Option<PathBuf> {
+    let mut dir = if start.is_file() {
+        start.parent().unwrap_or(start).to_path_buf()
+    } else {
+        start.to_path_buf()
+    };
+    loop {
+        let candidate = dir.join(CONFIG_FILE);
+        if candidate.is_file() {
+            return Some(candidate);
+        }
+        if dir.join(".git").exists() || !dir.pop() {
+            return None;
+        }
+    }
+}
+
+/// Gitignore-style matcher for `globs`, relative to `root`.
+pub fn build_matcher(
+    root: &Path,
+    globs: &[String],
+) -> Result<ignore::gitignore::Gitignore, String> {
+    let mut b = ignore::gitignore::GitignoreBuilder::new(root);
+    for g in globs {
+        b.add_line(None, g)
+            .map_err(|e| format!("bad glob {g:?}: {e}"))?;
+    }
+    b.build().map_err(|e| e.to_string())
 }
 
 fn find_git_root(start: &Path) -> Option<PathBuf> {
@@ -592,6 +810,67 @@ mod tests {
             c.severity("md/heading-style", Some(Severity::Warning)),
             None
         );
+    }
+
+    #[test]
+    fn overrides_apply_per_path() {
+        let text = r#"
+[rules]
+"md/line-length" = "warn"
+[prose]
+accept = ["Base"]
+[[overrides]]
+paths = ["docs/fi/**"]
+language = "fi"
+accept = ["Moi"]
+rules = { "md/line-length" = "off" }
+[[overrides]]
+paths = ["docs/**"]
+dialect = "british"
+"#;
+        let dir = tempfile::tempdir().unwrap();
+        let p = dir.path().join(CONFIG_FILE);
+        std::fs::write(&p, text).unwrap();
+        let c = Config::load(&p).unwrap();
+        assert!(c.root.is_absolute());
+        assert!(c.for_path(Path::new("README.md")).is_none());
+        let fi = c.for_path(Path::new("docs/fi/a.md")).unwrap();
+        assert_eq!(fi.general.language, "fi");
+        assert_eq!(fi.prose.dialect, "british");
+        assert_eq!(fi.prose.accept, ["Base", "Moi"]);
+        assert_eq!(fi.severity("md/line-length", None), None);
+        // Cached per matched set.
+        assert!(Arc::ptr_eq(
+            &fi,
+            &c.for_path(Path::new("docs/fi/sub/b.md")).unwrap()
+        ));
+        let en = c.for_path(Path::new("docs/guide.md")).unwrap();
+        assert_eq!(en.general.language, "en");
+        assert_eq!(en.prose.dialect, "british");
+        assert!(!is_english(&fi.general.language));
+        assert!(is_english("en-GB") && !is_english("none"));
+        std::fs::write(&p, "[[overrides]]\nlanguage = \"fi\"\n").unwrap();
+        assert!(Config::load(&p).unwrap_err().contains("paths"));
+    }
+
+    #[test]
+    fn engines_need_harper_feature() {
+        let dir = tempfile::tempdir().unwrap();
+        let p = dir.path().join(CONFIG_FILE);
+        std::fs::write(&p, "[prose]\nengine = \"spellbook\"\n").unwrap();
+        assert_eq!(Config::load(&p).unwrap().prose.engine, Engine::Spellbook);
+        std::fs::write(&p, "[prose]\nengine = \"curated\"\n").unwrap();
+        let curated = Config::load(&p);
+        assert_eq!(Config::default().prose.engine, Engine::Spellbook);
+        if cfg!(feature = "harper") {
+            assert_eq!(curated.unwrap().prose.engine, Engine::Curated);
+        } else {
+            let e = curated.unwrap_err();
+            assert!(
+                e.contains("built without") && e.contains("spellbook"),
+                "{e}"
+            );
+        }
     }
 
     #[test]

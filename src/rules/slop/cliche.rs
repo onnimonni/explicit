@@ -174,7 +174,8 @@ pub fn negation_chains(text: &str) -> Vec<Hit> {
 
 pub fn negation_chain(seg: &Segment, sev: Severity, out: &mut Vec<Finding>) {
     let text = flatten(&seg.text);
-    for h in negation_chains(&text) {
+    // Blanked code can leave an empty item ("no `x`"), so require two counted items.
+    for h in negation_chains(&text).into_iter().filter(|h| h.count >= 2) {
         out.push(
             Finding::new(
                 "slop/negation-chain",
