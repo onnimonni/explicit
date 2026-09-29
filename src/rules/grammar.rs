@@ -177,6 +177,9 @@ struct Checker {
     md_config: FlatConfig,
     code_config: FlatConfig,
     is_code: Option<bool>,
+    /// Lowercased accept list: wins over Harper's own entry for the word, whose dialect
+    /// metadata otherwise still flags it (`distilled`, `cancelled` under American).
+    accepted: HashSet<String>,
 }
 
 fn config_key(c: &Config) -> u64 {
@@ -266,6 +269,11 @@ impl Checker {
             md_config,
             code_config,
             is_code: None,
+            accepted: config
+                .accepted_words()
+                .iter()
+                .map(|w| w.to_lowercase())
+                .collect(),
         }
     }
 
@@ -316,7 +324,10 @@ impl Checker {
                 }
                 let word = &seg.text[s..e];
                 let word_rule = is_spell || name == "SplitWords";
-                if word_rule && looks_like_identifier(word, idents) {
+                if word_rule
+                    && (looks_like_identifier(word, idents)
+                        || self.accepted.contains(&word.to_lowercase()))
+                {
                     continue;
                 }
                 if is_spell
@@ -535,6 +546,19 @@ mod tests {
             .insert("grammar/OxfordComma".into(), crate::config::Level::Error);
         let f = run_with(src, &config);
         assert!(f.iter().any(|f| f.rule == "grammar/OxfordComma"), "{f:?}");
+    }
+
+    #[test]
+    fn accept_overrides_dialect_entry() {
+        let src = "The queue distilled data. Distilled output.\n";
+        assert!(
+            run(src).iter().any(|f| f.rule == "spelling"),
+            "precondition"
+        );
+        let mut config = Config::default();
+        config.prose.accept.push("distilled".into());
+        let f = run_with(src, &config);
+        assert!(f.iter().all(|f| f.rule != "spelling"), "{f:?}");
     }
 
     #[test]
