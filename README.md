@@ -21,11 +21,21 @@ A fast Rust linter for prose in Markdown files and code comments. It combines id
 
 ## Install
 
+Don't build explicit from source. Prebuilt binaries for Linux (`x86_64`, `aarch64`) and macOS
+(`aarch64`) come from [onnimonni.cachix.org](https://onnimonni.cachix.org):
+
 ```console
-cargo install --git https://github.com/onnimonni/explicit
+cachix use onnimonni
+nix run github:onnimonni/explicit -- check
+
+# or without cachix, trusting the flake's nixConfig
+nix run --accept-flake-config github:onnimonni/explicit -- check
 ```
 
-Build without Mermaid support (fewer dependencies) with `--no-default-features`.
+In a devenv project use the input and module below; it adds `onnimonni` to `cachix.pull`.
+`--option extra-substituters https://onnimonni.cachix.org` alone is not enough: without the
+trusted public key (`onnimonni.cachix.org-1:bAPuRbTAiFMLNLoojt7KlqhQcpdeTN/OMIL22fP3LyM=`)
+Nix silently ignores the cache and builds from source.
 
 ### devenv
 
@@ -64,6 +74,16 @@ nix profile install github:onnimonni/explicit
 ```
 
 The flake also exports `overlays.default`, which adds `pkgs.explicit`.
+
+### From source
+
+Only when you change explicit itself:
+
+```console
+cargo install --git https://github.com/onnimonni/explicit
+```
+
+Build without Mermaid support (fewer dependencies) with `--no-default-features`.
 
 ## Usage
 
