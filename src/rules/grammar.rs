@@ -496,6 +496,7 @@ pub fn check(ctx: &FileCtx, out: &mut Out) {
             }
         };
         let checker = &mut cache[idx];
+        checker.test_file = ctx.config.is_test_path(&ctx.a.file.rel);
         checker.select(is_code);
         for seg in segments {
             checker.lint_segment(seg, &idents, ctx, out);
@@ -600,6 +601,7 @@ fn check_language_in(
         };
         let checker = &mut cache[idx];
         checker.file_names = file_names;
+        checker.test_file = ctx.config.is_test_path(&ctx.a.file.rel);
         checker.select(is_code);
         for seg in &segments {
             checker.lint_segment(seg, &idents, ctx, out);
@@ -649,6 +651,11 @@ struct Checker {
     phrases: Arc<crate::vocab::Phrases>,
     /// `prose/entity-name` reports case-sensitive terms in another casing.
     entity_case_on: bool,
+    /// `[[person]]` names and placeholder names, with the inflections of `name_lang`.
+    people: Arc<crate::vocab::PersonIndex>,
+    name_lang: crate::vocab::NameLang,
+    /// The current file matches `[people] test_paths`: made-up names pass.
+    test_file: bool,
     /// Spelling in another language (`fi`, `sv`) instead of English; no grammar rules.
     lang: Option<(String, Arc<dyn spell_lang::LangSpeller>)>,
     /// Words the file's main language knows, accepted inside a stretch of `lang`.
@@ -665,6 +672,8 @@ fn config_key(c: &Config) -> u64 {
     c.prose.accept_patterns.hash(&mut h);
     c.vocab.hash(&mut h);
     c.entities.hash(&mut h);
+    c.persons.hash(&mut h);
+    c.people.placeholders.hash(&mut h);
     c.prose.disable.hash(&mut h);
     c.comments.disable.hash(&mut h);
     for (k, l) in &c.rules {
@@ -778,6 +787,9 @@ impl Checker {
             accept_patterns,
             phrases: config.vocab_phrases_in("en"),
             entity_case_on: super::rule_enabled(config, "prose/entity-name"),
+            people: config.person_index("en"),
+            name_lang: crate::vocab::NameLang::English,
+            test_file: false,
             lang: None,
             secondary: None,
             file_names: Vec::new(),
@@ -841,6 +853,9 @@ impl Checker {
                 .collect(),
             phrases: config.vocab_phrases_in(code),
             entity_case_on: super::rule_enabled(config, "prose/entity-name"),
+            people: config.person_index(code),
+            name_lang: crate::vocab::NameLang::from_code(code),
+            test_file: false,
             lang: Some((code.to_string(), speller)),
             secondary,
             file_names: Vec::new(),
@@ -1199,6 +1214,9 @@ impl Checker {
                     continue;
                 }
                 if is_spell && phrase_ranges.iter().any(|r| r.start <= s && e <= r.end) {
+                    continue;
+                }
+                if is_spell && self.person_name(word, token) {
                     continue;
                 }
                 if is_spell && self.lang.is_some() && self.lang_skips(seg, ctx.src(), s, word) {
@@ -1640,6 +1658,17 @@ impl Checker {
             || code == "sv" && spell_lang::swedish_led(&**sp, word, &single)
     }
 
+    /// A `[[person]]` or placeholder name (or its inflection), or in a test file any
+    /// name-shaped word that is not one edit from an English word (`Teh`).
+    fn person_name(&self, word: &str, token: &str) -> bool {
+        let known = |w: &str| self.people.base(w, self.name_lang).is_some();
+        let made_up = |w: &str| {
+            name_shaped(w) && (self.lang.is_some() || !spell::near_typo(self.name_speller(), w))
+        };
+        (!self.people.is_empty() && (known(word) || known(token)))
+            || (self.test_file && (made_up(word) || made_up(token)))
+    }
+
     /// Dictionary for the project-name typo guard (Hunspell even for the Harper engines).
     fn name_speller(&self) -> &'static spell::Speller {
         self.hunspell
@@ -1785,6 +1814,24 @@ fn letter_label(text: &str, s: usize, word: &str) -> bool {
 fn possessive_suffix(text: &str, s: usize, word: &str) -> bool {
     let bare = word.trim_start_matches(['\'', '’']);
     bare.eq_ignore_ascii_case("s") && (bare.len() < word.len() || text[..s].ends_with(['\'', '’']))
+}
+
+/// Written like a person's name: capitalized letters (`Nykänen`, `McAllister`, `O'Brien`,
+/// `Anna-Liisa`, `Nykäselle`), not ALL CAPS; an English possessive allowed.
+fn name_shaped(word: &str) -> bool {
+    let base = ["'s", "’s"]
+        .iter()
+        .find_map(|p| word.strip_suffix(p))
+        .unwrap_or(word);
+    !base.is_empty()
+        && base.split('-').all(|part| {
+            let letters: Vec<char> = part.chars().filter(|c| !matches!(c, '\'' | '’')).collect();
+            letters.len() >= 2
+                && letters[0].is_uppercase()
+                && letters.iter().all(|c| c.is_alphabetic())
+                && letters.iter().filter(|c| c.is_uppercase()).count() <= 2
+                && letters.iter().any(|c| c.is_lowercase())
+        })
 }
 
 /// A whitespace span that runs to the end of its line: a hard break or trailing spaces.
@@ -2625,7 +2672,7 @@ description = "Data hub"
 [[entity]]
 name = "Telia Oy"
 kind = "company"
-relationship = "Pharmacy partner"
+relationship = "Telecom partner"
 aliases = ["Qelvio"]
 "#,
         )

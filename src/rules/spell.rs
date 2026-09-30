@@ -852,6 +852,11 @@ impl ProjectVocab {
 /// `word` may be a product or proper name: capitalized with the rest lowercase (other shapes
 /// are identifiers already), 3+ letters, unknown, and not one edit from a lowercase
 /// dictionary word.
+/// `word` (any case) is one edit from a dictionary word: likely a typo, not a name.
+pub fn near_typo(s: &Speller, word: &str) -> bool {
+    near_known(s, &word.to_lowercase(), "")
+}
+
 pub fn project_name(s: &Speller, word: &str) -> bool {
     let mut chars = word.chars();
     let first_upper = chars.next().is_some_and(char::is_uppercase);

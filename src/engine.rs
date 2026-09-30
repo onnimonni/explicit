@@ -768,6 +768,9 @@ pub fn local_findings(a: &Analyzed, config: &Config) -> Out {
     if is_po {
         crate::rules::gettext::check(&ctx, &mut out);
     }
+    if a.file.rel == std::path::Path::new(crate::config::CONFIG_FILE) {
+        config_placeholders(&ctx, &mut out);
+    }
     if is_md || is_po || config.comments.enabled {
         // Explicitly marked regions override detection (see `crate::lang_marks`).
         let marks = crate::lang_marks::regions(a);
@@ -793,6 +796,25 @@ pub fn local_findings(a: &Analyzed, config: &Config) -> Out {
         }
     }
     out
+}
+
+/// `config/placeholder`: `explicit.toml` explanations still reading `TODO`.
+fn config_placeholders(ctx: &FileCtx, out: &mut Out) {
+    const RULE: &str = "config/placeholder";
+    if !ctx.enabled(RULE) {
+        return;
+    }
+    for (range, key, value) in crate::config::placeholder_values(ctx.src()) {
+        out.push(crate::diagnostic::Finding::new(
+            RULE,
+            crate::rules::default_severity(RULE).unwrap_or(Severity::Warning),
+            range,
+            format!(
+                "`{key}` is a placeholder ({value:?}); write what it is, so explicit.toml \
+                 documents the project"
+            ),
+        ));
+    }
 }
 
 /// English rule families: spelling and grammar, slop, prose.
@@ -839,6 +861,7 @@ fn marked_prose(ctx: &FileCtx, doc_lang: &str, marks: &[Region], out: &mut Out) 
 /// `prose/*` rules that do not depend on English: configured names and terms, typography.
 const LANGUAGE_NEUTRAL_PROSE: &[&str] = &[
     "prose/entity-name",
+    "prose/ambiguous-person",
     "prose/terminology",
     "prose/smart-quotes",
     "prose/sentence-spacing",

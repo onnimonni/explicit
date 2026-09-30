@@ -244,6 +244,7 @@ rules! {
     "prose/simplify" => I, "Wordy or complex phrasing with a plain alternative (retext-simplify)";
     "prose/terminology" => W, "Canonical spelling of product and tech names (JavaScript, GitHub)";
     "prose/entity-name" => W, "Configured [[entity]] names and case-sensitive [[vocab]] terms keep their casing";
+    "prose/ambiguous-person" => W, "A name part several [[person]] entries share, used alone without context";
     "prose/passive" => OFF, "Passive voice (write-good)";
     "prose/weasel" => I, "Weasel words (very, quite, several, some people say)";
     "prose/there-is" => I, "Sentence starts with There is/are/was/were";
@@ -270,6 +271,9 @@ rules! {
     "gettext/fuzzy" => W, "Entry is marked fuzzy and is ignored at runtime";
     "gettext/obsolete" => I, "Obsolete #~ entry left in the catalog";
     "gettext/same-as-source" => I, "msgstr identical to a longer msgid (probably untranslated)";
+
+    // explicit.toml itself.
+    "config/placeholder" => W, "explicit.toml description, relationship and role values are not placeholders (TODO, TBD, ...)";
 
     // Vale-style rules from explicit.toml.
     "style/*" => W, "User-defined existence/substitution/repetition/occurrence/capitalization rules";

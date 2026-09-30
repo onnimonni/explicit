@@ -14,7 +14,7 @@ accept = [
   "Aho", "Corasick", "cmark", "autofix", "lexically", "Tunables", "unescaped", "Intraword",
   "incl", "Ableist", "wordlists", "heavykenny", "merman", "textlint", "lookaround", "explicitignore", "Prenominal", "elatives", "Andersson", "necessive", "supines", "supine",
   "Voikko", "libvoikko", "subtag", "Damerau", "särskrivning", "msgid", "msgids", "msgstr",
-  "msgstrs", "printf", "Telia", "illative",
+  "msgstrs", "printf", "illative", "illatives", "Telia",
 ]
 
 [slop]

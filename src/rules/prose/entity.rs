@@ -1,5 +1,6 @@
 //! `prose/entity-name`: `[[entity]]` names and aliases, and case-sensitive `[[vocab]]` terms,
-//! written in their configured casing (`telia oy` -> `Telia Oy`). ALL CAPS is fine.
+//! written in their configured casing (`telia oy` -> `Telia Oy`), inflected forms too
+//! (`telia oyn` -> `Telia Oyn`). ALL CAPS is fine.
 
 use super::{identifier_like, sev, verbatim};
 use crate::diagnostic::Finding;
@@ -21,7 +22,7 @@ pub(super) fn check(ctx: &FileCtx, out: &mut Out) {
     for seg in &ctx.a.segments {
         for m in phrases.find(&seg.text) {
             let matched = &seg.text[m.range.clone()];
-            if !phrases.wrong_case(m.phrase, matched, speller) {
+            if !phrases.wrong_case(&m, matched, speller) {
                 continue;
             }
             // `telia.fi`, `telia-app`, `@telia`: a domain, compound or handle.
@@ -33,7 +34,12 @@ pub(super) fn check(ctx: &FileCtx, out: &mut Out) {
                 continue;
             }
             let p = &phrases.list[m.phrase];
-            let canonical = crate::vocab::recase(matched, &p.canonical);
+            // An inflected form keeps its ending: `rovio entertainmentin` -> `Rovio Entertainmentin`.
+            let canonical = if m.inflected {
+                crate::vocab::recase_inflected(matched, &p.canonical)
+            } else {
+                crate::vocab::recase(matched, &p.canonical)
+            };
             let what = match p.kind {
                 PhraseKind::Entity if p.owner == p.canonical => format!("{}: {}", p.owner, p.note),
                 PhraseKind::Entity => format!("Short for {}: {}", p.owner, p.note),
@@ -44,7 +50,14 @@ pub(super) fn check(ctx: &FileCtx, out: &mut Out) {
                 RULE,
                 sev(RULE),
                 range.clone(),
-                format!("Write \"{}\" as configured, not \"{matched}\"", p.canonical),
+                format!(
+                    "Write \"{}\" as configured, not \"{matched}\"",
+                    if m.inflected {
+                        &canonical
+                    } else {
+                        &p.canonical
+                    }
+                ),
             )
             .help(what)
             .suggest(canonical.clone());

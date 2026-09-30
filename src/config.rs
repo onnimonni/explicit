@@ -56,6 +56,12 @@ pub struct Config {
     /// Organizations, people and products (`[[entity]]`): names accepted as whole phrases.
     #[serde(rename = "entity")]
     pub entities: Vec<Entity>,
+    /// Collaborators (`[[person]]`): names accepted with their parts and inflections, and
+    /// checked for ambiguity (`prose/ambiguous-person`).
+    #[serde(rename = "person")]
+    pub persons: Vec<Person>,
+    /// `[people]`: test paths and placeholder names.
+    pub people: People,
     /// Per-path settings (`[[overrides]]`), applied in order.
     pub overrides: Vec<Override>,
     /// Per-language settings (`[languages.fi]`), keyed by primary language subtag.
@@ -73,6 +79,8 @@ pub struct ConfigCache {
     /// (fingerprint of the inputs, value): a config mutated after first use is recomputed.
     accepted: OnceLock<(u64, Arc<Vec<String>>)>,
     phrases: OnceLock<(u64, Arc<crate::vocab::Phrases>)>,
+    people: OnceLock<(u64, Arc<crate::vocab::PersonIndex>)>,
+    test_paths: OnceLock<(u64, Arc<ignore::gitignore::Gitignore>)>,
     link_excludes: OnceLock<(u64, Arc<Vec<regex::Regex>>)>,
     overrides: OverrideCache,
 }
@@ -113,6 +121,9 @@ pub struct Override {
     /// Appended to `[[entity]]`.
     #[serde(rename = "entity")]
     pub entities: Vec<Entity>,
+    /// Appended to `[[person]]`.
+    #[serde(rename = "person")]
+    pub persons: Vec<Person>,
 }
 
 /// A `[[vocab]]` term: accepted by the spell check like `prose.accept`, and documented.
@@ -176,6 +187,72 @@ impl Entity {
     }
 }
 
+/// A `[[person]]`: a collaborator. The full name, each name part, aliases and handles are
+/// accepted (with possessive and Finnish / Swedish inflections); a name part two persons share
+/// is reported when used alone without context (`prose/ambiguous-person`).
+#[derive(Debug, Clone, Default, Hash, Deserialize, serde::Serialize)]
+#[serde(deny_unknown_fields)]
+pub struct Person {
+    /// Full name.
+    pub name: String,
+    /// Who they are or how they relate to the project (required).
+    #[serde(default)]
+    pub role: String,
+    /// Other names (`Sami V.`), accepted as phrases.
+    #[serde(default)]
+    pub aliases: Vec<String>,
+    /// Handles (`@samiv`).
+    #[serde(default)]
+    pub handles: Vec<String>,
+    /// Language the name belongs to (`fi`); with `langs`, unset means every language.
+    #[serde(default)]
+    pub lang: Option<String>,
+    /// Languages the name belongs to (`["fi", "sv"]`).
+    #[serde(default)]
+    pub langs: Vec<String>,
+}
+
+impl Person {
+    /// The name is accepted in text of language `code` (a primary subtag).
+    pub fn applies_to(&self, code: &str) -> bool {
+        applies_to(self.lang.as_ref(), &self.langs, code)
+    }
+}
+
+/// `[people]`: where made-up names are fine, and built-in placeholder names.
+#[derive(Debug, Clone, Hash, Deserialize)]
+#[serde(default, deny_unknown_fields)]
+pub struct People {
+    /// Gitignore-style globs of test files: unknown capitalized names pass the spell check
+    /// there and `prose/ambiguous-person` is off.
+    pub test_paths: Vec<String>,
+    /// Accept well-known placeholder names (`Alice`, `John Doe`, `Matti Meikäläinen`)
+    /// everywhere.
+    pub placeholders: bool,
+}
+
+impl Default for People {
+    fn default() -> Self {
+        People {
+            test_paths: [
+                "tests/**",
+                "test/**",
+                "spec/**",
+                "**/__tests__/**",
+                "**/fixtures/**",
+                "**/testdata/**",
+                "**/*_test.*",
+                "**/*.test.*",
+                "**/*.spec.*",
+                "**/test_*.*",
+            ]
+            .map(String::from)
+            .to_vec(),
+            placeholders: true,
+        }
+    }
+}
+
 /// `lang` / `langs` of a vocab entry include `code`; neither set means all languages.
 fn applies_to(lang: Option<&String>, langs: &[String], code: &str) -> bool {
     let mut all = lang.into_iter().chain(langs).peekable();
@@ -219,6 +296,8 @@ impl Default for Config {
             style: Vec::new(),
             vocab: Vec::new(),
             entities: Vec::new(),
+            persons: Vec::new(),
+            people: People::default(),
             overrides: Vec::new(),
             languages: BTreeMap::new(),
             cache: ConfigCache::default(),
@@ -683,12 +762,16 @@ impl Config {
             regex::Regex::new(p).map_err(|e| format!("links.exclude: bad regex {p:?}: {e}"))?;
         }
         validate_vocab(&self.vocab, &self.entities, "")?;
+        validate_persons(&self.persons, "")?;
+        build_matcher(&self.root, &self.people.test_paths)
+            .map_err(|e| format!("people.test_paths: {e}"))?;
         for (i, o) in self.overrides.iter().enumerate() {
             if o.paths.is_empty() {
                 return Err(format!("overrides[{i}]: `paths` is empty"));
             }
             build_matcher(&self.root, &o.paths).map_err(|e| format!("overrides[{i}]: {e}"))?;
             validate_vocab(&o.vocab, &o.entities, &format!("overrides[{i}]: "))?;
+            validate_persons(&o.persons, &format!("overrides[{i}]: "))?;
         }
         Ok(())
     }
@@ -780,6 +863,7 @@ impl Config {
             c.prose.accept.extend(o.accept.iter().cloned());
             c.vocab.extend(o.vocab.iter().cloned());
             c.entities.extend(o.entities.iter().cloned());
+            c.persons.extend(o.persons.iter().cloned());
         }
         c
     }
@@ -869,6 +953,40 @@ impl Config {
         })
     }
 
+    /// `[[person]]` names and `[people] placeholders` for text in language `code` (`en`,
+    /// `fi`, `sv`; `*` for every entry); built once per config for all languages.
+    pub fn person_index(&self, code: &str) -> Arc<crate::vocab::PersonIndex> {
+        if code != "*" && self.persons.iter().any(|p| !p.applies_to(code)) {
+            let persons: Vec<Person> = self
+                .persons
+                .iter()
+                .filter(|p| p.applies_to(code))
+                .cloned()
+                .collect();
+            return Arc::new(crate::vocab::PersonIndex::new(
+                &persons,
+                self.people.placeholders,
+            ));
+        }
+        let key = fingerprint(&(&self.persons, self.people.placeholders));
+        cached(&self.cache.people, key, || {
+            crate::vocab::PersonIndex::new(&self.persons, self.people.placeholders)
+        })
+    }
+
+    /// The file at `rel` (relative to the root) matches `[people] test_paths`.
+    pub fn is_test_path(&self, rel: &Path) -> bool {
+        if self.people.test_paths.is_empty() || rel.has_root() {
+            return false;
+        }
+        let key = fingerprint(&(&self.root, &self.people.test_paths));
+        let m = cached(&self.cache.test_paths, key, || {
+            build_matcher(&self.root, &self.people.test_paths)
+                .unwrap_or_else(|_| ignore::gitignore::Gitignore::empty())
+        });
+        m.matched_path_or_any_parents(rel, false).is_ignore()
+    }
+
     fn read_accepted_words(&self, code: &str) -> Vec<String> {
         let mut words = self.prose.accept.clone();
         let (v, e) = self.vocab_for(code);
@@ -943,6 +1061,93 @@ fn validate_vocab(vocab: &[Vocab], entities: &[Entity], at: &str) -> Result<(), 
         }
         if e.lang.iter().chain(&e.langs).any(|l| l.trim().is_empty()) {
             return Err(format!("{at}entity[{i}] ({:?}): empty language", e.name));
+        }
+    }
+    Ok(())
+}
+
+static PLACEHOLDER_RE: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| {
+    regex::Regex::new(r#"\b(description|relationship|role)\s*=\s*("(?:[^"\\\n]|\\.)*"|'[^'\n]*')"#)
+        .expect("hardcoded regex is valid")
+});
+
+/// `description`, `relationship` and `role` values in the text of an `explicit.toml` that are
+/// placeholders (`"TODO"`, `"TBD"`, `"FIXME"`, `"..."`, empty), as (byte range of the quoted
+/// value, key, value): `explicit vocab suggest` output pasted without filling it in.
+pub fn placeholder_values(text: &str) -> Vec<(std::ops::Range<usize>, String, String)> {
+    let mut out = Vec::new();
+    for c in PLACEHOLDER_RE.captures_iter(text) {
+        let (Some(key), Some(val)) = (c.get(1), c.get(2)) else {
+            continue;
+        };
+        // Skip commented-out examples: a `#` outside a string earlier on the line.
+        let line_start = text[..key.start()].rfind('\n').map_or(0, |i| i + 1);
+        let mut quote: Option<char> = None;
+        let mut commented = false;
+        for ch in text[line_start..key.start()].chars() {
+            match (quote, ch) {
+                (None, '#') => {
+                    commented = true;
+                    break;
+                }
+                (None, '"' | '\'') => quote = Some(ch),
+                (Some(q), _) if ch == q => quote = None,
+                _ => {}
+            }
+        }
+        if commented || quote.is_some() {
+            continue;
+        }
+        let inner = &val.as_str()[1..val.as_str().len() - 1];
+        if is_placeholder(inner) {
+            out.push((val.range(), key.as_str().to_string(), inner.to_string()));
+        }
+    }
+    out
+}
+
+fn is_placeholder(v: &str) -> bool {
+    let v = v.trim();
+    if v.chars()
+        .all(|c| c.is_whitespace() || matches!(c, '.' | '…' | '-' | '?' | '_'))
+    {
+        return true;
+    }
+    // `TODO fill in`, `todo:`, `tbd`; not `Todo list app`.
+    let lower = v.to_lowercase();
+    ["TODO", "TBD", "FIXME", "XXX"].iter().any(|p| {
+        let upper = v.strip_prefix(p);
+        let any = lower.strip_prefix(&p.to_lowercase());
+        upper.is_some_and(|rest| !rest.starts_with(char::is_alphanumeric))
+            || any.is_some_and(|rest| rest.trim().is_empty() || rest.starts_with(':'))
+    })
+}
+
+/// `[[person]]` entries document collaborators: each needs a role.
+fn validate_persons(persons: &[Person], at: &str) -> Result<(), String> {
+    for (i, p) in persons.iter().enumerate() {
+        if p.name.trim().is_empty() {
+            return Err(format!("{at}person[{i}]: `name` is empty"));
+        }
+        if p.role.trim().is_empty() {
+            return Err(format!(
+                "{at}person[{i}] ({:?}): `role` is required; say who they are or how they \
+                 relate to the project (\"Backend engineer, owns billing\")",
+                p.name
+            ));
+        }
+        if p.aliases
+            .iter()
+            .chain(&p.handles)
+            .any(|a| a.trim().is_empty())
+        {
+            return Err(format!(
+                "{at}person[{i}] ({:?}): empty alias or handle",
+                p.name
+            ));
+        }
+        if p.lang.iter().chain(&p.langs).any(|l| l.trim().is_empty()) {
+            return Err(format!("{at}person[{i}] ({:?}): empty language", p.name));
         }
     }
     Ok(())
@@ -1214,6 +1419,112 @@ entity = [{ name = "Kela", relationship = "Pays refunds" }]
             let e = Config::load(&p).unwrap_err();
             assert!(e.contains(want), "{bad}: {e}");
         }
+    }
+
+    #[test]
+    fn persons_need_roles_and_change_the_cache_key() {
+        let dir = tempfile::tempdir().unwrap();
+        let p = dir.path().join(CONFIG_FILE);
+        std::fs::write(
+            &p,
+            r#"
+[[person]]
+name = "Sami Virtanen"
+role = "Backend engineer, owns billing"
+aliases = ["Sami V."]
+handles = ["@samiv"]
+[people]
+test_paths = ["qa/**"]
+[[overrides]]
+paths = ["docs/**"]
+person = [{ name = "Anna Korhonen", role = "Support" }]
+"#,
+        )
+        .unwrap();
+        let c = Config::load(&p).unwrap();
+        assert!(c.people.placeholders);
+        assert!(c.is_test_path(Path::new("qa/x/a.rs")));
+        assert!(!c.is_test_path(Path::new("tests/a.rs")));
+        let docs = c.for_path(Path::new("docs/a.md")).unwrap();
+        assert_eq!(docs.persons.len(), 2);
+        let idx = docs.person_index("en");
+        assert_eq!(idx.persons_of("Korhonen"), [1]);
+        assert_eq!(idx.persons_of("samiv"), [0]);
+        // Persons change the cache key.
+        let mut c2 = c.clone();
+        c2.persons[0].aliases.push("Samppa".into());
+        assert_ne!(crate::cache::config_key(&c), crate::cache::config_key(&c2));
+        let mut c3 = c.clone();
+        c3.people.placeholders = false;
+        assert_ne!(crate::cache::config_key(&c), crate::cache::config_key(&c3));
+        // Default test paths.
+        let d = Config::default();
+        for rel in [
+            "tests/a.rs",
+            "src/__tests__/a.ts",
+            "pkg/testdata/x.md",
+            "a/fixtures/b.md",
+            "src/foo_test.go",
+            "src/foo.test.ts",
+            "src/foo.spec.js",
+            "py/test_foo.py",
+        ] {
+            assert!(d.is_test_path(Path::new(rel)), "{rel}");
+        }
+        assert!(!d.is_test_path(Path::new("src/testing.rs")));
+        assert!(!d.is_test_path(Path::new("docs/a.md")));
+        for (bad, want) in [
+            (
+                "[[person]]\nname = \"Sami Virtanen\"\n",
+                "person[0] (\"Sami Virtanen\"): `role` is required",
+            ),
+            (
+                "[[person]]\nname = \"X\"\nrole = \"  \"\n",
+                "`role` is required",
+            ),
+            (
+                "[[person]]\nname = \"\"\nrole = \"r\"\n",
+                "person[0]: `name` is empty",
+            ),
+            (
+                "[[person]]\nname = \"X\"\nrole = \"r\"\nhandles = [\"\"]\n",
+                "empty alias or handle",
+            ),
+            (
+                "[[overrides]]\npaths = [\"a\"]\nperson = [{ name = \"Z\" }]\n",
+                "overrides[0]: person[0] (\"Z\"): `role` is required",
+            ),
+            ("[people]\nbogus = 1\n", "unknown field"),
+        ] {
+            std::fs::write(&p, bad).unwrap();
+            let e = Config::load(&p).unwrap_err();
+            assert!(e.contains(want), "{bad}: {e}");
+        }
+    }
+
+    #[test]
+    fn placeholder_values_in_config_text() {
+        let text = "[[vocab]]\nterm = \"A\"\ndescription = \"TODO\"\n\
+                    [[vocab]]\nterm = \"B\"\ndescription = \"Todo list app\"\n\
+                    entity = [{ name = \"C\", relationship = 'tbd' }]\n\
+                    role = \"FIXME: fill in\"  # a comment\n\
+                    # role = \"TODO\"\n\
+                    message = \"x # role = 'TODO'\"\n\
+                    role = \" \"\nrole = \"…\"\nrole = \"Designer\"\n";
+        let got: Vec<(&str, String)> = placeholder_values(text)
+            .into_iter()
+            .map(|(r, k, _)| (&text[r], k))
+            .collect();
+        assert_eq!(
+            got,
+            [
+                ("\"TODO\"", "description".to_string()),
+                ("'tbd'", "relationship".to_string()),
+                ("\"FIXME: fill in\"", "role".to_string()),
+                ("\" \"", "role".to_string()),
+                ("\"…\"", "role".to_string()),
+            ]
+        );
     }
 
     #[test]

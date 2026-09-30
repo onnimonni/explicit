@@ -70,10 +70,26 @@ exclude = ['^https?://localhost']
 # [[entity]]
 # name = "Telia Oy"
 # kind = "company"  # company | authority | person | product | ...
-# relationship = "Pharmacy partner that dispenses our prescriptions" # required
+# relationship = "Telecom operator that sends our SMS messages" # required
 # aliases = ["Telia"]
 # url = "https://example.com"
 # langs = ["fi", "sv"]   # accept only in Finnish and Swedish text; unset = all languages
+
+# Collaborators: the full name, each name part, aliases, handles and their inflections
+# (`Sami's`, `Samin`, `Virtaselle`, `Samis`) are accepted. A name part two persons share, used alone
+# without context, gets prose/ambiguous-person.
+# [[person]]
+# name = "Sami Virtanen"
+# role = "Backend engineer, owns billing" # required
+# aliases = ["Sami V."]
+# handles = ["@samiv"]
+# lang = "fi"            # or langs = [...]; unset = all languages
+
+# [people]
+# Made-up names pass the spell check here, and prose/ambiguous-person is off (defaults shown).
+# test_paths = ["tests/**", "test/**", "spec/**", "**/__tests__/**", "**/fixtures/**",
+#   "**/testdata/**", "**/*_test.*", "**/*.test.*", "**/*.spec.*", "**/test_*.*"]
+# placeholders = true    # accept Alice, Bob, John Doe, Matti Meikäläinen, ... everywhere
 
 [slop]
 # extra = [".explicit/slop.toml"]

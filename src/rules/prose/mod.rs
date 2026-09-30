@@ -3,6 +3,7 @@
 //! - `prose/inclusive`, `prose/simplify`, `prose/terminology`: data-driven word lists
 //!   (`inclusive.toml`, `simplify.toml`, `terminology.toml`), see `lists.rs`.
 //! - `prose/entity-name`: casing of configured `[[entity]]` names, see `entity.rs`.
+//! - `prose/ambiguous-person`: a name part several `[[person]]` entries share, see `person.rs`.
 //! - `prose/passive`, `prose/weasel`, `prose/there-is`, `prose/so-start`,
 //!   `prose/sentence-length`, `prose/sentence-spacing`: per segment / sentence, see `sentences.rs`.
 //! - `prose/readability`, `prose/consistency`, `prose/acronym-defined`, `prose/smart-quotes`:
@@ -14,6 +15,7 @@
 mod entity;
 mod file;
 mod lists;
+mod person;
 mod sentences;
 #[cfg(test)]
 mod tests;
@@ -33,6 +35,7 @@ pub fn check(ctx: &FileCtx, out: &mut Out) {
     }
     lists::check(ctx, out);
     entity::check(ctx, out);
+    person::check(ctx, out);
     sentences::check(ctx, out);
     file::check(ctx, out);
 }

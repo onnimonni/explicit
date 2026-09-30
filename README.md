@@ -253,7 +253,7 @@ description = "Finnish national medical device register (Fimea)"
 [[entity]]
 name = "Telia Oy"            # legal name, accepted as a phrase
 kind = "company"             # company | authority | person | product | ...
-relationship = "Pharmacy partner that dispenses our prescriptions"
+relationship = "Telecom operator that sends our SMS messages"
 aliases = ["Telia"]          # short forms, accepted as words
 # url = "https://..."
 ```
@@ -265,8 +265,61 @@ still flagged. Its aliases are accepted as standalone words. `prose/entity-name`
 reports entity names, aliases and case-sensitive terms written in another casing
 (`telia oy` -> `Telia Oy`, with a safe fix outside headings); ALL CAPS is fine, and a
 single-word name whose lowercase form is a dictionary word (`Apple`, `apple`) is left alone.
+Names, aliases and multi-word terms are also accepted inflected, in every language: a Finnish
+case ending on the last word (`Rovio Entertainmentin`, `Rovio Entertainmentissa`,
+`Rovio Entertainmentiin`; a linking `-i-` after a consonant, vowel harmony, consonant gradation,
+optional possessive suffix and clitic), after a colon for abbreviations (`API:ssa`, `IHP:n`),
+and the Swedish genitive `-s`. Only these closed ending sets count (`Rovio Entertainmentxyz` is
+still flagged), and `prose/entity-name` keeps the ending (`rovio entertainmentin` ->
+`Rovio Entertainmentin`). `[[person]]` names share the Finnish endings.
 `description` (vocab) and `relationship` (entity) are required. `[[overrides]]` entries may add
 `vocab` and `entity` lists for their paths.
+
+#### Collaborators
+
+People the project works with go in `[[person]]` entries, each with a role:
+
+```toml
+[[person]]
+name = "Sami Virtanen"                   # full name
+role = "Backend engineer, owns billing"  # required: who they are or how they relate
+aliases = ["Sami V."]                    # optional
+handles = ["@samiv"]                     # optional
+# lang = "fi"                            # or langs = ["fi", "sv"]; unset = all languages
+
+[people]
+# Where made-up names are fine (defaults shown).
+test_paths = ["tests/**", "test/**", "spec/**", "**/__tests__/**", "**/fixtures/**",
+  "**/testdata/**", "**/*_test.*", "**/*.test.*", "**/*.spec.*", "**/test_*.*"]
+placeholders = true   # accept Alice, Bob, John Doe, Matti Meikäläinen, ... everywhere
+```
+
+The spell check accepts the full name, each part of it on its own (`Sami`, `Virtanen`, and both
+halves of `Anna-Liisa`), aliases, handles and their inflections: the English possessive
+(`Sami's`, `Niklas'`), Finnish case endings on name parts with consonant gradation and `-nen`
+stems (`Samin`, `Virtaselle`, `Pekalle`, `Lehdon`) in Finnish text, and the Swedish genitive
+(`Samis`) in Swedish text. Names are case-sensitive: `sami` is still flagged, `SAMI` is fine.
+`role` is required. `[[overrides]]` entries may add a `person` list for their paths.
+
+`prose/ambiguous-person` (warning) reports a name part two or more persons share (`Sami` for
+Sami Virtanen and Sami Korhonen, or a shared last name) when it is used alone:
+“Sami” is ambiguous: Sami Virtanen (Backend engineer, owns billing) or Sami Korhonen (Designer);
+write the full name. Inflected and possessive forms count the same (`Samin`). The mention is
+fine when a neighbor within two words tells them apart (the other name part, an alias or a
+handle: `Virtanen, Sami`, `Sami (@samiv)`), or when exactly one of the candidates was already
+mentioned by full name, alias, handle or a name part only they have, earlier in the same
+context: the Markdown section (a heading opens a new one), comment block or gettext entry. When
+both were mentioned, it still warns. Code spans, URLs and a common word opening a sentence
+(`Will this work?`) are left alone.
+
+In files matching `people.test_paths` (code comments and strings included), the spell check
+accepts any capitalized, name-shaped word that is not one edit from a dictionary word (so `Teh`
+is still a typo), in every language, and `prose/ambiguous-person` is off. Elsewhere, an inline
+directive covers a one-off name: `<!-- explicit-disable-next-line spelling -->`.
+
+`config/placeholder` (warning) reports `description`, `relationship` and `role` values in the
+project's `explicit.toml` that are still placeholders (`"TODO"`, `"TBD"`, `"FIXME"`, `"..."`,
+empty), at their line, so pasted `explicit vocab suggest` output gets filled in.
 
 `explicit vocab suggest [paths]` runs the spell check (without the recurring-name allowance)
 and prints ready-to-paste stanzas for flagged capitalized words and runs of capitalized words
@@ -274,7 +327,16 @@ around them, most frequent first. Runs ending in a legal suffix (`Oy`, `Oyj`, `A
 `Inc`, `GmbH`, `AS`, `ApS`, `LLC`, `SA`, `BV`, ...) become `kind = "company"` entities, with
 the short form as an alias when it also appears alone. Each stanza has `description = "TODO"`
 or `relationship = "TODO"` and a comment with its count and top files; `--format json` and
-`--min-count N` are available. `explicit vocab list` prints the configured entries as a table.
+`--min-count N` are available. Runs of two or three capitalized words that read as a person's
+name become `[[person]]` stanzas with `role = "TODO"`; the surname alone counts toward them.
+A person's name starts with a common given name (a built-in list of about 300 Finnish, Swedish
+and English ones: `Matti Nykänen`), or, without one, has no word of an English, Finnish or
+Swedish dictionary and ends in a surname ending (`-nen`, `-la`, `-sson`, `-berg`, ...). A
+dictionary word (`Stora Enso`, `Kanta Hub`), a configured name, a tech or brand word
+(`Microsoft Entra`), a hyphen or digit (`Acme X-alusta`), or a legal or product word next to
+the run in at least a third of its uses (`Oy`, `yhtiö`, `API`, `app`, `palvelu`, `alusta`,
+`platform`, ...) make it an `[[entity]]` instead, with `kind = "company"` or `"product"` when
+that tells. `explicit vocab list` prints the configured entries, persons included, as a table.
 
 Remote link checks send a browser-like `User-Agent`. HTTP 401, 403 and 999 (bot walls and
 login pages) are reported as `links/http-unreachable` warnings, not `links/http-error`.
@@ -371,8 +433,9 @@ want two nouns (Voikko's analysis for Finnish, the dictionary's inflections for 
 noun phrases (`unohtunut annos väliin`, `föregående mötes protokoll`, `två veckors`) and stay
 off in headings and table header rows. English-only
 families (`slop/*`, English grammar, `prose/*` except `prose/entity-name`,
-`prose/terminology`, `prose/smart-quotes` and `prose/sentence-spacing`) stay off. The accept
-lists, `[[vocab]]`, `[[entity]]` and code/URL masking apply as in English. The spell check also
+`prose/ambiguous-person`, `prose/terminology`, `prose/smart-quotes` and
+`prose/sentence-spacing`) stay off. The accept lists, `[[vocab]]`, `[[entity]]`, `[[person]]` and
+code/URL masking apply as in English. The spell check also
 takes: abbreviations before a dot (`esim.`, `jne.`, `t.ex.`, `osv.`), case endings after a code
 span or colon (`` `namespace`ssa ``, `EU:n`), names and acronyms before a hyphen
 (`Kanta-palvelut`, `API-rajapinta`, `Kela-handläggare` for a configured entity), capitalized

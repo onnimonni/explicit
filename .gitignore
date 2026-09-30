@@ -24,3 +24,6 @@ devenv.local.yaml
 
 # nix build output
 /result
+
+# Local, private Claude Code context
+CLAUDE.local.md

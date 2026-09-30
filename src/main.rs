@@ -59,7 +59,8 @@ enum SuggestFormat {
 
 #[derive(Subcommand)]
 enum VocabCommand {
-    /// Suggest `[[vocab]]` / `[[entity]]` entries for capitalized words the spell check flags.
+    /// Suggest `[[vocab]]` / `[[entity]]` / `[[person]]` entries for capitalized words the spell
+    /// check flags.
     Suggest {
         /// Files or directories to scan.
         #[arg(default_value = ".")]
@@ -73,7 +74,7 @@ enum VocabCommand {
         #[arg(long, default_value_t = 1)]
         min_count: usize,
     },
-    /// List the configured `[[vocab]]` terms and `[[entity]]` names.
+    /// List the configured `[[vocab]]` terms, `[[entity]]` names and `[[person]]` entries.
     List {
         /// Path to `explicit.toml` (default: search upward from the cwd).
         #[arg(long)]
@@ -336,7 +337,7 @@ fn run_vocab(command: VocabCommand) -> Result<ExitCode, String> {
                     .and_then(|()| writeln!(out)),
                 RulesFormat::Text if rows.is_empty() => writeln!(
                     out,
-                    "No [[vocab]] or [[entity]] entries; `explicit vocab suggest` proposes some."
+                    "No [[vocab]], [[entity]] or [[person]] entries; `explicit vocab suggest` proposes some."
                 ),
                 RulesFormat::Text => write!(out, "{}", explicit::vocab::list_table(&rows)),
             }

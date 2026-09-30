@@ -465,7 +465,7 @@ const ENTITY_CFG: &str = r#"
 [[entity]]
 name = "Telia Oy"
 kind = "company"
-relationship = "Pharmacy partner"
+relationship = "Telecom partner"
 aliases = ["Telia", "Apple"]
 [[vocab]]
 term = "FiQMEA"
@@ -492,12 +492,32 @@ fn entity_name_casing() {
     assert_eq!(hits, ["telia  oy", "telia", "fiqmea"]);
     assert_eq!(f[0].suggestions, ["Telia  Oy"]);
     assert!(apply(src, &f[0]).starts_with("We use Telia  Oy and"));
-    assert_eq!(f[0].help.as_deref(), Some("Telia Oy: Pharmacy partner"));
+    assert_eq!(f[0].help.as_deref(), Some("Telia Oy: Telecom partner"));
     assert_eq!(
         f[1].help.as_deref(),
-        Some("Short for Telia Oy: Pharmacy partner")
+        Some("Short for Telia Oy: Telecom partner")
     );
     assert!(f[2].message.contains("\"FiQMEA\""));
+}
+
+#[test]
+fn entity_name_inflected_forms() {
+    let src = "Sent to telia oyn and telian team; an applet, Telia Oyn, TELIAN, telia oyxyz.\n";
+    let f = entity_findings("a.md", src);
+    let hits: Vec<(&str, &str)> = f
+        .iter()
+        .map(|f| (text(src, f), f.suggestions[0].as_str()))
+        .collect();
+    // `oyxyz` is no ending: only the alias `telia` before it matches.
+    assert_eq!(
+        hits,
+        [
+            ("telia oyn", "Telia Oyn"),
+            ("telian", "Telian"),
+            ("telia", "Telia")
+        ]
+    );
+    assert!(apply(src, &f[0]).starts_with("Sent to Telia Oyn and"));
 }
 
 #[test]
@@ -509,4 +529,110 @@ fn entity_name_in_headings_and_comments() {
     let f = entity_findings("a.rs", "// Sent to telia oy nightly.\nfn f() {}\n");
     assert_eq!(f.len(), 1);
     assert!(entity_findings("a.md", "No configured names here.\n").is_empty());
+}
+
+// prose/ambiguous-person
+
+const PERSON_CFG: &str = r#"
+[[person]]
+name = "Sami Virtanen"
+role = "Backend engineer, owns billing"
+aliases = ["Sami V."]
+handles = ["@samiv"]
+[[person]]
+name = "Sami Korhonen"
+role = "Designer"
+[[person]]
+name = "Anna Virtanen"
+role = "Support lead"
+"#;
+
+fn ambiguous(name: &str, src: &str) -> Vec<String> {
+    run_cfg(name, src, PERSON_CFG)
+        .into_iter()
+        .filter(|f| f.rule == "prose/ambiguous-person")
+        .map(|f| src[f.range.clone()].to_string())
+        .collect()
+}
+
+#[test]
+fn ambiguous_person_bare_and_resolved() {
+    let src = "# Team\n\nSami reviews billing.\n";
+    let f: Vec<Finding> = run_cfg("a.md", src, PERSON_CFG)
+        .into_iter()
+        .filter(|f| f.rule == "prose/ambiguous-person")
+        .collect();
+    assert_eq!(f.len(), 1);
+    assert_eq!(
+        f[0].message,
+        "“Sami” is ambiguous: Sami Virtanen (Backend engineer, owns billing) or Sami Korhonen \
+         (Designer); write the full name"
+    );
+    assert_eq!(f[0].suggestions, ["Sami Virtanen", "Sami Korhonen"]);
+    // After a full mention in the same section, in a later paragraph too.
+    let src = "# Team\n\nSami Virtanen owns billing.\n\nSami's queue is long; Samin mielestä ok.\n";
+    assert!(ambiguous("a.md", src).is_empty());
+    // An alias or handle nearby tells them apart.
+    let src = "# Team\n\nSami (@samiv) agrees. Virtanen, Sami said no. Sami V. agrees.\n";
+    assert!(
+        ambiguous("a.md", src).is_empty(),
+        "{:?}",
+        ambiguous("a.md", src)
+    );
+}
+
+#[test]
+fn ambiguous_person_context_scopes() {
+    // Both mentioned: still ambiguous.
+    let src = "# Team\n\nSami Virtanen and Sami Korhonen met. Then Sami left.\n";
+    assert_eq!(ambiguous("a.md", src), ["Sami"]);
+    // A heading opens a new section.
+    let src = "# Team\n\nSami Korhonen draws.\n\n## Billing\n\nSami fixes it.\n";
+    assert_eq!(ambiguous("a.md", src), ["Sami"]);
+    // A mention before the full name is not resolved by it.
+    let src = "# Team\n\nSami fixes it. Sami Korhonen draws.\n";
+    assert_eq!(ambiguous("a.md", src), ["Sami"]);
+    // Inflected and possessive forms count the same.
+    let src = "# Team\n\nSamin koodi ja Sami's review. Samis kod.\n";
+    assert_eq!(ambiguous("a.md", src), ["Samin", "Sami's", "Samis"]);
+}
+
+#[test]
+fn ambiguous_person_shared_last_name_and_skips() {
+    let src = "# Team\n\nVirtanen answers. Virtaselle kiitos.\n";
+    assert_eq!(ambiguous("a.md", src), ["Virtanen", "Virtaselle"]);
+    let src = "# Team\n\nAnna Virtanen answers. Virtanen is quick.\n";
+    assert!(ambiguous("a.md", src).is_empty());
+    // A unique name part identifies the person.
+    let src = "# Team\n\nKorhonen draws. Sami is fast.\n";
+    assert!(ambiguous("a.md", src).is_empty());
+    // Code spans, URLs and identifiers are not mentions.
+    let src = "# Team\n\nRun `Sami` or see <https://x.fi/Sami> and sami.txt.\n";
+    assert!(ambiguous("a.md", src).is_empty());
+    // Lowercase is not the name.
+    assert!(ambiguous("a.md", "# Team\n\nThe sami people.\n").is_empty());
+    // Comments: each block is its own context.
+    let rs =
+        "// Sami Korhonen wrote this.\n// Sami keeps it.\nfn a() {}\n// Sami left.\nfn b() {}\n";
+    assert_eq!(ambiguous("a.rs", rs), ["Sami"]);
+    // Off in test files.
+    assert!(ambiguous("tests/a.rs", rs).is_empty());
+}
+
+#[test]
+fn ambiguous_person_ordinary_words_and_single_person() {
+    let cfg = "[[person]]\nname = \"Will Smith\"\nrole = \"A\"\n[[person]]\nname = \"Will Jones\"\nrole = \"B\"\n";
+    let src = "# Q\n\nWill this work? Ask Will.\n";
+    let got: Vec<String> = run_cfg("a.md", src, cfg)
+        .into_iter()
+        .filter(|f| f.rule == "prose/ambiguous-person")
+        .map(|f| src[f.range.clone()].to_string())
+        .collect();
+    assert_eq!(got, ["Will"]);
+    let one = "[[person]]\nname = \"Sami Virtanen\"\nrole = \"A\"\n";
+    assert!(
+        run_cfg("a.md", "# T\n\nSami is here.\n", one)
+            .iter()
+            .all(|f| f.rule != "prose/ambiguous-person")
+    );
 }
