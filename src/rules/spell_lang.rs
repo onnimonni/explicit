@@ -1110,15 +1110,19 @@ pub fn tokens(chars: &[char]) -> Vec<(usize, usize)> {
         // Email addresses, URLs and key chords (`Ctrl+Q`) are no words.
         if (i == 0 || chars[i - 1].is_whitespace()) && !chars[i].is_whitespace() {
             let end = (i..n).find(|&j| chars[j].is_whitespace()).unwrap_or(n);
-            let chunk: String = chars[i..end].iter().collect();
-            let chord = chunk.contains('+')
-                && chunk.split('+').all(|p| {
-                    let p = p.trim_matches(|c: char| !c.is_alphanumeric());
-                    !p.is_empty() && p.chars().count() <= 6
+            let chunk = &chars[i..end];
+            let chord = chunk.contains(&'+')
+                && chunk.split(|&c| c == '+').all(|p| {
+                    let Some(first) = p.iter().position(|c| c.is_alphanumeric()) else {
+                        return false;
+                    };
+                    p.iter()
+                        .rposition(|c| c.is_alphanumeric())
+                        .is_some_and(|last| last - first < 6)
                 });
-            if (chunk.contains('@') && chunk.contains('.'))
-                || chunk.contains("://")
-                || chunk.starts_with("www.")
+            if (chunk.contains(&'@') && chunk.contains(&'.'))
+                || chunk.windows(3).any(|s| s == [':', '/', '/'])
+                || chunk.starts_with(&['w', 'w', 'w', '.'])
                 || chord
             {
                 i = end;
