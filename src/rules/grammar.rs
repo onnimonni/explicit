@@ -988,8 +988,8 @@ impl Checker {
         };
         if let Some((code, sp)) = &self.lang {
             let mut lints = BTreeMap::new();
+            let chars: Vec<char> = text.chars().collect();
             if !own.is_empty() {
-                let chars: Vec<char> = text.chars().collect();
                 if let Some(v) = sp.voikko() {
                     lints = super::grammar_fi::lints(v, &**sp, &chars, &own);
                 } else if code == "sv" {
@@ -1005,7 +1005,6 @@ impl Checker {
                 }
             }
             if spell {
-                let chars: Vec<char> = text.chars().collect();
                 let mut found = spell_lang::misspelled(&**sp, code, &chars);
                 if let Some(other) = &self.secondary {
                     found.retain(|l| {
