@@ -7,7 +7,7 @@ use std::path::{Path, PathBuf};
 use std::sync::{Arc, LazyLock, Mutex, PoisonError};
 
 use spellbook::Dictionary;
-use unicode_normalization::char::is_combining_mark;
+use unicode_normalization::char::{compose, is_combining_mark};
 use unicode_normalization::{IsNormalized, UnicodeNormalization, is_nfc_quick};
 
 use super::lint::{Lint, LintKind, Span};
@@ -419,6 +419,41 @@ fn english_word(sp: &dyn LangSpeller, w: &str) -> bool {
     w.chars().count() >= 4 && super::spell::known(english(), w) && !umlaut_variant(sp, w)
 }
 
+/// Do not let an English homograph hide a native spelling with one missing accent.
+/// Work is bounded and stack-only; words already accepted by the native dictionary never enter.
+fn accent_variant(sp: &dyn LangSpeller, code: &str, word: &str) -> bool {
+    let marks: &[char] = match code {
+        "de" => &['\u{308}'],
+        "fr" => &['\u{301}', '\u{300}', '\u{302}', '\u{308}', '\u{327}'],
+        "es" => &['\u{301}', '\u{308}', '\u{303}'],
+        "pt" => &['\u{301}', '\u{300}', '\u{302}', '\u{303}', '\u{327}'],
+        _ => return false,
+    };
+    if !word.is_ascii() || word.len() > 64 {
+        return false;
+    }
+    let source = word.as_bytes();
+    let mut candidate = [0u8; 128];
+    for (i, &letter) in source.iter().enumerate() {
+        candidate[..i].copy_from_slice(&source[..i]);
+        for &mark in marks {
+            let Some(accented) = compose(char::from(letter), mark) else {
+                continue;
+            };
+            let end = i + accented.len_utf8();
+            accented.encode_utf8(&mut candidate[i..end]);
+            let len = end + source.len() - i - 1;
+            candidate[end..len].copy_from_slice(&source[i + 1..]);
+            let text =
+                std::str::from_utf8(&candidate[..len]).expect("composed text is valid UTF-8");
+            if sp.check(text) {
+                return true;
+            }
+        }
+    }
+    false
+}
+
 /// `word` (a token of [`tokens`], followed by `next`) is spelled right in `code`: as written,
 /// as an abbreviation before a dot, as an English word, or as a hyphenated compound whose
 /// leading parts are names, acronyms or English words and whose last part is right.
@@ -453,8 +488,9 @@ pub fn word_ok(sp: &dyn LangSpeller, code: &str, word: &str, next: Option<char>)
         };
         return stem.split('-').all(stem_ok);
     }
+    let loanword = |w: &str| english_word(sp, w) && !accent_variant(sp, code, w);
     if !word.contains('-') {
-        return english_word(sp, word)
+        return loanword(word)
             || (code == "fi"
                 && (finnish_inflection(sp, word, &|_| false) || finnish_extra(sp, word)))
             || (code == "sv"
@@ -467,7 +503,7 @@ pub fn word_ok(sp: &dyn LangSpeller, code: &str, word: &str, next: Option<char>)
         return true;
     };
     let extra = |p: &str| code == "fi" && finnish_extra(sp, p);
-    if !(neutral(last) || sp.check(last) || english_word(sp, last) || extra(last)) {
+    if !(neutral(last) || sp.check(last) || loanword(last) || extra(last)) {
         return false;
     }
     // A hyphen may mark the main boundary of a long compound (`yksityisyyssuoja-kalvo`), and
@@ -476,7 +512,7 @@ pub fn word_ok(sp: &dyn LangSpeller, code: &str, word: &str, next: Option<char>)
         neutral(p)
             || sp.check(p)
             || p.starts_with(char::is_uppercase)
-            || english_word(sp, p)
+            || loanword(p)
             || foreign_stem(sp, p)
             || extra(p)
             || p.chars().any(|c| c.is_ascii_digit())

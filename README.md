@@ -409,6 +409,8 @@ language markers take precedence over detection.
 Portuguese accepts both European and Brazilian spelling through separate dictionaries with
 independent affix rules. Dictionaries load once per process, only when used.
 Dictionary lookups accept canonically decomposed accents without changing source offsets.
+English loanwords remain accepted, except when a native dictionary recognizes a spelling with
+one missing accent. Valid native homographs (Portuguese `por` and `pôr`) are not overridden.
 Grammar checks use closed lexical paradigms for pronoun/noun agreement, auxiliaries and selected clause
 constructions; unknown words and ambiguous constructions are left unchecked. German noun
 capitalization does not turn recurring spelling errors into inferred project names. Agreement

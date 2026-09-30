@@ -122,3 +122,32 @@ fn native_slop_respects_markers_code_and_quote_severity_without_spelling() {
     assert_eq!(slop[0].severity, explicit::diagnostic::Severity::Warning);
     assert_eq!(slop[1].severity, explicit::diagnostic::Severity::Info);
 }
+
+#[test]
+fn english_homographs_do_not_hide_native_accents() {
+    use explicit::rules::spell_lang::{speller, word_ok};
+    let config = Config::default();
+    for (code, plain, accented) in [
+        ("de", "uber", "über"),
+        ("fr", "materiel", "matériel"),
+        ("es", "cafe", "café"),
+    ] {
+        let sp = speller(code, &config).unwrap();
+        assert!(
+            word_ok(&*sp, code, accented, Some(' ')),
+            "{code}: {accented}"
+        );
+        assert!(!word_ok(&*sp, code, plain, Some(' ')), "{code}: {plain}");
+        assert!(
+            word_ok(&*sp, code, "backend", Some(' ')),
+            "{code}: technical loan"
+        );
+    }
+    // Valid native homographs keep both meanings; accent inference must not override them.
+    for (code, words) in [("pt", ["por", "pôr"]), ("es", ["esta", "está"])] {
+        let sp = speller(code, &config).unwrap();
+        for word in words {
+            assert!(word_ok(&*sp, code, word, Some(' ')), "{code}: {word}");
+        }
+    }
+}
