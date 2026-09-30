@@ -390,7 +390,49 @@ fn mood(chars: &[char], ws: &[Word], i: usize) -> bool {
     if !adjacent(chars, &ws[i - 1], &ws[i]) || !adjacent(chars, &ws[i - 2], &ws[i - 1]) {
         return false;
     }
-    if matches!(ws[i - 2].lower.as_str(), "bien" | "pour" | "afin") {
+    if ws[i - 2].lower == "bien" {
+        if let Some(previous) = i
+            .checked_sub(3)
+            .and_then(|p| ws.get(p))
+            .filter(|p| adjacent(chars, p, &ws[i - 2]))
+        {
+            let before = previous.lower.as_str();
+            let reporting = VERBS.iter().any(|v| {
+                matches!(v.indicative[0], "sais" | "dis" | "vois") && v.indicative.contains(&before)
+            });
+            // Here `bien` can be an adverb or noun instead of meaning “although”.
+            if reporting
+                || ARTICLES.iter().any(|row| row.contains(&before))
+                || matches!(
+                    before,
+                    "si" | "aussi"
+                        | "plus"
+                        | "moins"
+                        | "du"
+                        | "au"
+                        | "pense"
+                        | "penses"
+                        | "pensons"
+                        | "pensez"
+                        | "pensent"
+                        | "crois"
+                        | "croit"
+                        | "croyons"
+                        | "croyez"
+                        | "croient"
+                        | "savais"
+                        | "savait"
+                        | "savions"
+                        | "saviez"
+                        | "savaient"
+                )
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    if matches!(ws[i - 2].lower.as_str(), "pour" | "afin") {
         return true;
     }
     if i >= 3
@@ -1839,5 +1881,35 @@ mod tests {
                 "{text}"
             );
         }
+    }
+
+    #[test]
+    fn bien_complements_comparisons_and_nouns_do_not_force_the_subjunctive() {
+        for text in [
+            "Je sais bien que nous sommes en retard.",
+            "Vous savez bien que nous sommes en retard.",
+            "Je savais bien que tu es présent.",
+            "Je pense bien que vous avez raison.",
+            "Il a plu, si bien que nous sommes restés chez nous.",
+            "Il travaille aussi bien que nous travaillons.",
+            "Le bien que nous faisons reste utile.",
+            "Nous parlons du bien que nous faisons.",
+        ] {
+            assert!(fixes("FrenchFormalSubjunctive", text).is_empty(), "{text}");
+        }
+        assert_eq!(
+            fixes(
+                "FrenchFormalSubjunctive",
+                "Bien que nous sommes en retard, nous partons."
+            ),
+            vec![("sommes".into(), "soyons".into())]
+        );
+        assert_eq!(
+            fixes(
+                "FrenchFormalSubjunctive",
+                "Je sais, bien que nous sommes en retard."
+            ),
+            vec![("sommes".into(), "soyons".into())]
+        );
     }
 }

@@ -423,6 +423,8 @@ constructions; unknown words and ambiguous constructions are left unchecked. Ger
 capitalization does not turn recurring spelling errors into inferred project names. Agreement
 allows expletive `es` with a plural subject and both singular and plural/formal `sie`. UI action
 labels containing an object and infinitive are not treated as finite subject clauses.
+French mood checks separate `bien que` meaning “although” from reporting, comparison and noun
+readings, including result clauses with `si bien que`.
 Context-bound homophone checks cover German `ihr seit` → `seid` and reporting-clause `das` → `dass`,
 French `allons a la page` → `à`, Spanish `tu eres` → `tú`, and Portuguese `ela esta disponível` →
 `está`. Possessives, relative pronouns, coordination and unclear tense remain unchanged.
