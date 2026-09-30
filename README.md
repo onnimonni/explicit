@@ -410,6 +410,7 @@ Portuguese accepts both European and Brazilian spelling through separate diction
 independent affix rules. Dictionaries load once per process, only when used.
 Spelling and native grammar reuse each segment's character buffer; token scans borrow character
 slices rather than allocating word chunks. Source offsets stay unchanged.
+Native near-name checks use allocation-free one-edit comparisons instead of full edit matrices.
 Fully covered segments are borrowed rather than copied; partially marked regions stay masked.
 Dictionary lookups and these four grammars accept canonically decomposed accents without changing
 source offsets.

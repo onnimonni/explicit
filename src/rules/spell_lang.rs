@@ -1035,7 +1035,7 @@ fn swedish_compound(sp: &dyn LangSpeller, word: &str) -> bool {
     !suggestions(sp, word).iter().any(|s| {
         let s = s.to_lowercase();
         let c: Vec<char> = s.chars().collect();
-        if s.contains([' ', '-']) || distance(&chars, &c, 1) > 1 {
+        if s.contains([' ', '-']) || !within_one_edit(&chars, &c) {
             return false;
         }
         if foreign_head && rest.chars().count() >= 5 && s.ends_with(&rest) && !s.starts_with(&head)
@@ -1150,31 +1150,26 @@ pub fn tokens(chars: &[char]) -> Vec<(usize, usize)> {
     out
 }
 
-/// Damerau-Levenshtein distance of `a` and `b`, up to `max + 1`.
-fn distance(a: &[char], b: &[char], max: usize) -> usize {
-    if a.len().abs_diff(b.len()) > max {
-        return max + 1;
+/// At most one insertion, deletion, substitution or adjacent transposition.
+fn within_one_edit(a: &[char], b: &[char]) -> bool {
+    if a.len().abs_diff(b.len()) > 1 {
+        return false;
     }
-    let (n, m) = (a.len(), b.len());
-    let mut d = vec![vec![0usize; m + 1]; n + 1];
-    for (i, row) in d.iter_mut().enumerate() {
-        row[0] = i;
+    let prefix = a.iter().zip(b).take_while(|(x, y)| x == y).count();
+    if prefix == a.len().min(b.len()) {
+        return true;
     }
-    for (j, cell) in d[0].iter_mut().enumerate() {
-        *cell = j;
+    if a.len() > b.len() {
+        a[prefix + 1..] == b[prefix..]
+    } else if b.len() > a.len() {
+        a[prefix..] == b[prefix + 1..]
+    } else {
+        a[prefix + 1..] == b[prefix + 1..]
+            || (prefix + 1 < a.len()
+                && a[prefix] == b[prefix + 1]
+                && a[prefix + 1] == b[prefix]
+                && a[prefix + 2..] == b[prefix + 2..])
     }
-    for i in 1..=n {
-        for j in 1..=m {
-            let cost = usize::from(a[i - 1] != b[j - 1]);
-            d[i][j] = (d[i - 1][j] + 1)
-                .min(d[i][j - 1] + 1)
-                .min(d[i - 1][j - 1] + cost);
-            if i > 1 && j > 1 && a[i - 1] == b[j - 2] && a[i - 2] == b[j - 1] {
-                d[i][j] = d[i][j].min(d[i - 2][j - 2] + 1);
-            }
-        }
-    }
-    d[n][m]
 }
 
 /// A capitalized word inside a sentence (not after `. ! ? :`, a quote, bracket or list
@@ -1201,7 +1196,7 @@ fn unknown_name(sp: &dyn LangSpeller, word: &str) -> bool {
             return false;
         }
         let c: Vec<char> = s.chars().collect();
-        distance(&w, &c, 1) <= 1 && !sp.check(&s.to_lowercase())
+        within_one_edit(&w, &c) && !sp.check(&s.to_lowercase())
     })
 }
 
