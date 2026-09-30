@@ -54,25 +54,36 @@ fn english() -> &'static super::spell::Speller {
 
 /// [`LangSpeller::suggest`] shared by all threads; suggestions cost milliseconds per word.
 pub fn suggestions(sp: &dyn LangSpeller, word: &str) -> Arc<[String]> {
-    type Cache = HashMap<(usize, Box<str>), Arc<[String]>>;
+    type Words = HashMap<Box<str>, Arc<[String]>>;
+    #[derive(Default)]
+    struct Cache {
+        by_speller: HashMap<usize, Words>,
+        len: usize,
+    }
     static CACHE: LazyLock<Mutex<Cache>> = LazyLock::new(Default::default);
-    let key = (
-        std::ptr::from_ref(sp).cast::<()>() as usize,
-        Box::<str>::from(word),
-    );
+    let key = std::ptr::from_ref(sp).cast::<()>() as usize;
     if let Some(hit) = CACHE
         .lock()
         .unwrap_or_else(PoisonError::into_inner)
+        .by_speller
         .get(&key)
+        .and_then(|words| words.get(word))
     {
         return hit.clone();
     }
     let found: Arc<[String]> = sp.suggest(word).into();
     let mut cache = CACHE.lock().unwrap_or_else(PoisonError::into_inner);
-    if cache.len() >= 100_000 {
-        cache.clear();
+    if cache.len >= 100_000 {
+        cache.by_speller.clear();
+        cache.len = 0;
     }
-    cache.insert(key, found.clone());
+    let new_word = cache
+        .by_speller
+        .entry(key)
+        .or_default()
+        .insert(word.into(), found.clone())
+        .is_none();
+    cache.len += usize::from(new_word);
     found
 }
 
