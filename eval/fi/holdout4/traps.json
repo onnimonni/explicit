@@ -1,0 +1,1762 @@
+[
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 8,
+  "column": 11,
+  "end_column": 27,
+  "text": "valittavat siitä",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 8,
+  "column": 51,
+  "end_column": 59,
+  "text": "ei löydä",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 8,
+  "column": 123,
+  "end_column": 133,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 8,
+  "column": 136,
+  "end_column": 142,
+  "text": "`LIKE`",
+  "kind": "code"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 8,
+  "column": 222,
+  "end_column": 234,
+  "text": "yli sekunnin",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 10,
+  "column": 44,
+  "end_column": 62,
+  "text": "käytetyin toiminto",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 10,
+  "column": 89,
+  "end_column": 103,
+  "text": "Kaksi kolmesta",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 10,
+  "column": 120,
+  "end_column": 127,
+  "text": "käyttää",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 14,
+  "column": 5,
+  "end_column": 15,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 14,
+  "column": 19,
+  "end_column": 26,
+  "text": "pg_trgm",
+  "kind": "product"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 16,
+  "column": 29,
+  "end_column": 35,
+  "text": "`LIKE`",
+  "kind": "code"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 16,
+  "column": 44,
+  "end_column": 66,
+  "text": "alle 50 millisekuntiin",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 16,
+  "column": 96,
+  "end_column": 118,
+  "text": "Ei uusia komponentteja",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 16,
+  "column": 130,
+  "end_column": 140,
+  "text": "indeksi ei",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 18,
+  "column": 5,
+  "end_column": 18,
+  "text": "Elasticsearch",
+  "kind": "product"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 20,
+  "column": 132,
+  "end_column": 139,
+  "text": "1 200 €",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 20,
+  "column": 158,
+  "end_column": 173,
+  "text": "on enemmän kuin",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 22,
+  "column": 5,
+  "end_column": 16,
+  "text": "Meilisearch",
+  "kind": "product"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 24,
+  "column": 45,
+  "end_column": 62,
+  "text": "Elasticsearchissa",
+  "kind": "product"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 24,
+  "column": 99,
+  "end_column": 109,
+  "text": "se vastasi",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 24,
+  "column": 110,
+  "end_column": 133,
+  "text": "alle 20 millisekunnissa",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 28,
+  "column": 14,
+  "end_column": 21,
+  "text": "pg_trgm",
+  "kind": "product"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 28,
+  "column": 24,
+  "end_column": 37,
+  "text": "Elasticsearch",
+  "kind": "product"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 28,
+  "column": 40,
+  "end_column": 51,
+  "text": "Meilisearch",
+  "kind": "product"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 30,
+  "column": 15,
+  "end_column": 20,
+  "text": "50 ms",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 30,
+  "column": 23,
+  "end_column": 28,
+  "text": "30 ms",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 30,
+  "column": 31,
+  "end_column": 36,
+  "text": "20 ms",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 32,
+  "column": 29,
+  "end_column": 35,
+  "text": "paljon",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 33,
+  "column": 19,
+  "end_column": 29,
+  "text": "1 200 €/kk",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 33,
+  "column": 32,
+  "end_column": 40,
+  "text": "150 €/kk",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 35,
+  "column": 42,
+  "end_column": 57,
+  "text": "`docs/adr/004/`",
+  "kind": "code"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 35,
+  "column": 95,
+  "end_column": 114,
+  "text": "samoilla kyselyillä",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 39,
+  "column": 11,
+  "end_column": 24,
+  "text": "Meilisearchia",
+  "kind": "product"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 41,
+  "column": 17,
+  "end_column": 29,
+  "text": "sen ongelman",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 41,
+  "column": 63,
+  "end_column": 74,
+  "text": "hitauden ja",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 42,
+  "column": 4,
+  "end_column": 23,
+  "text": "Ylläpito on kevyttä",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 42,
+  "column": 40,
+  "end_column": 49,
+  "text": "yksi levy",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 43,
+  "column": 17,
+  "end_column": 28,
+  "text": "kymmenesosa",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 43,
+  "column": 29,
+  "end_column": 44,
+  "text": "Elasticsearchin",
+  "kind": "product"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 45,
+  "column": 31,
+  "end_column": 40,
+  "text": "este vaan",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 45,
+  "column": 50,
+  "end_column": 61,
+  "text": "nimet eivät",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 45,
+  "column": 115,
+  "end_column": 131,
+  "text": "Elasticsearchiin",
+  "kind": "product"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 45,
+  "column": 168,
+  "end_column": 182,
+  "text": "on abstrahoitu",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 47,
+  "column": 126,
+  "end_column": 139,
+  "text": "kuusi viikkoa",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 47,
+  "column": 217,
+  "end_column": 343,
+  "text": "\"Meilisearch handles Finnish names well enough as long as you enable the typo tolerance for words of five characters or more.\"",
+  "kind": "foreign"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 51,
+  "column": 27,
+  "end_column": 36,
+  "text": "uudelleen",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 52,
+  "column": 40,
+  "end_column": 51,
+  "text": "toimii vain",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "adr-004-hakupalvelu.md",
+  "line": 53,
+  "column": 39,
+  "end_column": 45,
+  "text": "saavat",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 7,
+  "column": 82,
+  "end_column": 97,
+  "text": "huolehtii siitä",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 11,
+  "column": 33,
+  "end_column": 44,
+  "text": "15 minuutin",
+  "kind": "unit"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 11,
+  "column": 125,
+  "end_column": 141,
+  "text": "milloin seuraava",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 11,
+  "column": 182,
+  "end_column": 192,
+  "text": "ennen kuin",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 13,
+  "column": 40,
+  "end_column": 48,
+  "text": "#hairiot",
+  "kind": "identifier"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 13,
+  "column": 70,
+  "end_column": 84,
+  "text": "tarvitsee sitä",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 13,
+  "column": 172,
+  "end_column": 185,
+  "text": "hän sanoo sen",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 15,
+  "column": 79,
+  "end_column": 93,
+  "text": "Ei riitä, että",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 15,
+  "column": 124,
+  "end_column": 135,
+  "text": "pitää sanoa",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 19,
+  "column": 22,
+  "end_column": 38,
+  "text": "vähintään tunnin",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 19,
+  "column": 47,
+  "end_column": 60,
+  "text": "vaikka mitään",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 19,
+  "column": 169,
+  "end_column": 179,
+  "text": "ovat silti",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 21,
+  "column": 20,
+  "end_column": 35,
+  "text": "siitä kerrotaan",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 21,
+  "column": 104,
+  "end_column": 116,
+  "text": "on varattava",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 21,
+  "column": 151,
+  "end_column": 157,
+  "text": "viikon",
+  "kind": "unit"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 21,
+  "column": 203,
+  "end_column": 210,
+  "text": "luulisi",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 28,
+  "column": 3,
+  "end_column": 26,
+  "text": "https://tila.example.fi",
+  "kind": "url"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 30,
+  "column": 3,
+  "end_column": 8,
+  "text": "Slack",
+  "kind": "product"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 30,
+  "column": 9,
+  "end_column": 17,
+  "text": "#hairiot",
+  "kind": "identifier"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 32,
+  "column": 61,
+  "end_column": 70,
+  "text": "sama kuin",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 32,
+  "column": 171,
+  "end_column": 185,
+  "text": "myöhemmin kuin",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 36,
+  "column": 46,
+  "end_column": 59,
+  "text": "samaan aikaan",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 36,
+  "column": 121,
+  "end_column": 133,
+  "text": "kaksi tuntia",
+  "kind": "unit"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 36,
+  "column": 196,
+  "end_column": 204,
+  "text": "heitä ei",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 36,
+  "column": 270,
+  "end_column": 289,
+  "text": "se oli parempi kuin",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 38,
+  "column": 45,
+  "end_column": 151,
+  "text": "The appointment service is currently unavailable; please call 09 310 12345 to book or cancel appointments.",
+  "kind": "foreign"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 38,
+  "column": 192,
+  "end_column": 204,
+  "text": "tarkistetaan",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 42,
+  "column": 123,
+  "end_column": 133,
+  "text": "vasta, kun",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 42,
+  "column": 210,
+  "end_column": 244,
+  "text": "Kaksi harjoitusta vuodessa riittää",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 42,
+  "column": 246,
+  "end_column": 253,
+  "text": "useampi",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hairioviestinta-ohje.md",
+  "line": 42,
+  "column": 290,
+  "end_column": 304,
+  "text": "kolmena vuonna",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 3,
+  "column": 19,
+  "end_column": 31,
+  "text": "Grafana Loki",
+  "kind": "product"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 3,
+  "column": 72,
+  "end_column": 88,
+  "text": "Pohjola Cloud Oy",
+  "kind": "name"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 7,
+  "column": 25,
+  "end_column": 40,
+  "text": "perustuu siihen",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 7,
+  "column": 90,
+  "end_column": 96,
+  "text": "`grep`",
+  "kind": "code"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 7,
+  "column": 167,
+  "end_column": 198,
+  "text": "Tietoturvaryhmä huomautti siitä",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 9,
+  "column": 43,
+  "end_column": 50,
+  "text": "saatiin",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 9,
+  "column": 51,
+  "end_column": 56,
+  "text": "neljä",
+  "kind": "number"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 9,
+  "column": 64,
+  "end_column": 79,
+  "text": "kaksi hylättiin",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 15,
+  "column": 3,
+  "end_column": 19,
+  "text": "Pohjola Cloud Oy",
+  "kind": "name"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 15,
+  "column": 22,
+  "end_column": 30,
+  "text": "38 000 €",
+  "kind": "unit"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 16,
+  "column": 3,
+  "end_column": 26,
+  "text": "Nordic Observability AB",
+  "kind": "name"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 16,
+  "column": 29,
+  "end_column": 37,
+  "text": "45 000 €",
+  "kind": "unit"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 18,
+  "column": 14,
+  "end_column": 27,
+  "text": "50 prosenttia",
+  "kind": "unit"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 18,
+  "column": 37,
+  "end_column": 50,
+  "text": "50 prosenttia",
+  "kind": "unit"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 18,
+  "column": 74,
+  "end_column": 87,
+  "text": "siihen, miten",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 18,
+  "column": 175,
+  "end_column": 180,
+  "text": "selvä",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 22,
+  "column": 18,
+  "end_column": 30,
+  "text": "vastaa siitä",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 22,
+  "column": 64,
+  "end_column": 76,
+  "text": "kaksi vuotta",
+  "kind": "unit"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 22,
+  "column": 112,
+  "end_column": 118,
+  "text": "vastaa",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 22,
+  "column": 119,
+  "end_column": 143,
+  "text": "alle kahdessa sekunnissa",
+  "kind": "unit"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 24,
+  "column": 67,
+  "end_column": 76,
+  "text": "kalliimpi",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 24,
+  "column": 78,
+  "end_column": 90,
+  "text": "Ero laadussa",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 24,
+  "column": 116,
+  "end_column": 129,
+  "text": "marginaalinen",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 24,
+  "column": 136,
+  "end_column": 145,
+  "text": "todettiin",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 28,
+  "column": 17,
+  "end_column": 29,
+  "text": "kolme vuotta",
+  "kind": "unit"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 28,
+  "column": 33,
+  "end_column": 47,
+  "text": "optio kahdesta",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 28,
+  "column": 117,
+  "end_column": 129,
+  "text": "on päättynyt",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 30,
+  "column": 94,
+  "end_column": 101,
+  "text": "tehdään",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 30,
+  "column": 102,
+  "end_column": 112,
+  "text": "ennen kuin",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 30,
+  "column": 183,
+  "end_column": 262,
+  "text": "\"All log data will be stored and processed exclusively in our Helsinki region.\"",
+  "kind": "foreign"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 32,
+  "column": 11,
+  "end_column": 15,
+  "text": "teki",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 32,
+  "column": 37,
+  "end_column": 49,
+  "text": "Aleksis Kivi",
+  "kind": "name"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 32,
+  "column": 81,
+  "end_column": 99,
+  "text": "markkinaoikeudelta",
+  "kind": "name"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 32,
+  "column": 100,
+  "end_column": 109,
+  "text": "14 päivän",
+  "kind": "unit"
+ },
+ {
+  "file": "hankintapaatos.md",
+  "line": 32,
+  "column": 158,
+  "end_column": 169,
+  "text": "toimitetaan",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 3,
+  "column": 13,
+  "end_column": 25,
+  "text": "kertoo siitä",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 3,
+  "column": 127,
+  "end_column": 140,
+  "text": "30 prosenttia",
+  "kind": "unit"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 3,
+  "column": 154,
+  "end_column": 167,
+  "text": "40 prosenttia",
+  "kind": "unit"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 7,
+  "column": 15,
+  "end_column": 25,
+  "text": "Kubernetes",
+  "kind": "product"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 7,
+  "column": 48,
+  "end_column": 50,
+  "text": "12",
+  "kind": "number"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 7,
+  "column": 69,
+  "end_column": 86,
+  "text": "80-prosenttisesti",
+  "kind": "unit"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 7,
+  "column": 122,
+  "end_column": 128,
+  "text": "kestää",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 7,
+  "column": 153,
+  "end_column": 168,
+  "text": "levytila loppuu",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 9,
+  "column": 73,
+  "end_column": 84,
+  "text": "siitä, että",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 16,
+  "column": 13,
+  "end_column": 23,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 16,
+  "column": 27,
+  "end_column": 34,
+  "text": "1,4 TiB",
+  "kind": "unit"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 16,
+  "column": 37,
+  "end_column": 44,
+  "text": "2,6 TiB",
+  "kind": "unit"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 17,
+  "column": 20,
+  "end_column": 27,
+  "text": "2 000/h",
+  "kind": "unit"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 17,
+  "column": 30,
+  "end_column": 37,
+  "text": "3 500/h",
+  "kind": "unit"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 18,
+  "column": 22,
+  "end_column": 28,
+  "text": "18 TiB",
+  "kind": "unit"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 18,
+  "column": 31,
+  "end_column": 37,
+  "text": "30 TiB",
+  "kind": "unit"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 20,
+  "column": 9,
+  "end_column": 17,
+  "text": "on tehty",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 24,
+  "column": 21,
+  "end_column": 37,
+  "text": "kuusi kappaletta",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 24,
+  "column": 52,
+  "end_column": 60,
+  "text": "48 000 €",
+  "kind": "unit"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 24,
+  "column": 71,
+  "end_column": 90,
+  "text": "se on vähemmän kuin",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 25,
+  "column": 62,
+  "end_column": 69,
+  "text": "jaetaan",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 26,
+  "column": 36,
+  "end_column": 50,
+  "text": "70 prosenttiin",
+  "kind": "unit"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 26,
+  "column": 52,
+  "end_column": 61,
+  "text": "Kukaan ei",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 26,
+  "column": 73,
+  "end_column": 85,
+  "text": "siihen, että",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 26,
+  "column": 86,
+  "end_column": 98,
+  "text": "95 prosentin",
+  "kind": "unit"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 27,
+  "column": 25,
+  "end_column": 32,
+  "text": "tehdään",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 27,
+  "column": 67,
+  "end_column": 73,
+  "text": "vuoden",
+  "kind": "unit"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 29,
+  "column": 69,
+  "end_column": 75,
+  "text": "kestää",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 29,
+  "column": 76,
+  "end_column": 88,
+  "text": "kaksi tuntia",
+  "kind": "unit"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 33,
+  "column": 31,
+  "end_column": 35,
+  "text": "aika",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 33,
+  "column": 62,
+  "end_column": 79,
+  "text": "kahdeksan viikkoa",
+  "kind": "unit"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 33,
+  "column": 187,
+  "end_column": 196,
+  "text": "heti, kun",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 35,
+  "column": 28,
+  "end_column": 52,
+  "text": "Vain kaksi henkilöä osaa",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 35,
+  "column": 152,
+  "end_column": 159,
+  "text": "staging",
+  "kind": "code"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 35,
+  "column": 173,
+  "end_column": 183,
+  "text": "ennen kuin",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 35,
+  "column": 239,
+  "end_column": 346,
+  "text": "The disk expansion is an online operation and should not require downtime if the replica is promoted first.",
+  "kind": "foreign"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 35,
+  "column": 347,
+  "end_column": 364,
+  "text": "Emme luota siihen",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 35,
+  "column": 375,
+  "end_column": 389,
+  "text": "vaan testaamme",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 37,
+  "column": 14,
+  "end_column": 22,
+  "text": "laativat",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 37,
+  "column": 23,
+  "end_column": 34,
+  "text": "Ville Ranta",
+  "kind": "name"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 37,
+  "column": 38,
+  "end_column": 49,
+  "text": "Aino Kallas",
+  "kind": "name"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 37,
+  "column": 94,
+  "end_column": 119,
+  "text": "ohjausryhmä päättää siitä",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kapasiteettisuunnitelma.md",
+  "line": 37,
+  "column": 121,
+  "end_column": 126,
+  "text": "mitkä",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 7,
+  "column": 61,
+  "end_column": 69,
+  "text": "mitataan",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 7,
+  "column": 177,
+  "end_column": 189,
+  "text": "kun noudatte",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 11,
+  "column": 17,
+  "end_column": 50,
+  "text": "Kuopion yliopistollisen sairaalan",
+  "kind": "name"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 11,
+  "column": 73,
+  "end_column": 82,
+  "text": "2. kerros",
+  "kind": "ordinal"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 11,
+  "column": 101,
+  "end_column": 110,
+  "text": "klo 13–15",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 11,
+  "column": 127,
+  "end_column": 138,
+  "text": "Kela-kortti",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 11,
+  "column": 175,
+  "end_column": 189,
+  "text": "minkä laitteen",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 13,
+  "column": 82,
+  "end_column": 94,
+  "text": "017 173 2345",
+  "kind": "number"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 13,
+  "column": 164,
+  "end_column": 171,
+  "text": "56,70 €",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 17,
+  "column": 22,
+  "end_column": 32,
+  "text": "ennen kuin",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 17,
+  "column": 122,
+  "end_column": 133,
+  "text": "kiristetään",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 19,
+  "column": 10,
+  "end_column": 19,
+  "text": "niin kuin",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 19,
+  "column": 106,
+  "end_column": 114,
+  "text": "koska se",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 19,
+  "column": 143,
+  "end_column": 152,
+  "text": "voi juoda",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 19,
+  "column": 153,
+  "end_column": 159,
+  "text": "klo 16",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 21,
+  "column": 26,
+  "end_column": 41,
+  "text": "kiinnittäkää se",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 21,
+  "column": 58,
+  "end_column": 65,
+  "text": "piippaa",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 21,
+  "column": 145,
+  "end_column": 164,
+  "text": "jatkakaa nukkumista",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 25,
+  "column": 37,
+  "end_column": 43,
+  "text": "klo 12",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 25,
+  "column": 177,
+  "end_column": 186,
+  "text": "se, miten",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 27,
+  "column": 20,
+  "end_column": 22,
+  "text": "n.",
+  "kind": "abbrev"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 27,
+  "column": 23,
+  "end_column": 40,
+  "text": "kolmessa viikossa",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 27,
+  "column": 50,
+  "end_column": 67,
+  "text": "kertoo tuloksista",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 27,
+  "column": 150,
+  "end_column": 156,
+  "text": "kuuluu",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 27,
+  "column": 165,
+  "end_column": 169,
+  "text": "CPAP",
+  "kind": "acronym"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 33,
+  "column": 46,
+  "end_column": 64,
+  "text": "vaikka nukkuisitte",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 33,
+  "column": 70,
+  "end_column": 82,
+  "text": "neljä tuntia",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 35,
+  "column": 113,
+  "end_column": 117,
+  "text": "Kela",
+  "kind": "name"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 37,
+  "column": 8,
+  "end_column": 13,
+  "text": "laati",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "potilasohje-unitutkimus.md",
+  "line": 37,
+  "column": 110,
+  "end_column": 192,
+  "text": "Please return the device by noon the next day; the results take about three weeks.",
+  "kind": "foreign"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 7,
+  "column": 49,
+  "end_column": 61,
+  "text": "kertoo siitä",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 11,
+  "column": 25,
+  "end_column": 37,
+  "text": "yksi hälytys",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 11,
+  "column": 44,
+  "end_column": 56,
+  "text": "johtui siitä",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 11,
+  "column": 129,
+  "end_column": 141,
+  "text": "pysäytettiin",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 11,
+  "column": 142,
+  "end_column": 161,
+  "text": "viidessä minuutissa",
+  "kind": "unit"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 13,
+  "column": 14,
+  "end_column": 29,
+  "text": "meni tuotantoon",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 13,
+  "column": 134,
+  "end_column": 156,
+  "text": "Kiitos kaikille, jotka",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 17,
+  "column": 22,
+  "end_column": 28,
+  "text": "jatkuu",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 17,
+  "column": 30,
+  "end_column": 34,
+  "text": "Aino",
+  "kind": "name"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 19,
+  "column": 27,
+  "end_column": 36,
+  "text": "on valmis",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 19,
+  "column": 89,
+  "end_column": 94,
+  "text": "kolme",
+  "kind": "number"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 19,
+  "column": 155,
+  "end_column": 165,
+  "text": "ennen kuin",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 19,
+  "column": 204,
+  "end_column": 213,
+  "text": "se ei ole",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 19,
+  "column": 230,
+  "end_column": 244,
+  "text": "huolellisuutta",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 23,
+  "column": 54,
+  "end_column": 63,
+  "text": "Ne, jotka",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 23,
+  "column": 77,
+  "end_column": 83,
+  "text": "voivat",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 24,
+  "column": 13,
+  "end_column": 18,
+  "text": "Ville",
+  "kind": "name"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 24,
+  "column": 42,
+  "end_column": 54,
+  "text": "Kubecostista",
+  "kind": "product"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 24,
+  "column": 66,
+  "end_column": 79,
+  "text": "lyhyempi kuin",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 25,
+  "column": 24,
+  "end_column": 29,
+  "text": "Sanna",
+  "kind": "name"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 25,
+  "column": 47,
+  "end_column": 71,
+  "text": "päivystäjä päättää siitä",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 29,
+  "column": 19,
+  "end_column": 30,
+  "text": "on korjattu",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 29,
+  "column": 57,
+  "end_column": 64,
+  "text": "tukossa",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 29,
+  "column": 88,
+  "end_column": 105,
+  "text": "Kaksi henkilöä on",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 29,
+  "column": 164,
+  "end_column": 171,
+  "text": "päättyy",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 29,
+  "column": 172,
+  "end_column": 178,
+  "text": "15.11.",
+  "kind": "unit"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 31,
+  "column": 43,
+  "end_column": 107,
+  "text": "whether we could share the load-test scripts before the workshop",
+  "kind": "foreign"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 31,
+  "column": 112,
+  "end_column": 116,
+  "text": "Juha",
+  "kind": "name"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 31,
+  "column": 154,
+  "end_column": 163,
+  "text": "voi antaa",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 31,
+  "column": 174,
+  "end_column": 181,
+  "text": "#alusta",
+  "kind": "identifier"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 31,
+  "column": 183,
+  "end_column": 194,
+  "text": "pidän siitä",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 31,
+  "column": 227,
+  "end_column": 233,
+  "text": "lisään",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "viikkokirje.md",
+  "line": 31,
+  "column": 259,
+  "end_column": 269,
+  "text": "te pidätte",
+  "kind": "grammar_ok"
+ }
+]

@@ -43,8 +43,8 @@ Nix silently ignores the cache and builds from source.
 The default package is the lite build: spelling through Hunspell dictionaries plus Harper's
 vendored word list (`spellbook` engine) and our own grammar pattern rules, without Harper
 itself. `nix run github:onnimonni/explicit#explicit-full -- check` adds the Harper grammar
-engines (`hybrid`, `harper`, `curated`), Finnish (Voikko) and Swedish (experimental); both
-packages are on the cache. On our evaluation sets
+engines (`hybrid`, `harper`, `curated`) and Finnish (Voikko). Both
+packages include Swedish and are on the cache. On our evaluation sets
 `spellbook` matched `hybrid` at half the run time.
 
 ### devenv
@@ -71,7 +71,7 @@ Options in `devenv.nix`:
 ```nix
 { inputs, pkgs, ... }:
 {
-  # Harper grammar engines, Finnish and Swedish (the default package is the lite build):
+  # Harper grammar engines and Finnish (the default lite package already has Swedish):
   # explicit.package = inputs.explicit.packages.${pkgs.stdenv.hostPlatform.system}.explicit-full;
   explicit.hook.args = [ "--offline" "--format" "github" ];
   explicit.hook.excludes = [ "^vendor/" ];
@@ -86,8 +86,9 @@ nix run github:onnimonni/explicit -- check
 nix profile install github:onnimonni/explicit
 ```
 
-The default package is the lite build (`packages.explicit-lite` is an alias). `packages.explicit-full`
-adds the Harper engines, Finnish (`voikko` feature) and Swedish (`swedish` feature): `nix run github:onnimonni/explicit#explicit-full -- check`. Both are
+The default package is the lite build with the default features, Swedish included
+(`packages.explicit-lite` is an alias). `packages.explicit-full` adds the Harper engines and
+Finnish (`voikko` feature): `nix run github:onnimonni/explicit#explicit-full -- check`. Both are
 prebuilt on the cache. The flake also exports `overlays.default`, which adds `pkgs.explicit` and
 `pkgs.explicit-full`.
 
@@ -99,21 +100,23 @@ Only when you change explicit itself:
 cargo install --git https://github.com/onnimonni/explicit
 ```
 
-Build without Mermaid support (fewer dependencies) with `--no-default-features`.
+Build without Mermaid and Swedish (fewer dependencies, a smaller binary) with
+`--no-default-features`, adding back what you need with `--features mermaid` or `--features swedish`.
 
 Cargo features:
 
 - `mermaid` (default): parse-checks Mermaid blocks.
-- `swedish` (opt-in, `--features swedish`, experimental): Swedish spelling and rules; embeds
-  the Swedish Hunspell dictionary (0.7 MB). Without it, Swedish files and stretches keep only
-  the language-independent rules (structure, links, style).
+- `swedish` (default): Swedish spelling and rules; embeds the Swedish Hunspell dictionary
+  (0.7 MB). Without it, Swedish files and stretches keep only the language-independent rules
+  (structure, links, style).
 - `voikko` (opt-in, `--features voikko`): Finnish spelling and rules; embeds the voikko-fi
   morphology (1.6 MB) for the built-in Voikko reader. No C library or system dictionary is
   needed.
 - `harper` (opt-in, `--features harper`): the Harper grammar engines. Spelling and pattern rules
   give the same results without it. Asking for a Harper engine in a build without it is an
-  error. The default build compiles in about 25% less time and gives a 12.7 MB binary; the
-  full build (`harper,voikko,swedish`) 22.7 MB (macOS arm64).
+  error. The default build (`mermaid,swedish`) compiles in about 25% less time and gives a
+  13.7 MB binary; the full build (`harper,voikko,swedish`) 22.9 MB and `--no-default-features
+  --features mermaid` 13.0 MB (macOS arm64).
 
 ## Usage
 
@@ -207,6 +210,12 @@ or headings without end punctuation. `prose.accept` matches case-insensitively a
 hyphenated entries (`pre-commit`) as whole words. `prose.accept_patterns` takes regexes that
 must match a whole word, for example `["[A-Z]{2,}-\\d+", "(?i)acme\\w*"]`.
 
+`prose.dialect` defaults to `"auto"`: each file is checked as British English when British
+spellings clearly dominate its prose (at least three words such as `colour`, `behaviour`,
+`organise`, `catalogue`, `centre` or `licence`, and at least 80% of the words spelled
+differently in the two dialects), and as American English otherwise. Set `"american"`,
+`"british"`, `"canadian"`, `"australian"` or `"indian"` to force one dialect everywhere.
+
 `prose.engine` picks the spelling/grammar backend: `"spellbook"` (default: Hunspell en_US/en_GB
 spelling and pattern rules). Builds with the `harper` feature also have `"hybrid"` (`spellbook`
 plus Harper's part-of-speech rules on full sentences), `"harper"` (Harper with all its rules) and
@@ -222,7 +231,12 @@ and `rust-` / `-rs` affixes: `tokio` of `tokio-util`, `phf` of `rust-phf`), comm
 (`feat(deps):`), file extensions and capitalized words with diacritics (`Göteborg`). A
 capitalized name (`Zellij`) also passes when it occurs 3 or more times across the checked files
 or in a link text of the same file, unless it is one edit from a dictionary word (`Teh`); its
-lowercase form still counts as a typo.
+lowercase form still counts as a typo. English text also accepts person and place names from
+other languages when they are spelled like one and are not one edit from an English word:
+letters English lacks (`Jyväskylä`), a doubled vowel (`Aalto`) or a Finnish, Nordic, Slavic or
+Indian name ending (`Virtanen`, `Lindqvist`, `Kowalski`, `Ramesh`) inside a sentence, or a
+capitalized word after a title or another name (`Dr. Xiaoyu`, `Anna Korhonen`) or before such a
+surname (`Mikko Virtanen`).
 
 ### Project vocabulary
 
@@ -326,7 +340,7 @@ comes from, in order:
 3. detection (`general.detect_language`, on by default): prose of 80+ words with few English
    stop words is Finnish or Swedish when it looks like it, else another language.
 
-**Finnish** (`fi`, `voikko` feature) and **Swedish** (`sv`, opt-in `swedish` feature) files get
+**Finnish** (`fi`, `voikko` feature) and **Swedish** (`sv`, `swedish` feature, on by default) files get
 spelling in their language with suggestions, plus a few rules where the orthography leaves no
 choice: `grammar/FinnishCompoundSplit` and `grammar/SwedishCompoundSplit` (`tieto kanta`,
 `kund tjänsten`), `grammar/FinnishCompoundJoined` (`kirjautumisenjälkeen`),
@@ -338,15 +352,19 @@ kun`, and `soita, kuin olet valmis` for `kun`), `grammar/FinnishComma` (a comma 
 `ja`/`tai`, in `sekä ... että` or `kuin` comparisons, or before a clause without a finite verb),
 `grammar/FinnishVaanVain` (`on vaan kaksi`, `ei sisällä logiikkaa vain kutsuu`, `ei vain ... vain
 myös`), `grammar/FinnishAgreement` (`tiedot siirtyy`, `katselija pystyivät`),
-`grammar/FinnishElative` (`tykkään sitä`, `huolehdi tätä`, `pidän sitä.` for `siitä`, `tästä`),
+`grammar/FinnishElative` (`tykkään sitä`, `huolehdi tätä`, `olen tietoinen sitä` for `siitä`,
+`tästä`), `grammar/FinnishIllative` (`luotan sitä`, `perustuu siitä, että` for `siihen`),
 `grammar/FinnishRelative` (`tiedostot, joka` -> `jotka`, `palvelu, jotka` -> `joka`, `palvelu
-kaatui, joka` -> `mikä`) and
-`grammar/SwedishDomDem` (`dom` or `dem` as a subject: `om dem är klara`), with
+kaatui, joka` and `palvelu on nopea, joka` -> `mikä`) and
+`grammar/SwedishDomDem` (`dom` or `dem` as a subject: `om dem är klara`, `när dem ringde`; not a fronted
+object: `dem känner jag`), with
 `grammar/SwedishDeDem` (`med de.` -> `dem`, `med dem nya reglerna` -> `de`),
 `grammar/SwedishArticleGender` (`en hus`, `ett bil`, `den huset`; gender from the dictionary's
-inflection flags, compounds by their head), `grammar/SwedishAdjectiveGender` (`ett stor hus`),
+inflection flags, compounds by their head), `grammar/SwedishAdjectiveGender` (`ett stor hus`;
+predicative `huset är stor`, `beslutet är godkänd`, `filerna är sparad`, `bilen är stort`),
 `grammar/SwedishPresentTense` (`han skriva`, `systemet fungera`), `grammar/SwedishSupine`
-(`har skriven` -> `skrivit`) and `grammar/SwedishAttInfinitive` (`att skriver` -> `skriva`).
+(`har skriven` -> `skrivit`, `har klaga` -> `klagat`, `hade sova` -> `sovit`, `har skickar` ->
+`skickat`) and `grammar/SwedishAttInfinitive` (`att skriver` -> `skriva`).
 These take only clear contexts: nouns of both genders, a noun or adjective after the phrase,
 double objects (`gav dem nya regler`) and inverted clauses are left alone. The split-compound rules
 want two nouns (Voikko's analysis for Finnish, the dictionary's inflections for Swedish), skip

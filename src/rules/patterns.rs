@@ -5390,7 +5390,12 @@ fn pronoun_verb(cx: &Cx, k: usize) -> Option<String> {
         return None;
     }
     if third {
-        let fix = third_person(verb)?;
+        // `it need the types`: `need` as a main verb, not the modal (`it need not be`).
+        let fix = if verb == "need" && (is_in(next, OBJECT_START) || next == Some("to")) {
+            "needs".to_string()
+        } else {
+            third_person(verb)?
+        };
         if is_in(prev, BARE_AFTER) {
             return None;
         }
@@ -5465,7 +5470,20 @@ const SV_OPENERS: &[&str] = &[
 /// Openers after which a singular subject takes the subjunctive `were`: `if the server were
 /// down`.
 const SUBJUNCTIVE_OPENERS: &[&str] = &[
-    "if", "unless", "though", "although", "whether", "where", "wherever",
+    "if",
+    "unless",
+    "though",
+    "although",
+    "whether",
+    "where",
+    "wherever",
+    "suppose",
+    "supposing",
+    "imagine",
+    "assume",
+    "assuming",
+    "pretend",
+    "wish",
 ];
 
 /// Determiners of a singular noun: `the server`, `each file`. `that` (a conjunction or relative
@@ -5745,6 +5763,29 @@ fn sv_head_ok(cx: &Cx, h: usize) -> bool {
         && !UNINFLECTED.contains(&w)
         && !NUMBERS.contains(&w)
         && !NUMBER_DETS.contains(&w)
+        && !number_word(w)
+}
+
+/// A number word: `sixteen`, `forty`, `hundred`, `dozen`.
+fn number_word(w: &str) -> bool {
+    w.ends_with("teen")
+        || matches!(
+            w,
+            "zero"
+                | "twenty"
+                | "thirty"
+                | "forty"
+                | "fifty"
+                | "sixty"
+                | "seventy"
+                | "eighty"
+                | "ninety"
+                | "hundred"
+                | "thousand"
+                | "million"
+                | "billion"
+                | "dozen"
+        )
 }
 
 /// Word `h` heads a singular subject: `server`, `config`, `status`, `API`.
@@ -5978,9 +6019,24 @@ fn sv_verb_slot(cx: &Cx, v: usize, det: &str, plural: bool, loose: bool) -> bool
     if loose {
         return true;
     }
-    // `the usual enqueue and dequeue operations`, `read/write`.
-    if is_in(next, &["and", "or", "nor"]) || cx.after(v) == Some(Kind::Punct('/')) {
+    // `the usual enqueue and dequeue operations`, `read/write`; but `the autoscaler add or
+    // removes a pod` joins two verbs.
+    let verbs_joined = !plural
+        && is_in(next, &["and", "or"])
+        && cx.next(v, 2).is_some_and(|n| {
+            words()
+                .meta(n)
+                .is_some_and(|m| m.is_verb_third_person_singular_present_form())
+                && !lex(n).part
+        })
+        && is_in(cx.next(v, 3), OBJECT_START);
+    if (is_in(next, &["and", "or", "nor"]) && !verbs_joined)
+        || cx.after(v) == Some(Kind::Punct('/'))
+    {
         return false;
+    }
+    if verbs_joined {
+        return true;
     }
     if !(l.noun || l.adj) {
         return true;
@@ -6047,6 +6103,9 @@ fn subject_verb(cx: &Cx, v: usize) -> Option<String> {
         "doesn't" => (None, Some("don't".into())),
         _ if w.contains('\'') || !w.chars().all(char::is_alphabetic) => return None,
         _ if PAST_AS_BASE.contains(&w) || SV_NOT_VERBS.contains(&w) => return None,
+        "need" if is_in(cx.next(v, 1), OBJECT_START) && !is_in(cx.next(v, 1), &["you", "it"]) => {
+            (Some("needs".into()), None)
+        }
         _ => {
             // `hid` -> `hides`: `-es` only after a sibilant or `o`.
             let sg = third_person(w).filter(|f| {
@@ -6074,8 +6133,9 @@ fn subject_verb(cx: &Cx, v: usize) -> Option<String> {
     // `each of the files are`, `one of them fail`, `the number of retries are`.
     if let Some(fix) = &sg_fix
         && let Some(of) = sv_of_phrase(cx, v)
+        && let Some(q) = of.checked_sub(1)
+        && matches!(cx.wl[q].as_str(), "each" | "one" | "number")
     {
-        let q = of.checked_sub(1)?;
         // `one of these access specifiers`: `these` a determiner, not a pronoun.
         if !cx.link[q] || (lexical && matches!(cx.wl[v - 1].as_str(), "these" | "those")) {
             return None;
@@ -6123,6 +6183,71 @@ fn subject_verb(cx: &Cx, v: usize) -> Option<String> {
     {
         return Some(fix.clone());
     }
+    // `the list of files are`, `the results of the test is`: the head before `of` decides.
+    if let Some(fix) = sv_of_head(cx, v, w, lexical, &sg_fix, &pl_fix) {
+        return Some(fix);
+    }
+    // `the file that contain`, `users who runs`.
+    if let Some(fix) = sv_relative(cx, v, w, lexical, &sg_fix, &pl_fix) {
+        return Some(fix);
+    }
+    // `Sending a float are rejected`: a gerund phrase takes a singular verb.
+    if let Some(fix) = &sg_fix
+        && !lexical
+        && sv_gerund_subject(cx, v)
+    {
+        return Some(fix.clone());
+    }
+    // `Rolling back take two minutes`: a gerund and its particle.
+    if let Some(fix) = &sg_fix
+        && let Some(p) = v.checked_sub(1)
+        && let Some(g) = p.checked_sub(1)
+        && matches!(
+            cx.wl[p].as_str(),
+            "back" | "up" | "out" | "down" | "off" | "over"
+        )
+        && cx.link[g]
+        && cx.link[p]
+        && cx.sentence_start(g)
+        && cx.capitalized(g)
+        && cx.wl[g].ends_with("ing")
+        && lex(&cx.wl[g]).verb
+        && !SV_ING_PREPS.contains(&cx.wl[g].as_str())
+        && (!lexical || is_in(cx.next(v, 1), OBJECT_START) || is_in(cx.next(v, 1), NUMBER_DETS))
+    {
+        return Some(fix.clone());
+    }
+    // `PgBouncer follow the DNS record`: a product name opening the sentence.
+    if let Some(fix) = &sg_fix
+        && lexical
+        && sv_name_subject(cx, v)
+    {
+        return Some(fix.clone());
+    }
+    // `, and subscribers is notified`: a bare plural subject of a second clause.
+    if let Some(fix) = &pl_fix
+        && !lexical
+        && let Some(h) = v.checked_sub(1)
+        && cx.link[h]
+        && !cx.gap_after(h)
+        && sv_plural_head(cx, h)
+        && !SV_UNITS.contains(&cx.wl[h].as_str())
+        && !cx.all_caps(h)
+        && is_in(cx.prev(h, 1), &["and", "but"])
+        && sv_comma_before(cx, h - 1)
+        && sv_open_more(cx, h, false, false)
+        && !is_in(cx.next(v, 1), &["a", "an", "one"])
+    {
+        return Some(fix.clone());
+    }
+    // `3 servers has crashed`: a number in digits before a plural subject.
+    if let Some(fix) = &pl_fix
+        && !lexical
+        && w != "is"
+        && sv_digits_subject(cx, v)
+    {
+        return Some(fix.clone());
+    }
     let (start, det, h) = sv_subject(cx, v)?;
     let d = cx.wl[det].as_str();
     let possessive = d.ends_with("'s");
@@ -6134,7 +6259,7 @@ fn subject_verb(cx: &Cx, v: usize) -> Option<String> {
         && sv_singular_head(cx, h)
         // `the sales team`, `the encoded values use are`.
         && !(det + 1..h).any(|i| lex(&cx.wl[i]).plural)
-        && sv_open(cx, start, true)
+        && (sv_open(cx, start, true) || sv_open_more(cx, start, true, lexical))
         && !subjunctive(start)
         && slot(false)
     {
@@ -6158,17 +6283,18 @@ fn subject_verb(cx: &Cx, v: usize) -> Option<String> {
         }
         return Some(fix);
     }
-    if let Some(fix) = pl_fix
+    if let Some(fix) = pl_fix.clone()
         && (PL_DETS_STRICT.contains(&d)
             || NUMBER_DETS.contains(&d)
             || matches!(d, "all" | "some")
             || possessive)
         && sv_plural_head(cx, h)
-        && sv_open(cx, start, false)
+        && (sv_open(cx, start, false) || sv_open_more(cx, start, false, lexical))
         && slot(true)
     {
-        // `four spaces is enough`, `two hours gives time`: an amount.
-        if NUMBER_DETS.contains(&d) && (!lexical || SV_UNITS.contains(&cx.wl[h].as_str())) {
+        // `four spaces is enough`, `two hours gives time`, `two tests is plenty`: an amount.
+        // `three servers has crashed` is no amount.
+        if NUMBER_DETS.contains(&d) && (sv_amount(cx, v, h) || (!lexical && w == "is")) {
             return None;
         }
         // `the server logs requests`: `logs` may be the verb and `requests` a noun; `the
@@ -6177,7 +6303,22 @@ fn subject_verb(cx: &Cx, v: usize) -> Option<String> {
         let ambiguous = words()
             .meta(&cx.wl[h])
             .is_some_and(|m| m.is_verb_third_person_singular_present_form());
+        // Before an auxiliary, lowercase modifiers make a compound (`the old log files is`); a
+        // relative clause needs a subject such as `SQLite` or `the parser`.
+        let modified = !lexical
+            && (det + 1..h).all(|i| {
+                let l = lex(&cx.wl[i]);
+                !cx.capitalized(i)
+                    && l.known
+                    && !l.function
+                    && !l.plural
+                    && !SV_QUANTITY_MODIFIERS.contains(&cx.wl[i].as_str())
+                    && !words()
+                        .meta(&cx.wl[i])
+                        .is_some_and(|m| m.is_mass_noun_only())
+            });
         if ambiguous
+            && !modified
             && (!lexical || lex(w).noun)
             && (h != det + 1
                 || !(PL_DETS_STRICT.contains(&d) || NUMBER_DETS.contains(&d) || possessive))
@@ -6187,6 +6328,691 @@ fn subject_verb(cx: &Cx, v: usize) -> Option<String> {
         return Some(fix);
     }
     None
+}
+
+/// Modifiers that make a plural noun a single quantity: `the average spaces is`.
+const SV_QUANTITY_MODIFIERS: &[&str] = &[
+    "average",
+    "total",
+    "maximum",
+    "minimum",
+    "max",
+    "min",
+    "mean",
+    "median",
+    "overall",
+    "cumulative",
+    "combined",
+    "accumulated",
+];
+
+/// Plural subject `h` counted before verb `v` names an amount: a unit (`four spaces is`) or a
+/// predicate of measure (`two tests was enough`, `three was too many`).
+fn sv_amount(cx: &Cx, v: usize, h: usize) -> bool {
+    SV_UNITS.contains(&cx.wl[h].as_str())
+        || is_in(
+            cx.next(v, 1),
+            &[
+                "enough",
+                "plenty",
+                "too",
+                "a",
+                "an",
+                "more",
+                "less",
+                "fewer",
+                "fine",
+                "ok",
+                "okay",
+                "sufficient",
+                "overkill",
+                "excessive",
+                "about",
+                "roughly",
+                "around",
+                "not",
+                "all",
+                "quite",
+                "only",
+                "just",
+                "what",
+            ],
+        )
+}
+
+/// A subject counted in digits right before verb `v`: `3 servers has`, at a sentence start, not
+/// `1 file` or a unit.
+fn sv_digits_subject(cx: &Cx, v: usize) -> bool {
+    let Some(h) = v.checked_sub(1) else {
+        return false;
+    };
+    if !cx.link[h] || cx.gap_after(h) || !sv_plural_head(cx, h) || sv_amount(cx, v, h) {
+        return false;
+    }
+    let ht = cx.words[h];
+    // Word tokens only hold letters: the number is the token before the space.
+    let Some(sp) = ht.checked_sub(1) else {
+        return false;
+    };
+    if cx.tokens[sp].kind != Kind::Space || cx.tokens[sp].end - cx.tokens[sp].start != 1 {
+        return false;
+    }
+    let Some(num) = sp.checked_sub(1) else {
+        return false;
+    };
+    let t = cx.tokens[num];
+    let text: String = cx.chars[t.start..t.end].iter().collect();
+    if !matches!(t.kind, Kind::Number { .. })
+        || !text.chars().all(|c| c.is_ascii_digit())
+        || text == "1"
+    {
+        return false;
+    }
+    // At a sentence start.
+    let before = cx.tokens[..num]
+        .iter()
+        .rev()
+        .find(|t| !matches!(t.kind, Kind::Space | Kind::Newline));
+    match before {
+        None => true,
+        Some(t) => matches!(t.kind, Kind::Punct('.' | '!' | '?' | ':' | ';')),
+    }
+}
+
+/// Verbs of thinking and finding whose clause object needs no `that`: `I think the logs is
+/// empty`. Left out: verbs that take an object and a bare infinitive (`see`, `make`, `let`).
+const SV_CLAUSE_VERBS: &[&str] = &[
+    "think",
+    "thought",
+    "believe",
+    "believed",
+    "guess",
+    "hope",
+    "assume",
+    "suppose",
+    "realize",
+    "realise",
+    "realized",
+    "realised",
+    "noticed",
+    "found",
+    "discovered",
+    "means",
+    "meant",
+    "sure",
+    "said",
+    "says",
+];
+
+/// Heads that take the number of their `of` complement or are elliptic, beyond
+/// [`SV_HEAD_SKIP`]: `the bulk of the files are`, `the likes of them are`.
+const SV_OF_SKIP: &[&str] = &[
+    "bulk",
+    "entirety",
+    "whole",
+    "likes",
+    "plenty",
+    "amount",
+    "dozens",
+    "hundreds",
+    "thousands",
+    "millions",
+    "lots",
+    "tons",
+    "loads",
+    "odds",
+    "remains",
+    "one",
+    "each",
+    "any",
+    "all",
+    "some",
+    "most",
+    "many",
+    "few",
+    "several",
+    "both",
+    "either",
+    "neither",
+    "none",
+    "subset",
+    "superset",
+    "combination",
+    "mix",
+    "mixture",
+    "slew",
+    "host",
+    "body",
+    "pile",
+    "heap",
+    "flood",
+    "wave",
+    "swarm",
+    "fleet",
+    "herd",
+    "flock",
+    "multitude",
+    "myriad",
+    "plethora",
+    "abundance",
+    "dozen",
+    "score",
+    "share",
+    "section",
+    "sample",
+    "selection",
+    "collection",
+    "batch",
+    "pool",
+    "cluster",
+];
+
+/// Word `d` starts a clause's subject in more places than [`sv_open`]: after a verb of thinking
+/// (`I think the logs is`, only before an auxiliary) or after `and` / `but` / `or` joining two
+/// clauses (`the build failed and the logs is empty`).
+fn sv_open_more(cx: &Cx, d: usize, singular: bool, lexical: bool) -> bool {
+    if cx.capitalized(d) || cx.hyphenated(d) || cx.quoted(d) {
+        return false;
+    }
+    let Some(p) = cx.prev(d, 1) else {
+        return false;
+    };
+    if sv_after_intro_phrase(cx, d) {
+        return true;
+    }
+    if SV_CLAUSE_VERBS.contains(&p) {
+        // `make sure the tests pass`; `they said the files are`.
+        return !lexical && !(p == "sure" && cx.prev(d, 2) == Some("make"));
+    }
+    if !matches!(p, "and" | "but" | "or") || lexical {
+        return false;
+    }
+    let j = d - 1;
+    if cx.gap_after(j) {
+        return false;
+    }
+    // `, and the logs is`: after a clause, not a list item (`the files, the logs, and the
+    // config are`).
+    if sv_comma_before(cx, j) {
+        let Some(b) = j.checked_sub(1) else {
+            return false;
+        };
+        let l = lex(&cx.wl[b]);
+        return !((l.noun && !l.adj) || cx.capitalized(b) || !l.known) && !cx.sentence_start(b);
+    }
+    // Without a comma only a plural subject after a verb: `the build failed and the logs is`;
+    // `the server and the client are` is a compound subject.
+    let Some(b) = cx.prev(j, 1) else {
+        return false;
+    };
+    let l = lex(b);
+    !singular
+        && l.known
+        && (l.part || l.finite)
+        && !l.noun
+        && !(l.adj && !l.part)
+        && !(0..j).any(|i| matches!(cx.wl[i].as_str(), "between" | "both" | "either"))
+}
+
+/// `-ing` words that work as prepositions: `Following the steps are two notes`.
+const SV_ING_PREPS: &[&str] = &[
+    "following",
+    "including",
+    "excluding",
+    "regarding",
+    "concerning",
+    "considering",
+    "assuming",
+    "pending",
+    "barring",
+    "according",
+    "during",
+    "notwithstanding",
+    "outstanding",
+    "remaining",
+    "existing",
+    "missing",
+    "matching",
+    "corresponding",
+    "resulting",
+    "leading",
+    "trailing",
+    "ongoing",
+    "upcoming",
+    "incoming",
+    "outgoing",
+    "underlying",
+    "surrounding",
+    "nothing",
+    "something",
+    "anything",
+    "everything",
+];
+
+/// A gerund phrase opens the sentence right before verb `v`: `Sending a float are rejected`,
+/// `Running the tests take long`.
+fn sv_gerund_subject(cx: &Cx, v: usize) -> bool {
+    let Some((start, det, h)) = sv_subject(cx, v) else {
+        return false;
+    };
+    // `Completing the operation would have`: the verb after a modal.
+    if h + 1 != v || !(sv_singular_head(cx, h) || sv_plural_head(cx, h)) {
+        return false;
+    }
+    if det != start
+        || !matches!(
+            cx.wl[det].as_str(),
+            "a" | "an"
+                | "the"
+                | "this"
+                | "these"
+                | "those"
+                | "your"
+                | "our"
+                | "their"
+                | "its"
+                | "my"
+                | "all"
+        )
+    {
+        return false;
+    }
+    let Some(g) = start.checked_sub(1) else {
+        return false;
+    };
+    let gw = cx.wl[g].as_str();
+    let l = lex(gw);
+    cx.link[g]
+        && !cx.gap_after(g)
+        && cx.sentence_start(g)
+        && cx.capitalized(g)
+        && !cx.all_caps(g)
+        && gw.ends_with("ing")
+        && l.verb
+        && !SV_ING_PREPS.contains(&gw)
+}
+
+/// A product name opens the sentence right before lexical verb `v`, which takes an object:
+/// `PgBouncer follow the DNS record`. Only names the dictionary does not know, without a plural
+/// `-s`, so company names (`Google`) and imperatives (`Grep the logs`) stay out.
+fn sv_name_subject(cx: &Cx, v: usize) -> bool {
+    let Some(h) = v.checked_sub(1) else {
+        return false;
+    };
+    let t = cx.tokens[cx.words[h]];
+    let orig: String = cx.chars[t.start..t.end].iter().collect();
+    let hw = cx.wl[h].as_str();
+    if !cx.link[h]
+        || cx.gap_after(h)
+        || !cx.sentence_start(h)
+        || !cx.capitalized(h)
+        || cx.all_caps(h)
+        || hw.ends_with('s')
+        || hw.len() < 4
+        || !hw.chars().all(char::is_alphabetic)
+        || lex(hw).known
+        || cx.quoted(h)
+        || cx.hyphenated(h)
+    {
+        return false;
+    }
+    // CamelCase (`PgBouncer`, `GitHub`): surely a name.
+    let camel = orig.chars().skip(1).any(char::is_uppercase);
+    let next = cx.next(v, 1);
+    let l = lex(&cx.wl[v]);
+    camel
+        && is_in(next, OBJECT_START)
+        && !is_in(next, &["you", "it", "us", "me", "him"])
+        && l.verb
+        && !l.adj
+        && !l.ing
+        && !l.part
+        && sv_verb_slot(cx, v, "", false, true)
+}
+
+/// Prepositions that open an introductory phrase: `In this case the tests does nothing`.
+const SV_INTRO_PREPS: &[&str] = &[
+    "in", "on", "at", "for", "after", "before", "during", "with", "without", "by", "since",
+    "until", "under", "within", "across", "through", "upon",
+];
+
+/// Word `d` follows a sentence-opening prepositional phrase without a comma: `In this case the
+/// tests does`, `By default the logs is`, `After the restart the servers has`.
+fn sv_after_intro_phrase(cx: &Cx, d: usize) -> bool {
+    let Some(n) = d.checked_sub(1) else {
+        return false;
+    };
+    if !cx.link[n] || cx.gap_after(n) || cx.capitalized(d) {
+        return false;
+    }
+    let ln = lex(&cx.wl[n]);
+    if !ln.nounish() || cx.capitalized(n) || ln.plural {
+        return false;
+    }
+    let mut i = n;
+    for _ in 0..4 {
+        let Some(j) = i.checked_sub(1) else {
+            return false;
+        };
+        if !cx.link[j] || cx.gap_after(j) {
+            return false;
+        }
+        i = j;
+        let w = cx.wl[i].as_str();
+        if SV_INTRO_PREPS.contains(&w) {
+            return cx.sentence_start(i) && cx.capitalized(i);
+        }
+        if !(DETS.contains(&w) || sv_modifier(cx, i)) || cx.capitalized(i) {
+            return false;
+        }
+    }
+    false
+}
+
+/// A comma right before word `j`, with no blanked code between: `, and`.
+fn sv_comma_before(cx: &Cx, j: usize) -> bool {
+    let mut i = cx.words[j];
+    if i > 0
+        && cx.tokens[i - 1].kind == Kind::Space
+        && cx.tokens[i - 1].end - cx.tokens[i - 1].start == 1
+    {
+        i -= 1;
+    }
+    i > 0 && cx.tokens[i - 1].kind == Kind::Punct(',')
+}
+
+/// Word `h` is a plural noun: `files`, `people`, `APIs`, ignoring a capital at a sentence start.
+fn sv_plural_word(cx: &Cx, h: usize) -> bool {
+    if cx.capitalized(h) && !(cx.sentence_start(h) && !cx.all_caps(h)) {
+        return sv_plural_head(cx, h);
+    }
+    let w = cx.wl[h].as_str();
+    if !sv_head_ok(cx, h) {
+        return false;
+    }
+    if IRREGULAR_PLURALS.contains(&w) {
+        return true;
+    }
+    if !w.ends_with('s') || ["ss", "us", "is"].iter().any(|e| w.ends_with(e)) {
+        return false;
+    }
+    let l = lex(w);
+    if !(l.noun && l.plural && !l.function) {
+        return false;
+    }
+    let mut stems = vec![w[..w.len() - 1].to_string()];
+    if let Some(s) = w.strip_suffix("es") {
+        stems.push(s.to_string());
+    }
+    if let Some(s) = w.strip_suffix("ies") {
+        stems.push(format!("{s}y"));
+    }
+    stems.iter().any(|s| {
+        let l = lex(s);
+        l.noun && !l.function
+    })
+}
+
+/// The number the subject noun phrase `(start, det, h)` has, when it surely has one: `Some(true)`
+/// for singular (`the server`, `each file`), `Some(false)` for plural (`the files`, `two tests`).
+fn sv_number(cx: &Cx, start: usize, det: usize, h: usize) -> Option<bool> {
+    let d = cx.wl[det].as_str();
+    let possessive = d.ends_with("'s");
+    if (SG_DETS.contains(&d) || possessive)
+        && !matches!(cx.wl[start].as_str(), "all" | "both")
+        && sv_singular_head(cx, h)
+        && !(det + 1..h).any(|i| lex(&cx.wl[i]).plural)
+        && !cx.all_caps(h)
+    {
+        return Some(true);
+    }
+    if (PL_DETS_STRICT.contains(&d) || matches!(d, "all" | "some") || possessive)
+        && sv_plural_head(cx, h)
+    {
+        return Some(false);
+    }
+    None
+}
+
+/// `the list of files are`, `the results of the test is`: a verb after `the X of Y` agrees with
+/// `X`. Left out: quantity heads (`the number of`, `the rest of`, `the bulk of`), `a` / `an`
+/// heads (`a list of files are` reads as several files) and heads after a preposition.
+fn sv_of_head(
+    cx: &Cx,
+    v: usize,
+    w: &str,
+    lexical: bool,
+    sg_fix: &Option<String>,
+    pl_fix: &Option<String>,
+) -> Option<String> {
+    let linked = |i: usize| cx.link[i] && !cx.gap_after(i);
+    let yh = v.checked_sub(1)?;
+    if !linked(yh) {
+        return None;
+    }
+    let y = cx.wl[yh].as_str();
+    let y_ok = matches!(y, "them" | "us" | "it" | "these" | "those")
+        || sv_singular_head(cx, yh)
+        || sv_plural_head(cx, yh);
+    if !y_ok {
+        return None;
+    }
+    // `of`, then at most a determiner and two modifiers before `Y`.
+    let mut of = None;
+    let mut i = yh;
+    for _ in 0..4 {
+        i = i.checked_sub(1)?;
+        if !linked(i) {
+            return None;
+        }
+        let x = cx.wl[i].as_str();
+        if x == "of" {
+            of = Some(i);
+            break;
+        }
+        if !(DETS.contains(&x) || NUMBER_DETS.contains(&x) || sv_modifier(cx, i)) {
+            return None;
+        }
+    }
+    let of = of?;
+    let (start, det, xh) = sv_subject(cx, of)?;
+    if xh + 1 != of {
+        return None;
+    }
+    let x = cx.wl[xh].as_str();
+    let d = cx.wl[det].as_str();
+    if SV_OF_SKIP.contains(&x) || matches!(d, "a" | "an" | "one" | "another") {
+        return None;
+    }
+    if !(sv_open(cx, start, true) || sv_open_more(cx, start, true, lexical)) {
+        return None;
+    }
+    let subjunctive = matches!(w, "were" | "weren't")
+        && (is_in(cx.prev(start, 1), SUBJUNCTIVE_OPENERS)
+            || is_in(cx.prev(start, 2), &["as", "even", "only", "wish"]));
+    if subjunctive {
+        return None;
+    }
+    let singular = sv_number(cx, start, det, xh)?;
+    let fix = if singular { sg_fix } else { pl_fix }.clone()?;
+    if !singular && !sv_open(cx, start, false) && !sv_open_more(cx, start, false, lexical) {
+        return None;
+    }
+    if lexical {
+        // `the results of user tests.`: `tests` a noun.
+        let next = cx.next(v, 1);
+        if lex(w).noun && !is_in(next, OBJECT_START) {
+            return None;
+        }
+        if !sv_verb_slot(cx, v, d, !singular, true) {
+            return None;
+        }
+    }
+    Some(fix)
+}
+
+/// Indefinite pronouns that take a singular verb: `anyone who have access`.
+const SV_SG_PRONOUNS: &[&str] = &[
+    "anyone",
+    "someone",
+    "everyone",
+    "anybody",
+    "somebody",
+    "everybody",
+    "nobody",
+    "anything",
+    "something",
+    "everything",
+    "nothing",
+];
+
+/// Verbs after which `the user that ...` may start a `that` clause, not a relative one: `tell
+/// the user that runs failed`.
+const SV_TELL_VERBS: &[&str] = &[
+    "tell",
+    "tells",
+    "told",
+    "telling",
+    "show",
+    "shows",
+    "showed",
+    "shown",
+    "showing",
+    "remind",
+    "reminds",
+    "reminded",
+    "warn",
+    "warns",
+    "warned",
+    "notify",
+    "notifies",
+    "notified",
+    "inform",
+    "informs",
+    "informed",
+    "convince",
+    "convinced",
+    "teach",
+    "taught",
+    "assure",
+    "assured",
+    "ask",
+    "asks",
+    "asked",
+    "promise",
+    "promised",
+    "persuade",
+    "persuaded",
+    "give",
+    "gives",
+    "gave",
+];
+
+/// Verbs that take an object and a bare infinitive: `make the server run`.
+const SV_CAUSATIVE: &[&str] = &[
+    "make", "makes", "made", "let", "lets", "help", "helps", "helped", "see", "sees", "saw",
+    "watch", "watched", "hear", "heard", "bid", "feel", "felt",
+];
+
+/// `the file that contain the key`, `the files which is`, `users who runs`, `anyone who have`: a
+/// verb right after a relative `that` / `which` / `who` agrees with the noun before it. Only
+/// restrictive clauses (no comma) whose antecedent is not the object of `of` (`one of the files
+/// that contain`) or of a preposition after a noun (`the servers in the cluster that run`).
+fn sv_relative(
+    cx: &Cx,
+    v: usize,
+    w: &str,
+    lexical: bool,
+    sg_fix: &Option<String>,
+    pl_fix: &Option<String>,
+) -> Option<String> {
+    let linked = |i: usize| cx.link[i] && !cx.gap_after(i);
+    let r = v.checked_sub(1)?;
+    let rel = cx.wl[r].as_str();
+    if !matches!(rel, "that" | "which" | "who") || !linked(r) || cx.capitalized(r) {
+        return None;
+    }
+    let h = r.checked_sub(1)?;
+    if !linked(h) {
+        return None;
+    }
+    let (start, singular) = if SV_SG_PRONOUNS.contains(&cx.wl[h].as_str()) && rel != "which" {
+        (h, true)
+    } else if let Some((start, det, head)) = sv_subject(cx, r) {
+        // `if the generation changes that means`: `changes` the verb, `that` a pronoun.
+        let ambiguous = words()
+            .meta(&cx.wl[h])
+            .is_some_and(|m| m.is_verb_third_person_singular_present_form());
+        if head != h || (ambiguous && head != det + 1) {
+            return None;
+        }
+        (start, sv_number(cx, start, det, h)?)
+    } else if sv_plural_word(cx, h)
+        && !cx.all_caps(h)
+        && (cx.sentence_start(h) || cx.prev(h, 1).is_some_and(|p| lex(p).prep && p != "of"))
+    {
+        (h, false)
+    } else {
+        return None;
+    };
+    let p1 = cx.prev(start, 1);
+    if p1 == Some("of") || (!cx.sentence_start(start) && p1.is_none() && start > 0) {
+        return None;
+    }
+    if let Some(p) = p1 {
+        let lp = lex(p);
+        // `paths from the filesystem that match`: the clause may belong to the noun before the
+        // preposition. Fine after a verb: `for users who is`, `run on the host that run`.
+        if lp.prep
+            && !cx.sentence_start(start - 1)
+            && !cx.prev(start, 2).is_some_and(|q| {
+                let l = lex(q);
+                l.verb && !l.noun && !l.ing && !l.part
+            })
+        {
+            return None;
+        }
+        // `tell the user which are not errors`, `the bytes preceding the tag that encode`.
+        // `makes the profiler attribute that wait`: an object and a bare infinitive.
+        if SV_TELL_VERBS.contains(&p)
+            || SV_CLAUSE_VERBS.contains(&p)
+            || SV_CAUSATIVE.contains(&p)
+            || lp.ing
+            || p.ends_with("ing")
+            || p == "how"
+        {
+            return None;
+        }
+        // `names and the colon that follow them`: a compound antecedent.
+        if singular && matches!(p, "and" | "or" | "nor") {
+            return None;
+        }
+        // `all the files that`, `one thing that`.
+        if matches!(p, "one" | "each" | "all" | "only" | "but" | "than" | "as") {
+            return None;
+        }
+    }
+    // `modifies the variables which is not safe`: `which` may stand for the whole clause.
+    if !singular && rel == "which" {
+        return None;
+    }
+    let fix = if singular { sg_fix } else { pl_fix }.clone()?;
+    if lexical {
+        let next = cx.next(v, 1);
+        let l = lex(w);
+        // `the rules that files must follow`: `files` the subject of an object clause.
+        if l.noun
+            && !(is_in(next, OBJECT_START)
+                || next.is_some_and(|n| lex(n).prep && !lex(n).verb)
+                || cx.punct_end(v))
+        {
+            return None;
+        }
+        if l.adj || !sv_verb_slot(cx, v, "", !singular, true) {
+            return None;
+        }
+    }
+    Some(fix)
 }
 
 /// A plural subject without a determiner opens a sentence right before verb `v`: `Email
@@ -7869,6 +8695,112 @@ mod tests {
             ],
         );
     }
+    #[test]
+    fn subject_verb_heads_relatives_and_openers() {
+        check_all(
+            "SubjectVerbAgreement",
+            &[
+                // The head before `of` decides.
+                ("The list of files are long.", "are>is"),
+                ("The results of the test is ready.", "is>are"),
+                ("The status of the jobs are unknown.", "are>is"),
+                ("The signature of these functions have changed.", "have>has"),
+                (
+                    "The types of the params matches the values.",
+                    "matches>match",
+                ),
+                ("The sum of the lengths are a multiple of 3.", "are>is"),
+                // More subject positions.
+                ("The old log files is deleted.", "is>are"),
+                ("Three servers has crashed.", "has>have"),
+                ("3 servers has crashed.", "has>have"),
+                ("I think the logs is empty.", "is>are"),
+                ("The build failed and the logs is empty.", "is>are"),
+                ("After the restart the servers has recovered.", "has>have"),
+                ("In this case the tests does nothing.", "does>do"),
+                ("Sending a float are rejected.", "are>is"),
+                ("Rolling back take two minutes.", "take>takes"),
+                ("PgBouncer follow the DNS record.", "follow>follows"),
+                ("GetBytesHex return the value of a flag.", "return>returns"),
+                (
+                    "The cache is immutable, and subscribers is notified.",
+                    "is>are",
+                ),
+                (
+                    "The limit changes every time the scheduler add or removes a pod.",
+                    "add>adds",
+                ),
+                ("The client need the token.", "need>needs"),
+                // Relative clauses.
+                (
+                    "The file that contain the key is missing.",
+                    "contain>contains",
+                ),
+                (
+                    "The files that contains the key are missing.",
+                    "contains>contain",
+                ),
+                (
+                    "Fix a bug which prevent all disks to be listed.",
+                    "prevent>prevents",
+                ),
+                ("A user who run the job needs access.", "run>runs"),
+                ("For users who is using the API, read this.", "is>are"),
+                ("Things that has no content go there.", "has>have"),
+                ("Anyone who have access can read it.", "have>has"),
+                (
+                    "TaskList is an extension that allow you to use lists.",
+                    "allow>allows",
+                ),
+            ],
+            &[
+                "A list of files are attached.",
+                "The majority of users are happy.",
+                "The rest of the files are ignored.",
+                "The members of the team are here.",
+                "The cost of the servers is high.",
+                "The first sixteen of these values are the same.",
+                "The collection of curves are well known.",
+                "By default the logs are rotated.",
+                "In most cases the tests pass.",
+                "Make sure the tests pass.",
+                "We found the servers were down.",
+                "Suppose a user were proxying the error.",
+                "The server and the client are down.",
+                "The logs, the metrics, and the config are stored.",
+                "The MSRV for this crate and the `vulkan`, `d3d12` and `metal` features is 1.70.",
+                "Two servers is overkill.",
+                "3 files is the limit.",
+                "Following the steps are two notes.",
+                "Completing the operation would have required more.",
+                "Attaching a profile you are trying to analyze is good.",
+                "Resetting a stream we don't know about is fine.",
+                "Grep the logs for errors.",
+                "GitHub Actions run the tests.",
+                "It need not be fast.",
+                "Only proceed if the average spaces is smaller than the bound.",
+                "One of the files that contain the key is missing.",
+                "The list of files that are open is long.",
+                "Tell the user that runs failed.",
+                "The rules that files must follow are simple.",
+                "Paths from the filesystem that match the glob are returned.",
+                "It restarts the servers, which takes time.",
+                "It modifies environment variables which is not safe.",
+                "Info logs are things you want to tell the user which are not errors.",
+                "Read the names and the colon that follow them.",
+                "The number of bytes proceding the tag byte that encode the offset.",
+                "It returns how many times that has happened.",
+                "It makes the profiler attribute that wait to the idle node.",
+                "If the generation changes that means the expression changed.",
+                "The team that runs the servers is small.",
+                "The jobs that the server runs are listed.",
+                "The config that tests use is here.",
+                "The idea that users want this is wrong.",
+                "The results cache is off; the link cache still uses this dir.",
+            ],
+        );
+    }
+
     #[test]
     fn articles_before_numbers() {
         use Sound::*;

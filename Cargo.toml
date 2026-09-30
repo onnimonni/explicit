@@ -33,7 +33,7 @@ insta = { version = "1.48.0", features = ["json"] }
 tempfile = "3.27.0"
 
 [features]
-default = ["mermaid"]
+default = ["mermaid", "swedish"]
 mermaid = ["dep:merman-core"]
 # Opt-in Harper grammar engines (`harper`, `curated`, `hybrid`): `--features harper`. The
 # default build runs `spellbook` with the same spelling and word-class data (dictionaries/harper).
@@ -43,7 +43,7 @@ harper = ["dep:harper-core"]
 # needs `[languages.fi] dictionary_path`.
 voikko = []
 # Swedish spelling and grammar rules (Hunspell sv_SE + sv_FI through spellbook): embeds
-# dictionaries/sv (+0.7 MB). Opt-in; without it Swedish text is skipped as non-English.
+# dictionaries/sv (+0.7 MB). On by default; without it Swedish text is skipped as non-English.
 swedish = []
 
 [[example]]

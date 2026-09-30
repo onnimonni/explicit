@@ -1,9 +1,9 @@
 {
   lib,
   rustPlatform,
-  # With the Harper grammar engines (cargo feature `harper`), Finnish (`voikko`) and Swedish
-  # (`swedish`). The default lite build has only the `spellbook` engine, with the same spelling
-  # and word-class data.
+  # With the Harper grammar engines (cargo feature `harper`) and Finnish (`voikko`). The default
+  # lite build has the default features (`mermaid`, `swedish`) and only the `spellbook` engine,
+  # with the same spelling and word-class data.
   full ? false,
 }:
 
@@ -28,8 +28,8 @@ rustPlatform.buildRustPackage {
 
   cargoLock.lockFile = ../Cargo.lock;
 
-  # Finnish (`voikko`, pure Rust with the voikko-fi data embedded) and Swedish only in the
-  # full build.
+  # Finnish (`voikko`, pure Rust with the voikko-fi data embedded) only in the full build;
+  # Swedish is a default feature, listed for clarity.
   buildFeatures = lib.optionals full [
     "harper"
     "voikko"

@@ -37,7 +37,7 @@ pub const RULES: &[(&str, &str)] = &[
     ),
     (
         "SwedishAdjectiveGender",
-        "Swedish: an adjective after `ett` takes the neuter `-t` form (`ett stor hus` -> `ett stort hus`)",
+        "Swedish: an adjective agrees with its noun, attributive (`ett stor hus` -> `ett stort hus`) or predicative (`huset är stor` -> `stort`, `filerna är sparad` -> `sparade`)",
     ),
     (
         "SwedishPresentTense",
@@ -45,7 +45,7 @@ pub const RULES: &[(&str, &str)] = &[
     ),
     (
         "SwedishSupine",
-        "Swedish: `har` / `hade` takes the supine, not the participle (`har skriven` -> `har skrivit`)",
+        "Swedish: `har` / `hade` takes the supine, not the participle, infinitive or present tense (`har skriven` -> `har skrivit`, `har klaga` -> `har klagat`)",
     ),
     (
         "SwedishAttInfinitive",
@@ -657,8 +657,46 @@ fn dom_dem(sp: &dyn LangSpeller, chars: &[char], ws: &[Word], out: &mut Vec<Lint
         while next_of(chars, ws, v).is_some_and(|x| SUBJECT_ADVERBS.contains(&x.lower.as_str())) {
             v += 1;
         }
-        let verb_after =
-            next_of(chars, ws, v).is_some_and(|n| lower_word(n) && finite(sp, &n.lower));
+        // `dem` before any finite verb (`när dem ringde`, `att dem använder`); `dom` only
+        // before a frequent one, as it is also the noun (`dom föll`).
+        let verb = next_of(chars, ws, v).filter(|n| {
+            lower_word(n)
+                && (finite(sp, &n.lower)
+                    || w.lower == "dem"
+                        && finite_or_past(sp, &n.lower)
+                        && !noun_strict(sp, &n.lower)
+                        && !adjective_like(sp, &n.lower))
+        });
+        // `Dem känner jag inte.`, `och dem har vi sparat`: a fronted object before the verb
+        // and its subject, only in a main clause.
+        let subordinate = prev.is_some_and(|p| {
+            matches!(
+                p.lower.as_str(),
+                "att"
+                    | "om"
+                    | "när"
+                    | "eftersom"
+                    | "medan"
+                    | "innan"
+                    | "tills"
+                    | "ifall"
+                    | "fast"
+                    | "fastän"
+                    | "då"
+                    | "där"
+                    | "sedan"
+            )
+        });
+        let fronted = !subordinate
+            && v == k
+            && next_of(chars, ws, v + 1).is_some_and(|x| {
+                let l = x.lower.as_str();
+                SUBJECT_PRONOUNS.contains(&l)
+                    || matches!(l, "den" | "det" | "dessa")
+                    || x.text.starts_with(char::is_uppercase)
+                    || definite_subject(sp, l)
+            });
+        let verb_after = verb.is_some() && !fronted;
         // `dom nya reglerna`, `dom flesta`, `dom här`: the article or determiner `de`.
         let article = w.lower == "dom"
             && next.is_some_and(|n| {
@@ -1567,6 +1605,409 @@ fn adjective_gender(sp: &dyn LangSpeller, chars: &[char], ws: &[Word], out: &mut
         out.push(lint(a.start, a.end, LintKind::Grammar, message, &fix));
     }
     plural_adjective(sp, chars, ws, out);
+    predicative_adjective(sp, chars, ws, out);
+}
+
+/// Gender and number of a subject noun phrase.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Agreement {
+    Singular(Gender),
+    Plural,
+}
+
+/// Copulas before a predicative adjective.
+const COPULAS: &[&str] = &[
+    "är",
+    "var",
+    "blir",
+    "blev",
+    "förblir",
+    "förblev",
+    "verkar",
+    "verkade",
+    "förefaller",
+];
+
+/// Adverbs between a copula and its predicative adjective (`är inte stor`, `blev mycket
+/// stor`).
+const PREDICATIVE_ADVERBS: &[&str] = &[
+    "inte",
+    "också",
+    "även",
+    "redan",
+    "alltid",
+    "aldrig",
+    "fortfarande",
+    "nu",
+    "ofta",
+    "sällan",
+    "ganska",
+    "mycket",
+    "väldigt",
+    "helt",
+    "för",
+    "så",
+    "lite",
+    "alltför",
+    "extra",
+    "riktigt",
+    "lika",
+    "oerhört",
+    "otroligt",
+    "dock",
+    "ju",
+    "nog",
+    "väl",
+    "numera",
+    "snart",
+    "ännu",
+    "mer",
+    "mindre",
+    "tämligen",
+    "rätt",
+    "relativt",
+    "bara",
+    "kanske",
+    "troligen",
+    "förmodligen",
+    "egentligen",
+    "faktiskt",
+    "verkligen",
+    "tyvärr",
+    "därför",
+    "då",
+];
+
+/// Words after a predicative adjective that show no noun follows it (`är stor och`, `är klar
+/// för`).
+const PREDICATIVE_AFTER: &[&str] = &[
+    "och", "eller", "men", "för", "att", "när", "om", "eftersom", "i", "på", "med", "till", "från",
+    "av", "vid", "under", "efter", "inom", "hos", "nu", "också", "igen", "än", "som", "så", "då",
+    "redan", "ännu", "enligt", "utan", "nog", "mot", "sedan", "innan", "trots", "genom", "tills",
+    "medan", "även", "förrän",
+];
+
+/// Neuter nouns for people and groups, which may agree by sense (`statsrådet är nöjd`,
+/// `paret är nöjda`).
+const SENSE_AGREEMENT: &[&str] = &[
+    "råd",
+    "vittne",
+    "ombud",
+    "biträde",
+    "befäl",
+    "sändebud",
+    "geni",
+    "helgon",
+    "par",
+    "folk",
+    "lag",
+    "gäng",
+    "team",
+    "parti",
+    "sällskap",
+    "styre",
+    "kollegium",
+    "barn",
+    "syskon",
+    "statsråd",
+    "hjon",
+    "fruntimmer",
+    "original",
+    "proffs",
+    "affärsbiträde",
+    "personal",
+    "manskap",
+    "landslag",
+    "gängmedlem",
+    "brudpar",
+    "kungapar",
+    "kommunalråd",
+];
+
+/// The agreement of the subject noun `w`, after the determiner `det` when there is one: a
+/// definite plural (`filerna`, `meddelandena`, `husen`), a definite singular (`huset`,
+/// `bilen`), a noun of one gender after a singular determiner (`vårt system`) or a plural after
+/// a plural one (`alla filer`).
+fn subject_agreement(sp: &dyn LangSpeller, w: &str, det: Option<&str>) -> Option<Agreement> {
+    if STOP.contains(&w) || !sp.check(w) {
+        return None;
+    }
+    let neuter = |b: &str| {
+        GENDERS
+            .get()
+            .is_some_and(|m| m.get(b) == Some(&Some(Gender::Neutrum)))
+    };
+    let plural = w.chars().count() > 5 && ["arna", "erna", "orna"].iter().any(|e| w.ends_with(e))
+        || w.strip_suffix("na").is_some_and(|b| {
+            b.chars().count() >= 4 && b.ends_with('e') && sp.check(b) && neuter(b)
+        })
+        || w.strip_suffix("en").is_some_and(|b| {
+            b.chars().count() >= 3 && !b.ends_with('e') && neuter(b) && !BOTH_GENDERS.contains(&b)
+        });
+    let singular = definite_singular(sp, w);
+    let sense = |w: &str| {
+        SENSE_AGREEMENT
+            .iter()
+            .any(|x| w.starts_with(x) || w.ends_with(x))
+    };
+    match (plural, singular) {
+        (true, None) => return Some(Agreement::Plural),
+        (false, Some(g)) => {
+            let base = w.strip_suffix("et").or(w.strip_suffix('t')).unwrap_or(w);
+            if g == Gender::Neutrum && sense(base) {
+                return None;
+            }
+            return Some(Agreement::Singular(g));
+        }
+        (true, Some(_)) => return None,
+        _ => {}
+    }
+    let det = det?;
+    if finite_or_past(sp, w) || adjective_like(sp, w) {
+        return None;
+    }
+    let singular_det = matches!(
+        det,
+        "denna"
+            | "detta"
+            | "min"
+            | "mitt"
+            | "din"
+            | "ditt"
+            | "sin"
+            | "sitt"
+            | "vår"
+            | "vårt"
+            | "ert"
+            | "varje"
+    );
+    let plural_det = matches!(
+        det,
+        "dessa"
+            | "mina"
+            | "dina"
+            | "sina"
+            | "våra"
+            | "era"
+            | "alla"
+            | "flera"
+            | "många"
+            | "några"
+            | "vissa"
+            | "samtliga"
+            | "båda"
+    );
+    if singular_det {
+        let g = gender(sp, w)?;
+        if g == Gender::Neutrum && sense(w) {
+            return None;
+        }
+        // The determiner agrees with the noun (`vårt system`, `min bil`).
+        let det_neuter = matches!(det, "detta" | "mitt" | "ditt" | "sitt" | "vårt" | "ert");
+        let det_both = det == "varje";
+        return (det_both || det_neuter == (g == Gender::Neutrum))
+            .then_some(Agreement::Singular(g));
+    }
+    let indefinite_plural = gender(sp, w).is_none()
+        && ["ar", "er", "or"].iter().any(|x| w.ends_with(x))
+        && noun_strict(sp, w);
+    (plural_det && indefinite_plural).then_some(Agreement::Plural)
+}
+
+/// The base (utrum) form of the neuter adjective `a` (`stort` -> `stor`, `nytt` -> `ny`,
+/// `godkänt` -> `godkänd`, `lagat` -> `lagad`, `öppet` -> `öppen`).
+fn adjective_base(sp: &dyn LangSpeller, a: &str) -> Option<String> {
+    let mut candidates = Vec::new();
+    if let Some(b) = a.strip_suffix("tt") {
+        candidates.push(b.to_string());
+        candidates.push(format!("{b}d"));
+    }
+    if let Some(b) = a.strip_suffix('t') {
+        candidates.push(b.to_string());
+        candidates.push(format!("{b}d"));
+        candidates.push(format!("{b}n"));
+    }
+    candidates
+        .into_iter()
+        .find(|b| neuter_adjective(sp, b).as_deref() == Some(a))
+}
+
+/// A subject + copula + predicative adjective of the wrong form: a neuter subject with the
+/// common-gender form (`huset är stor` -> `stort`, `beslutet är godkänd` -> `godkänt`), a
+/// common-gender subject with the neuter form (`bilen är stort` -> `stor`) and a plural subject
+/// with the singular form (`filerna är sparad` -> `sparade`). The subject opens a clause (a
+/// definite noun or a determiner phrase) or follows the copula in an inverted clause (`nu är
+/// huset stor`). No noun may follow the adjective (`problemet är stor efterfrågan`), a neuter
+/// form must end the phrase (an adverb: `bilen är tillfälligt nere`), `det är` is left alone,
+/// and nouns for people and groups may agree by sense (`statsrådet är nöjd`).
+fn predicative_adjective(sp: &dyn LangSpeller, chars: &[char], ws: &[Word], out: &mut Vec<Lint>) {
+    let quotes = in_quotes(chars, ws);
+    let mut seen = std::collections::HashSet::new();
+    for k0 in 0..ws.len() {
+        if !plain_word(&ws[k0]) || quotes.iter().any(|q| q.contains(&ws[k0].start)) {
+            continue;
+        }
+        // (subject index, determiner, copula index, first word after the copula).
+        let mut cands: Vec<(usize, Option<&str>, usize, usize)> = Vec::new();
+        if opens_clause(chars, ws, k0) {
+            let first = ws[k0].lower.as_str();
+            if next_of(chars, ws, k0).is_some_and(|c| COPULAS.contains(&c.lower.as_str())) {
+                cands.push((k0, None, k0 + 1, k0 + 2));
+            }
+            if SUBJECT_DETERMINERS.contains(&first) || first == "varje" {
+                // A determiner, adjectives, the noun.
+                let mut e = k0 + 1;
+                while ws.get(e).is_some_and(|a| {
+                    a.lower.ends_with(['a', 'e'])
+                        && adjective_like(sp, &a.lower)
+                        && !noun_strict(sp, &a.lower)
+                }) && e < k0 + 3
+                {
+                    e += 1;
+                }
+                if (k0..e + 1).all(|i| next_of(chars, ws, i).is_some() || i == e)
+                    && next_of(chars, ws, e).is_some_and(|c| COPULAS.contains(&c.lower.as_str()))
+                {
+                    cands.push((e, Some(first), e + 1, e + 2));
+                }
+            }
+        }
+        // Inverted: a copula inside a clause, then a definite subject (`nu är huset stor`).
+        // Not after a subject (`det är nästan aldrig användbart`, `som är`).
+        let subject_before = prev_of(chars, ws, k0).is_some_and(|p| {
+            matches!(
+                p.lower.as_str(),
+                "det" | "detta" | "den" | "denna" | "som" | "vad" | "allt"
+            ) || SUBJECT_PRONOUNS.contains(&p.lower.as_str())
+        });
+        if COPULAS.contains(&ws[k0].lower.as_str())
+            && k0 > 0
+            && !opens_clause(chars, ws, k0)
+            && !subject_before
+            && next_of(chars, ws, k0).is_some_and(|x| {
+                let l = x.lower.as_str();
+                !PREDICATIVE_ADVERBS.contains(&l)
+                    && !SUPINE_ADVERBS.contains(&l)
+                    && !NOT_INFINITIVE.contains(&l)
+                    && !matches!(l, "nästan" | "knappast" | "sällan" | "heller" | "också")
+            })
+        {
+            cands.push((k0 + 1, None, k0, k0 + 2));
+        }
+        for (s, det, c, mut j) in cands {
+            let (Some(subject), Some(copula)) = (ws.get(s), ws.get(c)) else {
+                continue;
+            };
+            if !lower_word(subject) && !(s == k0 && plain_word(subject)) || seen.contains(&j) {
+                continue;
+            }
+            // Inverted: the subject is right after the copula.
+            if c < s && next_of(chars, ws, c).map(|x| x.start) != Some(subject.start)
+                || c > s && next_of(chars, ws, s).map(|x| x.start) != Some(copula.start)
+            {
+                continue;
+            }
+            let Some(agr) = subject_agreement(sp, &subject.lower, det) else {
+                continue;
+            };
+            // After the copula (or the inverted subject), adverbs, then the adjective.
+            let mut prev = j - 1;
+            while ws
+                .get(j)
+                .is_some_and(|x| PREDICATIVE_ADVERBS.contains(&x.lower.as_str()))
+                && next_of(chars, ws, prev).is_some()
+            {
+                prev = j;
+                j += 1;
+            }
+            let Some(a) = next_of(chars, ws, prev).filter(|a| lower_word(a)) else {
+                continue;
+            };
+            let adj = a.lower.as_str();
+            let after = next_of(chars, ws, prev + 1);
+            let ends = clause_end(chars, a)
+                || after.is_some_and(|n| PREDICATIVE_AFTER.contains(&n.lower.as_str()));
+            if !ends
+                || chars
+                    .get(a.end)
+                    .is_some_and(|c| DASHES.contains(c) || *c == '/')
+                || DEGREE_WORDS.contains(&adj)
+                || adj.ends_with("nde")
+                || finite_or_past(sp, adj)
+                || GENDERS.get().is_some_and(|m| m.contains_key(adj))
+                || STOP.contains(&adj)
+                    && !matches!(
+                        adj,
+                        "ny" | "nytt"
+                            | "stor"
+                            | "stort"
+                            | "god"
+                            | "gott"
+                            | "gammal"
+                            | "hög"
+                            | "låg"
+                            | "lång"
+                            | "snabb"
+                            | "enkel"
+                            | "dålig"
+                            | "liten"
+                            | "litet"
+                    )
+            {
+                continue;
+            }
+            let Some(form) = adjective_agreement(sp, adj) else {
+                continue;
+            };
+            let fix = match (agr, form) {
+                (Agreement::Singular(Gender::Neutrum), Gender::Utrum) => neuter_adjective(sp, adj)
+                    .or_else(|| {
+                        PRONOMINAL
+                            .iter()
+                            .find(|(u, _)| *u == adj)
+                            .map(|(_, n)| n.to_string())
+                    }),
+                (Agreement::Singular(Gender::Utrum), Gender::Neutrum) => {
+                    // `lätt`, `rätt`, `trött`: the base ends in `t` (`lätta`).
+                    if sp.check(&format!("{adj}a")) || copula.lower.starts_with("känn") {
+                        continue;
+                    }
+                    PRONOMINAL
+                        .iter()
+                        .find(|(_, n)| *n == adj)
+                        .map(|(u, _)| u.to_string())
+                        .or_else(|| adjective_base(sp, adj))
+                }
+                (Agreement::Plural, Gender::Utrum) => {
+                    if adj == "liten" {
+                        Some("små".to_string())
+                    } else {
+                        weak_adjective(sp, adj)
+                    }
+                }
+                _ => None,
+            };
+            let Some(fix) = fix.filter(|f| f != adj) else {
+                continue;
+            };
+            seen.insert(j);
+            let why = match agr {
+                Agreement::Singular(Gender::Neutrum) => "is neuter (ett-ord)",
+                Agreement::Singular(Gender::Utrum) => "is common gender (en-ord)",
+                Agreement::Plural => "is plural",
+            };
+            out.push(lint(
+                a.start,
+                a.end,
+                LintKind::Grammar,
+                format!(
+                    "`{}` {why}: the predicative adjective is `{fix}`.",
+                    subject.text
+                ),
+                &fix,
+            ));
+        }
+    }
 }
 
 /// An adjective base right before an indefinite plural noun, with no determiner before it
@@ -1681,8 +2122,16 @@ fn presents_of(sp: &dyn LangSpeller, v: &str) -> Vec<String> {
         if ok(format!("{v}r")) && ok(format!("{v}de")) && ok(format!("{v}t")) {
             out.push(format!("{v}r"));
         }
-        // Second and fourth: `skriver` with `skrivit`, `leker` with `lekte`.
-        if ok(format!("{stem}er")) && ["it", "te", "de"].iter().any(|e| ok(format!("{stem}{e}"))) {
+        // Second and fourth: `skriver` with `skrivit`, `leker` with `lekte`, `glömmer` with
+        // `glömde`.
+        let single = stem
+            .chars()
+            .last()
+            .filter(|c| !"aeiouyåäö".contains(*c) && stem.ends_with(&format!("{c}{c}")))
+            .map(|_| &stem[..stem.len() - stem.chars().last().map_or(0, char::len_utf8)]);
+        let past =
+            |e: &str| ok(format!("{stem}{e}")) || single.is_some_and(|s| ok(format!("{s}{e}")));
+        if ok(format!("{stem}er")) && ["it", "te", "de"].iter().any(|e| past(e)) {
             out.push(format!("{stem}er"));
         }
         // Stems in `-r`: `kör`, `körde`, `kört`.
@@ -1963,13 +2412,220 @@ const PHRASE_OPENERS: &[&str] = &[
     "denna", "detta", "honom", "henne", "mig", "dig", "oss", "sig", "hela", "varje", "båda",
 ];
 
+/// Irregular supine forms by infinitive (`gå` -> `gått`, `dricka` -> `druckit`).
+const IRREGULAR_SUPINE: &[(&str, &str)] = &[
+    ("vara", "varit"),
+    ("ha", "haft"),
+    ("kunna", "kunnat"),
+    ("vilja", "velat"),
+    ("veta", "vetat"),
+    ("heta", "hetat"),
+    ("göra", "gjort"),
+    ("säga", "sagt"),
+    ("lägga", "lagt"),
+    ("sätta", "satt"),
+    ("välja", "valt"),
+    ("sälja", "sålt"),
+    ("dölja", "dolt"),
+    ("vänja", "vant"),
+    ("töras", "vågat"),
+    ("ta", "tagit"),
+    ("dra", "dragit"),
+    ("ge", "gett"),
+    ("se", "sett"),
+    ("be", "bett"),
+    ("le", "lett"),
+    ("gå", "gått"),
+    ("få", "fått"),
+    ("stå", "stått"),
+    ("dö", "dött"),
+    ("bli", "blivit"),
+    ("ligga", "legat"),
+    ("bära", "burit"),
+    ("skära", "skurit"),
+    ("stjäla", "stulit"),
+    ("komma", "kommit"),
+    ("sova", "sovit"),
+    ("äta", "ätit"),
+    ("gråta", "gråtit"),
+    ("låta", "låtit"),
+    ("slå", "slagit"),
+    ("flyga", "flugit"),
+    ("ljuga", "ljugit"),
+    ("frysa", "frusit"),
+    ("bjuda", "bjudit"),
+    ("sjunga", "sjungit"),
+];
+
+/// Words in `-a` after `har` that are no infinitives (`har gärna`, `har nära till`).
+const NOT_SUPINE_INFINITIVE: &[&str] = &[
+    "gärna", "sakta", "nära", "extra", "lika", "illa", "ända", "enda", "hela", "sista", "bra",
+    "fika", "vila", "tja", "få",
+];
+
+/// Supine forms of the infinitive `v` that the dictionary knows, most likely first: irregular,
+/// first conjugation (`klaga` -> `klagat`), strong (`skriva` -> `skrivit`, `dricka` ->
+/// `druckit`), weak (`köra` -> `kört`, `glömma` -> `glömt`, `använda` -> `använt`,
+/// `betyda` -> `betytt`), third conjugation (`bo` -> `bott`). Only for a verb with a present
+/// tense ([`presents_of`]).
+fn supines_of(sp: &dyn LangSpeller, v: &str) -> Vec<String> {
+    if let Some((_, s)) = IRREGULAR_SUPINE.iter().find(|(i, _)| *i == v) {
+        return vec![s.to_string()];
+    }
+    let presents = presents_of(sp, v);
+    if presents.is_empty() {
+        return vec![];
+    }
+    let ok = |s: &str| sp.check(s);
+    let mut out: Vec<String> = Vec::new();
+    let mut push = |s: String| {
+        if ok(&s) && !out.contains(&s) {
+            out.push(s);
+        }
+    };
+    let Some(stem) = v.strip_suffix('a') else {
+        // `bo` -> `bott`, `tro` -> `trott`.
+        push(format!("{v}tt"));
+        return out;
+    };
+    let first = presents.iter().any(|p| *p == format!("{v}r"));
+    let second = presents.iter().any(|p| *p != format!("{v}r"));
+    if second {
+        let chars: Vec<char> = stem.chars().collect();
+        let n = chars.len();
+        let last = chars[n - 1];
+        let cut = |k: usize| chars[..n - k].iter().collect::<String>();
+        // Strong: `skrivit`, and `i` -> `u` (`druckit`, `sprungit`, `suttit`, `funnit`).
+        push(format!("{stem}it"));
+        if let Some(i) = chars.iter().rposition(|&c| c == 'i') {
+            let mut u = chars.clone();
+            u[i] = 'u';
+            push(format!("{}it", u.iter().collect::<String>()));
+        }
+        if last == 'd' && n >= 2 {
+            let before = chars[n - 2];
+            if "aeiouyåäö".contains(before) {
+                push(format!("{}tt", cut(1)));
+            } else {
+                push(format!("{}t", cut(1)));
+            }
+        } else if n >= 2 && last == chars[n - 2] && !"aeiouyåäö".contains(last) {
+            // `glömma` -> `glömt`, `känna` -> `känt`; `fylla` -> `fyllt`.
+            push(format!("{}t", cut(1)));
+            push(format!("{stem}t"));
+        } else {
+            push(format!("{stem}t"));
+        }
+    }
+    if first {
+        push(format!("{v}t"));
+    }
+    out
+}
+
+/// An indefinite plural of an utrum noun (`tankar`, `ringar`, `kunder`), which may look like a
+/// present tense (`tanka`, `ringa`); neuter nouns take no `-ar` (`skick`, `svar`: `skickar`,
+/// `svarar` are verbs).
+fn utrum_plural(sp: &dyn LangSpeller, w: &str) -> bool {
+    ["ar", "er", "or", "r"].iter().any(|e| {
+        w.strip_suffix(e).is_some_and(|b| {
+            b.chars().count() >= 2
+                && [b.to_string(), format!("{b}e"), format!("{b}a")]
+                    .iter()
+                    .any(|x| {
+                        // Straight from the index too: `del` is a stop word for [`gender`].
+                        match GENDERS.get().and_then(|m| m.get(x.as_str())) {
+                            Some(Some(g)) => *g == Gender::Utrum,
+                            Some(None) => true,
+                            None => gender(sp, x) == Some(Gender::Utrum),
+                        }
+                    })
+        })
+    })
+}
+
+/// An infinitive that is also an adjective or participle plural: a superlative exists
+/// (`öppna`: `öppnast`; `lugna`: `lugnast`) or the stem ends in consonant + `-d` / `-t`, so
+/// the participle plural is the infinitive (`använda`, `lyfta`).
+fn adjectival_infinitive(sp: &dyn LangSpeller, w: &str) -> bool {
+    let Some(b) = w.strip_suffix('a') else {
+        return false;
+    };
+    let c: Vec<char> = b.chars().collect();
+    let n = c.len();
+    sp.check(&format!("{b}ast"))
+        || n >= 2 && matches!(c[n - 1], 'd' | 't') && !"aeiouyåäö".contains(c[n - 2])
+}
+
+/// `har` / `hade` + an infinitive (`har klaga`, `hade sova`) or a present tense (`har
+/// skickar`) is the supine (`klagat`, `sovit`, `skickat`); so is `ha` after a modal (`borde ha
+/// köra`). A word that is also a noun (`har skola`, `har dricka`, `har bär`) counts only
+/// before an object (`object`: a determiner, pronoun or definite noun), an adjective or
+/// participle ([`adjectival_infinitive`]: `har öppna frågor`, `har använda filer`) only where
+/// no noun follows (`ends`), and adverbs and words with no present tense never (`har gärna`,
+/// `har svenska`).
+fn supine_from_verb(
+    sp: &dyn LangSpeller,
+    w: &str,
+    object: bool,
+    ends: bool,
+) -> Option<Vec<String>> {
+    // `har går`, `hade kan`: an irregular present; not the nouns `bär`, `far`, `skär`.
+    let irregular = IRREGULAR_PRESENT
+        .iter()
+        .any(|(_, p)| *p == w && !matches!(w, "har" | "bär" | "far" | "skär"));
+    if irregular {
+        return infinitive_of(sp, w)
+            .map(|i| supines_of(sp, &i))
+            .filter(|s| !s.is_empty());
+    }
+    if STOP.contains(&w)
+        || NOT_INFINITIVE.contains(&w)
+        || NOT_SUPINE_INFINITIVE.contains(&w)
+        || w.chars().count() < 2
+        || !sp.check(w)
+        || definite_singular(sp, w).is_some()
+    {
+        return None;
+    }
+    let noun = gender(sp, w).is_some();
+    let infinitive = if w.ends_with('a') || IRREGULAR_SUPINE.iter().any(|(i, _)| *i == w) {
+        if presents_of(sp, w).is_empty() && !IRREGULAR_SUPINE.iter().any(|(i, _)| *i == w)
+            || noun && !object
+            || adjectival_infinitive(sp, w) && !ends
+        {
+            return None;
+        }
+        w.to_string()
+    } else {
+        // A present tense: `skickar`, `kör`, `skriver`.
+        if noun && !object || utrum_plural(sp, w) || adjective_like(sp, w) {
+            return None;
+        }
+        infinitive_of(sp, w)?
+    };
+    let s = supines_of(sp, &infinitive);
+    (!s.is_empty()).then_some(s)
+}
+
+/// Modals (and `att`) before `ha` + a supine (`borde ha skrivit`, `kan ha glömt`).
+const MODALS: &[&str] = &[
+    "kan", "kunde", "ska", "skall", "skulle", "borde", "bör", "måste", "lär", "torde", "måtte",
+    "tycks", "verkar", "sägs", "att",
+];
+
 /// `har` / `hade` / `ha` + a past participle (`har skriven`, `hade sparad`) is the supine
 /// (`skrivit`, `sparat`). Only when no indefinite noun follows: `vi har sparad data` is an
 /// object with an attribute; a definite noun or a determiner cannot take one (`har skickad
 /// filen`, `har sparad den`). A subject pronoun may stand between (`nu har vi skickad`).
+/// An infinitive or a present tense takes the supine too ([`supine_from_verb`]).
 fn supine(sp: &dyn LangSpeller, chars: &[char], ws: &[Word], out: &mut Vec<Lint>) {
+    let quotes = in_quotes(chars, ws);
     for (k, h) in ws.iter().enumerate() {
-        if !matches!(h.lower.as_str(), "har" | "hade" | "ha") || !plain_word(h) {
+        if !matches!(h.lower.as_str(), "har" | "hade" | "ha")
+            || !plain_word(h)
+            || quotes.iter().any(|q| q.contains(&h.start))
+        {
             continue;
         }
         let mut j = k;
@@ -1988,16 +2644,51 @@ fn supine(sp: &dyn LangSpeller, chars: &[char], ws: &[Word], out: &mut Vec<Lint>
             continue;
         };
         let w = x.lower.as_str();
-        let ends = clause_end(chars, x)
-            || next_of(chars, ws, j + 1).is_some_and(|n| {
-                let n = n.lower.as_str();
-                AFTER_PARTICIPLE.contains(&n)
-                    || PHRASE_OPENERS.contains(&n)
-                    || definite_singular(sp, n).is_some()
-                    || n.chars().count() > 5
-                        && ["arna", "erna", "orna"].iter().any(|e| n.ends_with(e))
-                        && sp.check(n)
-            });
+        let object = next_of(chars, ws, j + 1).is_some_and(|n| {
+            let n = n.lower.as_str();
+            PHRASE_OPENERS.contains(&n)
+                || definite_singular(sp, n).is_some()
+                || n.chars().count() > 5
+                    && ["arna", "erna", "orna"].iter().any(|e| n.ends_with(e))
+                    && sp.check(n)
+        });
+        let ends = object
+            || next_of(chars, ws, j + 1)
+                .is_some_and(|n| SUPINE_ADVERBS.contains(&n.lower.as_str()))
+            || clause_end(chars, x)
+            || next_of(chars, ws, j + 1)
+                .is_some_and(|n| AFTER_PARTICIPLE.contains(&n.lower.as_str()));
+        // `ha` takes a supine after a modal (`borde ha`, `kan inte ha`); elsewhere it is the
+        // verb itself (`vill ha`, `att ha kvar`).
+        let mut m = k;
+        while m > 0
+            && prev_of(chars, ws, m).is_some_and(|p| SUPINE_ADVERBS.contains(&p.lower.as_str()))
+        {
+            m -= 1;
+        }
+        let auxiliary = h.lower != "ha"
+            || prev_of(chars, ws, m).is_some_and(|p| MODALS.contains(&p.lower.as_str()));
+        // Not across a dash or slash (`har/hade`, `har - skicka`).
+        if auxiliary
+            && !chars
+                .get(x.end)
+                .is_some_and(|c| DASHES.contains(c) || *c == '/')
+            && let Some(fixes) = supine_from_verb(sp, w, object, ends)
+        {
+            let mut l = lint(
+                x.start,
+                x.end,
+                LintKind::Grammar,
+                format!("`{}` takes the supine: `{}`.", h.text, fixes[0]),
+                &fixes[0],
+            );
+            for f in &fixes[1..] {
+                l.suggestions
+                    .push(Suggestion::ReplaceWith(f.chars().collect()));
+            }
+            out.push(l);
+            continue;
+        }
         if !ends
             || w.chars().count() < 3
             || !sp.check(w)
@@ -2220,6 +2911,24 @@ mod tests {
         assert_eq!(run("Vi väntar, dom kommer i morgon."), ["SwedishDomDem"]);
         assert_eq!(run("Dem har redan fått beskedet."), ["SwedishDomDem"]);
         let r = "SwedishDomDem";
+        for text in [
+            "Jag tror att dem kommer i morgon.",
+            "När dem ringde var vi borta.",
+            "Om dem inte svarar ringer vi igen.",
+            "Vi frågade kunderna, och dem svarade snabbt.",
+            "Eftersom dem använder appen får de notiser.",
+        ] {
+            assert_eq!(fixes(r, text), ["dem -> de"], "{text}");
+        }
+        // A fronted object (`Dem känner jag`) and `dem som` are left alone.
+        quiet(
+            r,
+            &[
+                "Dem känner jag inte. Dem har vi redan sparat. Dem som vill kan stanna.",
+                "Filerna finns kvar, och dem tar jag hand om.",
+                "Vi hjälper honom och dem varje dag. Han såg dem och log.",
+            ],
+        );
         assert_eq!(fixes(r, "Jag såg dom i går."), ["dom -> dem"]);
         assert_eq!(
             fixes(
@@ -2397,6 +3106,46 @@ mod tests {
                 "Vi ger er ny information.",
             ],
         );
+        // Predicative: the subject's gender and number.
+        for (text, fix) in [
+            ("Huset är stor.", "stor -> stort"),
+            ("Systemet är lagad.", "lagad -> lagat"),
+            ("Beslutet är godkänd.", "godkänd -> godkänt"),
+            ("Filerna är sparad.", "sparad -> sparade"),
+            ("Bilen är stort.", "stort -> stor"),
+            ("Nu är huset stor.", "stor -> stort"),
+            ("Vårt system är stabil.", "stabil -> stabilt"),
+            ("Alla filer är sparad.", "sparad -> sparade"),
+            ("De nya reglerna är tydlig.", "tydlig -> tydliga"),
+            ("Programmet är mycket snabb.", "snabb -> snabbt"),
+            ("Datorn är avstängt.", "avstängt -> avstängd"),
+            (
+                "Dokumentet är tillgänglig för alla.",
+                "tillgänglig -> tillgängligt",
+            ),
+        ] {
+            assert_eq!(fixes(r, text), [fix], "{text}");
+        }
+        quiet(
+            r,
+            &[
+                "Kontot blev låst i går. Dokumentet verkar korrekt nu. Resultatet var inte bra.",
+                "Om kontot är låst i dag, ring oss.",
+                "Servern är nere. Huset är stort. Bilen är stor. Filerna är sparade.",
+                "Det är stor skillnad. Problemet är stor efterfrågan.",
+                "Servern är tillfälligt nere. Kontot är tillfälligt låst.",
+                "Filen är lätt att hitta. Statsrådet är nöjd. Paret är nöjda.",
+                "Det går bra. Han springer snabbt.",
+                "Priset på bilen är stort. Dörren till huset är stängd.",
+                "Svaret är rätt. Svaret är fel. Tiderna är slut. Filerna är kvar.",
+                "Priserna är bra. Kunderna är många. Tjänsten är gratis. Mötet är klart.",
+                "Uppgiften är klar. Appen är ny. Är huset stort? Beslutet är fattat.",
+                "Allt är klart. Detta är viktigt. Frågan är enkel att besvara.",
+                "Kunden är nöjd och glad. Systemet är öppen källkod. Filen är skriven på svenska.",
+                "Huset är litet. Datorn är avstängd. Lösenordet är för kort.",
+                "I praktiken är standardvärdet bra; det är nästan aldrig användbart att ange det.",
+            ],
+        );
         assert_eq!(fixes(r, "Han har ett ny jobb."), ["ny -> nytt"]);
         assert_eq!(fixes(r, "Det är ett viktig beslut."), ["viktig -> viktigt"]);
         quiet(
@@ -2500,6 +3249,39 @@ mod tests {
                 "Den är skriven på svenska.",
                 "Hon har skrivna instruktioner. De hade bokade tider.",
                 "Vi har den sparade filen kvar.",
+            ],
+        );
+        // An infinitive or a present tense after `har` / `hade` / modal + `ha`.
+        for (text, fix) in [
+            ("Vi har klaga på maten.", "klaga -> klagat"),
+            ("Hon hade sova länge.", "sova -> sovit"),
+            ("Han har köra bilen.", "köra -> kört"),
+            ("Jag har skickar filen.", "skickar -> skickat"),
+            ("Vi har inte svara ännu.", "svara -> svarat"),
+            ("Hon hade aldrig läsa boken.", "läsa -> läst"),
+            ("Du borde ha ringa tidigare.", "ringa -> ringt"),
+            ("Han skulle ha skriva mer.", "skriva -> skrivit"),
+            ("Vi kan ha glömma nyckeln.", "glömma -> glömt"),
+            ("Hon har går hem.", "går -> gått"),
+            ("Vi har använda verktyget.", "använda -> använt"),
+            ("Han har betyda mycket.", "betyda -> betytt"),
+            ("Hon har godkänna ansökan.", "godkänna -> godkänt"),
+            ("Vi har beställa varor.", "beställa -> beställt"),
+        ] {
+            assert_eq!(fixes(r, text), [fix], "{text}");
+        }
+        quiet(
+            r,
+            &[
+                "Vi har att göra. Vi har kvar tre. Vi har mat.",
+                "Barnen har skola i morgon. Vi har öppna frågor. Vi har svenska på schemat.",
+                "Vi har gärna gäster. Vi har nära till havet. Vi har få kunder.",
+                "Vi har stora problem. Vi har bär i trädgården. Hon har far och mor.",
+                "Vi vill ha fika. Vi vill ha hjälp. Vi har många. Jag har samma.",
+                "Vi har vana att läsa. Vi har tid. Vi har lika många. De har flera.",
+                "Bilderna har delar som inte stöds. Vi har tankar om det. Hon har ringar.",
+                "Vi har använda filer i mappen. Filen har flagga satt. Vi har lucka i schemat.",
+                "Vi har dricka i kylen. Han har inte vecka kvar.",
             ],
         );
         let r = "SwedishAttInfinitive";

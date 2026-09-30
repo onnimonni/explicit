@@ -1,7 +1,7 @@
 //! Finnish grammar rules on top of the Voikko morphology ([`crate::voikko`]): split and
 //! wrongly joined compounds, capitalization, `kun` / `kuin`, `vaan` / `vain`, `sitä` for
-//! `siitä`, relative pronoun agreement, and the comma before a subordinate or relative
-//! clause. Each rule is conservative: it fires only where Finnish orthography leaves no
+//! `siitä` or `siihen`, relative pronoun agreement, and the comma before a subordinate or
+//! relative clause. Each rule is conservative: it fires only where Finnish orthography leaves no
 //! choice.
 
 use std::collections::BTreeMap;
@@ -50,6 +50,11 @@ pub const RULES: &[(&str, &str)] = &[
         "FinnishElative",
         "Finnish: a verb that governs the elative takes `siitä`, not `sitä` (`tykkään siitä`, \
          `huolehdin siitä`)",
+    ),
+    (
+        "FinnishIllative",
+        "Finnish: a verb that governs the illative takes `siihen`, not `sitä` or `siitä` \
+         (`luotan siihen`, `perustuu siihen`)",
     ),
     (
         "FinnishRelative",
@@ -1129,39 +1134,74 @@ const NEGATIONS: &[&str] = &[
     "ainoastaan",
     "pelkästään",
     "yksinomaan",
+    "enkä",
+    "etkä",
+    "emmekä",
+    "ettekä",
+    "eivätkä",
+    "etten",
+    "ettet",
+    "ettemme",
+    "ettette",
+    "etteivät",
+    "ellen",
+    "ellet",
+    "ellemme",
+    "ellette",
+    "elleivät",
 ];
 
-/// Negative polarity words: after them, `, vain` means only (`en syönyt mitään, vain vettä`).
+/// Negation verbs (all persons, with `-kä` and `että`), whose clause a contrasting `, vaan`
+/// may follow. Not `ellei` (unless) or `jottei`.
+fn negation_verb(w: &str) -> bool {
+    NEGATIONS[..11].contains(&w) || NEGATIONS[18..28].contains(&w)
+}
+
+/// Negative polarity words: after them, `, vain` means only (`en syönyt mitään, vain vettä`,
+/// `kukaan ei tullut, vain Matti`). Also the words of [`NEGATIONS`] that are not verbs, and
+/// every word in `-kaan` / `-kään` (`mikään`, `koskaan`, `kenellekään`).
 const NEGATIVE_POLARITY: &[&str] = &[
-    "mitä",
-    "mikään",
-    "mitkään",
-    "kukaan",
-    "ketä",
-    "kene",
-    "koskaan",
+    "mitään",
+    "ketään",
     "missään",
     "mistään",
-    "mihinkään",
+    "millään",
     "lainkaan",
     "ollenkaan",
     "yhtään",
     "muu",
+    "muuta",
+    "muut",
+    "muita",
+    "muuten",
     "enää",
     "juuri",
     "paljon",
     "kovin",
     "kauan",
-    "kumpikaan",
-    "kumpaakaan",
+    "pitkään",
     "kaikkea",
     "kaikki",
+    "kaikkia",
+    "enempää",
+    "monta",
+    "montaa",
+    "kuin",
+    "edes",
 ];
+
+/// Word `w` makes a following `, vain` mean only.
+fn negative_polarity(w: &str) -> bool {
+    NEGATIVE_POLARITY.contains(&w)
+        || NEGATIONS[13..18].contains(&w)
+        || w.ends_with("kaan")
+        || w.ends_with("kään")
+}
 /// Quantities after `vain` (only): `vain viisi minuuttia`, `vain muutama`.
 const QUANTITIES: &[&str] = &[
     "muutama", "muutaman", "muutamia", "pari", "parin", "hetki", "hetken", "vähän", "osa", "osan",
     "kerran", "yksi", "yhden", "yhtä", "puolet", "noin", "sen", "se", "silloin", "hieman",
-    "hiukan",
+    "hiukan", "lisää", "enemmän",
 ];
 
 /// Index of the first word of the sentence holding word `k`.
@@ -1237,44 +1277,54 @@ fn vaan_vain(v: &Voikko, chars: &[char], ws: &[Word], out: &mut Vec<Lint>) {
             ));
             continue;
         }
-        if k < n + 3 || ws[n..k].iter().any(|p| p.lower == "vaan") {
+        // The nearest negation verb before `vain` heads the negated clause.
+        let Some(n) = (from..k).rev().find(|&i| negation_verb(&ws[i].lower)) else {
+            continue;
+        };
+        if k < n + 2
+            || ws[n..k]
+                .iter()
+                .any(|p| matches!(p.lower.as_str(), "vaan" | "mutta"))
+            || ws[from..k].iter().any(|p| negative_polarity(&p.lower))
+        {
             continue;
         }
-        // `emme käytä Javaa, vain Rustia`: a contrast after a negated clause and a comma. Not
-        // `en syönyt mitään, vain vettä` (a negative pronoun: only), `ei kestä kauan, vain viisi
-        // minuuttia` (a quantity), `vain jos`.
+        let next = ws.get(k + 1).filter(|next| plain_gap(chars, w, next));
+        let verb_next = next
+            .is_some_and(|next| next.text.starts_with(char::is_lowercase) && finite_verb(v, next));
+        // A finite verb that may also be read as an A-infinitive (`lähettää`).
+        let verb_like_next = verb_next
+            || next.is_some_and(|next| {
+                let rs = readings(v, &next.lower);
+                next.text.starts_with(char::is_lowercase)
+                    && rs.iter().any(|r| r.person == Some('3'))
+                    && rs.iter().all(|r| {
+                        r.class == Some("teonsana")
+                            && matches!(r.mood, Some("indicative" | "conditional" | "A-infinitive"))
+                    })
+            });
+        // `emme käytä Javaa, vain Rustia`, `hän ei tullut, vain soitti`: a contrast after a
+        // negated clause and a comma. Not `en syönyt mitään, vain vettä` (a negative pronoun:
+        // only), `ei kestä kauan, vain viisi minuuttia` (a quantity), `vain jos`. After a
+        // comma inside the negated clause (`ei tallenna tietoja, joita syötät, vain`), only
+        // before a finite verb.
         let comma_before = chars[ws[k - 1].end..w.start].contains(&',');
-        let npi = ws[n..k].iter().any(|p| {
-            NEGATIVE_POLARITY.iter().any(|q| p.lower.starts_with(q))
-                || NEGATIONS[6..].contains(&p.lower.as_str())
-        });
+        let inner_comma = (n + 1..k).any(|i| chars[ws[i - 1].end..ws[i].start].contains(&','));
         let contrast = comma_before
-            && NEGATIONS[..9].contains(&ws[n].lower.as_str())
-            && !npi
-            && ws.get(k + 1).is_some_and(|next| {
-                plain_gap(chars, w, next)
-                    && !next.text.starts_with(|c: char| c.is_ascii_digit())
+            && next.is_some_and(|next| {
+                !next.text.starts_with(|c: char| c.is_ascii_digit())
                     && !QUANTITIES.contains(&next.lower.as_str())
                     && !CLAUSE_WORDS.contains(&next.lower.as_str())
                     && !readings(v, &next.lower)
                         .iter()
                         .any(|r| r.class == Some("lukusana"))
-            });
-        if contrast {
-            out.push(lint(
-                w.start,
-                w.end,
-                LintKind::WordChoice,
-                "After a negated clause, `but` is `vaan`: `ei X vaan Y`.".to_string(),
-                "vaan",
-            ));
-            continue;
-        }
-        if ws.get(k + 1).is_some_and(|next| {
-            plain_gap(chars, w, next)
-                && next.text.starts_with(char::is_lowercase)
-                && finite_verb(v, next)
-        }) {
+            })
+            && (!inner_comma || verb_like_next);
+        // `emme käytä Javaa vain Rustia`: nouns in the same case on both sides of `vain`, the
+        // second ending the clause.
+        let parallel =
+            !comma_before && k >= n + 3 && !inner_comma && parallel_nouns(v, chars, ws, k);
+        if contrast || parallel || (k >= n + 3 && verb_next) {
             out.push(lint(
                 w.start,
                 w.end,
@@ -1284,6 +1334,35 @@ fn vaan_vain(v: &Voikko, chars: &[char], ws: &[Word], out: &mut Vec<Lint>) {
             ));
         }
     }
+}
+
+/// Common nouns only: every reading of `w` a noun that is not a name, with its cases.
+fn noun_cases(v: &Voikko, w: &Word) -> Option<Vec<&'static str>> {
+    let rs = readings(v, &w.lower);
+    (!rs.is_empty()
+        && w.text.starts_with(char::is_lowercase)
+        && rs.iter().all(|r| r.class == Some("nimisana") && !r.proper))
+    .then(|| rs.iter().filter_map(|r| r.case).collect())
+}
+
+/// The nouns right before and after `vain` (word `k`) share a case, and the second ends its
+/// clause: `käytä Javaa vain Rustia`, `yöllä vain päivällä`.
+fn parallel_nouns(v: &Voikko, chars: &[char], ws: &[Word], k: usize) -> bool {
+    let (Some(a), Some(b)) = (ws.get(k - 1), ws.get(k + 1)) else {
+        return false;
+    };
+    if !plain_gap(chars, a, &ws[k])
+        || !plain_gap(chars, &ws[k], b)
+        || QUANTITIES.contains(&b.lower.as_str())
+        || ws.get(k + 2).is_some_and(|c| !clause_break(chars, b, c))
+    {
+        return false;
+    }
+    let (Some(ca), Some(cb)) = (noun_cases(v, a), noun_cases(v, b)) else {
+        return false;
+    };
+    ca.iter()
+        .any(|c| *c != "nimento" && *c != "omanto" && cb.contains(c))
 }
 
 /// Nominatives that are time adverbials after these (`joka päivä tulevat`).
@@ -1742,6 +1821,8 @@ const PARTITIVE_POSTPOSITIONS: &[&str] = &[
     "luokkaa",
     "mieltä",
     "sun",
+    "kautta",
+    "kohtaan",
 ];
 /// Partitive personal pronouns: the object of `muistuttaa` (`muistutan teitä siitä`).
 const PERSON_PARTITIVES: &[&str] = &["minua", "sinua", "häntä", "meitä", "teitä", "heitä"];
@@ -1777,6 +1858,56 @@ const SPEAKING_ADVERBS: &[&str] = &[
     "vähän",
     "jonkin",
 ];
+/// Adjectives (and nouns like `vastuussa`) whose complement is in the elative: `tietoinen
+/// siitä`, `vastuussa siitä`. Matched by these beginnings, since Voikko gives derived
+/// adjectives no base form.
+const ELATIVE_ADJECTIVES: &[&str] = &[
+    "tietoi",
+    "riippuvai",
+    "kiitollis",
+    "kiitollinen",
+    "vastuussa",
+    "huolissaan",
+    "huolestunut",
+    "huolestunee",
+];
+/// Verbs whose complement is in the illative (`luottaa johonkin`): a partitive `sitä` after
+/// them is `siihen`. Not `vastata` (`vastaa sitä` is to correspond to it, `vastaa siitä` to be
+/// responsible for it).
+const ILLATIVE_VERBS: &[&str] = &[
+    "sitoutua",
+    "varautua",
+    "luottaa",
+    "tottua",
+    "keskittyä",
+    "osallistua",
+    "vaikuttaa",
+    "tutustua",
+    "reagoida",
+    "viitata",
+    "vedota",
+    "turvautua",
+    "sopeutua",
+    "perehtyä",
+    "panostaa",
+    "suhtautua",
+];
+/// Stems of derived illative verbs Voikko gives no base form for (`perustuu`).
+const ILLATIVE_STEMS: &[&str] = &["perustu", "perustui"];
+/// Partitive and elative demonstratives and their illative forms.
+const TO_ILLATIVE: &[(&str, &str)] = &[
+    ("sitä", "siihen"),
+    ("tätä", "tähän"),
+    ("niitä", "niihin"),
+    ("näitä", "näihin"),
+    ("tuota", "tuohon"),
+    ("noita", "noihin"),
+    ("siitä", "siihen"),
+    ("tästä", "tähän"),
+    ("niistä", "niihin"),
+    ("näistä", "näihin"),
+];
+
 /// Heads that govern the elative after a partitive demonstrative written for the elative
 /// (`sitä huolimatta` -> `siitä huolimatta`, `tätä lähtien`, `sitä syystä`).
 const ELATIVE_HEADS: &[&str] = &["huolimatta", "lähtien", "alkaen", "syystä"];
@@ -1893,6 +2024,9 @@ fn elative(v: &Voikko, chars: &[char], ws: &[Word], out: &mut Vec<Lint>) {
                 .iter()
                 .any(|r| r.class == Some("teonsana") && r.base.is_none())
             && ELATIVE_STEMS.iter().any(|s| verb.lower.starts_with(s));
+        // `olen tietoinen sitä`, `olemme vastuussa tätä`.
+        let adjective =
+            lemma.is_none() && ELATIVE_ADJECTIVES.iter().any(|a| verb.lower.starts_with(a));
         // `pidän`, `pidin`, `pitäisin`, `en pidä`: liking, not keeping. Imperative and passive
         // forms are excluded.
         let negated = vi > 0
@@ -1910,7 +2044,7 @@ fn elative(v: &Voikko, chars: &[char], ws: &[Word], out: &mut Vec<Lint>) {
             Some(n) => clause_break(chars, &ws[from], n),
             None => true,
         };
-        let hit = if lemma.is_some() || stem {
+        let hit = if lemma.is_some() || stem || adjective {
             let lemma = lemma.unwrap_or("");
             // `tykkään sitä kirjaa` (a determiner: the fix is more than one word), `puhuttiin
             // sitä sun tätä`, `sitä varten`, `sopii sitä käyttäville`, `sitä tehdä`.
@@ -1965,6 +2099,111 @@ fn elative(v: &Voikko, chars: &[char], ws: &[Word], out: &mut Vec<Lint>) {
             LintKind::Grammar,
             format!(
                 "`{}` takes the elative: `{fix}`, not the partitive `{}`.",
+                verb.lower, w.lower
+            ),
+            fix,
+        ));
+    }
+}
+
+/// `sitä` or `siitä` for `siihen` after a verb that governs the illative, in any form:
+/// `luotan sitä`, `perustuu siitä, että`, `emme ole tottuneet tätä`. The partitive only when
+/// nothing ties it to a following word (`sitä kautta`, `sitä edeltävään`, `sitä parempi`) and
+/// no other illative complement is in the clause (`siihen osallistui niitä`); the elative only
+/// at the end of its clause (`keskittyi siitä eteenpäin` is right).
+fn illative(v: &Voikko, chars: &[char], ws: &[Word], out: &mut Vec<Lint>) {
+    for k in 1..ws.len() {
+        let w = &ws[k];
+        let Some(i) = TO_ILLATIVE.iter().position(|(p, _)| *p == w.lower) else {
+            continue;
+        };
+        let fix = TO_ILLATIVE[i].1;
+        if !joined_lower(chars, ws, k) {
+            continue;
+        }
+        let elative_form = i >= 6;
+        let mut vi = k - 1;
+        if DEGREE_ADVERBS.contains(&ws[vi].lower.as_str())
+            || matches!(
+                ws[vi].lower.as_str(),
+                "täysin" | "vahvasti" | "aktiivisesti"
+            )
+        {
+            if vi == 0 || !plain_gap(chars, &ws[vi - 1], &ws[vi]) {
+                continue;
+            }
+            vi -= 1;
+        }
+        let verb = &ws[vi];
+        if ["han", "hän", "kin", "kaan", "kään", "ko", "kö"]
+            .iter()
+            .any(|c| {
+                verb.lower
+                    .strip_suffix(c)
+                    .is_some_and(|s| readings(v, s).iter().any(|r| r.class == Some("teonsana")))
+            })
+        {
+            continue;
+        }
+        let rs = readings(v, &verb.lower);
+        let governs = rs
+            .iter()
+            .filter_map(verb_of)
+            .any(|b| ILLATIVE_VERBS.contains(&b))
+            || rs.iter().any(|r| {
+                r.class == Some("teonsana")
+                    && r.base.is_none()
+                    && r.lemma.as_deref() == Some("perustaa")
+            }) && ILLATIVE_STEMS.iter().any(|s| verb.lower.starts_with(s));
+        if !governs {
+            continue;
+        }
+        let next = ws.get(k + 1).filter(|n| plain_gap(chars, w, n));
+        let clause_end = ws.get(k + 1).is_none_or(|n| clause_break(chars, w, n));
+        let hit = if elative_form {
+            clause_end
+        } else {
+            // `niitä, jotka ehtivät`: a partitive subject of the intransitive verb.
+            let plural_subject = w.lower != "sitä"
+                && w.lower != "tätä"
+                && ws
+                    .get(k + 1)
+                    .is_some_and(|n| chars[w.end..n.start].contains(&','));
+            let tied = next.is_some_and(|n| {
+                matches!(n.lower.as_str(), "ja" | "tai" | "ennen")
+                    || PARTITIVE_POSTPOSITIONS.contains(&n.lower.as_str())
+                    || is_comparative(v, n)
+                    || verbal(v, n)
+                    || readings(v, &n.lower)
+                        .iter()
+                        .any(|r| matches!(r.case, Some("osanto" | "ulkoeronto")))
+            });
+            // Another illative in the clause is the complement (`siihen osallistui niitä`).
+            let lo = (0..k)
+                .rev()
+                .find(|&i| i == 0 || clause_break(chars, &ws[i - 1], &ws[i]))
+                .unwrap_or(0);
+            let mut hi = k;
+            while hi + 1 < ws.len() && !clause_break(chars, &ws[hi], &ws[hi + 1]) {
+                hi += 1;
+            }
+            let other_illative = (lo..=hi).any(|i| {
+                i != k
+                    && readings(v, &ws[i].lower)
+                        .iter()
+                        .any(|r| r.case == Some("sisatulento"))
+            });
+            !plural_subject && !tied && !other_illative
+        };
+        if !hit {
+            continue;
+        }
+        out.push(lint(
+            w.start,
+            w.end,
+            LintKind::Grammar,
+            format!(
+                "`{}` takes the illative: `{fix}`, not `{}`.",
                 verb.lower, w.lower
             ),
             fix,
@@ -2075,7 +2314,37 @@ fn relative(v: &Voikko, chars: &[char], ws: &[Word], out: &mut Vec<Lint>) {
             .iter()
             .all(|r| matches!(r.participle, Some("past_active" | "past_passive")))
             && clause_before().is_some_and(|i| OLLA.contains(&ws[i].lower.as_str()));
-        if (finite_only || (adverb_end || participle_end) && sg == "joka") && !rel_plural {
+        // `palvelu on nopea, joka` (an adjective predicate after `olla`; not a superlative or
+        // `ainoa`, which may stand for a noun: `tämä on paras, joka löytyi`).
+        let adjective_end = ra.iter().all(|r| {
+            r.class == Some("laatusana")
+                && r.participle.is_none()
+                && r.comparison.is_none_or(|c| c == "positive")
+                && r.number == Some("singular")
+                && matches!(r.case, Some("nimento" | "osanto"))
+        }) && {
+            let mut i = k - 2;
+            if k >= 3 && DEGREE_ADVERBS.contains(&ws[i].lower.as_str()) {
+                i -= 1;
+            }
+            k >= 2
+                && i >= from
+                && (i..k - 1).all(|j| plain_gap(chars, &ws[j], &ws[j + 1]))
+                && OLLA.contains(&ws[i].lower.as_str())
+        };
+        // `päätimme lopettaa, joka`: an infinitive after a finite verb.
+        let infinitive_end = ra.iter().all(|r| {
+            r.class == Some("teonsana")
+                && matches!(
+                    r.mood,
+                    Some("A-infinitive" | "MA-infinitive" | "indicative" | "conditional")
+                )
+        }) && ra.iter().any(|r| r.mood == Some("A-infinitive"))
+            && clause_before().is_some();
+        if (finite_only
+            || (adverb_end || participle_end || adjective_end || infinitive_end) && sg == "joka")
+            && !rel_plural
+        {
             let fix = match sg {
                 "joka" if verb_follows(v, chars, ws, k) => "mikä",
                 "jonka" => "minkä",
@@ -2113,6 +2382,20 @@ fn relative(v: &Voikko, chars: &[char], ws: &[Word], out: &mut Vec<Lint>) {
         let Some(number) = number_of(v, a) else {
             continue;
         };
+        // `palvelu hylkäsi pyyntöjä, joka johti virheisiin`: a plural partitive object does not
+        // agree with `joka` before a singular active verb, so the clause is the antecedent.
+        if b.lower == "joka" && number == "plural" && partitive_object_clause(v, chars, ws, k, from)
+        {
+            push(
+                out,
+                "mikä",
+                format!(
+                    "`joka` cannot refer to the plural `{}`: the whole clause takes `mikä`.",
+                    a.text
+                ),
+            );
+            continue;
+        }
         // `seitsemän kehittäjää, joista`: a partitive after a numeral or quantifier.
         if (number == "plural") == rel_plural
             || rel_plural && ra.iter().any(|r| r.case == Some("osanto"))
@@ -2175,6 +2458,60 @@ fn relative(v: &Voikko, chars: &[char], ws: &[Word], out: &mut Vec<Lint>) {
     }
 }
 
+/// `joka` (word `k`) after a plural partitive object (word `k - 1`) of a finite verb at most
+/// three words before it, with a third person singular active verb (not `olla` before a
+/// participle) right after `joka` and no singular noun between the verb and the object.
+fn partitive_object_clause(v: &Voikko, chars: &[char], ws: &[Word], k: usize, from: usize) -> bool {
+    let a = &ws[k - 1];
+    let ra = readings(v, &a.lower);
+    if ra.is_empty()
+        || !ra.iter().all(|r| {
+            r.class == Some("nimisana")
+                && !r.proper
+                && r.case == Some("osanto")
+                && r.number == Some("plural")
+        })
+    {
+        return false;
+    }
+    let Some(n) = ws.get(k + 1).filter(|n| plain_gap(chars, &ws[k], n)) else {
+        return false;
+    };
+    let rn = readings(v, &n.lower);
+    let singular_verb = !rn.is_empty()
+        && rn.iter().all(|r| {
+            r.class == Some("teonsana")
+                && matches!(r.mood, Some("indicative" | "conditional"))
+                && r.person == Some('3')
+                && r.number == Some("singular")
+        });
+    if !singular_verb {
+        return false;
+    }
+    if OLLA.contains(&n.lower.as_str())
+        && ws
+            .get(k + 2)
+            .is_some_and(|m| readings(v, &m.lower).iter().any(|r| r.participle.is_some()))
+    {
+        return false;
+    }
+    let lo = k.saturating_sub(4).max(from);
+    let Some(vi) = (lo..k - 1)
+        .rev()
+        .find(|&i| finite_or_passive(v, &ws[i]) && has_finite(v, &ws[i]))
+    else {
+        return false;
+    };
+    (vi..k - 1).all(|i| plain_gap(chars, &ws[i], &ws[i + 1]))
+        && !ws[vi + 1..k - 1].iter().any(|p| {
+            readings(v, &p.lower).iter().any(|r| {
+                r.class == Some("nimisana")
+                    && r.number == Some("singular")
+                    && matches!(r.case, Some("nimento" | "omanto"))
+            })
+        })
+}
+
 /// Lints of the Finnish rules in `on` for one segment text.
 pub fn lints(
     v: &Voikko,
@@ -2196,6 +2533,7 @@ pub fn lints(
             "FinnishVaanVain" => vaan_vain(v, chars, &ws, &mut l),
             "FinnishAgreement" => agreement(v, chars, &ws, &mut l),
             "FinnishElative" => elative(v, chars, &ws, &mut l),
+            "FinnishIllative" => illative(v, chars, &ws, &mut l),
             "FinnishRelative" => relative(v, chars, &ws, &mut l),
             _ => {}
         }
@@ -2325,6 +2663,35 @@ mod tests {
             Kerro, jos tarvitset apua. Hän on sekä nopea että tarkka. Voit valita mitä tahansa.",
         );
         assert!(got.is_empty(), "{got:?}");
+    }
+
+    fn run_fix(text: &str) -> Vec<(String, String, Vec<String>)> {
+        let v = crate::voikko::embedded();
+        let sp = crate::rules::spell_lang::speller("fi", &crate::config::Config::default())
+            .expect("bundled Finnish");
+        let chars: Vec<char> = text.chars().collect();
+        let names: Vec<&str> = RULES.iter().map(|(n, _)| *n).collect();
+        lints(v, &*sp, &chars, &names)
+            .into_iter()
+            .flat_map(|(n, ls)| {
+                ls.into_iter().map(move |l| {
+                    (
+                        n.clone(),
+                        text.chars()
+                            .skip(l.span.start)
+                            .take(l.span.end - l.span.start)
+                            .collect(),
+                        l.suggestions
+                            .iter()
+                            .map(|s| match s {
+                                Suggestion::ReplaceWith(c) => c.iter().collect(),
+                                _ => String::new(),
+                            })
+                            .collect(),
+                    )
+                })
+            })
+            .collect()
     }
 
     /// Texts of the lints of rule `rule` in `text`.
@@ -2596,7 +2963,12 @@ mod tests {
                 "Osa, jotka vastasivat, oli tyytyväisiä.",
                 "Palvelin kaatui, mikä aiheutti katkon.",
                 "Palvelin kaatui yöllä, joka oli pitkä.",
-                "Palvelu on nopea, joka on hyvä asia.",
+                "Tämä on paras, joka löytyi.",
+                "Se on ainoa, joka toimii.",
+                "Hän on suomalainen, joka asuu Ruotsissa.",
+                "Poistin tiedostoja, jotka olivat vanhoja.",
+                "Hän osti kirjoja, jotka maksoivat paljon.",
+                "Järjestelmä on hidas, mikä haittaa työtä.",
                 "Tänään, joka on maanantai, tulee päivitys.",
                 "Se tehtiin, jotta voimme jatkaa.",
                 "Matti, joka soitti, on paikalla.",
@@ -2604,6 +2976,129 @@ mod tests {
                 "Treenaan, joka päivä.",
                 "Kysymys, mitkä tiedot tallennetaan, on auki.",
                 "Tiimissä on seitsemän kehittäjää, joista kaksi on etänä.",
+            ],
+        );
+    }
+
+    /// `joka` for `mikä` after an adjective predicate, an infinitive or a plural partitive
+    /// object.
+    #[test]
+    fn relative_clause_antecedent() {
+        for text in [
+            "Palvelu on nopea, joka on hyvä asia.",
+            "Palvelu on todella nopea, joka on hyvä asia.",
+            "Päätimme lopettaa, joka oli virhe.",
+            "Palvelu hylkäsi pyyntöjä, joka johti virheisiin.",
+            "Tiimi korjasi virheitä, joka paransi laatua.",
+        ] {
+            let got: Vec<_> = run_fix(text)
+                .into_iter()
+                .filter(|(r, _, _)| r == "FinnishRelative")
+                .map(|(_, t, f)| (t, f))
+                .collect();
+            assert_eq!(
+                got,
+                [("joka".to_string(), vec!["mikä".to_string()])],
+                "{text}"
+            );
+        }
+        assert_eq!(
+            of(
+                "FinnishRelative",
+                "Poistin tiedostoja, joka on tallennettu eilen."
+            ),
+            ["joka"]
+        );
+    }
+
+    #[test]
+    fn illative_after_illative_verbs() {
+        let missed = [
+            "Luotan sitä täysin.",
+            "Päätös perustuu siitä, että asiakas maksaa.",
+            "Se perustuu sitä.",
+            "Emme ole tottuneet tätä.",
+            "Keskity sitä.",
+            "Osallistuin sitä aktiivisesti.",
+            "Tämä vaikuttaa sitä, miten toimimme.",
+            "Tutustu näitä huolellisesti.",
+            "Järjestelmä reagoi sitä nopeasti.",
+            "Sitoudumme tätä.",
+            "Varaudu sitä.",
+            "Keskustelimme ja luotan sitä.",
+        ]
+        .into_iter()
+        .filter(|t| of("FinnishIllative", t).len() != 1)
+        .collect::<Vec<_>>();
+        assert!(missed.is_empty(), "{missed:?}");
+        quiet(
+            "FinnishIllative",
+            &[
+                "Voimme vaikuttaa sitä kautta.",
+                "Kokoukseen osallistui niitä, jotka ehtivät.",
+                "Siihen osallistui niitä paljon.",
+                "Keskittyi siitä eteenpäin uuteen.",
+                "Keskityimme siitä lähtien laatuun.",
+                "Osallistun siitä huolimatta.",
+                "Luotan sitä enemmän.",
+                "Vaikuttaa sitä paremmalta.",
+                "Osallistuin sitä edeltävään kokoukseen.",
+                "Tutustu sitä ennen ohjeisiin.",
+                "Vastaa sitä, mitä haluttiin.",
+                "Hän vastaa siitä.",
+                "Luotan siihen.",
+                "Hän luottaa sitä ihmistä.",
+                "Luotanko sitä?",
+                "Tämä vaikuttaa siltä, että kaikki toimii.",
+                "Perustamme sitä varten uuden tiimin.",
+            ],
+        );
+        let missed = [
+            "Olen tietoinen sitä.",
+            "Olemme vastuussa tätä.",
+            "Olen huolissaan sitä.",
+            "Hän on riippuvainen sitä.",
+        ]
+        .into_iter()
+        .filter(|t| of("FinnishElative", t).len() != 1)
+        .collect::<Vec<_>>();
+        assert!(missed.is_empty(), "{missed:?}");
+        quiet(
+            "FinnishElative",
+            &[
+                "Olemme vastuussa sitä kohtaan.",
+                "Olen tietoinen sitä koskevista muutoksista.",
+                "Olen tietoinen siitä.",
+            ],
+        );
+    }
+
+    #[test]
+    fn vaan_after_negated_clause() {
+        for text in [
+            "Hän ei tullut, vain soitti.",
+            "Varmista, ettei palvelu tallenna tietoja, vain lähettää ne eteenpäin.",
+            "Palvelu ei tallenna tietoja, joita käyttäjä syöttää, vain lähettää ne.",
+            "Älkää lähettäkö liitteitä sähköpostilla, vain käyttäkää palvelua.",
+            "En usko ihmeisiin vain tieteeseen.",
+            "Emme juo kahvia vain maitoa.",
+            "Palvelu ei käytä vanhaa rajapintaa tuotannossa, vain uutta.",
+        ] {
+            assert_eq!(of("FinnishVaanVain", text), ["vain"], "{text}");
+        }
+        quiet(
+            "FinnishVaanVain",
+            &[
+                "Kukaan ei tullut, vain Matti.",
+                "Mikään ei toiminut, vain loki kirjoittui.",
+                "En tee töitä vain rahan takia.",
+                "En käy salilla vain kerran viikossa.",
+                "Älä ota lääkettä vain illalla.",
+                "Emme hyväksy maksua vain käteisellä.",
+                "Emme tarvitse uutta palvelinta, vain lisää muistia.",
+                "Palvelu ei käynnisty, ellei asetuksia ole määritetty, vain loki kirjoittuu.",
+                "Ei ole muuta vaihtoehtoa, vain odottaa.",
+                "En ole koskaan käyttänyt sitä, vain lukenut siitä.",
             ],
         );
     }

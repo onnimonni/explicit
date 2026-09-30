@@ -1,0 +1,2178 @@
+[
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 8,
+  "column": 117,
+  "end_column": 123,
+  "text": "`LIKE`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 8,
+  "column": 140,
+  "end_column": 150,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 8,
+  "column": 175,
+  "end_column": 191,
+  "text": "the queries take",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 8,
+  "column": 220,
+  "end_column": 254,
+  "text": "Two out of three practitioners use",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 8,
+  "column": 276,
+  "end_column": 299,
+  "text": "the cost of slowness is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 10,
+  "column": 1,
+  "end_column": 21,
+  "text": "The product team has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 10,
+  "column": 52,
+  "end_column": 75,
+  "text": "the compliance team has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 14,
+  "column": 5,
+  "end_column": 15,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 14,
+  "column": 21,
+  "end_column": 28,
+  "text": "pg_trgm",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 16,
+  "column": 24,
+  "end_column": 30,
+  "text": "`LIKE`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 16,
+  "column": 45,
+  "end_column": 50,
+  "text": "50 ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 16,
+  "column": 91,
+  "end_column": 124,
+  "text": "The set of supported languages is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 18,
+  "column": 5,
+  "end_column": 18,
+  "text": "Elasticsearch",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 20,
+  "column": 47,
+  "end_column": 72,
+  "text": "None of the engineers has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 20,
+  "column": 95,
+  "end_column": 109,
+  "text": "The costs were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 20,
+  "column": 110,
+  "end_column": 117,
+  "text": "1 200 €",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 22,
+  "column": 5,
+  "end_column": 16,
+  "text": "Meilisearch",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 24,
+  "column": 51,
+  "end_column": 64,
+  "text": "Elasticsearch",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 24,
+  "column": 104,
+  "end_column": 127,
+  "text": "the median response was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 24,
+  "column": 134,
+  "end_column": 139,
+  "text": "20 ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 24,
+  "column": 145,
+  "end_column": 168,
+  "text": "the 99th percentile was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 24,
+  "column": 175,
+  "end_column": 180,
+  "text": "60 ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 28,
+  "column": 15,
+  "end_column": 22,
+  "text": "pg_trgm",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 28,
+  "column": 25,
+  "end_column": 38,
+  "text": "Elasticsearch",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 28,
+  "column": 41,
+  "end_column": 52,
+  "text": "Meilisearch",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 30,
+  "column": 13,
+  "end_column": 18,
+  "text": "50 ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 30,
+  "column": 21,
+  "end_column": 26,
+  "text": "30 ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 30,
+  "column": 29,
+  "end_column": 34,
+  "text": "20 ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 33,
+  "column": 14,
+  "end_column": 27,
+  "text": "1 200 €/month",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 33,
+  "column": 30,
+  "end_column": 41,
+  "text": "150 €/month",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 35,
+  "column": 1,
+  "end_column": 16,
+  "text": "The results are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 35,
+  "column": 20,
+  "end_column": 35,
+  "text": "`docs/adr/014/`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 35,
+  "column": 37,
+  "end_column": 51,
+  "text": "Each pilot was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 35,
+  "column": 121,
+  "end_column": 137,
+  "text": "the query log is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 39,
+  "column": 12,
+  "end_column": 23,
+  "text": "Meilisearch",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 41,
+  "column": 14,
+  "end_column": 30,
+  "text": "the problem that",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 43,
+  "column": 4,
+  "end_column": 15,
+  "text": "The cost is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 43,
+  "column": 27,
+  "end_column": 40,
+  "text": "Elasticsearch",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 45,
+  "column": 77,
+  "end_column": 80,
+  "text": "are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 45,
+  "column": 112,
+  "end_column": 133,
+  "text": "the requirements were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 45,
+  "column": 145,
+  "end_column": 173,
+  "text": "a switch to Elasticsearch is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 50,
+  "column": 53,
+  "end_column": 58,
+  "text": "works",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 51,
+  "column": 3,
+  "end_column": 29,
+  "text": "The engineers who maintain",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 51,
+  "column": 71,
+  "end_column": 90,
+  "text": "the on-call rota is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 52,
+  "column": 3,
+  "end_column": 54,
+  "text": "The architecture group and the product owner review",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-014-search-engine.md",
+  "line": 52,
+  "column": 96,
+  "end_column": 160,
+  "text": "\"typo tolerance works best for words of five characters or more\"",
+  "kind": "foreign"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 3,
+  "column": 114,
+  "end_column": 120,
+  "text": "follow",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 8,
+  "column": 67,
+  "end_column": 78,
+  "text": "We stick to",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 10,
+  "column": 20,
+  "end_column": 24,
+  "text": "live",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 10,
+  "column": 28,
+  "end_column": 33,
+  "text": "Vault",
+  "kind": "product"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 12,
+  "column": 12,
+  "end_column": 22,
+  "text": "depends on",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 12,
+  "column": 56,
+  "end_column": 78,
+  "text": "The head of IT decides",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 12,
+  "column": 90,
+  "end_column": 110,
+  "text": "the system owner may",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 18,
+  "column": 3,
+  "end_column": 13,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 18,
+  "column": 28,
+  "end_column": 31,
+  "text": "WAL",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 18,
+  "column": 43,
+  "end_column": 50,
+  "text": "35 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 19,
+  "column": 22,
+  "end_column": 25,
+  "text": "4 h",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 19,
+  "column": 28,
+  "end_column": 35,
+  "text": "90 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 20,
+  "column": 18,
+  "end_column": 24,
+  "text": "1 year",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 21,
+  "column": 3,
+  "end_column": 13,
+  "text": "Kubernetes",
+  "kind": "product"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 21,
+  "column": 45,
+  "end_column": 52,
+  "text": "2 years",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 23,
+  "column": 95,
+  "end_column": 120,
+  "text": "the retention period ends",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 23,
+  "column": 122,
+  "end_column": 136,
+  "text": "the copies are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 23,
+  "column": 160,
+  "end_column": 176,
+  "text": "Anyone who needs",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 23,
+  "column": 194,
+  "end_column": 201,
+  "text": "applies",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 27,
+  "column": 120,
+  "end_column": 130,
+  "text": "#incidents",
+  "kind": "code"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 27,
+  "column": 139,
+  "end_column": 151,
+  "text": "the cause is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 27,
+  "column": 201,
+  "end_column": 215,
+  "text": "The system has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 29,
+  "column": 1,
+  "end_column": 24,
+  "text": "The database team makes",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 29,
+  "column": 185,
+  "end_column": 206,
+  "text": "the new engineers are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 31,
+  "column": 78,
+  "end_column": 96,
+  "text": "Engineers who need",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 31,
+  "column": 126,
+  "end_column": 133,
+  "text": "staging",
+  "kind": "code"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 31,
+  "column": 146,
+  "end_column": 148,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 31,
+  "column": 171,
+  "end_column": 183,
+  "text": "We have seen",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 31,
+  "column": 204,
+  "end_column": 220,
+  "text": "each of them was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 35,
+  "column": 118,
+  "end_column": 145,
+  "text": "The cause of a deviation is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 37,
+  "column": 68,
+  "end_column": 166,
+  "text": "Varmuuskopiot otetaan päivittäin, säilytetään 35 päivää ja palautus testataan neljännesvuosittain.",
+  "kind": "foreign"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 37,
+  "column": 167,
+  "end_column": 181,
+  "text": "The summary is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 37,
+  "column": 222,
+  "end_column": 227,
+  "text": "it is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/backup-policy.md",
+  "line": 37,
+  "column": 292,
+  "end_column": 303,
+  "text": "reports are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 3,
+  "column": 25,
+  "end_column": 57,
+  "text": "the platform's capacity keeps up",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 3,
+  "column": 99,
+  "end_column": 124,
+  "text": "the number of users grows",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 3,
+  "column": 128,
+  "end_column": 132,
+  "text": "30 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 3,
+  "column": 137,
+  "end_column": 165,
+  "text": "the number of bookings grows",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 3,
+  "column": 169,
+  "end_column": 173,
+  "text": "40 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 7,
+  "column": 24,
+  "end_column": 34,
+  "text": "Kubernetes",
+  "kind": "product"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 7,
+  "column": 48,
+  "end_column": 50,
+  "text": "12",
+  "kind": "number"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 7,
+  "column": 58,
+  "end_column": 71,
+  "text": "The nodes are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 7,
+  "column": 72,
+  "end_column": 76,
+  "text": "80 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 7,
+  "column": 167,
+  "end_column": 169,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 9,
+  "column": 35,
+  "end_column": 54,
+  "text": "Both incidents were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 9,
+  "column": 109,
+  "end_column": 121,
+  "text": "The team had",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 16,
+  "column": 9,
+  "end_column": 19,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 16,
+  "column": 23,
+  "end_column": 30,
+  "text": "1.4 TiB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 16,
+  "column": 33,
+  "end_column": 40,
+  "text": "2.6 TiB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 17,
+  "column": 22,
+  "end_column": 29,
+  "text": "2 000/h",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 17,
+  "column": 32,
+  "end_column": 39,
+  "text": "3 500/h",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 18,
+  "column": 20,
+  "end_column": 26,
+  "text": "18 TiB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 18,
+  "column": 29,
+  "end_column": 35,
+  "text": "30 TiB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 20,
+  "column": 1,
+  "end_column": 16,
+  "text": "The forecast is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 20,
+  "column": 47,
+  "end_column": 61,
+  "text": "The figures do",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 20,
+  "column": 146,
+  "end_column": 164,
+  "text": "the figures double",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 24,
+  "column": 19,
+  "end_column": 30,
+  "text": "The cost is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 24,
+  "column": 31,
+  "end_column": 39,
+  "text": "48 000 €",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 25,
+  "column": 34,
+  "end_column": 50,
+  "text": "Jobs that cannot",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 26,
+  "column": 38,
+  "end_column": 42,
+  "text": "70 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 26,
+  "column": 44,
+  "end_column": 57,
+  "text": "Nobody trusts",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 26,
+  "column": 62,
+  "end_column": 66,
+  "text": "95 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 29,
+  "column": 1,
+  "end_column": 15,
+  "text": "The actions do",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 29,
+  "column": 123,
+  "end_column": 146,
+  "text": "Each of the actions has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 33,
+  "column": 1,
+  "end_column": 20,
+  "text": "The biggest risk is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 33,
+  "column": 41,
+  "end_column": 67,
+  "text": "the lead time for nodes is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 33,
+  "column": 81,
+  "end_column": 95,
+  "text": "The vendor has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 33,
+  "column": 200,
+  "end_column": 213,
+  "text": "the budget is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 35,
+  "column": 156,
+  "end_column": 163,
+  "text": "staging",
+  "kind": "code"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 35,
+  "column": 222,
+  "end_column": 331,
+  "text": "\"The disk expansion is an online operation and should not require downtime if the replica is promoted first.\"",
+  "kind": "foreign"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 37,
+  "column": 1,
+  "end_column": 13,
+  "text": "The plan was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 37,
+  "column": 25,
+  "end_column": 36,
+  "text": "Ville Ranta",
+  "kind": "name"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 37,
+  "column": 41,
+  "end_column": 52,
+  "text": "Aino Kallas",
+  "kind": "name"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 37,
+  "column": 54,
+  "end_column": 80,
+  "text": "The steering group decides",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/capacity-plan-2027.md",
+  "line": 37,
+  "column": 119,
+  "end_column": 137,
+  "text": "if the budget were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 3,
+  "column": 75,
+  "end_column": 104,
+  "text": "The communications team makes",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 3,
+  "column": 132,
+  "end_column": 158,
+  "text": "the engineering team makes",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 7,
+  "column": 39,
+  "end_column": 49,
+  "text": "15 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 7,
+  "column": 159,
+  "end_column": 171,
+  "text": "the cause is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 9,
+  "column": 55,
+  "end_column": 65,
+  "text": "#incidents",
+  "kind": "code"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 9,
+  "column": 67,
+  "end_column": 81,
+  "text": "The team needs",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 9,
+  "column": 168,
+  "end_column": 176,
+  "text": "they say",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 11,
+  "column": 174,
+  "end_column": 191,
+  "text": "the phone line is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 15,
+  "column": 169,
+  "end_column": 178,
+  "text": "are still",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 17,
+  "column": 114,
+  "end_column": 124,
+  "text": "have to be",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 17,
+  "column": 216,
+  "end_column": 232,
+  "text": "the team assumes",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 17,
+  "column": 259,
+  "end_column": 278,
+  "text": "the people who were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 24,
+  "column": 3,
+  "end_column": 29,
+  "text": "https://status.example.com",
+  "kind": "code"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 26,
+  "column": 3,
+  "end_column": 8,
+  "text": "Slack",
+  "kind": "product"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 26,
+  "column": 9,
+  "end_column": 19,
+  "text": "#incidents",
+  "kind": "code"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 28,
+  "column": 107,
+  "end_column": 130,
+  "text": "no internal details are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 28,
+  "column": 152,
+  "end_column": 156,
+  "text": "were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 28,
+  "column": 198,
+  "end_column": 208,
+  "text": "which must",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 32,
+  "column": 150,
+  "end_column": 184,
+  "text": "the English-speaking customers are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 32,
+  "column": 218,
+  "end_column": 252,
+  "text": "The communications team translated",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 34,
+  "column": 17,
+  "end_column": 100,
+  "text": "Ajanvarauspalvelu ei ole tällä hetkellä käytettävissä; soita numeroon 09 310 12345.",
+  "kind": "foreign"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 34,
+  "column": 101,
+  "end_column": 117,
+  "text": "A notice that is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 38,
+  "column": 77,
+  "end_column": 105,
+  "text": "the communications team does",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 38,
+  "column": 173,
+  "end_column": 180,
+  "text": "reports",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 38,
+  "column": 195,
+  "end_column": 218,
+  "text": "The participants assess",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 38,
+  "column": 277,
+  "end_column": 281,
+  "text": "does",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 38,
+  "column": 312,
+  "end_column": 319,
+  "text": "we have",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/incident-comms-guide.md",
+  "line": 38,
+  "column": 385,
+  "end_column": 395,
+  "text": "Confluence",
+  "kind": "product"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 7,
+  "column": 34,
+  "end_column": 41,
+  "text": "YubiKey",
+  "kind": "product"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 7,
+  "column": 54,
+  "end_column": 60,
+  "text": "GitHub",
+  "kind": "product"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 7,
+  "column": 65,
+  "end_column": 70,
+  "text": "Slack",
+  "kind": "product"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 7,
+  "column": 103,
+  "end_column": 112,
+  "text": "#platform",
+  "kind": "code"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 7,
+  "column": 117,
+  "end_column": 127,
+  "text": "#incidents",
+  "kind": "code"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 7,
+  "column": 129,
+  "end_column": 141,
+  "text": "The team has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 7,
+  "column": 178,
+  "end_column": 194,
+  "text": "the company pays",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 9,
+  "column": 45,
+  "end_column": 48,
+  "text": "Nix",
+  "kind": "product"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 9,
+  "column": 54,
+  "end_column": 67,
+  "text": "`nix develop`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 9,
+  "column": 103,
+  "end_column": 105,
+  "text": "Go",
+  "kind": "product"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 9,
+  "column": 107,
+  "end_column": 117,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 9,
+  "column": 122,
+  "end_column": 129,
+  "text": "kubectl",
+  "kind": "product"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 9,
+  "column": 156,
+  "end_column": 162,
+  "text": "Docker",
+  "kind": "product"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 9,
+  "column": 177,
+  "end_column": 182,
+  "text": "macOS",
+  "kind": "product"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 9,
+  "column": 188,
+  "end_column": 193,
+  "text": "Ville",
+  "kind": "name"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 9,
+  "column": 195,
+  "end_column": 205,
+  "text": "the fix is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 19,
+  "column": 72,
+  "end_column": 90,
+  "text": "Each of them takes",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 21,
+  "column": 43,
+  "end_column": 50,
+  "text": "That is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 24,
+  "column": 41,
+  "end_column": 62,
+  "text": "The reviewers comment",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 24,
+  "column": 66,
+  "end_column": 72,
+  "text": "GitHub",
+  "kind": "product"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 24,
+  "column": 107,
+  "end_column": 118,
+  "text": "The code is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 24,
+  "column": 176,
+  "end_column": 180,
+  "text": "asks",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 28,
+  "column": 21,
+  "end_column": 32,
+  "text": "`feature/…`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 28,
+  "column": 37,
+  "end_column": 44,
+  "text": "`fix/…`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 29,
+  "column": 41,
+  "end_column": 48,
+  "text": "Argo CD",
+  "kind": "product"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 29,
+  "column": 62,
+  "end_column": 77,
+  "text": "`kubectl apply`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 30,
+  "column": 41,
+  "end_column": 73,
+  "text": "comments and commit messages are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 31,
+  "column": 19,
+  "end_column": 24,
+  "text": "Vault",
+  "kind": "product"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 31,
+  "column": 51,
+  "end_column": 79,
+  "text": "A number of leaked keys were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 31,
+  "column": 101,
+  "end_column": 130,
+  "text": "the cost of rotating them was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 33,
+  "column": 1,
+  "end_column": 24,
+  "text": "The team's principle is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 33,
+  "column": 40,
+  "end_column": 42,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 33,
+  "column": 97,
+  "end_column": 101,
+  "text": "Mika",
+  "kind": "name"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 33,
+  "column": 108,
+  "end_column": 151,
+  "text": "\"kaikki on joskus pudottanu tuotantokannan\"",
+  "kind": "foreign"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 33,
+  "column": 159,
+  "end_column": 164,
+  "text": "means",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 39,
+  "column": 39,
+  "end_column": 50,
+  "text": "#it-support",
+  "kind": "code"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 40,
+  "column": 18,
+  "end_column": 29,
+  "text": "Aino Kallas",
+  "kind": "name"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 41,
+  "column": 14,
+  "end_column": 25,
+  "text": "Väinö Linna",
+  "kind": "name"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 42,
+  "column": 46,
+  "end_column": 54,
+  "text": "Opsgenie",
+  "kind": "product"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 44,
+  "column": 203,
+  "end_column": 212,
+  "text": "#platform",
+  "kind": "code"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 44,
+  "column": 220,
+  "end_column": 239,
+  "text": "the people who work",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/onboarding-guide.md",
+  "line": 44,
+  "column": 264,
+  "end_column": 299,
+  "text": "The onboarding buddy programme runs",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 3,
+  "column": 13,
+  "end_column": 25,
+  "text": "Grafana Loki",
+  "kind": "product"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 3,
+  "column": 72,
+  "end_column": 88,
+  "text": "Pohjola Cloud Oy",
+  "kind": "name"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 7,
+  "column": 24,
+  "end_column": 33,
+  "text": "relies on",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 7,
+  "column": 70,
+  "end_column": 76,
+  "text": "`grep`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 7,
+  "column": 78,
+  "end_column": 104,
+  "text": "The on-call engineers have",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 7,
+  "column": 144,
+  "end_column": 166,
+  "text": "The security group has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 9,
+  "column": 42,
+  "end_column": 55,
+  "text": "were received",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 9,
+  "column": 98,
+  "end_column": 122,
+  "text": "The rejected bidders did",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 9,
+  "column": 135,
+  "end_column": 151,
+  "text": "each of them was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 15,
+  "column": 3,
+  "end_column": 19,
+  "text": "Pohjola Cloud Oy",
+  "kind": "name"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 15,
+  "column": 22,
+  "end_column": 30,
+  "text": "38 000 €",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 16,
+  "column": 3,
+  "end_column": 26,
+  "text": "Nordic Observability AB",
+  "kind": "name"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 16,
+  "column": 29,
+  "end_column": 37,
+  "text": "45 000 €",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 18,
+  "column": 7,
+  "end_column": 14,
+  "text": "weighed",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 18,
+  "column": 15,
+  "end_column": 19,
+  "text": "50 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 18,
+  "column": 32,
+  "end_column": 36,
+  "text": "50 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 18,
+  "column": 38,
+  "end_column": 61,
+  "text": "The quality scores were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 18,
+  "column": 95,
+  "end_column": 120,
+  "text": "the requirements that are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 18,
+  "column": 158,
+  "end_column": 175,
+  "text": "The difference is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 18,
+  "column": 193,
+  "end_column": 221,
+  "text": "The evaluation committee was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 22,
+  "column": 149,
+  "end_column": 171,
+  "text": "The references confirm",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 24,
+  "column": 137,
+  "end_column": 156,
+  "text": "the pilot confirmed",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 24,
+  "column": 215,
+  "end_column": 244,
+  "text": "neither of the evaluators was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 28,
+  "column": 146,
+  "end_column": 152,
+  "text": "starts",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 28,
+  "column": 165,
+  "end_column": 188,
+  "text": "the new system replaces",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 30,
+  "column": 166,
+  "end_column": 244,
+  "text": "\"Kaikki lokitiedot tallennetaan ja käsitellään yksinomaan Helsingin alueella.\"",
+  "kind": "foreign"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 32,
+  "column": 43,
+  "end_column": 55,
+  "text": "Aleksis Kivi",
+  "kind": "name"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 32,
+  "column": 112,
+  "end_column": 139,
+  "text": "The appeal instructions are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 32,
+  "column": 174,
+  "end_column": 190,
+  "text": "anyone who wants",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/procurement-decision-logging.md",
+  "line": 32,
+  "column": 221,
+  "end_column": 232,
+  "text": "can request",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 3,
+  "column": 23,
+  "end_column": 30,
+  "text": "Grafana",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 3,
+  "column": 37,
+  "end_column": 58,
+  "text": "`queue_depth > 50000`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 3,
+  "column": 101,
+  "end_column": 141,
+  "text": "the number of unacknowledged messages is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 7,
+  "column": 29,
+  "end_column": 37,
+  "text": "Opsgenie",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 8,
+  "column": 34,
+  "end_column": 74,
+  "text": "`rabbitmqctl list_queues name consumers`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 9,
+  "column": 17,
+  "end_column": 46,
+  "text": "the list of consumers matches",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 11,
+  "column": 103,
+  "end_column": 119,
+  "text": "the messages are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 11,
+  "column": 137,
+  "end_column": 160,
+  "text": "one of the consumers is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 15,
+  "column": 1,
+  "end_column": 27,
+  "text": "Each of the consumers logs",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 17,
+  "column": 79,
+  "end_column": 91,
+  "text": "The team was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 17,
+  "column": 168,
+  "end_column": 182,
+  "text": "`make requeue`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 23,
+  "column": 18,
+  "end_column": 29,
+  "text": "`OOMKilled`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 23,
+  "column": 68,
+  "end_column": 73,
+  "text": "2 GiB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 25,
+  "column": 24,
+  "end_column": 40,
+  "text": "`ACCESS_REFUSED`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 25,
+  "column": 63,
+  "end_column": 68,
+  "text": "Vault",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 27,
+  "column": 47,
+  "end_column": 86,
+  "text": "the platform and the database teams are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 27,
+  "column": 119,
+  "end_column": 126,
+  "text": "200 000",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 31,
+  "column": 59,
+  "end_column": 84,
+  "text": "3 000 messages per second",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 31,
+  "column": 116,
+  "end_column": 118,
+  "text": "24",
+  "kind": "number"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 31,
+  "column": 201,
+  "end_column": 228,
+  "text": "Every one of the retries is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 31,
+  "column": 240,
+  "end_column": 249,
+  "text": "there are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 33,
+  "column": 17,
+  "end_column": 28,
+  "text": "the data is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 33,
+  "column": 166,
+  "end_column": 183,
+  "text": "If the queue were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 37,
+  "column": 103,
+  "end_column": 134,
+  "text": "A number of past incidents were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 37,
+  "column": 258,
+  "end_column": 273,
+  "text": "Priya Natarajan",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-queue-backlog.md",
+  "line": 37,
+  "column": 293,
+  "end_column": 302,
+  "text": "#platform",
+  "kind": "code"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 7,
+  "column": 169,
+  "end_column": 182,
+  "text": "The logs show",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 9,
+  "column": 130,
+  "end_column": 142,
+  "text": "everyone who",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 9,
+  "column": 151,
+  "end_column": 168,
+  "text": "the testers found",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 13,
+  "column": 29,
+  "end_column": 33,
+  "text": "Aino",
+  "kind": "name"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 13,
+  "column": 109,
+  "end_column": 111,
+  "text": "go",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 15,
+  "column": 52,
+  "end_column": 69,
+  "text": "The testers found",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 15,
+  "column": 141,
+  "end_column": 143,
+  "text": "do",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 15,
+  "column": 261,
+  "end_column": 266,
+  "text": "takes",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 15,
+  "column": 277,
+  "end_column": 293,
+  "text": "the results were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 19,
+  "column": 45,
+  "end_column": 61,
+  "text": "Those who cannot",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 19,
+  "column": 69,
+  "end_column": 80,
+  "text": "can comment",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 20,
+  "column": 14,
+  "end_column": 19,
+  "text": "Ville",
+  "kind": "name"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 20,
+  "column": 42,
+  "end_column": 50,
+  "text": "Kubecost",
+  "kind": "product"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 21,
+  "column": 3,
+  "end_column": 8,
+  "text": "Sanna",
+  "kind": "name"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 21,
+  "column": 106,
+  "end_column": 109,
+  "text": "her",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 25,
+  "column": 102,
+  "end_column": 110,
+  "text": "explains",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 25,
+  "column": 185,
+  "end_column": 191,
+  "text": "closes",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 25,
+  "column": 205,
+  "end_column": 226,
+  "text": "The old machine stays",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 27,
+  "column": 1,
+  "end_column": 28,
+  "text": "The colleagues in Stockholm",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 27,
+  "column": 105,
+  "end_column": 109,
+  "text": "Juha",
+  "kind": "name"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 27,
+  "column": 157,
+  "end_column": 159,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 27,
+  "column": 171,
+  "end_column": 180,
+  "text": "#platform",
+  "kind": "code"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 27,
+  "column": 211,
+  "end_column": 213,
+  "text": "am",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 27,
+  "column": 254,
+  "end_column": 279,
+  "text": "The poll on the format is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-43.md",
+  "line": 27,
+  "column": 379,
+  "end_column": 385,
+  "text": "prefer",
+  "kind": "grammar_ok"
+ }
+]

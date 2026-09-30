@@ -90,6 +90,84 @@ pub fn speller(d: Dialect) -> &'static Speller {
         .unwrap_or(&SPELLERS[0])
 }
 
+/// British spelling fragments and their American counterparts: `colour`/`color`,
+/// `organise`/`organize`, `analyse`, `catalogue`, `centre`, `licence`, `programme`,
+/// `travelled`, `grey`, `anaemia`.
+const BRITISH_AMERICAN: &[(&str, &str)] = &[
+    ("our", "or"),
+    ("is", "iz"),
+    ("ys", "yz"),
+    ("ogue", "og"),
+    ("tre", "ter"),
+    ("ence", "ense"),
+    ("mme", "m"),
+    ("ll", "l"),
+    ("grey", "gray"),
+    ("cheque", "check"),
+    ("tyre", "tire"),
+    ("aluminium", "aluminum"),
+    ("ae", "e"),
+    ("oe", "e"),
+];
+
+/// `w` with one occurrence of `from` replaced by `to`, for each occurrence.
+fn replacements<'a>(w: &'a str, from: &'a str, to: &'a str) -> impl Iterator<Item = String> + 'a {
+    w.match_indices(from)
+        .map(move |(i, _)| format!("{}{to}{}", &w[..i], &w[i + from.len()..]))
+}
+
+/// British spellings dominate `texts` (prose segments): at least 3 words spelled the British
+/// way (`colour`, `behaviour`, `organisation`, `catalogue`) and at least 80% of the words
+/// that have a British and an American spelling. Only words en_US lacks and en_GB has count as
+/// British, and only words en_GB lacks and en_US has as American, each with its counterpart in
+/// the other dictionary. `prose.dialect = "auto"` checks such a file as British.
+pub fn british_dominates<'a>(texts: impl IntoIterator<Item = &'a str>) -> bool {
+    let mut words: HashMap<String, usize> = HashMap::new();
+    for text in texts {
+        for w in text.split(|c: char| !c.is_alphabetic()) {
+            let n = w.chars().count();
+            // Lowercase or capitalized only: `NEIGHBOUR`, `CamelCase` are names or constants.
+            if n < 4 || w.chars().skip(1).any(char::is_uppercase) {
+                continue;
+            }
+            *words.entry(w.to_lowercase()).or_default() += 1;
+        }
+    }
+    // Words en_US lacks with a British fragment whose American form it has.
+    let candidates: Vec<(&String, usize)> = words
+        .iter()
+        .filter(|(w, _)| {
+            !EN_US.check(w)
+                && BRITISH_AMERICAN
+                    .iter()
+                    .any(|(b, a)| replacements(w, b, a).any(|t| EN_US.check(&t)))
+        })
+        .map(|(w, &c)| (w, c))
+        .collect();
+    if candidates.iter().map(|(_, c)| c).sum::<usize>() < 3 {
+        return false;
+    }
+    let british: usize = candidates
+        .iter()
+        .filter(|(w, _)| EN_GB.check(w))
+        .map(|(_, c)| c)
+        .sum();
+    if british < 3 {
+        return false;
+    }
+    let american: usize = words
+        .iter()
+        .filter(|(w, _)| {
+            BRITISH_AMERICAN.iter().any(|(b, a)| {
+                w.contains(a) && replacements(w, a, b).any(|t| EN_GB.check(&t) && !EN_US.check(&t))
+            }) && EN_US.check(w)
+                && !EN_GB.check(w)
+        })
+        .map(|(_, &c)| c)
+        .sum();
+    british * 5 >= (british + american) * 4
+}
+
 /// `word` is spelled right: as written, with a straight apostrophe, or as `base's`; failing
 /// that, as a tolerated variant ([`doubled_l_variant`]), a regular derivation ([`derived`],
 /// [`plural`], [`prefixed`]) or a closed compound of known words ([`compound`]). The fallbacks
@@ -784,6 +862,176 @@ pub fn project_name(s: &Speller, word: &str) -> bool {
         && !near_known(s, &word.to_lowercase(), "")
 }
 
+/// Surname and given-name endings of Finnish, Nordic, Slavic and Indian names: `Virtanen`,
+/// `Andersson`, `Lindström`, `Kowalski`, `Ramesh`, `Rajkumar`.
+const NAME_ENDINGS: &[&str] = &[
+    // Finnish.
+    "nen", "koski", "järvi", "jarvi", "salo", "lahti", "niemi", "mäki", "maki", "vaara", "harju",
+    "korpi", "kangas", "joki", "oja", "maa", "linna", "saari", "vuori", "lampi", "ranta",
+    // Swedish, Norwegian, Danish.
+    "sson", "berg", "ström", "strom", "qvist", "kvist", "lund", "gren", "dahl", "holm", "stad",
+    "vik", "heim", "gaard", "gård", "sen", "rud", "fors", "blad", "stedt",
+    // Slavic, Baltic.
+    "ski", "ska", "wicz", "czyk", "enko", "vić", "vic", "ova", "evich", "ovich", "aitis",
+    // Indian.
+    "kumar", "esh", "endra", "ndra", "jeet", "jit", "preet", "deep", "appa", "amma", "swamy",
+    "swami", "raj", "nath", "rao", "reddy", "anth", "lakshmi", "priya", "eswar", "ananda",
+];
+
+/// Titles before a name: `Dr. Korhonen`, `Prof Lindqvist`.
+const NAME_TITLES: &[&str] = &[
+    "Mr",
+    "Mrs",
+    "Ms",
+    "Mx",
+    "Dr",
+    "Prof",
+    "Professor",
+    "Sir",
+    "Dame",
+    "Madam",
+    "Rev",
+    "Saint",
+    "St",
+    "Mister",
+    "Miss",
+    "Doctor",
+];
+
+/// The word right before byte `s` of `text` across a single space (and the period of a title):
+/// `Dr. Nieminen`, `Anna Korhonen`.
+fn word_before(text: &str, s: usize) -> Option<&str> {
+    let head = text[..s].strip_suffix(' ')?;
+    let head = head.strip_suffix('.').unwrap_or(head);
+    let start = head
+        .char_indices()
+        .rev()
+        .take_while(|(_, c)| c.is_alphabetic())
+        .last()
+        .map(|(i, _)| i)?;
+    Some(&head[start..])
+}
+
+/// The word right after byte `e` of `text` across a single space.
+fn word_after(text: &str, e: usize) -> Option<&str> {
+    let tail = text[e..].strip_prefix(' ')?;
+    let end = tail
+        .char_indices()
+        .find(|(_, c)| !c.is_alphabetic())
+        .map_or(tail.len(), |(i, _)| i);
+    (end > 0).then(|| &tail[..end])
+}
+
+/// Byte `s` of `text` starts a sentence: nothing or sentence punctuation before it.
+fn sentence_initial(text: &str, s: usize) -> bool {
+    text[..s]
+        .chars()
+        .rev()
+        .find(|c| !c.is_whitespace())
+        .is_none_or(|c| {
+            matches!(
+                c,
+                '.' | '!'
+                    | '?'
+                    | ':'
+                    | ';'
+                    | '"'
+                    | '“'
+                    | '('
+                    | '['
+                    | '*'
+                    | '>'
+                    | '|'
+                    | '•'
+                    | '-'
+                    | '–'
+                    | '—'
+                    | '#'
+            )
+        })
+}
+
+/// Name-shaped: a capital, then 2+ lowercase letters.
+fn name_shaped(w: &str) -> bool {
+    let mut c = w.chars();
+    c.next().is_some_and(char::is_uppercase)
+        && w.chars().count() >= 3
+        && c.all(|c| c.is_alphabetic() && c.is_lowercase())
+}
+
+/// How surely `w` (name-shaped) is a Finnish, Nordic, Slavic or Indian name by its letters:
+/// 2 for letters English lacks (`ä`, `ö`, `å`, `ø`) or a doubled vowel English rarely has
+/// (`Aalto`, `Tuulia`, `Siiri`), 1 for a name ending (`Virtanen`, `Andersson`, `Ramesh`) or a
+/// Finnish letter pair (`Kuopio`, `Mikko`), else 0.
+fn name_letters(w: &str) -> u8 {
+    let lower = w.to_lowercase();
+    if lower.chars().any(|c| c.is_alphabetic() && !c.is_ascii()) {
+        return 2;
+    }
+    if ["aa", "ii", "uu", "yy"].iter().any(|d| lower.contains(d)) {
+        return 2;
+    }
+    // `Kuopio`, `Mikko`: Finnish letter pairs, rare in English words.
+    if ["uo", "kk", "yö"].iter().any(|d| lower.contains(d)) {
+        return 1;
+    }
+    let n = lower.chars().count();
+    u8::from(NAME_ENDINGS.iter().any(|e| {
+        let k = e.chars().count();
+        lower.ends_with(e) && (n >= k + 2 || k >= 5)
+    }))
+}
+
+/// `text[s..e]`, unknown to the English speller `sp`, is a person or place name from another
+/// language, not a typo: name-shaped, not one edit from an English word, and either spelled
+/// like such a name ([`name_letters`]: letters like `ä` count even at a sentence start, a
+/// doubled vowel or a name ending only inside a sentence) or right after a title or another
+/// name (`Dr. Xu`, `Anna Korhonen`), or right before a surname that qualifies (`Mikko
+/// Virtanen`).
+pub fn foreign_name(sp: &Speller, text: &str, s: usize, e: usize) -> bool {
+    let w = &text[s..e];
+    if !name_shaped(w) {
+        return false;
+    }
+    let letters = name_letters(w);
+    let initial = sentence_initial(text, s);
+    let lower = w.to_lowercase();
+    let near = || lower.is_ascii() && near_known(sp, &lower, "");
+    // `Jyväskylä` anywhere; `Aalto` inside a sentence, though one edit from `alto`, but not
+    // `Defiinition`: a long word with a vowel typed twice.
+    let doubled_typo = ["aa", "ii", "uu", "yy"]
+        .iter()
+        .any(|d| replacements(&lower, d, &d[..1]).any(|t| t.len() >= 6 && listed(sp, &t)));
+    if letters == 2 && (!lower.is_ascii() || (!initial && !doubled_typo)) {
+        return true;
+    }
+    // A given name before a surname spelled like one: `Sanna Nieminen`, though `Sanna` is
+    // one edit from `sauna`.
+    let surname_after = word_after(text, e).is_some_and(|a| {
+        name_shaped(a) && name_letters(a) > 0 && !known(sp, a) && {
+            let al = a.to_lowercase();
+            !(al.is_ascii() && near_known(sp, &al, ""))
+        }
+    });
+    if surname_after && !initial {
+        return true;
+    }
+    if near() {
+        return false;
+    }
+    if letters >= 1 && !initial {
+        return true;
+    }
+    // A title or given name before it.
+    let before = word_before(text, s);
+    let titled = before.is_some_and(|b| NAME_TITLES.contains(&b));
+    // `Anna`, `John`: a name the dictionary has only capitalized, or one spelled like a name.
+    let after_name = before.is_some_and(|b| {
+        name_shaped(b) && (name_letters(b) > 0 || (known(sp, b) && !known(sp, &b.to_lowercase())))
+    });
+    titled || after_name || surname_after
+}
+
 thread_local! {
     static PROJECT: std::cell::RefCell<Option<Arc<ProjectVocab>>> =
         const { std::cell::RefCell::new(None) };
@@ -1064,6 +1312,57 @@ fn add_dep_name(set: &mut HashSet<String>, name: &str) {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn foreign_name_shapes() {
+        let us = dictionary("american");
+        let name = |text: &str, w: &str| {
+            let s = text.find(w).unwrap();
+            foreign_name(us, text, s, s + w.len())
+        };
+        for (text, w) in [
+            ("We met Korhonen there.", "Korhonen"),
+            ("Thanks to Andersson for it.", "Andersson"),
+            ("Ask Ramesh about it.", "Ramesh"),
+            ("Ask Dr. Xiaoyu.", "Xiaoyu"),
+            ("Jyväskylä is far.", "Jyväskylä"),
+            ("Ask Mikko Virtanen.", "Mikko"),
+            ("Near Aalto campus.", "Aalto"),
+        ] {
+            assert!(name(text, w), "{w} in {text}");
+        }
+        for (text, w) in [
+            ("Ramesh wrote it.", "Ramesh"),
+            ("See the Wrold map.", "Wrold"),
+            ("The Language Defiinition.", "Defiinition"),
+            ("The recieve call.", "recieve"),
+            ("Ask Jonh.", "Jonh"),
+            ("Tampere is nice.", "Tampere"),
+        ] {
+            assert!(!name(text, w), "{w} in {text}");
+        }
+    }
+
+    #[test]
+    fn british_spelling_dominance() {
+        assert!(british_dominates([
+            "The colour reflects its behaviour.",
+            "We organise the catalogue by centre and licence."
+        ]));
+        assert!(british_dominates([
+            "Initialising the programme; analyse the travelled grey tyre."
+        ]));
+        // Too few British words, or American ones alongside.
+        assert!(!british_dominates(["The colour is fine."]));
+        assert!(!british_dominates([
+            "The colour, behaviour and catalogue.",
+            "The color, behavior, catalog, center and license. We organize and analyze."
+        ]));
+        // Words both dictionaries know or neither knows do not count; nor do constants.
+        assert!(!british_dominates([
+            "Four hours of dialogue. Colourz NEIGHBOUR ColourPicker."
+        ]));
+    }
 
     #[test]
     fn derivations_compounds_and_variants() {

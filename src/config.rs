@@ -82,6 +82,9 @@ pub struct ConfigCache {
 struct OverrideCache {
     matchers: OnceLock<Vec<ignore::gitignore::Gitignore>>,
     effective: Mutex<HashMap<Vec<usize>, Arc<Config>>>,
+    /// `prose.dialect = "auto"` resolved to British, keyed by the address of the config it
+    /// came from (0 for this one).
+    british: Mutex<HashMap<usize, Arc<Config>>>,
 }
 
 impl Clone for OverrideCache {
@@ -280,7 +283,8 @@ impl Default for General {
 #[derive(Debug, Clone, Deserialize)]
 #[serde(default, deny_unknown_fields)]
 pub struct Prose {
-    /// american, british, canadian, australian, indian
+    /// auto (default), american, british, canadian, australian, indian. `auto` checks a file
+    /// as British when British spellings clearly dominate it, else as American.
     pub dialect: String,
     /// Words accepted by the spell checker, matched case-insensitively. Hyphenated entries
     /// (`pre-commit`, `Wi-Fi`) are accepted as whole tokens.
@@ -357,7 +361,7 @@ impl Engine {
 impl Default for Prose {
     fn default() -> Self {
         Prose {
-            dialect: "american".into(),
+            dialect: "auto".into(),
             accept: Vec::new(),
             accept_patterns: Vec::new(),
             vocab_files: Vec::new(),
@@ -726,6 +730,40 @@ impl Config {
         )
     }
 
+    /// [`Config::for_path`], with `prose.dialect = "auto"` resolved for the file's prose
+    /// `texts`: British when British spellings dominate it
+    /// ([`crate::rules::spell::british_dominates`]). The resolved dialect is part of the
+    /// returned config, so of the results cache key too.
+    pub fn for_file<'a>(
+        &self,
+        rel: &Path,
+        texts: impl IntoIterator<Item = &'a str>,
+    ) -> Option<Arc<Config>> {
+        let effective = self.for_path(rel);
+        let c: &Config = effective.as_deref().unwrap_or(self);
+        if !c.prose.dialect.eq_ignore_ascii_case("auto")
+            || !crate::rules::spell::british_dominates(texts)
+        {
+            return effective;
+        }
+        let id = effective.as_ref().map_or(0, |e| Arc::as_ptr(e) as usize);
+        let mut map = self
+            .cache
+            .overrides
+            .british
+            .lock()
+            .unwrap_or_else(PoisonError::into_inner);
+        Some(
+            map.entry(id)
+                .or_insert_with(|| {
+                    let mut b = c.clone();
+                    b.prose.dialect = "british".into();
+                    Arc::new(b)
+                })
+                .clone(),
+        )
+    }
+
     fn with_overrides(&self, hits: &[usize]) -> Config {
         let mut c = self.clone();
         c.overrides = Vec::new();
@@ -1022,6 +1060,29 @@ mod tests {
             c.severity("md/heading-style", Some(Severity::Warning)),
             None
         );
+    }
+
+    #[test]
+    fn auto_dialect_resolves_per_file() {
+        const GB: &str = "The colour reflects its behaviour; we organise the catalogue.";
+        const US: &str = "The color reflects its behavior; we organize the catalog.";
+        let c = Config::default();
+        assert_eq!(c.prose.dialect, "auto");
+        let gb = c.for_file(Path::new("a.md"), [GB]).unwrap();
+        assert_eq!(gb.prose.dialect, "british");
+        // Cached, and part of the results cache key.
+        assert!(Arc::ptr_eq(
+            &gb,
+            &c.for_file(Path::new("b.md"), [GB]).unwrap()
+        ));
+        assert_ne!(crate::cache::config_key(&gb), crate::cache::config_key(&c));
+        assert!(c.for_file(Path::new("a.md"), [US]).is_none());
+        // An explicit dialect wins.
+        for d in ["american", "canadian"] {
+            let mut forced = Config::default();
+            forced.prose.dialect = d.into();
+            assert!(forced.for_file(Path::new("a.md"), [GB]).is_none());
+        }
     }
 
     #[test]

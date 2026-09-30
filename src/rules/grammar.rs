@@ -1207,6 +1207,8 @@ impl Checker {
                 if is_spell
                     && (jargon(seg, ctx, s, e, idents, self.lang.is_none())
                         || idents.project_name(self.name_speller(), word)
+                        || (self.lang.is_none()
+                            && spell::foreign_name(self.name_speller(), &seg.text, s, e))
                         || emphasis_split(seg, ctx.src(), s, e)
                             .is_some_and(|w| self.known_word(&w)))
                 {
@@ -2638,6 +2640,29 @@ aliases = ["Qelvio"]
             .filter(|f| f.rule == "spelling")
             .map(|f| src[f.range.clone()].to_string())
             .collect()
+    }
+
+    /// Finnish, Nordic and Indian names in English text are names, not typos; typos stay.
+    #[test]
+    fn foreign_names_in_english() {
+        let src = "Contact Mikko Virtanen or visit Jyväskylä and Hämeenlinna. The office in \
+                   Kuopio opened. It was reviewed by Priya and Dr. Xiaoyu with Lars Lindqvist. We met \
+                   Sanna Nieminen at Aalto University. Jyväskylä hosts it.\n\n\
+                   The configuraton is wrong. Language Defiinition. \
+                   Please call Jonh about the Wrold.\n";
+        let mut engines = vec![Engine::Spellbook];
+        if cfg!(feature = "harper") {
+            engines.extend([Engine::Hybrid, Engine::Harper]);
+        }
+        for engine in engines {
+            let mut c = Config::default();
+            c.prose.engine = engine;
+            assert_eq!(
+                misspelled(src, &c),
+                ["configuraton", "Defiinition", "Jonh", "Wrold"],
+                "{engine:?}"
+            );
+        }
     }
 
     /// `[[vocab]]` terms are accepted words; `[[entity]]` names only as whole phrases.

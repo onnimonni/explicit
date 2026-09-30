@@ -671,7 +671,8 @@ pub fn check_with_stats(
         &targets,
         |a| a.file.text.len(),
         |a| {
-            let effective = config.for_path(&a.file.rel);
+            let effective =
+                config.for_file(&a.file.rel, a.segments.iter().map(|s| s.text.as_str()));
             let fc: &Config = effective.as_deref().unwrap_or(config);
             let mut fresh = None;
             let mut hit = None;
@@ -746,7 +747,7 @@ pub fn check_file(
     config: &Config,
     statuses: &Checked,
 ) -> Vec<Diagnostic> {
-    let effective = config.for_path(&a.file.rel);
+    let effective = config.for_file(&a.file.rel, a.segments.iter().map(|s| s.text.as_str()));
     let config: &Config = effective.as_deref().unwrap_or(config);
     let mut d = local_diagnostics_in(a, config, &ws.project_vocab(config));
     d.extend(cross_diagnostics(a, ws, config, statuses));

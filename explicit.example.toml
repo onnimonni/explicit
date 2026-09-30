@@ -4,7 +4,7 @@
 exclude = ["vendor/**", "CHANGELOG.md"]
 fail_on = "warning" # info | warning | error
 language = "en"     # BCP 47 tag; "fi" / "sv" get Finnish / Swedish spelling (builds with the
-                    # `voikko` / `swedish` features, e.g. explicit-full), others ("none") keep
+                    # `voikko` / default `swedish` features, e.g. explicit-full), others ("none") keep
                     # only structure, link and style rules
 detect_language = true # detect Finnish, Swedish and other-language files and stretches
 
@@ -17,7 +17,7 @@ detect_language = true # detect Finnish, Swedish and other-language files and st
 # "gettext/untranslated" = "off"
 
 [prose]
-dialect = "american"
+dialect = "auto"  # per file: British when British spellings dominate; or force "american", "british"
 accept = ["devenv", "rustc"]  # case-insensitive; hyphenated entries like "pre-commit" work
 # accept_patterns = ["[A-Z]{2,}-\\d+"]  # regexes matching whole words
 # vocab_files = [".explicit/vocab.txt"]
@@ -92,7 +92,7 @@ include_dirs = ["_includes"]      # docs/include-missing: extra include search d
 # [languages.fi]
 # dictionary_path = "/usr/share/voikko"  # another voikko-fi dictionary (mor.vfst or its dir)
 # accept = ["Omakanta"]                  # words accepted only in Finnish text
-# [languages.sv]                         # Swedish needs the opt-in `swedish` feature
+# [languages.sv]                         # Swedish needs the `swedish` feature (default)
 # accept = ["Kanta"]                     # (or a Hunspell dictionary_path)
 # [languages.de]
 # dictionary_path = "dictionaries/de"    # a Hunspell index.aff/index.dic for any language

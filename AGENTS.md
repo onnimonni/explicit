@@ -35,7 +35,7 @@ Everything runs through devenv (`devenv shell -- <cmd>`, or enter `devenv shell`
 
 ```console
 cargo build
-cargo test                                        # default build (mermaid only)
+cargo test                                        # default build (mermaid, swedish)
 cargo test --features harper,voikko,swedish       # full build
 cargo test --no-default-features --features mermaid
 cargo clippy --all-targets --features harper,voikko,swedish -- -D warnings
@@ -47,11 +47,13 @@ nix build .#default .#explicit-full               # needs new files at least `gi
 Cargo features:
 
 - `mermaid` (default)
+- `swedish` (default): Swedish
 - `harper`: Harper grammar engines
 - `voikko`: Finnish
-- `swedish`: Swedish, opt-in until its recall improves
 
-The Nix package `explicit-full` builds with `harper`, `voikko` and `swedish`.
+The default Nix package (lite) builds with the default features; `explicit-full` adds `harper`
+and `voikko`. CI tests the default build, the full build and `--no-default-features --features
+mermaid`, so gate Swedish-only tests with `#[cfg(feature = "swedish")]`.
 
 ## Rules for contributors
 
@@ -121,8 +123,8 @@ Latest numbers, 2026-09-30 (F1; holdouts are unseen text):
 ## Release process
 
 1. Bump `version` in `Cargo.toml`, then commit and push.
-2. Wait for CI to pass: tests on the lite and full builds, plus Nix builds for x86_64-linux,
-   aarch64-linux and aarch64-darwin, pushed to `onnimonni.cachix.org`.
+2. Wait for CI to pass: tests on the default, full and no-optional-feature builds, plus Nix
+   builds for x86_64-linux, aarch64-linux and aarch64-darwin, pushed to `onnimonni.cachix.org`.
 3. Tag and publish: `gh release create vX.Y.Z --target main --notes-file ...`.
 4. Check that both packages are on the cache:
    `curl https://onnimonni.cachix.org/<hash>.narinfo` should return 200 for
@@ -134,8 +136,10 @@ Latest numbers, 2026-09-30 (F1; holdouts are unseen text):
   fragments and punctuation are close to 0% in every engine; names that aren't in any manifest.
 - **Finnish:** agreement and relative-pronoun recall; commas are partial; medical and technical
   vocabulary grows through `dictionaries/fi/extra.txt`.
-- **Swedish:** de/dem and verb forms are partial; compounds with rare heads; decide when to turn
-  `swedish` on by default (judge said not yet on 2026-09-30).
+- **Swedish:** de/dem and verb forms are partial (no rule for a dropped passive `-s`: without a
+  lexicon of transitive verbs, `servern startar automatiskt` and `loggarna raderar automatiskt`
+  look alike); compounds with rare heads. On by default since the judge recommended it
+  (2026-09-30).
 - Issue #4 (per-document language) is implemented; close it at the v0.3.0 release.
 - Harper's per-sentence rule maps cost about 10% CPU and most of its memory; send an upstream PR
   rather than keeping a fork.

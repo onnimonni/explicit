@@ -1,0 +1,734 @@
+[
+ {
+  "file": "adr-004-soktjanst.md",
+  "line": 12,
+  "column": 178,
+  "end_column": 180,
+  "text": "ta",
+  "category": "present_tense",
+  "correction": "tar",
+  "real_word": true
+ },
+ {
+  "file": "adr-004-soktjanst.md",
+  "line": 14,
+  "column": 140,
+  "end_column": 143,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "adr-004-soktjanst.md",
+  "line": 20,
+  "column": 169,
+  "end_column": 175,
+  "text": "vilken",
+  "category": "en_ett",
+  "correction": "vilket",
+  "real_word": true
+ },
+ {
+  "file": "adr-004-soktjanst.md",
+  "line": 24,
+  "column": 170,
+  "end_column": 180,
+  "text": "En så dyrt",
+  "category": "en_ett",
+  "correction": "En så dyr",
+  "real_word": true
+ },
+ {
+  "file": "adr-004-soktjanst.md",
+  "line": 28,
+  "column": 101,
+  "end_column": 115,
+  "text": "har den svarat",
+  "category": "supine",
+  "correction": "svarade den",
+  "real_word": true
+ },
+ {
+  "file": "adr-004-soktjanst.md",
+  "line": 39,
+  "column": 57,
+  "end_column": 65,
+  "text": "har kört",
+  "category": "supine",
+  "correction": "kördes",
+  "real_word": true
+ },
+ {
+  "file": "adr-004-soktjanst.md",
+  "line": 46,
+  "column": 38,
+  "end_column": 46,
+  "text": "ett disk",
+  "category": "en_ett",
+  "correction": "en disk",
+  "real_word": true
+ },
+ {
+  "file": "adr-004-soktjanst.md",
+  "line": 49,
+  "column": 190,
+  "end_column": 204,
+  "text": "är abstraherad",
+  "category": "adj_agreement",
+  "correction": "är abstraherat",
+  "real_word": true
+ },
+ {
+  "file": "adr-004-soktjanst.md",
+  "line": 51,
+  "column": 19,
+  "end_column": 27,
+  "text": "behandla",
+  "category": "present_tense",
+  "correction": "behandlar",
+  "real_word": true
+ },
+ {
+  "file": "adr-004-soktjanst.md",
+  "line": 51,
+  "column": 41,
+  "end_column": 50,
+  "text": "Novembers",
+  "category": "capitalization",
+  "correction": "novembers"
+ },
+ {
+  "file": "adr-004-soktjanst.md",
+  "line": 57,
+  "column": 70,
+  "end_column": 85,
+  "text": "de nya kollegan",
+  "category": "adj_agreement",
+  "correction": "den nya kollegan",
+  "real_word": true
+ },
+ {
+  "file": "kapacitetsplan.md",
+  "line": 7,
+  "column": 153,
+  "end_column": 155,
+  "text": "ta",
+  "category": "present_tense",
+  "correction": "tar",
+  "real_word": true
+ },
+ {
+  "file": "kapacitetsplan.md",
+  "line": 7,
+  "column": 163,
+  "end_column": 167,
+  "text": "Juni",
+  "category": "capitalization",
+  "correction": "juni"
+ },
+ {
+  "file": "kapacitetsplan.md",
+  "line": 9,
+  "column": 126,
+  "end_column": 135,
+  "text": "förbereda",
+  "category": "supine",
+  "correction": "förberett",
+  "real_word": true
+ },
+ {
+  "file": "kapacitetsplan.md",
+  "line": 20,
+  "column": 63,
+  "end_column": 80,
+  "text": "en eventuell nytt",
+  "category": "en_ett",
+  "correction": "ett eventuellt nytt",
+  "real_word": true
+ },
+ {
+  "file": "kapacitetsplan.md",
+  "line": 20,
+  "column": 164,
+  "end_column": 173,
+  "text": "fördubbla",
+  "category": "present_tense",
+  "correction": "fördubblas",
+  "real_word": true
+ },
+ {
+  "file": "kapacitetsplan.md",
+  "line": 25,
+  "column": 42,
+  "end_column": 45,
+  "text": "Dem",
+  "category": "de_dem",
+  "correction": "De",
+  "real_word": true
+ },
+ {
+  "file": "kapacitetsplan.md",
+  "line": 27,
+  "column": 88,
+  "end_column": 101,
+  "text": "ett kall nivå",
+  "category": "en_ett",
+  "correction": "en kall nivå",
+  "real_word": true
+ },
+ {
+  "file": "kapacitetsplan.md",
+  "line": 29,
+  "column": 101,
+  "end_column": 111,
+  "text": "acceptabel",
+  "category": "adj_agreement",
+  "correction": "acceptabelt",
+  "real_word": true
+ },
+ {
+  "file": "kapacitetsplan.md",
+  "line": 29,
+  "column": 115,
+  "end_column": 121,
+  "text": "Söndag",
+  "category": "capitalization",
+  "correction": "söndag"
+ },
+ {
+  "file": "kapacitetsplan.md",
+  "line": 33,
+  "column": 98,
+  "end_column": 107,
+  "text": "har varna",
+  "category": "supine",
+  "correction": "har varnat",
+  "real_word": true
+ },
+ {
+  "file": "kapacitetsplan.md",
+  "line": 33,
+  "column": 210,
+  "end_column": 220,
+  "text": "är godkänt",
+  "category": "adj_agreement",
+  "correction": "är godkänd",
+  "real_word": true
+ },
+ {
+  "file": "kapacitetsplan.md",
+  "line": 35,
+  "column": 155,
+  "end_column": 158,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "den",
+  "real_word": true
+ },
+ {
+  "file": "kapacitetsplan.md",
+  "line": 37,
+  "column": 188,
+  "end_column": 190,
+  "text": "de",
+  "category": "de_dem",
+  "correction": "dem",
+  "real_word": true
+ },
+ {
+  "file": "patientinfo-somnundersokning.md",
+  "line": 7,
+  "column": 167,
+  "end_column": 172,
+  "text": "fästa",
+  "category": "present_tense",
+  "correction": "fästs",
+  "real_word": true
+ },
+ {
+  "file": "patientinfo-somnundersokning.md",
+  "line": 13,
+  "column": 109,
+  "end_column": 122,
+  "text": "har reservera",
+  "category": "supine",
+  "correction": "har reserverats",
+  "real_word": true
+ },
+ {
+  "file": "patientinfo-somnundersokning.md",
+  "line": 13,
+  "column": 165,
+  "end_column": 168,
+  "text": "Dem",
+  "category": "de_dem",
+  "correction": "De",
+  "real_word": true
+ },
+ {
+  "file": "patientinfo-somnundersokning.md",
+  "line": 17,
+  "column": 119,
+  "end_column": 122,
+  "text": "dra",
+  "category": "present_tense",
+  "correction": "dras",
+  "real_word": true
+ },
+ {
+  "file": "patientinfo-somnundersokning.md",
+  "line": 17,
+  "column": 167,
+  "end_column": 174,
+  "text": "En löst",
+  "category": "en_ett",
+  "correction": "Ett löst",
+  "real_word": true
+ },
+ {
+  "file": "patientinfo-somnundersokning.md",
+  "line": 17,
+  "column": 185,
+  "end_column": 193,
+  "text": "felaktig",
+  "category": "adj_agreement",
+  "correction": "felaktiga",
+  "real_word": true
+ },
+ {
+  "file": "patientinfo-somnundersokning.md",
+  "line": 25,
+  "column": 184,
+  "end_column": 192,
+  "text": "har sova",
+  "category": "supine",
+  "correction": "har sovit",
+  "real_word": true
+ },
+ {
+  "file": "patientinfo-somnundersokning.md",
+  "line": 31,
+  "column": 52,
+  "end_column": 57,
+  "text": "sitta",
+  "category": "present_tense",
+  "correction": "sitter",
+  "real_word": true
+ },
+ {
+  "file": "patientinfo-somnundersokning.md",
+  "line": 35,
+  "column": 139,
+  "end_column": 150,
+  "text": "Ett faktura",
+  "category": "en_ett",
+  "correction": "En faktura",
+  "real_word": true
+ },
+ {
+  "file": "patientinfo-somnundersokning.md",
+  "line": 37,
+  "column": 46,
+  "end_column": 55,
+  "text": "September",
+  "category": "capitalization",
+  "correction": "september"
+ },
+ {
+  "file": "storningskommunikation.md",
+  "line": 7,
+  "column": 179,
+  "end_column": 188,
+  "text": "har rätta",
+  "category": "supine",
+  "correction": "har rättats",
+  "real_word": true
+ },
+ {
+  "file": "storningskommunikation.md",
+  "line": 13,
+  "column": 13,
+  "end_column": 20,
+  "text": "meddela",
+  "category": "present_tense",
+  "correction": "meddelar",
+  "real_word": true
+ },
+ {
+  "file": "storningskommunikation.md",
+  "line": 13,
+  "column": 181,
+  "end_column": 184,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "storningskommunikation.md",
+  "line": 15,
+  "column": 202,
+  "end_column": 212,
+  "text": "Ett tydlig",
+  "category": "en_ett",
+  "correction": "Ett tydligt",
+  "real_word": true
+ },
+ {
+  "file": "storningskommunikation.md",
+  "line": 21,
+  "column": 238,
+  "end_column": 244,
+  "text": "glömma",
+  "category": "supine",
+  "correction": "glömt",
+  "real_word": true
+ },
+ {
+  "file": "storningskommunikation.md",
+  "line": 21,
+  "column": 254,
+  "end_column": 257,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "storningskommunikation.md",
+  "line": 32,
+  "column": 109,
+  "end_column": 131,
+  "text": "ingen intern uppgifter",
+  "category": "adj_agreement",
+  "correction": "inga interna uppgifter",
+  "real_word": true
+ },
+ {
+  "file": "storningskommunikation.md",
+  "line": 32,
+  "column": 196,
+  "end_column": 202,
+  "text": "vilken",
+  "category": "en_ett",
+  "correction": "vilket",
+  "real_word": true
+ },
+ {
+  "file": "storningskommunikation.md",
+  "line": 36,
+  "column": 61,
+  "end_column": 69,
+  "text": "engelskt",
+  "category": "adj_agreement",
+  "correction": "engelsk",
+  "real_word": true
+ },
+ {
+  "file": "storningskommunikation.md",
+  "line": 36,
+  "column": 179,
+  "end_column": 182,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "storningskommunikation.md",
+  "line": 42,
+  "column": 31,
+  "end_column": 36,
+  "text": "April",
+  "category": "capitalization",
+  "correction": "april"
+ },
+ {
+  "file": "storningskommunikation.md",
+  "line": 42,
+  "column": 152,
+  "end_column": 158,
+  "text": "anmäla",
+  "category": "present_tense",
+  "correction": "anmäler",
+  "real_word": true
+ },
+ {
+  "file": "storningskommunikation.md",
+  "line": 42,
+  "column": 182,
+  "end_column": 188,
+  "text": "bedöma",
+  "category": "present_tense",
+  "correction": "bedömer",
+  "real_word": true
+ },
+ {
+  "file": "storningskommunikation.md",
+  "line": 42,
+  "column": 282,
+  "end_column": 296,
+  "text": "har konstatera",
+  "category": "supine",
+  "correction": "har konstaterat",
+  "real_word": true
+ },
+ {
+  "file": "storningskommunikation.md",
+  "line": 42,
+  "column": 337,
+  "end_column": 343,
+  "text": "sparad",
+  "category": "adj_agreement",
+  "correction": "sparade",
+  "real_word": true
+ },
+ {
+  "file": "upphandlingsbeslut.md",
+  "line": 7,
+  "column": 95,
+  "end_column": 104,
+  "text": "har klaga",
+  "category": "supine",
+  "correction": "har klagat",
+  "real_word": true
+ },
+ {
+  "file": "upphandlingsbeslut.md",
+  "line": 9,
+  "column": 25,
+  "end_column": 32,
+  "text": "Augusti",
+  "category": "capitalization",
+  "correction": "augusti"
+ },
+ {
+  "file": "upphandlingsbeslut.md",
+  "line": 9,
+  "column": 151,
+  "end_column": 154,
+  "text": "Dem",
+  "category": "de_dem",
+  "correction": "De",
+  "real_word": true
+ },
+ {
+  "file": "upphandlingsbeslut.md",
+  "line": 9,
+  "column": 160,
+  "end_column": 173,
+  "text": "ett skriftlig",
+  "category": "en_ett",
+  "correction": "en skriftlig",
+  "real_word": true
+ },
+ {
+  "file": "upphandlingsbeslut.md",
+  "line": 18,
+  "column": 174,
+  "end_column": 181,
+  "text": "tydligt",
+  "category": "adj_agreement",
+  "correction": "tydlig",
+  "real_word": true
+ },
+ {
+  "file": "upphandlingsbeslut.md",
+  "line": 22,
+  "column": 121,
+  "end_column": 126,
+  "text": "svara",
+  "category": "present_tense",
+  "correction": "svarar",
+  "real_word": true
+ },
+ {
+  "file": "upphandlingsbeslut.md",
+  "line": 22,
+  "column": 159,
+  "end_column": 171,
+  "text": "har bekräfta",
+  "category": "supine",
+  "correction": "har bekräftat",
+  "real_word": true
+ },
+ {
+  "file": "upphandlingsbeslut.md",
+  "line": 24,
+  "column": 173,
+  "end_column": 186,
+  "text": "Ett marginell",
+  "category": "en_ett",
+  "correction": "En marginell",
+  "real_word": true
+ },
+ {
+  "file": "upphandlingsbeslut.md",
+  "line": 28,
+  "column": 111,
+  "end_column": 117,
+  "text": "har gå",
+  "category": "supine",
+  "correction": "har gått",
+  "real_word": true
+ },
+ {
+  "file": "upphandlingsbeslut.md",
+  "line": 28,
+  "column": 168,
+  "end_column": 175,
+  "text": "ersätta",
+  "category": "present_tense",
+  "correction": "ersätter",
+  "real_word": true
+ },
+ {
+  "file": "upphandlingsbeslut.md",
+  "line": 32,
+  "column": 137,
+  "end_column": 147,
+  "text": "är bifogat",
+  "category": "adj_agreement",
+  "correction": "är bifogad",
+  "real_word": true
+ },
+ {
+  "file": "upphandlingsbeslut.md",
+  "line": 32,
+  "column": 184,
+  "end_column": 187,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "upphandlingsbeslut.md",
+  "line": 32,
+  "column": 208,
+  "end_column": 224,
+  "text": "ett fullständigt",
+  "category": "en_ett",
+  "correction": "en fullständig",
+  "real_word": true
+ },
+ {
+  "file": "veckobrev.md",
+  "line": 11,
+  "column": 169,
+  "end_column": 173,
+  "text": "visa",
+  "category": "present_tense",
+  "correction": "visar",
+  "real_word": true
+ },
+ {
+  "file": "veckobrev.md",
+  "line": 13,
+  "column": 36,
+  "end_column": 43,
+  "text": "Onsdags",
+  "category": "capitalization",
+  "correction": "onsdags"
+ },
+ {
+  "file": "veckobrev.md",
+  "line": 13,
+  "column": 65,
+  "end_column": 75,
+  "text": "rapportera",
+  "category": "supine",
+  "correction": "rapporterat",
+  "real_word": true
+ },
+ {
+  "file": "veckobrev.md",
+  "line": 13,
+  "column": 116,
+  "end_column": 127,
+  "text": "ett så stor",
+  "category": "en_ett",
+  "correction": "en så stor",
+  "real_word": true
+ },
+ {
+  "file": "veckobrev.md",
+  "line": 13,
+  "column": 165,
+  "end_column": 168,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "veckobrev.md",
+  "line": 17,
+  "column": 119,
+  "end_column": 125,
+  "text": "skriva",
+  "category": "present_tense",
+  "correction": "skrivs",
+  "real_word": true
+ },
+ {
+  "file": "veckobrev.md",
+  "line": 19,
+  "column": 110,
+  "end_column": 113,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "veckobrev.md",
+  "line": 19,
+  "column": 183,
+  "end_column": 194,
+  "text": "har granska",
+  "category": "supine",
+  "correction": "har granskat",
+  "real_word": true
+ },
+ {
+  "file": "veckobrev.md",
+  "line": 19,
+  "column": 241,
+  "end_column": 253,
+  "text": "Ett noggrant",
+  "category": "en_ett",
+  "correction": "En noggrann",
+  "real_word": true
+ },
+ {
+  "file": "veckobrev.md",
+  "line": 24,
+  "column": 6,
+  "end_column": 12,
+  "text": "Tisdag",
+  "category": "capitalization",
+  "correction": "tisdag"
+ },
+ {
+  "file": "veckobrev.md",
+  "line": 25,
+  "column": 99,
+  "end_column": 102,
+  "text": "hon",
+  "category": "de_dem",
+  "correction": "henne",
+  "real_word": true
+ },
+ {
+  "file": "veckobrev.md",
+  "line": 29,
+  "column": 28,
+  "end_column": 36,
+  "text": "är lagat",
+  "category": "adj_agreement",
+  "correction": "är lagad",
+  "real_word": true
+ }
+]
