@@ -39,6 +39,10 @@ pub const RULES: &[(&str, &str)] = &[
         "PortugueseCopulaAccents",
         "Portuguese: unambiguous personal-subject copulas require their accents",
     ),
+    (
+        "PortugueseMissingCrase",
+        "Portuguese: clear ir destinations require à before a singular feminine article",
+    ),
 ];
 
 struct Word {
@@ -196,6 +200,8 @@ const NOUNS: &[(&str, &str, bool)] = &[
     ("tarefa", "tarefas", true),
     ("reunião", "reuniões", true),
     ("cidade", "cidades", true),
+    ("escola", "escolas", true),
+    ("estação", "estações", true),
     ("casa", "casas", true),
     ("porta", "portas", true),
     ("mão", "mãos", true),
@@ -675,6 +681,72 @@ fn copula_accents(
     }
 }
 
+fn missing_crase(
+    chars: &[char],
+    ws: &[Word],
+    enabled: &[&str],
+    out: &mut BTreeMap<String, Vec<Lint>>,
+) {
+    for i in 0..ws.len().saturating_sub(2) {
+        let verb = &ws[i];
+        let article = &ws[i + 1];
+        let destination = &ws[i + 2];
+        if !matches!(
+            verb.lower.as_str(),
+            "vou" | "vais" | "vai" | "vamos" | "ides" | "vão"
+        ) || article.lower != "a"
+            || !adjacent(chars, verb, article)
+            || !adjacent(chars, article, destination)
+            || chars[destination.start].is_uppercase()
+            || noun(&destination.lower) != Some(1)
+            // A closed destination list avoids optional casa/terra articles and
+            // nouns that can instead be objects or abstract complements.
+            || !matches!(
+                destination.lower.as_str(),
+                "escola" | "cidade" | "estação" | "página"
+            )
+        {
+            continue;
+        }
+        // A location cue can introduce a subject after the verb: `lá vai a escola`.
+        if i > 0
+            && adjacent(chars, &ws[i - 1], verb)
+            && matches!(
+                ws[i - 1].lower.as_str(),
+                "lá" | "aqui" | "aí" | "ali" | "assim" | "onde"
+            )
+        {
+            continue;
+        }
+        // Singular `vai` permits an inverted noun subject even clause-final:
+        // `à conferência vai a escola`. Require an overt personal subject.
+        let personal_subject = i > 0
+            && adjacent(chars, &ws[i - 1], verb)
+            && person(&ws[i - 1].lower) == Some(if verb.lower == "vai" { 2 } else { 5 });
+        if (verb.lower == "vai" && !personal_subject)
+            // Plural `vão` cannot agree with the singular destination, but
+            // leave possible coordinated subjects (`a escola e a cidade`).
+            || (verb.lower == "vão"
+                && !personal_subject
+                && !chars[destination.end..]
+                    .iter()
+                    .find(|c| !c.is_whitespace())
+                    .is_none_or(|c| matches!(c, '.' | '!' | '?' | ';')))
+        {
+            continue;
+        }
+        add(
+            out,
+            enabled,
+            "PortugueseMissingCrase",
+            chars,
+            article,
+            "à",
+            "Use à for the feminine destination after ir.",
+        );
+    }
+}
+
 fn pronoun_verbs(
     chars: &[char],
     ws: &[Word],
@@ -1079,6 +1151,9 @@ pub fn lints(
     if enabled.contains(&"PortugueseCopulaAccents") {
         copula_accents(chars, &ws, enabled, &mut out);
     }
+    if enabled.contains(&"PortugueseMissingCrase") {
+        missing_crase(chars, &ws, enabled, &mut out);
+    }
     out
 }
 
@@ -1107,6 +1182,106 @@ mod tests {
         for text in examples {
             assert!(fixes(rule, text).is_empty(), "{rule}: {text}");
         }
+    }
+
+    #[test]
+    fn missing_crase_preserves_character_spans_and_normalizes_context() {
+        let rule = "PortugueseMissingCrase";
+        let sp = crate::rules::spell_lang::speller("pt", &crate::config::Config::default())
+            .expect("bundled Portuguese");
+        for (text, start, end, replacement) in [
+            ("Vou a escola.", 4, 5, "à"),
+            ("Vais a cidade.", 5, 6, "à"),
+            ("Ela vai a estação.", 8, 9, "à"),
+            ("Vamos a página.", 6, 7, "à"),
+            ("Vão a escola.", 4, 5, "à"),
+            ("Ides a escola.", 5, 6, "à"),
+            ("Vou A escola.", 4, 5, "À"),
+            ("Va\u{0303}o a estac\u{0327}a\u{0303}o.", 5, 6, "à"),
+            ("Eu vou a pa\u{0301}gina.", 7, 8, "à"),
+            ("Amanha\u{0303} vou a escola.", 12, 13, "à"),
+            ("Ela vai a escola amanhã.", 8, 9, "à"),
+            ("Eles vão a cidade amanhã.", 9, 10, "à"),
+            ("Vou\t a\nescola.", 5, 6, "à"),
+        ] {
+            let chars: Vec<char> = text.chars().collect();
+            let found: Vec<_> = lints(&*sp, &chars, &[rule])
+                .into_values()
+                .flatten()
+                .map(|lint| {
+                    let Suggestion::ReplaceWith(fix) = &lint.suggestions[0] else {
+                        panic!("replacement")
+                    };
+                    (
+                        lint.span.start,
+                        lint.span.end,
+                        chars[lint.span.start..lint.span.end]
+                            .iter()
+                            .collect::<String>(),
+                        fix.iter().collect::<String>(),
+                    )
+                })
+                .collect();
+            let original = if replacement == "À" { "A" } else { "a" };
+            assert_eq!(
+                found,
+                [(start, end, original.to_owned(), replacement.to_owned())],
+                "{text}"
+            );
+        }
+    }
+
+    #[test]
+    fn missing_crase_respects_regional_and_verbatim_boundaries() {
+        quiet(
+            "PortugueseMissingCrase",
+            &[
+                "Vou à escola.",
+                "Vou a\u{0300} escola.",
+                "Visito a escola.",
+                "Vejo a cidade.",
+                "Encontro a página.",
+                "Vou a casa.",
+                "Vou a terra.",
+                "Vou a Lisboa.",
+                "Vou a Escola.",
+                "Vou a Cidade do Cabo.",
+                "Vou a livro.",
+                "Vou a escolas.",
+                "Vou a estações.",
+                "Vou as escolas.",
+                "Vou para a escola.",
+                "Vou até a escola.",
+                "Vou, a escola.",
+                "Vou a, escola.",
+                "Vou a\n\nescola.",
+                "VOU a escola.",
+                "Vou a ESCOLA.",
+                "\"Vou a escola.\" é uma citação.",
+                "'Vou a escola.' é uma citação.",
+                "«Vou a escola.» é uma citação.",
+                "“Vou a escola.” é uma citação.",
+                "`Vou a escola.` é código.",
+                "Vou a \"escola\".",
+                "Vou `a` escola.",
+                "Vou_a escola.",
+                "_vou a escola.",
+                "Vou a escola_id.",
+                "Vou a @escola.",
+                "obj.vou a escola.",
+                "Vou a escola.pt.",
+                "Lá vai a escola.",
+                "Aqui vão a escola e a cidade.",
+                "La\u{0301} vai a escola.",
+                "À conferência vai a escola.",
+                "Vai a escola.",
+                "Vai a escola participar?",
+                "Vão a escola e a cidade participar?",
+                "Fui a escola.",
+                "Irei a escola.",
+                "Ir a escola.",
+            ],
+        );
     }
 
     #[test]

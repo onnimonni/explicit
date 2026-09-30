@@ -423,6 +423,10 @@ labels containing an object and infinitive are not treated as finite subject cla
 Context-bound homophone checks cover German `ihr seit` → `seid` and reporting-clause `das` → `dass`,
 French `allons a la page` → `à`, Spanish `tu eres` → `tú`, and Portuguese `ela esta disponível` →
 `está`. Possessives, relative pronouns, coordination and unclear tense remain unchanged.
+French contracts clear noun phrases (`à le bureau` → `au bureau`, `de les fichiers` → `des fichiers`)
+without changing object clitics (`de le faire`) or proper titles. Portuguese checks missing `à`
+after clear motion forms (`vou a escola` → `vou à escola`); optional house/place names and
+ambiguous inverted subjects stay unchecked.
 `slop/phrase` also checks stacked promotional claims in these four languages, Finnish and
 Swedish. It flags empty promises, not evidence of AI authorship, and runs independently of spelling.
 

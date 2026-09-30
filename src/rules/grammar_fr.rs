@@ -34,6 +34,10 @@ pub const RULES: &[(&str, &str)] = &[
         "FrenchPrepositionAccent",
         "French: aller takes à before a clear determiner-led destination",
     ),
+    (
+        "FrenchPrepositionContraction",
+        "French: à and de contract with le and les before clear known noun phrases",
+    ),
 ];
 
 struct Word {
@@ -454,8 +458,11 @@ const NOUNS: &[(&str, &str, bool)] = &[
     ("homme", "hommes", false),
     ("jardin", "jardins", false),
 ];
-fn noun(s: &str) -> Option<(&'static str, &'static str, bool, bool)> {
-    NOUNS.iter().find_map(|&(sing, plural, fem)| {
+fn noun_in(
+    s: &str,
+    table: &'static [(&'static str, &'static str, bool)],
+) -> Option<(&'static str, &'static str, bool, bool)> {
+    table.iter().find_map(|&(sing, plural, fem)| {
         if s == sing {
             Some((sing, plural, fem, false))
         } else if s == plural {
@@ -464,6 +471,33 @@ fn noun(s: &str) -> Option<(&'static str, &'static str, bool, bool)> {
             None
         }
     })
+}
+fn noun(s: &str) -> Option<(&'static str, &'static str, bool, bool)> {
+    noun_in(s, NOUNS)
+}
+
+// Also shared by the motion-accent rule; do not infer unknown destination nouns.
+const DESTINATION_NOUNS: &[(&str, &str, bool)] = &[
+    ("maison", "maisons", true),
+    ("école", "écoles", true),
+    ("gare", "gares", true),
+    ("plage", "plages", true),
+    ("bibliothèque", "bibliothèques", true),
+    ("université", "universités", true),
+    ("piscine", "piscines", true),
+    ("banque", "banques", true),
+    ("jardin", "jardins", false),
+    ("hôpital", "hôpitaux", false),
+    ("bureau", "bureaux", false),
+    ("musée", "musées", false),
+    ("église", "églises", true),
+    ("page", "pages", true),
+    ("section", "sections", true),
+    ("étape", "étapes", true),
+];
+
+fn destination_noun(s: &str) -> Option<(&'static str, &'static str, bool, bool)> {
+    noun_in(s, DESTINATION_NOUNS)
 }
 const ADJECTIVES: &[[&str; 4]] = &[
     ["nouveau", "nouvelle", "nouveaux", "nouvelles"],
@@ -917,41 +951,7 @@ fn preposition_accent(
         head = noun;
     }
     // Places and navigation targets only: no broad `a`/`à` correction or inferred noun gender.
-    if !matches!(
-        head.lower.as_str(),
-        "maison"
-            | "maisons"
-            | "école"
-            | "écoles"
-            | "gare"
-            | "gares"
-            | "plage"
-            | "plages"
-            | "bibliothèque"
-            | "bibliothèques"
-            | "université"
-            | "universités"
-            | "piscine"
-            | "piscines"
-            | "banque"
-            | "banques"
-            | "jardin"
-            | "jardins"
-            | "hôpital"
-            | "hôpitaux"
-            | "bureau"
-            | "bureaux"
-            | "musée"
-            | "musées"
-            | "église"
-            | "églises"
-            | "page"
-            | "pages"
-            | "section"
-            | "sections"
-            | "étape"
-            | "étapes"
-    ) {
+    if destination_noun(&head.lower).is_none() {
         return;
     }
     emit(
@@ -962,6 +962,87 @@ fn preposition_accent(
         Span::new(a.start, a.end),
         "à",
         "La destination après aller est introduite ici par à.",
+    );
+}
+
+fn preposition_contraction(
+    out: &mut BTreeMap<String, Vec<Lint>>,
+    enabled: &[&str],
+    chars: &[char],
+    ws: &[Word],
+    i: usize,
+) {
+    if !enabled.contains(&"FrenchPrepositionContraction") {
+        return;
+    }
+    let prep = &ws[i];
+    let is_a = match prep.lower.as_str() {
+        "à" => true,
+        "de" => false,
+        "a" if i
+            .checked_sub(1)
+            .is_some_and(|p| adjacent(chars, &ws[p], prep) && motion_form(chars, ws, p)) =>
+        {
+            true
+        }
+        _ => return,
+    };
+    let Some(det) = ws.get(i + 1).filter(|d| adjacent(chars, prep, d)) else {
+        return;
+    };
+    if !matches!(det.lower.as_str(), "le" | "les") {
+        return;
+    }
+    let Some(next) = ws.get(i + 2).filter(|n| adjacent(chars, det, n)) else {
+        return;
+    };
+    let mut n = i + 2;
+    let adj = adjective(&next.lower);
+    if adj.is_some() {
+        if !ws.get(n + 1).is_some_and(|h| adjacent(chars, next, h)) {
+            return;
+        }
+        n += 1;
+    }
+    let head = &ws[n];
+    let Some((_, _, fem, plural)) = noun(&head.lower).or_else(|| destination_noun(&head.lower))
+    else {
+        return;
+    };
+    // Capitalized articles/nouns may belong to titles. Apostrophe fragments are
+    // neither ordinary prepositions nor definite noun phrases.
+    if ws[i..=n].iter().any(|w| {
+        !w.plain
+            || (w.start != prep.start && chars[w.start].is_uppercase())
+            || w.start
+                .checked_sub(1)
+                .is_some_and(|p| matches!(chars[p], '\'' | '’'))
+            || chars.get(w.end).is_some_and(|c| matches!(c, '\'' | '’'))
+    }) {
+        return;
+    }
+    // Leave article/elision and adjective errors to their existing diagnostics:
+    // contracting their spans would otherwise offer competing edits.
+    if (det.lower == "les") != plural
+        || (det.lower == "le" && (fem || vowel(&next.lower)))
+        || adj.is_some_and(|row| next.lower != row[usize::from(fem) + 2 * usize::from(plural)])
+    {
+        return;
+    }
+    let replacement = match (is_a, plural) {
+        (true, false) => "au",
+        (true, true) => "aux",
+        (false, false) => "du",
+        (false, true) => "des",
+    };
+    emit(
+        out,
+        enabled,
+        "FrenchPrepositionContraction",
+        chars,
+        Span::new(prep.start, det.end),
+        replacement,
+        "La préposition et l’article défini se contractent devant ce nom.",
     );
 }
 
@@ -978,6 +1059,7 @@ pub fn lints(
         }
         noun_agreement(&mut out, enabled, chars, &ws, i);
         preposition_accent(&mut out, enabled, chars, &ws, i);
+        preposition_contraction(&mut out, enabled, chars, &ws, i);
         if let Some(p) = person(&w.lower).filter(|_| clause_start(chars, &ws, i)) {
             let mut v = i + 1;
             while v < ws.len()
@@ -1584,6 +1666,178 @@ mod tests {
             "Il va a la maison_code.",
         ] {
             assert!(fixes("FrenchPrepositionAccent", text).is_empty(), "{text}");
+        }
+    }
+
+    #[test]
+    fn mandatory_contractions_replace_whole_character_spans() {
+        for (text, start, end, replacement) in [
+            ("Je vais à le bureau.", 8, 12, "au"),
+            ("Je vais à les bureaux.", 8, 13, "aux"),
+            ("Nous revenons de le bureau.", 14, 19, "du"),
+            ("Nous revenons de les bureaux.", 14, 20, "des"),
+            ("À le bureau, je travaille.", 0, 4, "Au"),
+            ("De les bureaux, on voit le jardin.", 0, 6, "Des"),
+            ("De le nouveau fichier.", 0, 5, "Du"),
+            ("à les nouvelles applications.", 0, 5, "aux"),
+            ("à le petit homme.", 0, 4, "au"),
+            ("de les grands hôpitaux.", 0, 6, "des"),
+            ("Il va a le bureau.", 6, 10, "au"),
+            ("Il va a les bureaux.", 6, 11, "aux"),
+            ("Nous allons a le jardin.", 12, 16, "au"),
+            ("Elles sont allées a les bureaux.", 18, 23, "aux"),
+            ("Je veux aller a le musée.", 14, 18, "au"),
+            ("En allant a les jardins.", 10, 15, "aux"),
+            ("Il va A le bureau.", 6, 10, "Au"),
+            ("Je vais a\u{300} le bureau.", 8, 13, "au"),
+            ("à les syste\u{300}mes.", 0, 5, "aux"),
+            ("🙂 À le bureau.", 2, 6, "Au"),
+            ("à\tles fichiers.", 0, 5, "aux"),
+        ] {
+            let chars: Vec<char> = text.chars().collect();
+            let actual: Vec<_> = lints(&Speller, &chars, &["FrenchPrepositionContraction"])
+                .into_values()
+                .flatten()
+                .map(|lint| {
+                    let Suggestion::ReplaceWith(fix) = &lint.suggestions[0] else {
+                        panic!("replacement required")
+                    };
+                    (lint.span, fix.iter().collect::<String>())
+                })
+                .collect();
+            assert_eq!(
+                actual,
+                vec![(Span::new(start, end), replacement.to_string())],
+                "{text}"
+            );
+        }
+    }
+
+    #[test]
+    fn contractions_preserve_clitics_titles_fragments_and_motion_homographs() {
+        for text in [
+            "Je vais au bureau.",
+            "Nous revenons du bureau.",
+            "Je vais aux bureaux.",
+            "Nous revenons des bureaux.",
+            "Il essaie de le faire.",
+            "Je commence à le lire.",
+            "Il promet de les lire.",
+            "Je pense à les faire.",
+            "Il vient de Le Monde.",
+            "Il vient de Le Bureau.",
+            "Il pense à Les Fichiers.",
+            "Il revient de le Bureau.",
+            "Il va à le Nouveau bureau.",
+            "« Je vais à le bureau » est un exemple.",
+            "\"Nous revenons de le bureau.\"",
+            "`Je vais a le bureau`",
+            "Je vais « à le bureau ».",
+            "Je vais à_le bureau.",
+            "Je vais à le_bureau.",
+            "Je vais à le bureau_code.",
+            "Je vais à le bureau2.",
+            "Je vais à le bureau-code.",
+            "Je vais à le'bureau.",
+            "Je vais à'le bureau.",
+            "Je vais à le bureau'.",
+            "Je vais 'à le bureau.",
+            "Il vient d'e le bureau.",
+            "Je vais à le.",
+            "Je vais à les nouveaux.",
+            "Je vais à le château.",
+            "Nous revenons de les inconnus.",
+            "Je vais à le, bureau.",
+            "Je vais à les\n\nbureaux.",
+            "Elle a le bureau.",
+            "Elle a les fichiers.",
+            "Elle pense a le bureau.",
+            "Son aller a le mérite d’être court.",
+            "Cette allée a le charme d’un jardin.",
+            "Cet allant a les qualités requises.",
+            "Le laisser-aller a le dernier mot.",
+            "Il va, a-t-il dit, le long du jardin.",
+            "Il_va a le bureau.",
+            "Il va_a le bureau.",
+            "Il va a_le bureau.",
+            "Je vais à le maison.",
+            "Je vais à le hôpital.",
+            "Nous revenons de les fichier.",
+            "Nous revenons de le fichiers.",
+            "Je vais à le nouvelle bureau.",
+            "Je vais à les grand bureaux.",
+        ] {
+            assert!(
+                fixes("FrenchPrepositionContraction", text).is_empty(),
+                "{text}"
+            );
+        }
+    }
+
+    #[test]
+    fn contraction_candidates_leave_competing_agreement_edits_intact() {
+        for (text, rule, source, replacement) in [
+            (
+                "Nous revenons de les fichier.",
+                "FrenchArticleAgreement",
+                "fichier",
+                "fichiers",
+            ),
+            (
+                "Il parle de le application.",
+                "FrenchArticleAgreement",
+                "le ",
+                "l’",
+            ),
+            (
+                "Il parle de le ancien fichier.",
+                "FrenchArticleAgreement",
+                "le ",
+                "l’",
+            ),
+            (
+                "Il parle de le nouvelle fichier.",
+                "FrenchAdjectiveAgreement",
+                "nouvelle",
+                "nouveau",
+            ),
+        ] {
+            let chars: Vec<char> = text.chars().collect();
+            let source_chars = &chars;
+            let actual: Vec<_> = lints(
+                &Speller,
+                &chars,
+                &[
+                    "FrenchPrepositionContraction",
+                    "FrenchArticleAgreement",
+                    "FrenchAdjectiveAgreement",
+                ],
+            )
+            .into_iter()
+            .flat_map(|(rule, lints)| {
+                lints.into_iter().map(move |lint| {
+                    let Suggestion::ReplaceWith(fix) = &lint.suggestions[0] else {
+                        panic!("replacement required")
+                    };
+                    (
+                        rule.clone(),
+                        source_chars[lint.span.start..lint.span.end]
+                            .iter()
+                            .collect::<String>(),
+                        fix.iter().collect::<String>(),
+                    )
+                })
+            })
+            .collect();
+            assert_eq!(
+                actual,
+                vec![(
+                    rule.to_string(),
+                    source.to_string(),
+                    replacement.to_string()
+                )],
+                "{text}"
+            );
         }
     }
 }

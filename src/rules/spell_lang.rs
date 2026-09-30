@@ -294,7 +294,7 @@ pub fn refresh_dictionaries() {
 
 /// Spellers by language, configured path and content hash of its files. Replaced spellers
 /// stay in the map, so the address of a live speller (a cache key elsewhere) is never reused.
-type Registry = HashMap<(String, Option<PathBuf>, u64), Option<Arc<dyn LangSpeller>>>;
+type Registry = HashMap<String, HashMap<(Option<PathBuf>, u64), Option<Arc<dyn LangSpeller>>>>;
 
 /// The speller for language `code` under `config`, built once per process and dictionary
 /// contents; `None` when the language has no dictionary in this build or config. English has
@@ -306,12 +306,12 @@ pub fn speller(code: &str, config: &Config) -> Option<Arc<dyn LangSpeller>> {
     }
     let path = configured_path(code, config);
     let hash = path.as_deref().map_or(0, dictionary_hash);
-    let key = (code.to_string(), path.clone(), hash);
+    let key = (path, hash);
     let mut reg = REGISTRY.lock().unwrap_or_else(PoisonError::into_inner);
-    if let Some(s) = reg.get(&key) {
+    if let Some(s) = reg.get(code).and_then(|variants| variants.get(&key)) {
         return s.clone();
     }
-    let built: Result<Option<Arc<dyn LangSpeller>>, String> = match (code, &path) {
+    let built: Result<Option<Arc<dyn LangSpeller>>, String> = match (code, &key.0) {
         ("fi", Some(p)) => crate::voikko::from_path_cached(p, hash)
             .map(|v| Some(Arc::new(Finnish(v)) as Arc<dyn LangSpeller>)),
         ("fi", None) => Ok(finnish_embedded()),
@@ -335,7 +335,9 @@ pub fn speller(code: &str, config: &Config) -> Option<Arc<dyn LangSpeller>> {
         eprintln!("explicit: languages.{code}: {e}");
         None
     });
-    reg.insert(key, s.clone());
+    reg.entry(code.to_owned())
+        .or_default()
+        .insert(key, s.clone());
     s
 }
 
