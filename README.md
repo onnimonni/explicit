@@ -657,9 +657,9 @@ scripts/update-harper-words.sh   # regenerate dictionaries/harper after bumping 
 
 ### Multilingual benchmark
 
-Run `bash autoresearch.sh` through the existing devenv environment. The script builds a
-release benchmark offline, then executes the real discovery, extraction and checking pipeline
-with the default features plus `voikko`. Build time is excluded from measurements.
+Run `bash autoresearch.sh` through the existing devenv environment. It builds both release
+benchmarks offline, then executes the real discovery, extraction and checking pipeline
+with the default features plus `voikko`. Build time and public-source downloads are excluded.
 
 `eval/multilingual/*.json` contains fixed public error/clean pairs for German, French,
 Spanish and Portuguese, with English, Finnish and Swedish controls. Each pair runs as
@@ -667,16 +667,37 @@ a language-tagged Markdown document, a Rust comment with a language override, a 
 region in English Markdown and a gettext translation. These are development fixtures,
 not unseen holdouts; they do not replace the existing language evaluations.
 
-The primary `detection_score` is a 0–100 language-macro score: 90% spelling/grammar F1
+The original `detection_score` remains a 0–100 language-macro score: 90% spelling/grammar F1
 and 10% slop F1. Diagnostics must overlap the planted byte span and match its category.
 Each label earns at most one true positive; duplicate, wrong-category and clean-text
-findings count as false positives. Unsupported languages score zero. Per-language
-quality, precision and recall expose regressions in the existing languages.
+findings count as false positives. Unsupported languages score zero.
 
-Secondary metrics include cold pipeline milliseconds, median milliseconds over five
-uncached warm runs, source MiB/s and process peak RSS in MiB (macOS/Linux). The workload
-and diagnostic signatures are checked on every run. Results and link caches are disabled;
-no network, configured external dictionaries, git/gh lookup or holdout data is used.
+`eval/public/annotations.json` records immutable source URLs, hashes and independently reviewed
+target spans from 47 randomly sampled GitHub READMEs. It contains 19 actual errors and 204
+correct-text traps, including names, identifiers and language boundaries. The original and
+corrected documents run in separate workspaces; corrections must not trigger a new finding.
+Only annotated spans and their rule families are scored. Findings elsewhere are unjudged,
+not presumed false positives, so this is not a whole-corpus precision or recall estimate.
+Optional style findings and intentional American-dialect normalization are excluded.
+
+The public language-macro score uses the same 90% error / 10% slop weighting. A clean-only
+language/category scores one when there are no findings, and zero when it has false positives.
+The primary `generalization_score` averages the original and public scores equally. Both
+component scores and per-language counts remain visible; existing-language regressions are
+checked against the original controls. These public annotations are development data,
+not unseen validation.
+
+Secondary metrics include original-workload cold milliseconds, median milliseconds over five
+uncached warm runs, source MiB/s and process peak RSS in MiB (macOS/Linux), plus public-workload
+time and RSS. The original workload and diagnostic signatures are checked on every run.
+Results and link caches, configured external dictionaries and git/gh lookups are disabled.
+No holdout sources or scores are read by rule authors.
+
+`scripts/prepare-public-benchmark.sh` requires `jq`, `curl` and `shasum`. It downloads pinned
+README bytes into a temporary-directory corpus cache outside the repository, verifies every
+SHA-256 hash on each invocation, and never executes their contents. The Rust runner verifies
+hashes again. Only provenance and annotations are committed; third-party README contents are
+not redistributed. Network access is limited to preparation, never timed checking.
 Timing and RSS vary with the machine and system load; compare on the same idle machine.
 
 The comment rules in `src/rules/slop/comments.rs` are ported from aislop (MIT); see [NOTICE](NOTICE).
