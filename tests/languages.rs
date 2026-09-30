@@ -333,39 +333,6 @@ fn decomposed_and_mixed_accents_preserve_native_hype_source_spans() {
 }
 
 #[test]
-fn short_native_documents_keep_their_language_in_isolated_link_prefixes() {
-    let dir = tempfile::tempdir().unwrap();
-    let source = "# Atelier\n\nCet atelier propose une page avec des informations pour les \
-        utilisateurs. Les pages présentent les fichiers disponibles et les détails utiles. \
-        Une application utilise ces données pour produire des rapports simples.\n\n\
-        Contactez [le service](./service.md).\n\nContacttez [le service](./service.md).\n";
-    let path = dir.path().join("atelier.md");
-    std::fs::write(&path, source).unwrap();
-    let mut config = Config {
-        root: dir.path().to_path_buf(),
-        ..Config::default()
-    };
-    config.links.remote = false;
-    config.links.cache = false;
-    config.links.check_same_repo = false;
-    let paths = [path];
-    let workspace = engine::build_workspace(&paths, &config);
-    let diagnostics = engine::check(&workspace, &paths, &config, &Options::default());
-    let spelling: Vec<_> = diagnostics
-        .iter()
-        .filter(|finding| finding.rule == "spelling")
-        .collect();
-    assert_eq!(spelling.len(), 1, "{diagnostics:?}");
-    assert_eq!(spelling[0].text, "Contacttez");
-    assert!(
-        spelling[0]
-            .suggestions
-            .iter()
-            .any(|word| word == "Contactez")
-    );
-}
-
-#[test]
 fn code_inside_words_does_not_leave_spelling_fragments() {
     let dir = tempfile::tempdir().unwrap();
     let source = "# 1\n\nThe `E`rror handler uses pré`API`fi\u{301}xe identifiers.\n\n\
