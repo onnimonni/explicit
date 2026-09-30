@@ -1,15 +1,26 @@
 //! Spelling for non-English prose: Finnish through Voikko, Swedish and bundled German,
 //! French, Spanish and Portuguese through Hunspell, and configured Hunspell dictionaries.
 
+use std::borrow::Cow;
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, LazyLock, Mutex, PoisonError};
 
 use spellbook::Dictionary;
+use unicode_normalization::char::is_combining_mark;
+use unicode_normalization::{IsNormalized, UnicodeNormalization, is_nfc_quick};
 
 use super::lint::{Lint, LintKind, Span};
 use super::words::Dialect;
 use crate::config::Config;
+
+fn nfc(word: &str) -> Cow<'_, str> {
+    if word.is_ascii() || is_nfc_quick(word.chars()) == IsNormalized::Yes {
+        Cow::Borrowed(word)
+    } else {
+        Cow::Owned(word.nfc().collect())
+    }
+}
 
 /// A spell checker for one language.
 pub trait LangSpeller: Send + Sync {
@@ -83,10 +94,10 @@ struct Finnish(&'static crate::voikko::Voikko);
 
 impl LangSpeller for Finnish {
     fn check(&self, word: &str) -> bool {
-        self.0.spell(word)
+        self.0.spell(&nfc(word))
     }
     fn suggest(&self, word: &str) -> Vec<String> {
-        self.0.suggest(word)
+        self.0.suggest(&nfc(word))
     }
     fn voikko(&self) -> Option<&'static crate::voikko::Voikko> {
         Some(self.0)
@@ -97,14 +108,14 @@ struct Hunspell(Dictionary);
 
 impl LangSpeller for Hunspell {
     fn check(&self, word: &str) -> bool {
-        self.0.check(word)
+        self.0.check(&nfc(word))
     }
     fn suggest(&self, word: &str) -> Vec<String> {
         let mut out = Vec::new();
         self.0
             .suggester()
             .with_ngram_suggestions(false)
-            .suggest(word, &mut out);
+            .suggest(&nfc(word), &mut out);
         // Compound fragments (`sjukvårdsystem-`) are no corrections.
         out.retain(|s| !s.starts_with('-') && !s.ends_with('-'));
         out
@@ -1082,6 +1093,7 @@ pub fn tokens(chars: &[char]) -> Vec<(usize, usize)> {
         let start = i;
         while i < n
             && (chars[i].is_alphanumeric()
+                || (i > start && is_combining_mark(chars[i]))
                 || (joiner(chars[i])
                     && i > start
                     && chars.get(i + 1).is_some_and(|c| c.is_alphanumeric())))

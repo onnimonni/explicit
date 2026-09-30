@@ -399,18 +399,22 @@ comes from, in order:
 
 1. front matter `lang:` or `language:` (a BCP 47 tag: `fi`, `fi-FI`, `sv-FI`, `en-GB`),
 2. a matching `[[overrides]]` entry's `language`, or `general.language`,
-3. detection (`general.detect_language`, on by default): prose of 80+ words with few English
-   stop words is Finnish or Swedish when it looks like it, else another language.
+3. detection (`general.detect_language`, on by default): prose of 80+ words with little English
+   evidence uses distinctive German, French, Spanish or Portuguese function words, then Nordic
+   evidence. Short or ambiguous passages need an explicit tag.
 
 German (`de`), French (`fr`), Spanish (`es`) and Portuguese (`pt`) have bundled Hunspell
-spelling and conservative native grammar in every build. Declare the language in front matter, a language override, or an
-explicit language marker; automatic detection currently recognizes Finnish and Swedish only.
+spelling and conservative native grammar in every build. Front matter, overrides and explicit
+language markers take precedence over detection.
 Portuguese accepts both European and Brazilian spelling through separate dictionaries with
 independent affix rules. Dictionaries load once per process, only when used.
-Grammar checks use closed lexical paradigms for agreement, auxiliaries and selected clause
+Dictionary lookups accept canonically decomposed accents without changing source offsets.
+Grammar checks use closed lexical paradigms for pronoun/noun agreement, auxiliaries and selected clause
 constructions; unknown words and ambiguous constructions are left unchecked. German noun
 capitalization does not turn recurring spelling errors into inferred project names. Agreement
 allows expletive `es` with a plural subject and both singular and plural/formal `sie`.
+`slop/phrase` also checks stacked promotional claims in these four languages, Finnish and
+Swedish. It flags empty promises, not evidence of AI authorship, and runs independently of spelling.
 
 **Finnish** (`fi`, `voikko` feature) and **Swedish** (`sv`, `swedish` feature, on by default) files get
 spelling in their language with suggestions, plus a few rules where the orthography leaves no
@@ -462,21 +466,18 @@ compound flags allow, or is an English, developer or configured term, and whose 
 (`kalendervy`, `meddelandekö`, `pullförfrågan`; not `sårbar|eter` or `lösenordbyte`), weekday abbreviations, and quoted passages of three or more words
 (verbatim, often colloquial speech).
 
-With detection on, stretches in another language are checked with their own dictionary:
-English sentences, table cells and English clauses between commas in a Finnish or Swedish file
-get the English rules (in the configured `prose.dialect`, as do English words inside Finnish or
-Swedish sentences), a Swedish
-paragraph in a Finnish file (or the reverse) the Swedish speller, and Finnish or Swedish phrases,
-cells and quotes in an English file the Finnish or Swedish speller instead of being skipped.
-Files in other languages (and builds without the language's feature or dictionary) keep only
-the language-independent rules.
+With detection on, confident stretches of another supported language use their own dictionary
+and native rules; English stretches get English rules in the configured `prose.dialect`.
+Nordic crossover retains its short-phrase handling, while Nordic text inside other languages
+needs longer evidence. Builds without a language's dictionary skip its spelling and grammar;
+language-independent rules and supported promotional-claim checks still run.
 
 A one- or two-word table cell unknown to English (`Valmis`, `Kesken`) takes the language of the
 Finnish or Swedish cells in its column or row (checked with that speller, or skipped in builds
 without it); near-misses of English words (`recieved`) stay English. Mark mixed passages
-explicitly when detection is not enough (a lone Finnish word, a quote that looks English). A marked region is checked in its language whatever detection says, with
-the English rules (`en`), the Finnish or Swedish speller (`fi`, `sv`), or only the
-language-independent rules (any other tag); detection of the rest of the file ignores it.
+explicitly when detection is not enough (a lone word or a quote that looks English). A marked
+region uses its declared language's available rules regardless of detection; detection of the
+rest of the file ignores it.
 
 ```markdown
 The button reads <span lang="fi">Tallenna</span>.

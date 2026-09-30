@@ -19,6 +19,10 @@ pub const RULES: &[(&str, &str)] = &[
         "Spanish: an explicit subject pronoun agrees with a finite verb",
     ),
     (
+        "SpanishNounVerbAgreement",
+        "Spanish: a clear known noun subject agrees with a finite verb",
+    ),
+    (
         "SpanishAuxiliaryParticiple",
         "Spanish: haber takes an invariant masculine singular participle",
     ),
@@ -236,6 +240,31 @@ fn noun(word: &str) -> Option<usize> {
     })
 }
 
+fn noun_verb_homograph(word: &str) -> bool {
+    matches!(
+        word,
+        "archivo"
+            | "documento"
+            | "informe"
+            | "informes"
+            | "registro"
+            | "cambio"
+            | "programa"
+            | "programas"
+            | "cuenta"
+            | "cuentas"
+            | "casa"
+            | "casas"
+            | "tarea"
+            | "tareas"
+            | "proceso"
+            | "libro"
+            | "contrato"
+            | "equipo"
+            | "dato"
+    )
+}
+
 fn noun_phrases(
     chars: &[char],
     ws: &[Word],
@@ -265,32 +294,10 @@ fn noun_phrases(
         let Some(kind) = noun(&ws[n].lower) else {
             continue;
         };
-        // la/los/las can be object clitics before a finite verb: «la archivo»,
-        // «los registro». These forms are noun/verb ambiguous.
+        // `la/los/las` can be object clitics before a finite verb.
         if pre.is_none()
             && matches!(ws[i].lower.as_str(), "la" | "los" | "las")
-            && matches!(
-                ws[n].lower.as_str(),
-                "archivo"
-                    | "documento"
-                    | "informe"
-                    | "informes"
-                    | "registro"
-                    | "cambio"
-                    | "programa"
-                    | "programas"
-                    | "cuenta"
-                    | "cuentas"
-                    | "casa"
-                    | "casas"
-                    | "tarea"
-                    | "tareas"
-                    | "proceso"
-                    | "libro"
-                    | "contrato"
-                    | "equipo"
-                    | "dato"
-            )
+            && noun_verb_homograph(&ws[n].lower)
             && !(i > 0
                 && adjacent(chars, &ws[i - 1], &ws[i])
                 && matches!(
@@ -620,6 +627,158 @@ fn pronoun_verbs(
     }
 }
 
+fn noun_verbs(
+    chars: &[char],
+    ws: &[Word],
+    enabled: &[&str],
+    out: &mut BTreeMap<String, Vec<Lint>>,
+) {
+    for i in 0..ws.len().saturating_sub(2) {
+        if !clause_start(chars, ws, i)
+            || chars[..ws[i].start]
+                .iter()
+                .rev()
+                .find(|c| !c.is_whitespace())
+                == Some(&',')
+            || matches!(
+                chars.get(ws[i].start.wrapping_sub(1)),
+                Some('.' | '!' | '?' | ';' | ':')
+            )
+            || !adjacent(chars, &ws[i], &ws[i + 1])
+        {
+            continue;
+        }
+        let Some(det) = DETERMINERS
+            .iter()
+            .find(|forms| forms.contains(&ws[i].lower.as_str()))
+        else {
+            continue;
+        };
+        let mut n = i + 1;
+        let pre = ADJECTIVES
+            .iter()
+            .find(|forms| forms.contains(&ws[n].lower.as_str()));
+        if pre.is_some() {
+            n += 1;
+            if n >= ws.len() || !adjacent(chars, &ws[n - 1], &ws[n]) {
+                continue;
+            }
+        }
+        let Some(kind) = noun(&ws[n].lower) else {
+            continue;
+        };
+        if ws[i].lower != det[kind]
+            || pre.is_some_and(|forms| ws[n - 1].lower != forms[kind])
+            || matches!(ws[n].lower.as_str(), "equipo" | "equipos")
+            || (pre.is_none()
+                && matches!(ws[i].lower.as_str(), "la" | "los" | "las")
+                && noun_verb_homograph(&ws[n].lower))
+        {
+            continue;
+        }
+        let mut v = n + 1;
+        if v < ws.len()
+            && adjacent(chars, &ws[n], &ws[v])
+            && ADJECTIVES.iter().any(|forms| ws[v].lower == forms[kind])
+        {
+            v += 1;
+        }
+        if v < ws.len() && matches!(ws[v].lower.as_str(), "no" | "ya" | "siempre") {
+            if !adjacent(chars, &ws[v - 1], &ws[v]) {
+                continue;
+            }
+            v += 1;
+        }
+        if v >= ws.len()
+            || !adjacent(chars, &ws[v - 1], &ws[v])
+            || matches!(chars.get(ws[v].end), Some('-' | '\'' | '’'))
+        {
+            continue;
+        }
+        // Object fronting permits a following subject, including a bare noun
+        // or a name. Leave the whole ambiguous clause untouched.
+        let copular = VERBS.iter().take(2).any(|(indicative, subjunctive)| {
+            indicative.contains(&ws[v].lower.as_str())
+                || subjunctive.contains(&ws[v].lower.as_str())
+        }) || PAST
+            .iter()
+            .take(3)
+            .any(|forms| forms.contains(&ws[v].lower.as_str()));
+        let mut following_subject = false;
+        for t in v + 1..ws.len() {
+            if !ws[t].plain
+                && chars[ws[t - 1].end..ws[t].start]
+                    .iter()
+                    .all(|c| c.is_whitespace())
+            {
+                following_subject = true;
+                break;
+            }
+            if !adjacent(chars, &ws[t - 1], &ws[t]) {
+                break;
+            }
+            let word = ws[t].lower.as_str();
+            if noun(word).is_some()
+                || person(word).is_some()
+                || word == "vos"
+                || DETERMINERS.iter().any(|forms| forms.contains(&word))
+                || chars[ws[t].start].is_uppercase()
+                || (!copular
+                    && !ADJECTIVES.iter().any(|forms| forms.contains(&word))
+                    && !matches!(
+                        word,
+                        "no" | "ya"
+                            | "siempre"
+                            | "aquí"
+                            | "allí"
+                            | "hoy"
+                            | "ayer"
+                            | "mañana"
+                            | "todavía"
+                            | "bien"
+                            | "mal"
+                            | "correctamente"
+                    ))
+            {
+                following_subject = true;
+                break;
+            }
+        }
+        if following_subject {
+            continue;
+        }
+        let p = if kind < 2 { 2 } else { 5 };
+        let mut fix = None;
+        let mut ambiguous = false;
+        for forms in VERBS
+            .iter()
+            .flat_map(|(indicative, subjunctive)| [indicative, subjunctive])
+            .chain(PAST.iter())
+        {
+            // First/second-person verbs can instead have an omitted subject
+            // after a fronted object. Only compare the two third-person forms.
+            if ws[v].lower == forms[2] || ws[v].lower == forms[5] {
+                if fix.is_some_and(|previous| previous != forms[p]) {
+                    ambiguous = true;
+                    break;
+                }
+                fix = Some(forms[p]);
+            }
+        }
+        if !ambiguous && let Some(fix) = fix {
+            add(
+                out,
+                enabled,
+                "SpanishNounVerbAgreement",
+                chars,
+                &ws[v],
+                fix,
+                "The finite verb must agree with the explicit noun subject.",
+            );
+        }
+    }
+}
+
 const PARTICIPLES: &[[&str; 4]] = &[
     ["enviado", "enviada", "enviados", "enviadas"],
     ["guardado", "guardada", "guardados", "guardadas"],
@@ -782,6 +941,9 @@ pub fn lints(
     if enabled.contains(&"SpanishPronounVerbAgreement") {
         pronoun_verbs(chars, &ws, enabled, &mut out);
     }
+    if enabled.contains(&"SpanishNounVerbAgreement") {
+        noun_verbs(chars, &ws, enabled, &mut out);
+    }
     if enabled.contains(&"SpanishAuxiliaryParticiple")
         || enabled.contains(&"SpanishExistentialHaber")
     {
@@ -818,6 +980,83 @@ mod tests {
         for text in examples {
             assert!(fixes(rule, text).is_empty(), "{rule}: {text}");
         }
+    }
+
+    #[test]
+    fn known_noun_subject_number_and_character_spans() {
+        let rule = "SpanishNounVerbAgreement";
+        let sp = crate::rules::spell_lang::speller("es", &crate::config::Config::default())
+            .expect("bundled Spanish");
+        for (text, start, end, replacement) in [
+            ("Los sistemas está disponibles.", 13, 17, "están"),
+            ("El sistema están disponible.", 11, 16, "está"),
+            ("Un documento son suficiente.", 13, 16, "es"),
+            ("Unos documentos es suficientes.", 16, 18, "son"),
+            ("Espero que las páginas sea accesibles.", 23, 26, "sean"),
+            ("La versión estaban disponible.", 11, 18, "estaba"),
+            ("Las nuevas imágenes no está disponibles.", 23, 27, "están"),
+            ("Una página importante eran suficiente.", 22, 26, "era"),
+            ("Los sistemas funciona correctamente.", 13, 21, "funcionan"),
+            (
+                "Es posible que el sistema existan todavía.",
+                26,
+                33,
+                "exista",
+            ),
+        ] {
+            let chars: Vec<char> = text.chars().collect();
+            let found: Vec<_> = lints(&*sp, &chars, &[rule])
+                .into_values()
+                .flatten()
+                .map(|lint| {
+                    let Suggestion::ReplaceWith(fix) = &lint.suggestions[0] else {
+                        panic!("replacement")
+                    };
+                    (
+                        lint.span.start,
+                        lint.span.end,
+                        fix.iter().collect::<String>(),
+                    )
+                })
+                .collect();
+            assert_eq!(found, [(start, end, replacement.to_owned())], "{text}");
+        }
+    }
+
+    #[test]
+    fn noun_subject_ambiguities_remain_untouched() {
+        quiet(
+            "SpanishNounVerbAgreement",
+            &[
+                "Es posible que los sistemas estén disponibles.",
+                "Quizá una página sea suficiente.",
+                "Están disponibles las páginas?",
+                "El archivo y la carpeta están disponibles.",
+                "El archivo, la carpeta están disponibles.",
+                "La mayoría de los sistemas están disponibles.",
+                "El equipo están muy unidos.",
+                "En los sistemas está disponible.",
+                "Para las páginas es suficiente.",
+                "El documento guardan los usuarios.",
+                "Un documento guardan ellos.",
+                "Un documento guardan María y Juan.",
+                "Un documento guardan usuarios.",
+                "Un documento guardan McDonald y Juan.",
+                "Un documento contiene imágenes.",
+                "Los documentos guardamos aquí.",
+                "Las páginas tienes aquí.",
+                "Los archivo siempre.",
+                "La cuenta siempre.",
+                "No las informes todavía.",
+                "Es necesario que las funciones estén documentadas.",
+                "Una artista está disponible.",
+                "Vos tenés permiso.",
+                "«Los sistemas está disponibles» es una cita.",
+                "`La versión estaban disponible` es código.",
+                "Los sistemas_está disponibles.",
+                "foo.el sistema están disponible.",
+            ],
+        );
     }
 
     #[test]

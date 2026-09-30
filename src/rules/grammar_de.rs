@@ -10,6 +10,10 @@ pub const RULES: &[(&str, &str)] = &[
         "German: a personal subject pronoun agrees with its finite verb",
     ),
     (
+        "GermanNounVerbAgreement",
+        "German: clear known noun subjects agree with their finite verbs",
+    ),
+    (
         "GermanArticleAgreement",
         "German: articles agree with known nouns and unambiguous prepositional case",
     ),
@@ -285,6 +289,127 @@ fn noun(s: &str) -> Option<usize> {
     })
 }
 
+fn noun_clause_start(chars: &[char], ws: &[Word], i: usize) -> bool {
+    clause_start(chars, ws, i)
+        && (i == 0
+            || !chars[ws[i - 1].end..ws[i].start].contains(&',')
+            || matches!(
+                ws[i - 1].lower.as_str(),
+                "dass"
+                    | "weil"
+                    | "ob"
+                    | "wenn"
+                    | "obwohl"
+                    | "damit"
+                    | "bevor"
+                    | "nachdem"
+                    | "während"
+            ))
+}
+
+fn later_subject(chars: &[char], ws: &[Word], verb: usize) -> bool {
+    for j in verb + 1..ws.len() {
+        if !adjacent(chars, &ws[j - 1], &ws[j]) {
+            break;
+        }
+        // Feminine, neuter and plural nominatives can also be fronted objects.
+        // Unknown capitalized nouns and names can be the inverted subject too.
+        if person(&ws[j].lower).is_some()
+            || chars[ws[j].start].is_uppercase()
+            || matches!(
+                ws[j].lower.as_str(),
+                "jemand"
+                    | "niemand"
+                    | "jeder"
+                    | "jede"
+                    | "jedes"
+                    | "alle"
+                    | "beide"
+                    | "einige"
+                    | "mehrere"
+                    | "viele"
+                    | "wenige"
+                    | "etwas"
+                    | "nichts"
+                    | "dieser"
+                    | "diese"
+                    | "dieses"
+            )
+        {
+            return true;
+        }
+    }
+    false
+}
+
+fn noun_agreement(
+    out: &mut BTreeMap<String, Vec<Lint>>,
+    enabled: &[&str],
+    chars: &[char],
+    ws: &[Word],
+    i: usize,
+) {
+    if !enabled.contains(&"GermanNounVerbAgreement") || !noun_clause_start(chars, ws, i) {
+        return;
+    }
+    let w = &ws[i];
+    let (head, plural) = if let Some(n) = ws.get(i + 1).filter(|n| adjacent(chars, w, n)) {
+        let explicit = NOUNS.iter().find_map(|&(singular, plural, gender)| {
+            if n.lower == singular
+                && (w.lower == ["der", "die", "das"][gender]
+                    || w.lower == ["ein", "eine", "ein"][gender])
+            {
+                Some(false)
+            } else if n.lower == plural && w.lower == "die" {
+                Some(true)
+            } else {
+                None
+            }
+        });
+        if let Some(plural) = explicit {
+            (i + 1, plural)
+        } else if NOUNS.iter().any(|&(_, plural, _)| w.lower == plural) {
+            // German indefinite plural subjects do not need an article.
+            (i, true)
+        } else {
+            return;
+        }
+    } else {
+        return;
+    };
+    if !chars[ws[head].start].is_uppercase() {
+        return;
+    }
+    let Some(verb) = ws.get(head + 1).filter(|v| adjacent(chars, &ws[head], v)) else {
+        return;
+    };
+    if chars[verb.start].is_uppercase() || later_subject(chars, ws, head + 1) {
+        return;
+    }
+    let Some(row) = VERBS.iter().find(|r| r.contains(&verb.lower.as_str())) else {
+        return;
+    };
+    let p = if plural { 5 } else { 2 };
+    // Present third-person subjunctive I shares the first-person indicative form.
+    let subjunctive = !plural
+        && row[0] == verb.lower
+        && !matches!(
+            row[0],
+            "bin" | "war" | "hatte" | "wurde" | "kann" | "muss" | "darf" | "soll" | "will" | "weiß"
+        );
+    if row[p] != verb.lower && !subjunctive {
+        emit(
+            out,
+            enabled,
+            "GermanNounVerbAgreement",
+            chars,
+            Span::new(verb.start, verb.end),
+            row[p],
+            "Das finite Verb muss mit dem Subjekt übereinstimmen.",
+        );
+    }
+}
+
 const PARTICIPLES: &[(&str, &str)] = &[
     ("machen", "gemacht"),
     ("arbeiten", "gearbeitet"),
@@ -325,6 +450,7 @@ pub fn lints(
         if !w.plain {
             continue;
         }
+        noun_agreement(&mut out, enabled, chars, &ws, i);
         let Some(next) = ws.get(i + 1).filter(|n| adjacent(chars, w, n)) else {
             continue;
         };
@@ -566,6 +692,66 @@ mod tests {
             })
             .collect()
     }
+    #[test]
+    fn known_noun_subjects_preserve_tense_and_character_spans() {
+        for (text, start, end, replacement) in [
+            ("Die Änderung sind gültig.", 13, 17, "ist"),
+            ("Ein Gerät haben funktioniert.", 10, 15, "hat"),
+            ("Eine Verbindung waren aktiv.", 16, 21, "war"),
+            ("Die Kinder war müde.", 11, 14, "waren"),
+            ("Berichte wird geprüft.", 9, 13, "werden"),
+            ("Ich weiß, dass die Systeme ist bereit.", 27, 30, "sind"),
+        ] {
+            let chars: Vec<char> = text.chars().collect();
+            let actual: Vec<_> = lints(&Speller, &chars, &["GermanNounVerbAgreement"])
+                .into_values()
+                .flatten()
+                .map(|lint| {
+                    let Suggestion::ReplaceWith(fix) = &lint.suggestions[0] else {
+                        panic!("replacement required")
+                    };
+                    (lint.span, fix.iter().collect::<String>())
+                })
+                .collect();
+            assert_eq!(
+                actual,
+                vec![(Span::new(start, end), replacement.to_string())],
+                "{text}"
+            );
+        }
+    }
+
+    #[test]
+    fn noun_subjects_leave_case_inversion_and_coordination_untouched() {
+        for text in [
+            "Der Dienst ist verfügbar.",
+            "Eine Anwendung war bereit.",
+            "Die Geräte werden geprüft.",
+            "Dateien sind vorhanden.",
+            "Die Datei haben wir geöffnet.",
+            "Das Buch liest die Frau.",
+            "Die Seiten liest der Benutzer.",
+            "Die Fragen hat der Lehrer beantwortet.",
+            "Den Bericht haben die Kinder gelesen.",
+            "Der Datei sind Namen zugeordnet.",
+            "Mit der Datei ist alles in Ordnung.",
+            "Für die Datei sind mehrere Schritte nötig.",
+            "Die Datei und das Dokument sind bereit.",
+            "Der Bericht, die Nachricht sind fertig.",
+            "Ist die Datei bereit?",
+            "Heute sind die Geräte verfügbar.",
+            "Der Dienst komme morgen, sagte er.",
+            "Eine Anwendung habe Zugriff, heißt es.",
+            "Es sind Dateien vorhanden. Sie sind bereit.",
+            "Die Fenster sind offen.",
+            "„Die Datei sind bereit“ ist ein Beispiel.",
+            "`Die Geräte ist bereit`",
+            "Die_Datei sind verfügbar.",
+        ] {
+            assert!(fixes("GermanNounVerbAgreement", text).is_empty(), "{text}");
+        }
+    }
+
     #[test]
     fn pronouns_preserve_tense_and_subjunctive() {
         assert_eq!(

@@ -439,7 +439,8 @@ fn document_language_in(a: &Analyzed, config: &Config, marks: &[Region]) -> Stri
     if config.general.detect_language {
         let segments = unmarked_segments(a, marks);
         if looks_non_english(&segments, config) {
-            return crate::lang::document_nordic(&segments)
+            return crate::lang::document_hint(&segments)
+                .or_else(|| crate::lang::document_nordic(&segments))
                 .unwrap_or("und")
                 .to_string();
         }
@@ -784,9 +785,11 @@ pub fn local_findings(a: &Analyzed, config: &Config) -> Out {
                 check_stretches(&ctx, "en", &marked, &mut out);
             }
         } else if let Some(sp) = crate::rules::spell_lang::speller(&lang, config) {
-            // Finnish / Swedish prose: its own spelling; English-only rule families stay off
-            // except in English stretches. Other languages keep only user style rules.
+            // Native spelling and grammar; English-only rules stay inside English stretches.
             language_prose(&ctx, &lang, sp, &marked, &mut out);
+        } else if matches!(lang.as_str(), "de" | "fr" | "es" | "pt" | "fi" | "sv") {
+            let own = segments_minus(a, &marked);
+            crate::rules::slop::languages::check(&ctx, &lang, Some(&own), &mut out);
         }
         if !marks.is_empty() {
             marked_prose(&ctx, &lang, &marks, &mut out);
@@ -830,8 +833,8 @@ fn language_dependent(f: &crate::diagnostic::Finding) -> bool {
 }
 
 /// Marked regions of a file in language `doc_lang`: findings of the file's own checks inside
-/// them are replaced by checks in the region's language (English rules, a Finnish or Swedish
-/// speller, or nothing for languages without one). English regions of an English file were
+/// them are replaced by checks in the region's language (English rules, native prose
+/// checks where available, and language-independent rules). English regions of an English file were
 /// already checked as such.
 fn marked_prose(ctx: &FileCtx, doc_lang: &str, marks: &[Region], out: &mut Out) {
     let own = |l: &str| doc_lang == "en" && l == "en";
@@ -852,8 +855,11 @@ fn marked_prose(ctx: &FileCtx, doc_lang: &str, marks: &[Region], out: &mut Out) 
             english_prose(ctx, &mut en);
             en.retain(|f| ranges.iter().any(|r| r.contains(&f.range.start)));
             out.extend(en);
-        } else if let Some(sp) = crate::rules::spell_lang::speller(l, ctx.config) {
-            crate::rules::grammar::check_language(ctx, l, sp, None, Some(&ranges), out);
+        } else {
+            crate::rules::slop::languages::check(ctx, l, Some(&ranges), out);
+            if let Some(sp) = crate::rules::spell_lang::speller(l, ctx.config) {
+                crate::rules::grammar::check_language(ctx, l, sp, None, Some(&ranges), out);
+            }
         }
     }
 }
@@ -891,8 +897,8 @@ fn segments_minus(a: &Analyzed, exclude: &[std::ops::Range<usize>]) -> Vec<std::
 }
 
 /// Prose of a file in language `lang` (not English) with its speller `sp`: spelling in that
-/// language outside English stretches and stretches of another Nordic language (checked with
-/// their own spellers); English rules inside English stretches; language-neutral prose rules.
+/// language outside confidently detected stretches of other supported languages;
+/// English rules inside English stretches; language-neutral prose rules.
 fn language_prose(
     ctx: &FileCtx,
     lang: &str,
@@ -914,7 +920,7 @@ fn language_prose(
         Vec::new()
     };
     let others: Vec<_> = if detect {
-        crate::lang::other_nordic_ranges(&a.segments, lang)
+        crate::lang::other_language_ranges(&a.segments, lang)
             .into_iter()
             .filter(|(r, _)| !english.iter().any(|e| e.start <= r.start && r.end <= e.end))
             .filter(|(r, _)| unmarked(r))
@@ -933,6 +939,7 @@ fn language_prose(
         _ => None,
     };
     crate::rules::grammar::check_language(ctx, lang, sp.clone(), neighbour, Some(&own), out);
+    crate::rules::slop::languages::check(ctx, lang, Some(&own), out);
     if !english.is_empty() {
         let mut en = Vec::new();
         crate::rules::grammar::check(ctx, &mut en);
@@ -945,6 +952,7 @@ fn language_prose(
         by_lang.entry(l).or_default().push(r);
     }
     for (l, ranges) in by_lang {
+        crate::rules::slop::languages::check(ctx, l, Some(&ranges), out);
         if let Some(other) = crate::rules::spell_lang::speller(l, ctx.config) {
             let main = Some(sp.clone());
             crate::rules::grammar::check_language(ctx, l, other, main, Some(&ranges), out);
@@ -969,6 +977,7 @@ fn check_stretches(ctx: &FileCtx, lang: &str, skip: &[std::ops::Range<usize>], o
         }
     }
     for (l, ranges) in by_lang {
+        crate::rules::slop::languages::check(ctx, l, Some(&ranges), out);
         if let Some(sp) = crate::rules::spell_lang::speller(l, ctx.config) {
             crate::rules::grammar::check_language(ctx, l, sp, None, Some(&ranges), out);
         }
@@ -1419,10 +1428,10 @@ mod tests {
         let rs = "// Copies teh files.\n// explicit-lang sv\n// Filerna sparas i systemt.\n\
             fn a() {}\n// explicit-lang end\n// Back in Englsh.\nfn b() {}\n";
         let (_dir, c) = project(&[("en.md", en), ("sv.md", sv), ("a.rs", rs)], "");
-        // English outside, Swedish (`emot` is fine) inside, German skipped.
+        // English outside; Swedish and German spelling inside their explicit regions.
         assert_eq!(
             spelled(&c, "en.md"),
-            ["teh", "systemt", "systemt", "Englsh", "ende"]
+            ["teh", "systemt", "systemt", "Englsh", "Wrter", "ende"]
         );
         assert_eq!(spelled(&c, "sv.md"), ["systemt", "Englsh"]);
         assert_eq!(spelled(&c, "a.rs"), ["teh", "systemt", "Englsh"]);

@@ -10,6 +10,10 @@ pub const RULES: &[(&str, &str)] = &[
         "French: personal subject pronouns agree with finite verbs",
     ),
     (
+        "FrenchNounVerbAgreement",
+        "French: clear known noun subjects agree with their finite verbs",
+    ),
+    (
         "FrenchArticleAgreement",
         "French: determiners agree with known nouns in gender and number",
     ),
@@ -574,6 +578,144 @@ fn auxiliary_subject(chars: &[char], ws: &[Word], i: usize) -> bool {
     false
 }
 
+fn noun_verb_fix(s: &str, p: usize) -> Option<&'static str> {
+    let mut fix = None;
+    for row in VERBS
+        .iter()
+        .flat_map(|v| [&v.indicative, &v.subjunctive])
+        .chain(PAST.iter())
+    {
+        if !row.contains(&s) {
+            continue;
+        }
+        // A valid reading, or differing tense/mood readings, forbids a correction.
+        // For example, `allions` can be imperfect or present subjunctive.
+        if row[p] == s || fix.is_some_and(|previous| previous != row[p]) {
+            return None;
+        }
+        fix = Some(row[p]);
+    }
+    fix
+}
+
+fn noun_agreement(
+    out: &mut BTreeMap<String, Vec<Lint>>,
+    enabled: &[&str],
+    chars: &[char],
+    ws: &[Word],
+    i: usize,
+) {
+    if !enabled.contains(&"FrenchNounVerbAgreement")
+        || !clause_start(chars, ws, i)
+        || (i > 0 && chars[ws[i - 1].end..ws[i].start].contains(&','))
+    {
+        return;
+    }
+    let w = &ws[i];
+    if !matches!(
+        w.lower.as_str(),
+        "le" | "la" | "les" | "un" | "une" | "des" | "l"
+    ) {
+        return;
+    }
+    let Some(next) = ws.get(i + 1).filter(|n| adjacent(chars, w, n)) else {
+        return;
+    };
+    let mut n = i + 1;
+    if adjective(&next.lower).is_some()
+        && ws
+            .get(n + 1)
+            .is_some_and(|head| adjacent(chars, next, head) && noun(&head.lower).is_some())
+    {
+        n += 1;
+    }
+    let head = &ws[n];
+    let Some((_, _, fem, plural)) = noun(&head.lower) else {
+        return;
+    };
+    if !head.plain || chars[head.start].is_uppercase() {
+        return;
+    }
+    let determiner = match w.lower.as_str() {
+        "le" => !fem && !plural && !vowel(&next.lower),
+        "la" => fem && !plural && !vowel(&next.lower),
+        "les" | "des" => plural,
+        "un" => !fem && !plural,
+        "une" => fem && !plural,
+        "l" => {
+            !plural
+                && vowel(&next.lower)
+                && chars[w.end..next.start].len() == 1
+                && matches!(chars[w.end], '\'' | '’')
+        }
+        _ => false,
+    };
+    if !determiner {
+        return;
+    }
+    let mut v = n + 1;
+    while v < ws.len() && v <= n + 4 && adjacent(chars, &ws[v - 1], &ws[v]) && clitic(&ws[v].lower)
+    {
+        v += 1;
+    }
+    let Some(verb) = ws.get(v).filter(|verb| adjacent(chars, &ws[v - 1], verb)) else {
+        return;
+    };
+    if chars[verb.start].is_uppercase() {
+        return;
+    }
+    // Leave literary inversion and fronted objects alone when a later subject
+    // is plausible, including an unknown name or an articulated noun phrase.
+    for j in v + 1..ws.len() {
+        if !adjacent(chars, &ws[j - 1], &ws[j]) {
+            if chars[ws[j - 1].end..ws[j].start]
+                .iter()
+                .all(|c| c.is_whitespace())
+            {
+                // An unsplit apostrophe form may be an indefinite subject.
+                return;
+            }
+            break;
+        }
+        if person(&ws[j].lower).is_some()
+            || chars[ws[j].start].is_uppercase()
+            || ARTICLES
+                .iter()
+                .any(|row| row.contains(&ws[j].lower.as_str()))
+            || ws[j].lower == "l"
+            || matches!(
+                ws[j].lower.as_str(),
+                "ce" | "cela"
+                    | "ça"
+                    | "celui"
+                    | "celle"
+                    | "ceux"
+                    | "celles"
+                    | "personne"
+                    | "rien"
+                    | "tout"
+                    | "tous"
+                    | "toutes"
+                    | "aucun"
+                    | "aucune"
+            )
+        {
+            return;
+        }
+    }
+    if let Some(fix) = noun_verb_fix(&verb.lower, if plural { 5 } else { 2 }) {
+        emit(
+            out,
+            enabled,
+            "FrenchNounVerbAgreement",
+            chars,
+            Span::new(verb.start, verb.end),
+            fix,
+            "Le verbe s’accorde en nombre avec le nom sujet.",
+        );
+    }
+}
+
 fn agree_adjective(
     out: &mut BTreeMap<String, Vec<Lint>>,
     enabled: &[&str],
@@ -619,6 +761,7 @@ pub fn lints(
         if !w.plain {
             continue;
         }
+        noun_agreement(&mut out, enabled, chars, &ws, i);
         if let Some(p) = person(&w.lower).filter(|_| clause_start(chars, &ws, i)) {
             let mut v = i + 1;
             while v < ws.len()
@@ -933,6 +1076,89 @@ mod tests {
             })
             .collect()
     }
+    #[test]
+    fn known_noun_subjects_preserve_tense_mood_and_character_spans() {
+        for (text, start, end, replacement) in [
+            ("La réponse sont correcte.", 11, 15, "est"),
+            ("Un serveur ont répondu.", 11, 14, "a"),
+            ("Une personne étaient disponible.", 13, 20, "était"),
+            ("Des fichiers sera disponibles.", 13, 17, "seront"),
+            ("Les systèmes serait utiles.", 13, 19, "seraient"),
+            ("L’application n’ont pas répondu.", 16, 19, "a"),
+            ("Les personnes me parle.", 17, 22, "parlent"),
+            (
+                "Je souhaite que les femmes puisse venir.",
+                27,
+                33,
+                "puissent",
+            ),
+            ("Une nouvelle règle soient utile.", 19, 25, "soit"),
+        ] {
+            let chars: Vec<char> = text.chars().collect();
+            let actual: Vec<_> = lints(&Speller, &chars, &["FrenchNounVerbAgreement"])
+                .into_values()
+                .flatten()
+                .map(|lint| {
+                    let Suggestion::ReplaceWith(fix) = &lint.suggestions[0] else {
+                        panic!("replacement required")
+                    };
+                    (lint.span, fix.iter().collect::<String>())
+                })
+                .collect();
+            assert_eq!(
+                actual,
+                vec![(Span::new(start, end), replacement.to_string())],
+                "{text}"
+            );
+        }
+    }
+
+    #[test]
+    fn noun_subjects_leave_clitics_mood_and_inversion_untouched() {
+        for text in [
+            "Le serveur est disponible.",
+            "Des personnes sont arrivées.",
+            "Une réponse serait utile.",
+            "Les systèmes étaient prêts.",
+            "L’application n’a pas répondu.",
+            "Les femmes lui parlent.",
+            "Il faut que les personnes soient prêtes.",
+            "Je souhaite que la femme puisse venir.",
+            "La page et le fichier sont prêts.",
+            "La page, le fichier sont prêts.",
+            "La réponse est-elle correcte ?",
+            "Sont disponibles les documents demandés.",
+            "Les données utilise Marie.",
+            "Les données ne lit personne.",
+            "Les données utilise quelqu’un.",
+            "Dans le jardin sont arrivées des personnes.",
+            "Pour les fichiers sont nécessaires des clés.",
+            "Il les compte et je la commande.",
+            "Il les trie, les compte et les range.",
+            "Il l’adresse au service.",
+            "Elle leur commande une voiture.",
+            "Une enfant joue.",
+            "« La réponse sont correcte » est une erreur.",
+            "`Des fichiers est prêt`",
+            "La_réponse sont disponibles.",
+        ] {
+            assert!(fixes("FrenchNounVerbAgreement", text).is_empty(), "{text}");
+        }
+    }
+
+    #[test]
+    fn ambiguous_verb_readings_and_conflicting_articles_do_not_guess() {
+        // These errors have competing replacements or an inconsistent noun phrase.
+        for text in [
+            "Les personnes allions à la maison.",
+            "Les personnes alliez à la maison.",
+            "Une personne suis le chemin.",
+            "Les fichier sont disponibles.",
+        ] {
+            assert!(fixes("FrenchNounVerbAgreement", text).is_empty(), "{text}");
+        }
+    }
+
     #[test]
     fn personal_agreement_with_clitics_and_inversion() {
         assert_eq!(

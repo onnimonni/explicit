@@ -115,23 +115,33 @@ pub fn decisive_nordic(text: &str) -> Option<&'static str> {
     }
 }
 
-/// Stretches of a Finnish or Swedish file (`lang`) written in the other language: segments or
-/// phrases whose evidence clearly points to it. File offsets with the language.
-pub fn other_nordic_ranges(segments: &[Segment], lang: &str) -> Vec<(Range<usize>, &'static str)> {
+/// Stretches whose evidence clearly points to another supported language.
+/// Nordic crossover keeps its existing threshold; other files require longer Nordic evidence.
+pub fn other_language_ranges(
+    segments: &[Segment],
+    lang: &str,
+) -> Vec<(Range<usize>, &'static str)> {
+    let detect = |text: &str| {
+        language_hint(text, 6).or_else(|| {
+            (matches!(lang, "fi" | "sv") || looks_nordic(text, 8, true))
+                .then(|| decisive_nordic(text))
+                .flatten()
+        })
+    };
     let mut out = Vec::new();
     for s in segments {
-        match decisive_nordic(&s.text) {
+        match detect(&s.text) {
             Some(l) if l != lang => {
                 // A mixed segment (a Finnish quote next to a Swedish one) splits by phrase.
                 for r in phrases(&s.text) {
-                    let own = decisive_nordic(&s.text[r.clone()]).unwrap_or(l);
+                    let own = detect(&s.text[r.clone()]).unwrap_or(l);
                     if own != lang {
                         out.push((s.abs(r), own));
                     }
                 }
             }
             _ => out.extend(phrases(&s.text).filter_map(|r| {
-                decisive_nordic(&s.text[r.clone()])
+                detect(&s.text[r.clone()])
                     .filter(|l| *l != lang)
                     .map(|l| (s.abs(r), l))
             })),
@@ -550,6 +560,10 @@ pub fn foreign_stretches(
         } else {
             2
         };
+        if let Some(language) = language_hint(&s.text, min_words) {
+            foreign.push((s.range.clone(), Some(language)));
+            continue;
+        }
         if looks_nordic(&s.text, min_words, true) {
             // Phrases take the segment's language unless their own evidence says otherwise
             // (a Swedish quote in a Finnish block quote).
@@ -579,7 +593,9 @@ pub fn foreign_stretches(
         );
         for r in phrases(&s.text) {
             let phrase = &s.text[r.clone()];
-            if looks_nordic(phrase, 2, false) {
+            if let Some(language) = language_hint(phrase, 4) {
+                foreign.push((s.abs(r), Some(language)));
+            } else if looks_nordic(phrase, 2, false) {
                 foreign.push((s.abs(r), Some(nordic_language(phrase))));
             } else if looks_foreign(phrase, 3, 4) {
                 foreign.push((s.abs(r), None));
@@ -710,6 +726,17 @@ pub fn document_nordic(segments: &[Segment]) -> Option<&'static str> {
 /// At least two distinct markers, enough prose, little English evidence and a clear winner
 /// are required. Ambiguous and short stretches remain unclassified; no dictionary is loaded.
 pub fn language_hint(text: &str, min_words: usize) -> Option<&'static str> {
+    language_hint_words(words(text), min_words)
+}
+
+pub fn document_hint(segments: &[Segment]) -> Option<&'static str> {
+    language_hint_words(segments.iter().flat_map(|s| words(&s.text)), 80)
+}
+
+fn language_hint_words<'a>(
+    prose: impl Iterator<Item = &'a str>,
+    min_words: usize,
+) -> Option<&'static str> {
     const PROFILES: &[(&str, &[&str])] = &[
         (
             "de",
@@ -757,7 +784,7 @@ pub fn language_hint(text: &str, min_words: usize) -> Option<&'static str> {
     let mut counts = [0usize; 4];
     let mut seen = [0u32; 4];
     let (mut total, mut english) = (0usize, 0usize);
-    for word in words(text).filter(|w| !neutral(w)) {
+    for word in prose.filter(|w| !neutral(w)) {
         total += 1;
         english += usize::from(is_stopword(word));
         for (index, (_, markers)) in PROFILES.iter().enumerate() {
