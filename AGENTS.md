@@ -112,13 +112,16 @@ Every rule change is measured, never judged by eye.
 4. **English control:** Finnish and Swedish work must not change English scores on
    `eval/en/seeded`.
 
-Latest numbers, 2026-09-30 (F1; holdouts are unseen text):
+Latest numbers, v0.3.0 (2026-09-30; F1, holdouts are unseen text; round 5 of the judging loop):
 
-| Language | Seeded | Holdout sets |
+| Language | Seeded | Holdout sets 1–5 |
 |---|---|---|
-| English (`spellbook`) | ~76 | 47–57 |
-| Finnish | 88 | 58–81 |
-| Swedish | 83 | 48–67 |
+| English (`spellbook`) | 79 | 42–62 (holdout5 is name-heavy) |
+| Finnish | 88 | 67–82 |
+| Swedish | 87 | 60–69 |
+
+Grammar rules are at least 87% precise, most at 100%. Grammar recall on fresh text is roughly
+Finnish 55%, Swedish 55%, English subject-verb agreement 30%.
 
 ## Release process
 
@@ -140,6 +143,6 @@ Latest numbers, 2026-09-30 (F1; holdouts are unseen text):
   lexicon of transitive verbs, `servern startar automatiskt` and `loggarna raderar automatiskt`
   look alike); compounds with rare heads. On by default since the judge recommended it
   (2026-09-30).
-- Issue #4 (per-document language) is implemented; close it at the v0.3.0 release.
+- **English names:** plain-ASCII Finnish and Indian names (`Aino`, `Sharma`, `Iyer`) are the largest remaining precision cost in English documents; `-nen` typos like `Virtanenn` slip through.
 - Harper's per-sentence rule maps cost about 10% CPU and most of its memory; send an upstream PR
   rather than keeping a fork.

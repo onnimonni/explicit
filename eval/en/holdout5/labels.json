@@ -1,0 +1,1010 @@
+[
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 8,
+  "column": 130,
+  "end_column": 134,
+  "text": "take",
+  "category": "agreement",
+  "correction": "takes"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 8,
+  "column": 189,
+  "end_column": 191,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 10,
+  "column": 39,
+  "end_column": 42,
+  "text": "was",
+  "category": "agreement",
+  "correction": "were"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 10,
+  "column": 66,
+  "end_column": 69,
+  "text": "was",
+  "category": "agreement",
+  "correction": "were"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 16,
+  "column": 91,
+  "end_column": 96,
+  "text": "match",
+  "category": "agreement",
+  "correction": "matches"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 24,
+  "column": 82,
+  "end_column": 88,
+  "text": "reject",
+  "category": "agreement",
+  "correction": "rejects"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 37,
+  "column": 150,
+  "end_column": 157,
+  "text": "returns",
+  "category": "agreement",
+  "correction": "return"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 39,
+  "column": 281,
+  "end_column": 285,
+  "text": "sign",
+  "category": "agreement",
+  "correction": "signs"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 44,
+  "column": 69,
+  "end_column": 72,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 45,
+  "column": 45,
+  "end_column": 49,
+  "text": "gets",
+  "category": "agreement",
+  "correction": "get"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 46,
+  "column": 198,
+  "end_column": 204,
+  "text": "Mennon",
+  "category": "spelling",
+  "correction": "Menon"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 46,
+  "column": 236,
+  "end_column": 239,
+  "text": "Its",
+  "category": "its_its",
+  "correction": "It's"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 5,
+  "column": 113,
+  "end_column": 117,
+  "text": "were",
+  "category": "agreement",
+  "correction": "was"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 16,
+  "column": 152,
+  "end_column": 156,
+  "text": "were",
+  "category": "agreement",
+  "correction": "was"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 22,
+  "column": 22,
+  "end_column": 25,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 22,
+  "column": 156,
+  "end_column": 158,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 22,
+  "column": 169,
+  "end_column": 171,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 26,
+  "column": 11,
+  "end_column": 14,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 26,
+  "column": 242,
+  "end_column": 245,
+  "text": "has",
+  "category": "agreement",
+  "correction": "have"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 28,
+  "column": 343,
+  "end_column": 350,
+  "text": "handles",
+  "category": "agreement",
+  "correction": "handle"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 32,
+  "column": 10,
+  "end_column": 12,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 32,
+  "column": 187,
+  "end_column": 189,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 32,
+  "column": 215,
+  "end_column": 219,
+  "text": "goes",
+  "category": "agreement",
+  "correction": "go"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 34,
+  "column": 18,
+  "end_column": 22,
+  "text": "have",
+  "category": "agreement",
+  "correction": "has"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 34,
+  "column": 66,
+  "end_column": 69,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 34,
+  "column": 118,
+  "end_column": 120,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 34,
+  "column": 273,
+  "end_column": 278,
+  "text": "there",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 34,
+  "column": 391,
+  "end_column": 405,
+  "text": "Yours sincerly",
+  "category": "spelling",
+  "correction": "Yours sincerely"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 34,
+  "column": 464,
+  "end_column": 471,
+  "text": "Sharmma",
+  "category": "spelling",
+  "correction": "Sharma"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 3,
+  "column": 169,
+  "end_column": 171,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 8,
+  "column": 40,
+  "end_column": 43,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 8,
+  "column": 68,
+  "end_column": 70,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 12,
+  "column": 106,
+  "end_column": 110,
+  "text": "have",
+  "category": "agreement",
+  "correction": "has"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 12,
+  "column": 223,
+  "end_column": 226,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 16,
+  "column": 121,
+  "end_column": 123,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 16,
+  "column": 182,
+  "end_column": 185,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 18,
+  "column": 149,
+  "end_column": 154,
+  "text": "leave",
+  "category": "agreement",
+  "correction": "leaves"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 23,
+  "column": 56,
+  "end_column": 59,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 24,
+  "column": 56,
+  "end_column": 59,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 26,
+  "column": 54,
+  "end_column": 57,
+  "text": "Its",
+  "category": "its_its",
+  "correction": "It's"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 36,
+  "column": 15,
+  "end_column": 17,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 36,
+  "column": 43,
+  "end_column": 45,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 36,
+  "column": 79,
+  "end_column": 86,
+  "text": "respond",
+  "category": "agreement",
+  "correction": "responds"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 36,
+  "column": 267,
+  "end_column": 272,
+  "text": "Their",
+  "category": "their_there",
+  "correction": "They're"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 38,
+  "column": 20,
+  "end_column": 23,
+  "text": "was",
+  "category": "agreement",
+  "correction": "were"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 38,
+  "column": 63,
+  "end_column": 65,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 38,
+  "column": 174,
+  "end_column": 178,
+  "text": "have",
+  "category": "agreement",
+  "correction": "has"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 38,
+  "column": 321,
+  "end_column": 324,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 38,
+  "column": 333,
+  "end_column": 337,
+  "text": "then",
+  "category": "then_than",
+  "correction": "than"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 38,
+  "column": 398,
+  "end_column": 407,
+  "text": "Järvinnen",
+  "category": "spelling",
+  "correction": "Järvinen"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 38,
+  "column": 447,
+  "end_column": 452,
+  "text": "cover",
+  "category": "agreement",
+  "correction": "covers"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 3,
+  "column": 21,
+  "end_column": 23,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 7,
+  "column": 13,
+  "end_column": 17,
+  "text": "read",
+  "category": "agreement",
+  "correction": "reads"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 7,
+  "column": 189,
+  "end_column": 193,
+  "text": "gets",
+  "category": "agreement",
+  "correction": "get"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 9,
+  "column": 183,
+  "end_column": 187,
+  "text": "then",
+  "category": "then_than",
+  "correction": "than"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 18,
+  "column": 61,
+  "end_column": 68,
+  "text": "notices",
+  "category": "agreement",
+  "correction": "notice"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 18,
+  "column": 96,
+  "end_column": 100,
+  "text": "have",
+  "category": "agreement",
+  "correction": "has"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 18,
+  "column": 184,
+  "end_column": 187,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 22,
+  "column": 47,
+  "end_column": 49,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 22,
+  "column": 80,
+  "end_column": 83,
+  "text": "say",
+  "category": "agreement",
+  "correction": "says"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 24,
+  "column": 42,
+  "end_column": 50,
+  "text": "scatters",
+  "category": "agreement",
+  "correction": "scatter"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 156,
+  "end_column": 160,
+  "text": "help",
+  "category": "agreement",
+  "correction": "helps"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 408,
+  "end_column": 411,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 439,
+  "end_column": 443,
+  "text": "were",
+  "category": "agreement",
+  "correction": "was"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 464,
+  "end_column": 469,
+  "text": "Iyerr",
+  "category": "spelling",
+  "correction": "Iyer"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 516,
+  "end_column": 518,
+  "text": "An",
+  "category": "a_an",
+  "correction": "A"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 531,
+  "end_column": 535,
+  "text": "skip",
+  "category": "agreement",
+  "correction": "skips"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 547,
+  "end_column": 550,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 616,
+  "end_column": 620,
+  "text": "were",
+  "category": "agreement",
+  "correction": "was"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 3,
+  "column": 11,
+  "end_column": 15,
+  "text": "were",
+  "category": "agreement",
+  "correction": "was"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 7,
+  "column": 249,
+  "end_column": 254,
+  "text": "check",
+  "category": "agreement",
+  "correction": "checked"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 9,
+  "column": 67,
+  "end_column": 71,
+  "text": "were",
+  "category": "agreement",
+  "correction": "was"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 9,
+  "column": 170,
+  "end_column": 177,
+  "text": "prevent",
+  "category": "agreement",
+  "correction": "prevents"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 20,
+  "column": 7,
+  "end_column": 10,
+  "text": "was",
+  "category": "agreement",
+  "correction": "were"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 20,
+  "column": 49,
+  "end_column": 53,
+  "text": "then",
+  "category": "then_than",
+  "correction": "than"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 20,
+  "column": 212,
+  "end_column": 215,
+  "text": "was",
+  "category": "agreement",
+  "correction": "were"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 22,
+  "column": 139,
+  "end_column": 143,
+  "text": "were",
+  "category": "agreement",
+  "correction": "was"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 26,
+  "column": 230,
+  "end_column": 236,
+  "text": "happen",
+  "category": "agreement",
+  "correction": "happens"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 26,
+  "column": 250,
+  "end_column": 255,
+  "text": "there",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 26,
+  "column": 265,
+  "end_column": 269,
+  "text": "were",
+  "category": "agreement",
+  "correction": "was"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 32,
+  "column": 157,
+  "end_column": 167,
+  "text": "correspond",
+  "category": "agreement",
+  "correction": "corresponds"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 34,
+  "column": 144,
+  "end_column": 146,
+  "text": "go",
+  "category": "agreement",
+  "correction": "goes"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 34,
+  "column": 408,
+  "end_column": 409,
+  "text": "A",
+  "category": "a_an",
+  "correction": "An"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 34,
+  "column": 424,
+  "end_column": 432,
+  "text": "Natrajan",
+  "category": "spelling",
+  "correction": "Natarajan"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 34,
+  "column": 446,
+  "end_column": 449,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 8,
+  "column": 119,
+  "end_column": 121,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 9,
+  "column": 81,
+  "end_column": 84,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 12,
+  "column": 90,
+  "end_column": 93,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 16,
+  "column": 162,
+  "end_column": 167,
+  "text": "knows",
+  "category": "agreement",
+  "correction": "know"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 18,
+  "column": 16,
+  "end_column": 20,
+  "text": "read",
+  "category": "agreement",
+  "correction": "reads"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 18,
+  "column": 54,
+  "end_column": 63,
+  "text": "influence",
+  "category": "agreement",
+  "correction": "influences"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 29,
+  "column": 96,
+  "end_column": 99,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 29,
+  "column": 149,
+  "end_column": 152,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 33,
+  "column": 17,
+  "end_column": 19,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 33,
+  "column": 56,
+  "end_column": 60,
+  "text": "does",
+  "category": "agreement",
+  "correction": "do"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 35,
+  "column": 20,
+  "end_column": 24,
+  "text": "take",
+  "category": "agreement",
+  "correction": "takes"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 35,
+  "column": 224,
+  "end_column": 227,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 35,
+  "column": 271,
+  "end_column": 277,
+  "text": "arrive",
+  "category": "agreement",
+  "correction": "arrives"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 37,
+  "column": 82,
+  "end_column": 85,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 37,
+  "column": 119,
+  "end_column": 123,
+  "text": "it's",
+  "category": "its_its",
+  "correction": "its"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 37,
+  "column": 133,
+  "end_column": 135,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 37,
+  "column": 280,
+  "end_column": 286,
+  "text": "prefer",
+  "category": "agreement",
+  "correction": "prefers"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 37,
+  "column": 346,
+  "end_column": 360,
+  "text": "Recomendations",
+  "category": "spelling",
+  "correction": "Recommendations"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 37,
+  "column": 398,
+  "end_column": 400,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 37,
+  "column": 411,
+  "end_column": 417,
+  "text": "Villle",
+  "category": "spelling",
+  "correction": "Ville"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 21,
+  "column": 114,
+  "end_column": 118,
+  "text": "fall",
+  "category": "agreement",
+  "correction": "falls"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 23,
+  "column": 156,
+  "end_column": 158,
+  "text": "do",
+  "category": "agreement",
+  "correction": "does"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 38,
+  "column": 225,
+  "end_column": 232,
+  "text": "reviews",
+  "category": "agreement",
+  "correction": "review"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 38,
+  "column": 474,
+  "end_column": 483,
+  "text": "Virtanenn",
+  "category": "spelling",
+  "correction": "Virtanen"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 9,
+  "column": 86,
+  "end_column": 89,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 13,
+  "column": 71,
+  "end_column": 74,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 27,
+  "column": 334,
+  "end_column": 343,
+  "text": "Koskinnen",
+  "category": "spelling",
+  "correction": "Koskinen"
+ }
+]

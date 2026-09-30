@@ -1,0 +1,3778 @@
+[
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 8,
+  "column": 1,
+  "end_column": 30,
+  "text": "Today's log management relies",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 8,
+  "column": 70,
+  "end_column": 76,
+  "text": "`grep`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 8,
+  "column": 78,
+  "end_column": 104,
+  "text": "The on-call engineers have",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 8,
+  "column": 144,
+  "end_column": 166,
+  "text": "The security group has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 8,
+  "column": 214,
+  "end_column": 235,
+  "text": "The volume of logs is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 8,
+  "column": 242,
+  "end_column": 248,
+  "text": "40 GiB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 8,
+  "column": 260,
+  "end_column": 301,
+  "text": "the retention required by the auditors is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 10,
+  "column": 1,
+  "end_column": 13,
+  "text": "A tender was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 10,
+  "column": 94,
+  "end_column": 118,
+  "text": "The rejected bidders did",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 10,
+  "column": 131,
+  "end_column": 147,
+  "text": "each of them was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 10,
+  "column": 179,
+  "end_column": 191,
+  "text": "Aleksis Kivi",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 14,
+  "column": 5,
+  "end_column": 17,
+  "text": "Grafana Loki",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 14,
+  "column": 19,
+  "end_column": 35,
+  "text": "Pohjola Cloud Oy",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 16,
+  "column": 40,
+  "end_column": 62,
+  "text": "The cost of storage is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 16,
+  "column": 72,
+  "end_column": 90,
+  "text": "the query language",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 16,
+  "column": 127,
+  "end_column": 134,
+  "text": "Grafana",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 16,
+  "column": 136,
+  "end_column": 155,
+  "text": "Full-text search is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 18,
+  "column": 5,
+  "end_column": 15,
+  "text": "OpenSearch",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 18,
+  "column": 17,
+  "end_column": 40,
+  "text": "Nordic Observability AB",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 20,
+  "column": 21,
+  "end_column": 49,
+  "text": "The quality of the search is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 20,
+  "column": 65,
+  "end_column": 102,
+  "text": "the price of indexing 40 GiB a day is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 20,
+  "column": 113,
+  "end_column": 130,
+  "text": "the cluster needs",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 20,
+  "column": 153,
+  "end_column": 178,
+  "text": "None of the engineers has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 22,
+  "column": 13,
+  "end_column": 20,
+  "text": "Datadog",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 24,
+  "column": 18,
+  "end_column": 32,
+  "text": "The data would",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 24,
+  "column": 54,
+  "end_column": 81,
+  "text": "the data protection officer",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 24,
+  "column": 99,
+  "end_column": 112,
+  "text": "The option is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 30,
+  "column": 3,
+  "end_column": 19,
+  "text": "Pohjola Cloud Oy",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 30,
+  "column": 22,
+  "end_column": 30,
+  "text": "38 000 €",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 31,
+  "column": 3,
+  "end_column": 26,
+  "text": "Nordic Observability AB",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 31,
+  "column": 29,
+  "end_column": 37,
+  "text": "45 000 €",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 33,
+  "column": 1,
+  "end_column": 14,
+  "text": "Price weighed",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 33,
+  "column": 15,
+  "end_column": 19,
+  "text": "50 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 33,
+  "column": 32,
+  "end_column": 36,
+  "text": "50 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 33,
+  "column": 38,
+  "end_column": 61,
+  "text": "The quality scores were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 33,
+  "column": 80,
+  "end_column": 94,
+  "text": "the bidder met",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 33,
+  "column": 113,
+  "end_column": 130,
+  "text": "The difference is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 33,
+  "column": 148,
+  "end_column": 176,
+  "text": "the evaluation committee was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 33,
+  "column": 192,
+  "end_column": 225,
+  "text": "the members of the committee were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 33,
+  "column": 226,
+  "end_column": 237,
+  "text": "Aino Kallas",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 33,
+  "column": 239,
+  "end_column": 250,
+  "text": "Ville Ranta",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 33,
+  "column": 255,
+  "end_column": 266,
+  "text": "Sunil Menon",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 37,
+  "column": 11,
+  "end_column": 23,
+  "text": "Grafana Loki",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 37,
+  "column": 29,
+  "end_column": 45,
+  "text": "Pohjola Cloud Oy",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 37,
+  "column": 47,
+  "end_column": 60,
+  "text": "The vendor is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 37,
+  "column": 119,
+  "end_column": 122,
+  "text": "has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 37,
+  "column": 178,
+  "end_column": 200,
+  "text": "The references confirm",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 39,
+  "column": 1,
+  "end_column": 29,
+  "text": "The bid that came second was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 39,
+  "column": 68,
+  "end_column": 97,
+  "text": "The difference in quality was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 39,
+  "column": 135,
+  "end_column": 154,
+  "text": "the pilot confirmed",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 39,
+  "column": 156,
+  "end_column": 182,
+  "text": "A marginal difference does",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 39,
+  "column": 215,
+  "end_column": 244,
+  "text": "neither of the evaluators was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 39,
+  "column": 266,
+  "end_column": 280,
+  "text": "The head of IT",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 39,
+  "column": 316,
+  "end_column": 337,
+  "text": "the appeal period has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 43,
+  "column": 3,
+  "end_column": 21,
+  "text": "The rollout starts",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 43,
+  "column": 34,
+  "end_column": 57,
+  "text": "the new system replaces",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 43,
+  "column": 85,
+  "end_column": 102,
+  "text": "the old files are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 43,
+  "column": 117,
+  "end_column": 124,
+  "text": "90 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 44,
+  "column": 3,
+  "end_column": 33,
+  "text": "A data processing agreement is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 44,
+  "column": 86,
+  "end_column": 111,
+  "text": "The vendor's confirmation",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 44,
+  "column": 113,
+  "end_column": 191,
+  "text": "\"Kaikki lokitiedot tallennetaan ja käsitellään yksinomaan Helsingin alueella.\"",
+  "kind": "foreign"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 45,
+  "column": 3,
+  "end_column": 29,
+  "text": "The engineers who maintain",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 45,
+  "column": 72,
+  "end_column": 110,
+  "text": "the training of the on-call rota takes",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 46,
+  "column": 3,
+  "end_column": 19,
+  "text": "The decision can",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 46,
+  "column": 68,
+  "end_column": 95,
+  "text": "The appeal instructions are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 46,
+  "column": 130,
+  "end_column": 146,
+  "text": "anyone who wants",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 46,
+  "column": 177,
+  "end_column": 188,
+  "text": "can request",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 46,
+  "column": 212,
+  "end_column": 222,
+  "text": "team keeps",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/ADR-015-log-management.md",
+  "line": 46,
+  "column": 263,
+  "end_column": 281,
+  "text": "the evaluation was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 5,
+  "column": 1,
+  "end_column": 23,
+  "text": "the client fees change",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 5,
+  "column": 49,
+  "end_column": 62,
+  "text": "The change is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 5,
+  "column": 146,
+  "end_column": 154,
+  "text": "explains",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 5,
+  "column": 180,
+  "end_column": 185,
+  "text": "means",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 11,
+  "column": 26,
+  "end_column": 33,
+  "text": "23.00 €",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 11,
+  "column": 36,
+  "end_column": 43,
+  "text": "23.60 €",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 13,
+  "column": 24,
+  "end_column": 31,
+  "text": "56.70 €",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 13,
+  "column": 34,
+  "end_column": 41,
+  "text": "58.20 €",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 14,
+  "column": 21,
+  "end_column": 26,
+  "text": "762 €",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 14,
+  "column": 29,
+  "end_column": 34,
+  "text": "782 €",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 16,
+  "column": 1,
+  "end_column": 14,
+  "text": "The fees rise",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 16,
+  "column": 18,
+  "end_column": 23,
+  "text": "2.6 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 16,
+  "column": 48,
+  "end_column": 77,
+  "text": "The nurse's appointment stays",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 16,
+  "column": 84,
+  "end_column": 119,
+  "text": "The fee for a missed appointment is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 16,
+  "column": 171,
+  "end_column": 179,
+  "text": "24 hours",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 16,
+  "column": 192,
+  "end_column": 211,
+  "text": "The list of fees is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 16,
+  "column": 237,
+  "end_column": 264,
+  "text": "the amounts of the fees are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 20,
+  "column": 1,
+  "end_column": 26,
+  "text": "The payment ceiling means",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 20,
+  "column": 53,
+  "end_column": 62,
+  "text": "782 euros",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 20,
+  "column": 64,
+  "end_column": 97,
+  "text": "the rest of the year's visits are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 20,
+  "column": 104,
+  "end_column": 118,
+  "text": "The balance is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 20,
+  "column": 151,
+  "end_column": 172,
+  "text": "children's fees count",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 20,
+  "column": 205,
+  "end_column": 231,
+  "text": "the fees of each child are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 22,
+  "column": 99,
+  "end_column": 113,
+  "text": "the balance is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 22,
+  "column": 214,
+  "end_column": 240,
+  "text": "the corrected invoices are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 22,
+  "column": 255,
+  "end_column": 266,
+  "text": "Aino Kallas",
+  "kind": "name"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 26,
+  "column": 70,
+  "end_column": 77,
+  "text": "can get",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 26,
+  "column": 115,
+  "end_column": 126,
+  "text": "can also be",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 26,
+  "column": 194,
+  "end_column": 196,
+  "text": "do",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 28,
+  "column": 1,
+  "end_column": 21,
+  "text": "The social worker is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 28,
+  "column": 76,
+  "end_column": 81,
+  "text": "takes",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 28,
+  "column": 125,
+  "end_column": 130,
+  "text": "eases",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 28,
+  "column": 146,
+  "end_column": 172,
+  "text": "The collection agency does",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 28,
+  "column": 210,
+  "end_column": 247,
+  "text": "the wellbeing services county decides",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 28,
+  "column": 258,
+  "end_column": 272,
+  "text": "its staff have",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 28,
+  "column": 310,
+  "end_column": 324,
+  "text": "Helena Mäkinen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 28,
+  "column": 329,
+  "end_column": 342,
+  "text": "Deepak Sharma",
+  "kind": "name"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 32,
+  "column": 31,
+  "end_column": 39,
+  "text": "Suomi.fi",
+  "kind": "name"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 32,
+  "column": 66,
+  "end_column": 68,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 32,
+  "column": 97,
+  "end_column": 99,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 32,
+  "column": 126,
+  "end_column": 141,
+  "text": "The due date is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 32,
+  "column": 142,
+  "end_column": 149,
+  "text": "21 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 32,
+  "column": 240,
+  "end_column": 247,
+  "text": "14 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 32,
+  "column": 249,
+  "end_column": 267,
+  "text": "no reminder fee is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 34,
+  "column": 132,
+  "end_column": 153,
+  "text": "clientfees@example.fi",
+  "kind": "code"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 34,
+  "column": 169,
+  "end_column": 180,
+  "text": "017 173 100",
+  "kind": "number"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 34,
+  "column": 193,
+  "end_column": 197,
+  "text": "9–15",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 34,
+  "column": 202,
+  "end_column": 208,
+  "text": "answer",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 34,
+  "column": 288,
+  "end_column": 295,
+  "text": "handles",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 34,
+  "column": 332,
+  "end_column": 390,
+  "text": "Asiakasmaksut muuttuvat 1.1.2027; maksukatto on 782 euroa.",
+  "kind": "foreign"
+ },
+ {
+  "file": "docs/customer-letter-fees.md",
+  "line": 34,
+  "column": 407,
+  "end_column": 445,
+  "text": "Pohjois-Savo Wellbeing Services County",
+  "kind": "name"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 3,
+  "column": 72,
+  "end_column": 81,
+  "text": "Bitwarden",
+  "kind": "product"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 3,
+  "column": 116,
+  "end_column": 124,
+  "text": "explains",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 3,
+  "column": 180,
+  "end_column": 193,
+  "text": "Organisations",
+  "kind": "british_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 3,
+  "column": 199,
+  "end_column": 209,
+  "text": "centralise",
+  "kind": "british_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 3,
+  "column": 227,
+  "end_column": 230,
+  "text": "see",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 7,
+  "column": 15,
+  "end_column": 39,
+  "text": "https://vault.example.fi",
+  "kind": "code"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 9,
+  "column": 54,
+  "end_column": 74,
+  "text": "The apps synchronise",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 10,
+  "column": 4,
+  "end_column": 15,
+  "text": "Familiarise",
+  "kind": "british_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 12,
+  "column": 21,
+  "end_column": 30,
+  "text": "cannot be",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 12,
+  "column": 60,
+  "end_column": 72,
+  "text": "the vault is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 12,
+  "column": 85,
+  "end_column": 90,
+  "text": "means",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 12,
+  "column": 182,
+  "end_column": 209,
+  "text": "the list of people who have",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 16,
+  "column": 11,
+  "end_column": 16,
+  "text": "holds",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 16,
+  "column": 58,
+  "end_column": 61,
+  "text": "API",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 16,
+  "column": 90,
+  "end_column": 93,
+  "text": "SSH",
+  "kind": "product"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 16,
+  "column": 196,
+  "end_column": 202,
+  "text": "Colour",
+  "kind": "british_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 16,
+  "column": 217,
+  "end_column": 221,
+  "text": "help",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 16,
+  "column": 223,
+  "end_column": 255,
+  "text": "the colour of a folder indicates",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 18,
+  "column": 20,
+  "end_column": 22,
+  "text": "go",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 18,
+  "column": 49,
+  "end_column": 79,
+  "text": "The owner of the collection is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 18,
+  "column": 166,
+  "end_column": 173,
+  "text": "removes",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 18,
+  "column": 213,
+  "end_column": 234,
+  "text": "the people who forget",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 18,
+  "column": 235,
+  "end_column": 238,
+  "text": "get",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 18,
+  "column": 255,
+  "end_column": 270,
+  "text": "Priya Natarajan",
+  "kind": "name"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 22,
+  "column": 34,
+  "end_column": 39,
+  "text": "lives",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 24,
+  "column": 30,
+  "end_column": 39,
+  "text": "Those are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 24,
+  "column": 43,
+  "end_column": 48,
+  "text": "Vault",
+  "kind": "product"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 26,
+  "column": 1,
+  "end_column": 45,
+  "text": "The confusion between Bitwarden and Vault is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 26,
+  "column": 109,
+  "end_column": 111,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 26,
+  "column": 148,
+  "end_column": 167,
+  "text": "The developers have",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 26,
+  "column": 196,
+  "end_column": 221,
+  "text": "the number of mix-ups has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 32,
+  "column": 51,
+  "end_column": 82,
+  "text": "the address of the site matches",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 34,
+  "column": 43,
+  "end_column": 70,
+  "text": "the owner of the collection",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 36,
+  "column": 58,
+  "end_column": 69,
+  "text": "#it-support",
+  "kind": "code"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 36,
+  "column": 123,
+  "end_column": 127,
+  "text": "does",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 36,
+  "column": 205,
+  "end_column": 212,
+  "text": "that is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 36,
+  "column": 235,
+  "end_column": 239,
+  "text": "sees",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 38,
+  "column": 90,
+  "end_column": 121,
+  "text": "The browser's password store is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 38,
+  "column": 198,
+  "end_column": 221,
+  "text": "The Finnish quick guide",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 38,
+  "column": 223,
+  "end_column": 304,
+  "text": "Asenna selainlaajennus, luo pitkä pääsalasana ja säilytä palautuskoodi paperilla.",
+  "kind": "foreign"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 38,
+  "column": 355,
+  "end_column": 357,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 38,
+  "column": 369,
+  "end_column": 383,
+  "text": "Mikko Järvinen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 38,
+  "column": 384,
+  "end_column": 393,
+  "text": "maintains",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 38,
+  "column": 410,
+  "end_column": 419,
+  "text": "programme",
+  "kind": "british_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 38,
+  "column": 431,
+  "end_column": 438,
+  "text": "licence",
+  "kind": "british_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 38,
+  "column": 472,
+  "end_column": 505,
+  "text": "the behaviour of the extension is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/password-manager-guide.md",
+  "line": 38,
+  "column": 506,
+  "end_column": 514,
+  "text": "analysed",
+  "kind": "british_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 3,
+  "column": 54,
+  "end_column": 72,
+  "text": "The review focuses",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 3,
+  "column": 137,
+  "end_column": 167,
+  "text": "The guidance of the HR team is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 3,
+  "column": 185,
+  "end_column": 203,
+  "text": "the full policy is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 7,
+  "column": 72,
+  "end_column": 94,
+  "text": "The self-assessment is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 7,
+  "column": 105,
+  "end_column": 112,
+  "text": "Populus",
+  "kind": "product"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 7,
+  "column": 153,
+  "end_column": 171,
+  "text": "Employees who have",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 7,
+  "column": 206,
+  "end_column": 237,
+  "text": "the number of reminders sent is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 9,
+  "column": 56,
+  "end_column": 66,
+  "text": "can assess",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 9,
+  "column": 83,
+  "end_column": 96,
+  "text": "the review is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 9,
+  "column": 138,
+  "end_column": 177,
+  "text": "The quality of the conversation matters",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 14,
+  "column": 25,
+  "end_column": 38,
+  "text": "The goals are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 15,
+  "column": 25,
+  "end_column": 61,
+  "text": "The kind of training offered depends",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 16,
+  "column": 49,
+  "end_column": 51,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 18,
+  "column": 1,
+  "end_column": 21,
+  "text": "The manager's job is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 18,
+  "column": 130,
+  "end_column": 143,
+  "text": "The notes are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 18,
+  "column": 155,
+  "end_column": 162,
+  "text": "Populus",
+  "kind": "product"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 18,
+  "column": 235,
+  "end_column": 267,
+  "text": "the comments of the employee are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 22,
+  "column": 1,
+  "end_column": 16,
+  "text": "The goals build",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 22,
+  "column": 150,
+  "end_column": 153,
+  "text": "can",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 22,
+  "column": 204,
+  "end_column": 219,
+  "text": "A vague goal is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 24,
+  "column": 1,
+  "end_column": 10,
+  "text": "There are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 24,
+  "column": 68,
+  "end_column": 71,
+  "text": "has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 24,
+  "column": 100,
+  "end_column": 114,
+  "text": "Goals that are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 24,
+  "column": 128,
+  "end_column": 131,
+  "text": "are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 24,
+  "column": 147,
+  "end_column": 164,
+  "text": "the ones that are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 24,
+  "column": 180,
+  "end_column": 185,
+  "text": "steer",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 24,
+  "column": 193,
+  "end_column": 219,
+  "text": "Each of the four goals has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 28,
+  "column": 4,
+  "end_column": 34,
+  "text": "the employee's performance has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 28,
+  "column": 93,
+  "end_column": 106,
+  "text": "the cause may",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 28,
+  "column": 195,
+  "end_column": 224,
+  "text": "A difficult conversation does",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 28,
+  "column": 260,
+  "end_column": 294,
+  "text": "the group of managers who postpone",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 28,
+  "column": 295,
+  "end_column": 302,
+  "text": "regrets",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 14,
+  "end_column": 21,
+  "text": "may ask",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 70,
+  "end_column": 76,
+  "text": "treats",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 96,
+  "end_column": 100,
+  "text": "says",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 181,
+  "end_column": 187,
+  "text": "stalls",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 193,
+  "end_column": 202,
+  "text": "they have",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 245,
+  "end_column": 259,
+  "text": "Lauri Nieminen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 264,
+  "end_column": 275,
+  "text": "Ananya Iyer",
+  "kind": "name"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 277,
+  "end_column": 294,
+  "text": "A Finnish summary",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 296,
+  "end_column": 396,
+  "text": "Kuuntele enemmän kuin puhut, sovi enintään neljä tavoitetta ja kirjaa muistiinpanot viikon kuluessa.",
+  "kind": "foreign"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 470,
+  "end_column": 476,
+  "text": "edited",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 485,
+  "end_column": 505,
+  "text": "the old versions are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/performance-review-guide.md",
+  "line": 30,
+  "column": 573,
+  "end_column": 615,
+  "text": "the list of managers who skipped last year",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 3,
+  "column": 61,
+  "end_column": 68,
+  "text": "focuses",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 3,
+  "column": 91,
+  "end_column": 96,
+  "text": "takes",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 3,
+  "column": 168,
+  "end_column": 197,
+  "text": "The authors of the report are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 3,
+  "column": 198,
+  "end_column": 209,
+  "text": "Elina Vaara",
+  "kind": "name"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 3,
+  "column": 214,
+  "end_column": 231,
+  "text": "Kirsti Simonsuuri",
+  "kind": "name"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 3,
+  "column": 233,
+  "end_column": 254,
+  "text": "the data analysis was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 3,
+  "column": 263,
+  "end_column": 277,
+  "text": "Arjun Krishnan",
+  "kind": "name"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 7,
+  "column": 1,
+  "end_column": 26,
+  "text": "The goal of the pilot was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 7,
+  "column": 125,
+  "end_column": 131,
+  "text": "12 400",
+  "kind": "number"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 7,
+  "column": 178,
+  "end_column": 200,
+  "text": "The customers received",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 7,
+  "column": 223,
+  "end_column": 231,
+  "text": "MinHälsa",
+  "kind": "product"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 7,
+  "column": 286,
+  "end_column": 316,
+  "text": "The set of nurses involved was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 7,
+  "column": 324,
+  "end_column": 340,
+  "text": "six of them were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 7,
+  "column": 346,
+  "end_column": 352,
+  "text": "Kuopio",
+  "kind": "name"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 7,
+  "column": 354,
+  "end_column": 362,
+  "text": "two from",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 7,
+  "column": 363,
+  "end_column": 374,
+  "text": "Siilinjärvi",
+  "kind": "name"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 9,
+  "column": 1,
+  "end_column": 17,
+  "text": "The setup relied",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 9,
+  "column": 21,
+  "end_column": 29,
+  "text": "Duodecim",
+  "kind": "name"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 9,
+  "column": 87,
+  "end_column": 89,
+  "text": "EU",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 9,
+  "column": 91,
+  "end_column": 103,
+  "text": "The team had",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 9,
+  "column": 229,
+  "end_column": 255,
+  "text": "The rules of the check are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 9,
+  "column": 268,
+  "end_column": 287,
+  "text": "the check itself is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 15,
+  "column": 25,
+  "end_column": 28,
+  "text": "410",
+  "kind": "number"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 15,
+  "column": 31,
+  "end_column": 34,
+  "text": "322",
+  "kind": "number"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 16,
+  "column": 35,
+  "end_column": 39,
+  "text": "38 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 17,
+  "column": 30,
+  "end_column": 34,
+  "text": "11 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 17,
+  "column": 37,
+  "end_column": 40,
+  "text": "9 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 18,
+  "column": 27,
+  "end_column": 30,
+  "text": "3.7",
+  "kind": "number"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 18,
+  "column": 33,
+  "end_column": 36,
+  "text": "4.1",
+  "kind": "number"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 20,
+  "column": 22,
+  "end_column": 26,
+  "text": "21 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 20,
+  "column": 28,
+  "end_column": 41,
+  "text": "The result is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 20,
+  "column": 82,
+  "end_column": 102,
+  "text": "the pilot sites were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 20,
+  "column": 129,
+  "end_column": 180,
+  "text": "The share of customers routed to emergency care did",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 22,
+  "column": 1,
+  "end_column": 17,
+  "text": "The nurses rated",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 22,
+  "column": 18,
+  "end_column": 22,
+  "text": "94 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 22,
+  "column": 54,
+  "end_column": 67,
+  "text": "The rest were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 22,
+  "column": 92,
+  "end_column": 126,
+  "text": "The number of safety incidents was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 22,
+  "column": 171,
+  "end_column": 199,
+  "text": "A couple of assessments were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 22,
+  "column": 219,
+  "end_column": 238,
+  "text": "neither of them was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 26,
+  "column": 1,
+  "end_column": 6,
+  "text": "1 106",
+  "kind": "number"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 26,
+  "column": 32,
+  "end_column": 52,
+  "text": "Most of them trusted",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 26,
+  "column": 110,
+  "end_column": 137,
+  "text": "the number of questions was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 26,
+  "column": 148,
+  "end_column": 185,
+  "text": "The Swedish-speaking customers wanted",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 28,
+  "column": 19,
+  "end_column": 54,
+  "text": "\"Ihan ok, mut ei se korvaa ihmistä\"",
+  "kind": "foreign"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 28,
+  "column": 70,
+  "end_column": 75,
+  "text": "means",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 28,
+  "column": 121,
+  "end_column": 123,
+  "text": "do",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 28,
+  "column": 143,
+  "end_column": 155,
+  "text": "the point is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 28,
+  "column": 171,
+  "end_column": 174,
+  "text": "has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 28,
+  "column": 184,
+  "end_column": 203,
+  "text": "the people who need",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 32,
+  "column": 62,
+  "end_column": 82,
+  "text": "The rollout requires",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 32,
+  "column": 121,
+  "end_column": 132,
+  "text": "The cost is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 32,
+  "column": 133,
+  "end_column": 142,
+  "text": "180 000 €",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 32,
+  "column": 196,
+  "end_column": 225,
+  "text": "the savings in the pilot were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 34,
+  "column": 1,
+  "end_column": 17,
+  "text": "The risks relate",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 34,
+  "column": 71,
+  "end_column": 88,
+  "text": "The contract pays",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 34,
+  "column": 153,
+  "end_column": 176,
+  "text": "The vendor's commitment",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 34,
+  "column": 178,
+  "end_column": 257,
+  "text": "\"Model updates are staged for two weeks and can be rolled back within an hour.\"",
+  "kind": "foreign"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 34,
+  "column": 258,
+  "end_column": 286,
+  "text": "The steering group discusses",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 34,
+  "column": 310,
+  "end_column": 339,
+  "text": "the members of the group have",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 34,
+  "column": 372,
+  "end_column": 396,
+  "text": "the majority of them are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 34,
+  "column": 474,
+  "end_column": 480,
+  "text": "Mäkelä",
+  "kind": "name"
+ },
+ {
+  "file": "docs/pilot-final-report.md",
+  "line": 34,
+  "column": 487,
+  "end_column": 495,
+  "text": "Nieminen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 3,
+  "column": 1,
+  "end_column": 25,
+  "text": "The quality policy rests",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 3,
+  "column": 58,
+  "end_column": 60,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 3,
+  "column": 108,
+  "end_column": 131,
+  "text": "The management team has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 7,
+  "column": 4,
+  "end_column": 35,
+  "text": "The needs of the customer drive",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 8,
+  "column": 28,
+  "end_column": 40,
+  "text": "A mistake is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 8,
+  "column": 88,
+  "end_column": 109,
+  "text": "the people who report",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 9,
+  "column": 32,
+  "end_column": 60,
+  "text": "The set of metrics that does",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 10,
+  "column": 18,
+  "end_column": 32,
+  "text": "the teams know",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 12,
+  "column": 1,
+  "end_column": 19,
+  "text": "The principles are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 12,
+  "column": 44,
+  "end_column": 71,
+  "text": "The list of units that have",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 12,
+  "column": 116,
+  "end_column": 138,
+  "text": "A number of units have",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 12,
+  "column": 148,
+  "end_column": 176,
+  "text": "the number of local rules is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 16,
+  "column": 1,
+  "end_column": 26,
+  "text": "The management team takes",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 16,
+  "column": 69,
+  "end_column": 91,
+  "text": "The quality manager is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 16,
+  "column": 123,
+  "end_column": 150,
+  "text": "The heads of the units make",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 16,
+  "column": 180,
+  "end_column": 196,
+  "text": "each of them has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 16,
+  "column": 232,
+  "end_column": 249,
+  "text": "Kirsti Simonsuuri",
+  "kind": "name"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 18,
+  "column": 87,
+  "end_column": 102,
+  "text": "The feedback is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 18,
+  "column": 141,
+  "end_column": 146,
+  "text": "makes",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 18,
+  "column": 173,
+  "end_column": 201,
+  "text": "The existence of a policy is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 18,
+  "column": 214,
+  "end_column": 228,
+  "text": "the policy has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 18,
+  "column": 250,
+  "end_column": 285,
+  "text": "The results of the last survey were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 24,
+  "column": 27,
+  "end_column": 30,
+  "text": "NPS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 25,
+  "column": 44,
+  "end_column": 51,
+  "text": "10 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 26,
+  "column": 47,
+  "end_column": 51,
+  "text": "15 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 27,
+  "column": 42,
+  "end_column": 47,
+  "text": "100 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 29,
+  "column": 1,
+  "end_column": 14,
+  "text": "The goals are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 29,
+  "column": 42,
+  "end_column": 62,
+  "text": "The list of goals is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 29,
+  "column": 109,
+  "end_column": 121,
+  "text": "the cause is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 29,
+  "column": 176,
+  "end_column": 180,
+  "text": "lies",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 29,
+  "column": 212,
+  "end_column": 219,
+  "text": "decides",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 29,
+  "column": 243,
+  "end_column": 269,
+  "text": "The status of the goals is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 29,
+  "column": 298,
+  "end_column": 328,
+  "text": "the owner of each goal updates",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 33,
+  "column": 97,
+  "end_column": 115,
+  "text": "The auditors react",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 33,
+  "column": 161,
+  "end_column": 177,
+  "text": "The findings are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 33,
+  "column": 190,
+  "end_column": 194,
+  "text": "Jira",
+  "kind": "product"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 33,
+  "column": 214,
+  "end_column": 247,
+  "text": "the owner of the finding responds",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 35,
+  "column": 39,
+  "end_column": 61,
+  "text": "The certification body",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 35,
+  "column": 73,
+  "end_column": 116,
+  "text": "the deviations from the previous audit were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 35,
+  "column": 130,
+  "end_column": 149,
+  "text": "The certificate was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 35,
+  "column": 180,
+  "end_column": 202,
+  "text": "the quality team makes",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 35,
+  "column": 255,
+  "end_column": 269,
+  "text": "Sanna Virtanen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 35,
+  "column": 279,
+  "end_column": 292,
+  "text": "Her colleague",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 35,
+  "column": 293,
+  "end_column": 305,
+  "text": "Rajesh Kumar",
+  "kind": "name"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 35,
+  "column": 306,
+  "end_column": 313,
+  "text": "reviews",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 37,
+  "column": 1,
+  "end_column": 15,
+  "text": "The policy was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 37,
+  "column": 49,
+  "end_column": 60,
+  "text": "Elina Vaara",
+  "kind": "name"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 37,
+  "column": 154,
+  "end_column": 168,
+  "text": "The staff have",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 37,
+  "column": 220,
+  "end_column": 225,
+  "text": "keeps",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 37,
+  "column": 238,
+  "end_column": 270,
+  "text": "The half of the company that was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 37,
+  "column": 307,
+  "end_column": 332,
+  "text": "the rest of the staff are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 37,
+  "column": 366,
+  "end_column": 381,
+  "text": "Priya Natarajan",
+  "kind": "name"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 37,
+  "column": 386,
+  "end_column": 397,
+  "text": "Aino Kallas",
+  "kind": "name"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 37,
+  "column": 418,
+  "end_column": 423,
+  "text": "Ranta",
+  "kind": "name"
+ },
+ {
+  "file": "docs/quality-policy.md",
+  "line": 37,
+  "column": 424,
+  "end_column": 433,
+  "text": "maintains",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 3,
+  "column": 48,
+  "end_column": 50,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 3,
+  "column": 61,
+  "end_column": 68,
+  "text": "Grafana",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 3,
+  "column": 75,
+  "end_column": 92,
+  "text": "`disk_free < 20%`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 3,
+  "column": 98,
+  "end_column": 108,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 3,
+  "column": 115,
+  "end_column": 145,
+  "text": "The behaviour of the alert has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 3,
+  "column": 181,
+  "end_column": 197,
+  "text": "the threshold is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 3,
+  "column": 202,
+  "end_column": 206,
+  "text": "20 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 3,
+  "column": 211,
+  "end_column": 233,
+  "text": "a forecast alert fires",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 3,
+  "column": 234,
+  "end_column": 238,
+  "text": "24 h",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 7,
+  "column": 29,
+  "end_column": 37,
+  "text": "Opsgenie",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 7,
+  "column": 46,
+  "end_column": 72,
+  "text": "the rest of the team knows",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 8,
+  "column": 15,
+  "end_column": 17,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 8,
+  "column": 35,
+  "end_column": 65,
+  "text": "`du -sh /var/lib/postgresql/*`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 8,
+  "column": 70,
+  "end_column": 132,
+  "text": "`SELECT pg_size_pretty(pg_database_size(current_database()));`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 9,
+  "column": 14,
+  "end_column": 17,
+  "text": "WAL",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 9,
+  "column": 27,
+  "end_column": 61,
+  "text": "The number of archived segments is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 11,
+  "column": 4,
+  "end_column": 18,
+  "text": "the archive is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 11,
+  "column": 32,
+  "end_column": 48,
+  "text": "the archiver has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 11,
+  "column": 67,
+  "end_column": 96,
+  "text": "The logs of the archiver show",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 11,
+  "column": 102,
+  "end_column": 122,
+  "text": "the usual causes are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 11,
+  "column": 169,
+  "end_column": 186,
+  "text": "Each of these has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 11,
+  "column": 210,
+  "end_column": 220,
+  "text": "Prioritise",
+  "kind": "british_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 15,
+  "column": 1,
+  "end_column": 37,
+  "text": "The credentials of the archiver live",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 15,
+  "column": 41,
+  "end_column": 46,
+  "text": "Vault",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 15,
+  "column": 51,
+  "end_column": 64,
+  "text": "the token has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 15,
+  "column": 89,
+  "end_column": 111,
+  "text": "`make rotate-archiver`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 15,
+  "column": 138,
+  "end_column": 158,
+  "text": "The archiver catches",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 15,
+  "column": 173,
+  "end_column": 196,
+  "text": "500 segments per minute",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 15,
+  "column": 198,
+  "end_column": 229,
+  "text": "the backlog of segments shrinks",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 17,
+  "column": 4,
+  "end_column": 23,
+  "text": "the object store is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 17,
+  "column": 30,
+  "end_column": 52,
+  "text": "the lifecycle rule has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 17,
+  "column": 77,
+  "end_column": 103,
+  "text": "The owner of the bucket is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 17,
+  "column": 104,
+  "end_column": 119,
+  "text": "Priya Natarajan",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 17,
+  "column": 121,
+  "end_column": 140,
+  "text": "her team re-enables",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 17,
+  "column": 183,
+  "end_column": 212,
+  "text": "the list of segments that are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 17,
+  "column": 253,
+  "end_column": 255,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 17,
+  "column": 273,
+  "end_column": 297,
+  "text": "a deleted segment breaks",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 21,
+  "column": 4,
+  "end_column": 18,
+  "text": "the archive is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 21,
+  "column": 28,
+  "end_column": 42,
+  "text": "table bloat is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 21,
+  "column": 61,
+  "end_column": 97,
+  "text": "The size of the bookings table grows",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 21,
+  "column": 133,
+  "end_column": 154,
+  "text": "`pg_stat_user_tables`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 21,
+  "column": 156,
+  "end_column": 188,
+  "text": "a table whose dead tuples exceed",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 21,
+  "column": 189,
+  "end_column": 193,
+  "text": "20 %",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 21,
+  "column": 194,
+  "end_column": 199,
+  "text": "needs",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 23,
+  "column": 5,
+  "end_column": 33,
+  "text": "`VACUUM (VERBOSE) bookings;`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 23,
+  "column": 54,
+  "end_column": 97,
+  "text": "The vacuum of a two-million-row table takes",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 23,
+  "column": 104,
+  "end_column": 114,
+  "text": "15 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 23,
+  "column": 119,
+  "end_column": 123,
+  "text": "does",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 23,
+  "column": 142,
+  "end_column": 155,
+  "text": "A full vacuum",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 23,
+  "column": 176,
+  "end_column": 178,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 23,
+  "column": 216,
+  "end_column": 226,
+  "text": "authorised",
+  "kind": "british_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 23,
+  "column": 230,
+  "end_column": 241,
+  "text": "Aino Kallas",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 27,
+  "column": 25,
+  "end_column": 30,
+  "text": "frees",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 27,
+  "column": 64,
+  "end_column": 80,
+  "text": "The expansion is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 27,
+  "column": 102,
+  "end_column": 116,
+  "text": "the replica is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 27,
+  "column": 133,
+  "end_column": 151,
+  "text": "the old primary is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 27,
+  "column": 166,
+  "end_column": 179,
+  "text": "the roles are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 27,
+  "column": 194,
+  "end_column": 214,
+  "text": "Only two people know",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 27,
+  "column": 235,
+  "end_column": 246,
+  "text": "Ville Ranta",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 27,
+  "column": 251,
+  "end_column": 265,
+  "text": "Mikko Järvinen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 27,
+  "column": 270,
+  "end_column": 284,
+  "text": "one of them is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 34,
+  "column": 1,
+  "end_column": 27,
+  "text": "The vendor's documentation",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 34,
+  "column": 28,
+  "end_column": 38,
+  "text": "summarises",
+  "kind": "british_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 34,
+  "column": 54,
+  "end_column": 78,
+  "text": "the version we follow is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 34,
+  "column": 90,
+  "end_column": 109,
+  "text": "`docs/db/expand.md`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 34,
+  "column": 137,
+  "end_column": 162,
+  "text": "the vendor's steps assume",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 38,
+  "column": 45,
+  "end_column": 57,
+  "text": "The template",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 38,
+  "column": 58,
+  "end_column": 60,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 38,
+  "column": 64,
+  "end_column": 94,
+  "text": "`docs/templates/postmortem.md`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 38,
+  "column": 96,
+  "end_column": 136,
+  "text": "The postmortem of the August incident is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 38,
+  "column": 153,
+  "end_column": 169,
+  "text": "its actions were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 38,
+  "column": 197,
+  "end_column": 216,
+  "text": "The people who were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 38,
+  "column": 248,
+  "end_column": 286,
+  "text": "the head of the database team approves",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 38,
+  "column": 291,
+  "end_column": 300,
+  "text": "Recognise",
+  "kind": "british_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 38,
+  "column": 306,
+  "end_column": 340,
+  "text": "the majority of disk incidents are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 38,
+  "column": 386,
+  "end_column": 426,
+  "text": "the number of true capacity incidents is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 38,
+  "column": 434,
+  "end_column": 448,
+  "text": "The runbook is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 38,
+  "column": 458,
+  "end_column": 472,
+  "text": "Sanna Virtanen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 38,
+  "column": 486,
+  "end_column": 495,
+  "text": "favourite",
+  "kind": "british_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 38,
+  "column": 505,
+  "end_column": 507,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/runbook-disk-pressure.md",
+  "line": 38,
+  "column": 513,
+  "end_column": 543,
+  "text": "the archiver, not the disk, is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 3,
+  "column": 10,
+  "end_column": 18,
+  "text": "Here are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 3,
+  "column": 37,
+  "end_column": 65,
+  "text": "The length of this update is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 3,
+  "column": 78,
+  "end_column": 99,
+  "text": "the poll results were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 7,
+  "column": 52,
+  "end_column": 72,
+  "text": "a batch job that was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 7,
+  "column": 88,
+  "end_column": 102,
+  "text": "Sanna Virtanen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 7,
+  "column": 103,
+  "end_column": 111,
+  "text": "reported",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 7,
+  "column": 130,
+  "end_column": 141,
+  "text": "the job was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 7,
+  "column": 171,
+  "end_column": 184,
+  "text": "The logs show",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 7,
+  "column": 190,
+  "end_column": 207,
+  "text": "the scheduler was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 7,
+  "column": 233,
+  "end_column": 271,
+  "text": "the configuration of the scheduler has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 9,
+  "column": 46,
+  "end_column": 56,
+  "text": "Users have",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 9,
+  "column": 131,
+  "end_column": 143,
+  "text": "everyone who",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 9,
+  "column": 152,
+  "end_column": 169,
+  "text": "the testers found",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 9,
+  "column": 202,
+  "end_column": 225,
+  "text": "The set of open bugs is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 9,
+  "column": 234,
+  "end_column": 238,
+  "text": "four",
+  "kind": "number"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 13,
+  "column": 29,
+  "end_column": 40,
+  "text": "Aino Kallas",
+  "kind": "name"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 13,
+  "column": 41,
+  "end_column": 44,
+  "text": "has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 13,
+  "column": 116,
+  "end_column": 118,
+  "text": "go",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 13,
+  "column": 149,
+  "end_column": 181,
+  "text": "the number of comments so far is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 13,
+  "column": 182,
+  "end_column": 188,
+  "text": "eleven",
+  "kind": "number"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 15,
+  "column": 29,
+  "end_column": 31,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 15,
+  "column": 51,
+  "end_column": 68,
+  "text": "The testers found",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 15,
+  "column": 116,
+  "end_column": 124,
+  "text": "they are",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 15,
+  "column": 143,
+  "end_column": 145,
+  "text": "do",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 15,
+  "column": 176,
+  "end_column": 199,
+  "text": "the language expert has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 15,
+  "column": 213,
+  "end_column": 251,
+  "text": "the review of the Finnish version took",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 15,
+  "column": 263,
+  "end_column": 280,
+  "text": "Kirsti Simonsuuri",
+  "kind": "name"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 15,
+  "column": 281,
+  "end_column": 286,
+  "text": "leads",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 15,
+  "column": 299,
+  "end_column": 313,
+  "text": "her colleagues",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 15,
+  "column": 314,
+  "end_column": 328,
+  "text": "Pekka Koskinen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 15,
+  "column": 333,
+  "end_column": 347,
+  "text": "Meera Raghavan",
+  "kind": "name"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 15,
+  "column": 348,
+  "end_column": 352,
+  "text": "help",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 19,
+  "column": 13,
+  "end_column": 33,
+  "text": "the capacity plan is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 19,
+  "column": 44,
+  "end_column": 60,
+  "text": "Those who cannot",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 19,
+  "column": 68,
+  "end_column": 79,
+  "text": "can comment",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 19,
+  "column": 97,
+  "end_column": 125,
+  "text": "the deadline for comments is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 20,
+  "column": 14,
+  "end_column": 25,
+  "text": "Ville Ranta",
+  "kind": "name"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 20,
+  "column": 26,
+  "end_column": 31,
+  "text": "gives",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 20,
+  "column": 48,
+  "end_column": 56,
+  "text": "Kubecost",
+  "kind": "product"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 20,
+  "column": 58,
+  "end_column": 69,
+  "text": "The talk is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 21,
+  "column": 3,
+  "end_column": 15,
+  "text": "Juha Itkonen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 21,
+  "column": 16,
+  "end_column": 18,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 21,
+  "column": 42,
+  "end_column": 70,
+  "text": "the on-call engineer decides",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 21,
+  "column": 91,
+  "end_column": 93,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 21,
+  "column": 105,
+  "end_column": 126,
+  "text": "the rest of us advise",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 21,
+  "column": 131,
+  "end_column": 133,
+  "text": "do",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 25,
+  "column": 1,
+  "end_column": 41,
+  "text": "The coffee machine in the break room has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 25,
+  "column": 54,
+  "end_column": 69,
+  "text": "The machine was",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 25,
+  "column": 100,
+  "end_column": 108,
+  "text": "explains",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 25,
+  "column": 121,
+  "end_column": 136,
+  "text": "Two people have",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 25,
+  "column": 171,
+  "end_column": 190,
+  "text": "registration closes",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 25,
+  "column": 208,
+  "end_column": 230,
+  "text": "the number of seats is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 27,
+  "column": 1,
+  "end_column": 28,
+  "text": "The colleagues in Stockholm",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 27,
+  "column": 105,
+  "end_column": 109,
+  "text": "Juha",
+  "kind": "name"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 27,
+  "column": 110,
+  "end_column": 112,
+  "text": "is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 27,
+  "column": 132,
+  "end_column": 158,
+  "text": "Feedback on this update is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 27,
+  "column": 170,
+  "end_column": 179,
+  "text": "#platform",
+  "kind": "code"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 27,
+  "column": 181,
+  "end_column": 206,
+  "text": "The poll on the format is",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 27,
+  "column": 215,
+  "end_column": 243,
+  "text": "an overwhelming majority has",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 27,
+  "column": 275,
+  "end_column": 290,
+  "text": "the rest prefer",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 27,
+  "column": 299,
+  "end_column": 322,
+  "text": "A couple of people were",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 27,
+  "column": 344,
+  "end_column": 355,
+  "text": "volunteered",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "docs/weekly-update-47.md",
+  "line": 27,
+  "column": 385,
+  "end_column": 415,
+  "text": "the format of the update stays",
+  "kind": "grammar_ok"
+ }
+]

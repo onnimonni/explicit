@@ -1,0 +1,738 @@
+[
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 11,
+  "column": 21,
+  "end_column": 28,
+  "text": "23,00 €",
+  "kind": "unit"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 11,
+  "column": 31,
+  "end_column": 38,
+  "text": "23,60 €",
+  "kind": "unit"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 13,
+  "column": 18,
+  "end_column": 25,
+  "text": "56,70 €",
+  "kind": "unit"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 13,
+  "column": 28,
+  "end_column": 35,
+  "text": "58,20 €",
+  "kind": "unit"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 14,
+  "column": 16,
+  "end_column": 21,
+  "text": "762 €",
+  "kind": "unit"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 14,
+  "column": 24,
+  "end_column": 29,
+  "text": "782 €",
+  "kind": "unit"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 16,
+  "column": 34,
+  "end_column": 45,
+  "text": "2,6 procent",
+  "kind": "unit"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 16,
+  "column": 159,
+  "end_column": 168,
+  "text": "24 timmar",
+  "kind": "unit"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 20,
+  "column": 56,
+  "end_column": 64,
+  "text": "782 euro",
+  "kind": "unit"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 22,
+  "column": 178,
+  "end_column": 188,
+  "text": "de rättade",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 32,
+  "column": 38,
+  "end_column": 46,
+  "text": "Suomi.fi",
+  "kind": "name"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 32,
+  "column": 141,
+  "end_column": 149,
+  "text": "21 dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 32,
+  "column": 242,
+  "end_column": 250,
+  "text": "14 dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 34,
+  "column": 129,
+  "end_column": 154,
+  "text": "klientavgifter@example.fi",
+  "kind": "url"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 34,
+  "column": 181,
+  "end_column": 192,
+  "text": "017 173 100",
+  "kind": "number"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 34,
+  "column": 202,
+  "end_column": 210,
+  "text": "kl. 9–15",
+  "kind": "unit"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 34,
+  "column": 355,
+  "end_column": 433,
+  "text": "Client fees change on 1 January 2027; the annual payment ceiling is 782 euros.",
+  "kind": "foreign"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 37,
+  "column": 1,
+  "end_column": 29,
+  "text": "Norra Savolax välfärdsområde",
+  "kind": "name"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 12,
+  "column": 27,
+  "end_column": 41,
+  "text": "Ett misstag är",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 13,
+  "column": 61,
+  "end_column": 69,
+  "text": "tas bort",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 20,
+  "column": 45,
+  "end_column": 50,
+  "text": "sätts",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 20,
+  "column": 128,
+  "end_column": 140,
+  "text": "ser till att",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 22,
+  "column": 19,
+  "end_column": 31,
+  "text": "bekantar sig",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 22,
+  "column": 148,
+  "end_column": 155,
+  "text": "gör den",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 22,
+  "column": 216,
+  "end_column": 231,
+  "text": "den måste synas",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 22,
+  "column": 248,
+  "end_column": 255,
+  "text": "Den nya",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 28,
+  "column": 17,
+  "end_column": 20,
+  "text": "NPS",
+  "kind": "acronym"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 29,
+  "column": 52,
+  "end_column": 60,
+  "text": "10 dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 30,
+  "column": 51,
+  "end_column": 55,
+  "text": "15 %",
+  "kind": "unit"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 31,
+  "column": 37,
+  "end_column": 42,
+  "text": "100 %",
+  "kind": "unit"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 33,
+  "column": 207,
+  "end_column": 221,
+  "text": "Huset är stort",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 33,
+  "column": 226,
+  "end_column": 238,
+  "text": "målen är små",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 37,
+  "column": 177,
+  "end_column": 184,
+  "text": "förs in",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 37,
+  "column": 187,
+  "end_column": 191,
+  "text": "Jira",
+  "kind": "product"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 37,
+  "column": 197,
+  "end_column": 205,
+  "text": "en vecka",
+  "kind": "unit"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 39,
+  "column": 262,
+  "end_column": 340,
+  "text": "\"Open findings from the previous cycle must be closed or formally re-planned.\"",
+  "kind": "foreign"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 41,
+  "column": 47,
+  "end_column": 58,
+  "text": "Elina Vaara",
+  "kind": "name"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 41,
+  "column": 199,
+  "end_column": 209,
+  "text": "håller den",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 41,
+  "column": 241,
+  "end_column": 253,
+  "text": "är bättre än",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 7,
+  "column": 32,
+  "end_column": 41,
+  "text": "Bitwarden",
+  "kind": "product"
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 7,
+  "column": 129,
+  "end_column": 135,
+  "text": "sparas",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 11,
+  "column": 16,
+  "end_column": 40,
+  "text": "https://vault.example.fi",
+  "kind": "url"
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 16,
+  "column": 193,
+  "end_column": 206,
+  "text": "koden är kort",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 16,
+  "column": 211,
+  "end_column": 229,
+  "text": "pappret är billigt",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 20,
+  "column": 61,
+  "end_column": 64,
+  "text": "API",
+  "kind": "acronym"
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 20,
+  "column": 90,
+  "end_column": 93,
+  "text": "SSH",
+  "kind": "product"
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 28,
+  "column": 42,
+  "end_column": 47,
+  "text": "Vault",
+  "kind": "product"
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 30,
+  "column": 21,
+  "end_column": 30,
+  "text": "Bitwarden",
+  "kind": "product"
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 30,
+  "column": 35,
+  "end_column": 40,
+  "text": "Vault",
+  "kind": "product"
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 40,
+  "column": 57,
+  "end_column": 65,
+  "text": "#it-stod",
+  "kind": "identifier"
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 40,
+  "column": 88,
+  "end_column": 96,
+  "text": "en timme",
+  "kind": "unit"
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 42,
+  "column": 210,
+  "end_column": 309,
+  "text": "Install the browser extension, create a long master password, and store the recovery code on paper.",
+  "kind": "foreign"
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 42,
+  "column": 325,
+  "end_column": 335,
+  "text": "kortare än",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 42,
+  "column": 391,
+  "end_column": 399,
+  "text": "kan läsa",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 7,
+  "column": 119,
+  "end_column": 125,
+  "text": "12 400",
+  "kind": "number"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 7,
+  "column": 200,
+  "end_column": 208,
+  "text": "MinHälsa",
+  "kind": "product"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 9,
+  "column": 25,
+  "end_column": 34,
+  "text": "Duodecims",
+  "kind": "name"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 9,
+  "column": 78,
+  "end_column": 80,
+  "text": "EU",
+  "kind": "acronym"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 9,
+  "column": 228,
+  "end_column": 248,
+  "text": "Kontrollen är strikt",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 9,
+  "column": 253,
+  "end_column": 270,
+  "text": "reglerna är enkla",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 15,
+  "column": 26,
+  "end_column": 29,
+  "text": "410",
+  "kind": "number"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 15,
+  "column": 32,
+  "end_column": 35,
+  "text": "322",
+  "kind": "number"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 16,
+  "column": 27,
+  "end_column": 31,
+  "text": "38 %",
+  "kind": "unit"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 17,
+  "column": 24,
+  "end_column": 28,
+  "text": "11 %",
+  "kind": "unit"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 17,
+  "column": 31,
+  "end_column": 34,
+  "text": "9 %",
+  "kind": "unit"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 18,
+  "column": 17,
+  "end_column": 20,
+  "text": "3,7",
+  "kind": "number"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 18,
+  "column": 23,
+  "end_column": 26,
+  "text": "4,1",
+  "kind": "number"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 20,
+  "column": 23,
+  "end_column": 33,
+  "text": "21 procent",
+  "kind": "unit"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 20,
+  "column": 49,
+  "end_column": 58,
+  "text": "bättre än",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 22,
+  "column": 22,
+  "end_column": 32,
+  "text": "94 procent",
+  "kind": "unit"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 26,
+  "column": 1,
+  "end_column": 6,
+  "text": "1 106",
+  "kind": "number"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 26,
+  "column": 205,
+  "end_column": 217,
+  "text": "förverkligas",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 28,
+  "column": 21,
+  "end_column": 65,
+  "text": "\"Helt ok, men den ersätter inte en människa\"",
+  "kind": "colloquial"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 32,
+  "column": 156,
+  "end_column": 165,
+  "text": "180 000 €",
+  "kind": "unit"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 34,
+  "column": 197,
+  "end_column": 276,
+  "text": "\"Model updates are staged for two weeks and can be rolled back within an hour.\"",
+  "kind": "foreign"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 34,
+  "column": 297,
+  "end_column": 308,
+  "text": "Elina Vaara",
+  "kind": "name"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 34,
+  "column": 313,
+  "end_column": 330,
+  "text": "Kirsti Simonsuuri",
+  "kind": "name"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 34,
+  "column": 400,
+  "end_column": 416,
+  "text": "Utkastet är kort",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 34,
+  "column": 421,
+  "end_column": 439,
+  "text": "bilagorna är långa",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 11,
+  "column": 103,
+  "end_column": 110,
+  "text": "Populus",
+  "kind": "product"
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 11,
+  "column": 118,
+  "end_column": 126,
+  "text": "en vecka",
+  "kind": "unit"
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 11,
+  "column": 224,
+  "end_column": 235,
+  "text": "kallas ändå",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 13,
+  "column": 6,
+  "end_column": 14,
+  "text": "en timme",
+  "kind": "unit"
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 13,
+  "column": 150,
+  "end_column": 165,
+  "text": "Rummet är lugnt",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 13,
+  "column": 170,
+  "end_column": 184,
+  "text": "tiden är knapp",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 22,
+  "column": 142,
+  "end_column": 149,
+  "text": "Populus",
+  "kind": "product"
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 22,
+  "column": 155,
+  "end_column": 163,
+  "text": "en vecka",
+  "kind": "unit"
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 28,
+  "column": 144,
+  "end_column": 152,
+  "text": "styr fel",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 32,
+  "column": 198,
+  "end_column": 206,
+  "text": "en månad",
+  "kind": "unit"
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 34,
+  "column": 280,
+  "end_column": 371,
+  "text": "Listen more than you talk, agree on at most four goals, and record the notes within a week.",
+  "kind": "foreign"
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 34,
+  "column": 387,
+  "end_column": 397,
+  "text": "kortare än",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 34,
+  "column": 439,
+  "end_column": 447,
+  "text": "de gamla",
+  "kind": "grammar_ok"
+ }
+]

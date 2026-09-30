@@ -1,0 +1,792 @@
+[
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 5,
+  "column": 124,
+  "end_column": 128,
+  "text": "Juli",
+  "category": "capitalization",
+  "correction": "juli"
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 16,
+  "column": 78,
+  "end_column": 90,
+  "text": "avgiftsfritt",
+  "category": "adj_agreement",
+  "correction": "avgiftsfri",
+  "real_word": true
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 16,
+  "column": 105,
+  "end_column": 121,
+  "text": "ett oavbokad tid",
+  "category": "en_ett",
+  "correction": "en oavbokad tid",
+  "real_word": true
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 16,
+  "column": 152,
+  "end_column": 158,
+  "text": "avboka",
+  "category": "supine",
+  "correction": "avbokats",
+  "real_word": true
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 20,
+  "column": 45,
+  "end_column": 50,
+  "text": "uppgå",
+  "category": "supine",
+  "correction": "uppgått",
+  "real_word": true
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 20,
+  "column": 195,
+  "end_column": 198,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 26,
+  "column": 90,
+  "end_column": 107,
+  "text": "ett betalningstid",
+  "category": "en_ett",
+  "correction": "en betalningstid",
+  "real_word": true
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 26,
+  "column": 273,
+  "end_column": 280,
+  "text": "försöka",
+  "category": "supine",
+  "correction": "försökt",
+  "real_word": true
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 28,
+  "column": 242,
+  "end_column": 245,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 28,
+  "column": 246,
+  "end_column": 254,
+  "text": "har lova",
+  "category": "supine",
+  "correction": "har lovat",
+  "real_word": true
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 32,
+  "column": 192,
+  "end_column": 198,
+  "text": "betald",
+  "category": "adj_agreement",
+  "correction": "betalda",
+  "real_word": true
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 34,
+  "column": 62,
+  "end_column": 66,
+  "text": "lång",
+  "category": "adj_agreement",
+  "correction": "långt",
+  "real_word": true
+ },
+ {
+  "file": "kundbrev-avgifter.md",
+  "line": 34,
+  "column": 288,
+  "end_column": 290,
+  "text": "de",
+  "category": "de_dem",
+  "correction": "dem",
+  "real_word": true
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 7,
+  "column": 108,
+  "end_column": 116,
+  "text": "förbinda",
+  "category": "supine",
+  "correction": "förbundit",
+  "real_word": true
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 16,
+  "column": 66,
+  "end_column": 68,
+  "text": "de",
+  "category": "de_dem",
+  "correction": "dem",
+  "real_word": true
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 16,
+  "column": 143,
+  "end_column": 160,
+  "text": "Ett komplettering",
+  "category": "en_ett",
+  "correction": "En komplettering",
+  "real_word": true
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 16,
+  "column": 170,
+  "end_column": 180,
+  "text": "skriftligt",
+  "category": "adj_agreement",
+  "correction": "skriftlig",
+  "real_word": true
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 20,
+  "column": 168,
+  "end_column": 171,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 22,
+  "column": 270,
+  "end_column": 276,
+  "text": "skicka",
+  "category": "supine",
+  "correction": "skickats",
+  "real_word": true
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 33,
+  "column": 10,
+  "end_column": 17,
+  "text": "härledd",
+  "category": "adj_agreement",
+  "correction": "härledda",
+  "real_word": true
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 33,
+  "column": 32,
+  "end_column": 35,
+  "text": "Dem",
+  "category": "de_dem",
+  "correction": "De",
+  "real_word": true
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 33,
+  "column": 102,
+  "end_column": 113,
+  "text": "en nytt mål",
+  "category": "en_ett",
+  "correction": "ett nytt mål",
+  "real_word": true
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 37,
+  "column": 28,
+  "end_column": 36,
+  "text": "utbildad",
+  "category": "adj_agreement",
+  "correction": "utbildade",
+  "real_word": true
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 37,
+  "column": 119,
+  "end_column": 122,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 39,
+  "column": 31,
+  "end_column": 34,
+  "text": "Maj",
+  "category": "capitalization",
+  "correction": "maj"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 39,
+  "column": 116,
+  "end_column": 121,
+  "text": "öppen",
+  "category": "adj_agreement",
+  "correction": "öppna",
+  "real_word": true
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 39,
+  "column": 133,
+  "end_column": 156,
+  "text": "har certifikatet förnya",
+  "category": "supine",
+  "correction": "förnyades certifikatet",
+  "real_word": true
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 39,
+  "column": 198,
+  "end_column": 204,
+  "text": "stängd",
+  "category": "adj_agreement",
+  "correction": "stängda",
+  "real_word": true
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 41,
+  "column": 61,
+  "end_column": 68,
+  "text": "Januari",
+  "category": "capitalization",
+  "correction": "januari"
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 41,
+  "column": 104,
+  "end_column": 107,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "den",
+  "real_word": true
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 41,
+  "column": 146,
+  "end_column": 151,
+  "text": "vänja",
+  "category": "supine",
+  "correction": "vant",
+  "real_word": true
+ },
+ {
+  "file": "kvalitetspolicy.md",
+  "line": 41,
+  "column": 219,
+  "end_column": 233,
+  "text": "Ett uppdaterad",
+  "category": "en_ett",
+  "correction": "En uppdaterad",
+  "real_word": true
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 7,
+  "column": 57,
+  "end_column": 65,
+  "text": "November",
+  "category": "capitalization",
+  "correction": "november"
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 12,
+  "column": 48,
+  "end_column": 52,
+  "text": "lång",
+  "category": "adj_agreement",
+  "correction": "långt",
+  "real_word": true
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 14,
+  "column": 24,
+  "end_column": 29,
+  "text": "delad",
+  "category": "adj_agreement",
+  "correction": "delade",
+  "real_word": true
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 16,
+  "column": 49,
+  "end_column": 55,
+  "text": "glömma",
+  "category": "supine",
+  "correction": "glömt",
+  "real_word": true
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 22,
+  "column": 92,
+  "end_column": 102,
+  "text": "uppdaterat",
+  "category": "adj_agreement",
+  "correction": "uppdaterad",
+  "real_word": true
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 22,
+  "column": 146,
+  "end_column": 149,
+  "text": "hen",
+  "category": "de_dem",
+  "correction": "henne",
+  "real_word": true
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 22,
+  "column": 174,
+  "end_column": 177,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 28,
+  "column": 30,
+  "end_column": 33,
+  "text": "Dem",
+  "category": "de_dem",
+  "correction": "De",
+  "real_word": true
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 28,
+  "column": 83,
+  "end_column": 96,
+  "text": "liknande namn",
+  "category": "adj_agreement",
+  "correction": "liknande namnet",
+  "real_word": true
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 30,
+  "column": 172,
+  "end_column": 177,
+  "text": "vänja",
+  "category": "supine",
+  "correction": "vant",
+  "real_word": true
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 36,
+  "column": 82,
+  "end_column": 92,
+  "text": "den sparad",
+  "category": "adj_agreement",
+  "correction": "den sparade",
+  "real_word": true
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 40,
+  "column": 222,
+  "end_column": 228,
+  "text": "har se",
+  "category": "supine",
+  "correction": "har sett",
+  "real_word": true
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 42,
+  "column": 24,
+  "end_column": 31,
+  "text": "förvara",
+  "category": "supine",
+  "correction": "förvarats",
+  "real_word": true
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 42,
+  "column": 133,
+  "end_column": 141,
+  "text": "December",
+  "category": "capitalization",
+  "correction": "december"
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 42,
+  "column": 371,
+  "end_column": 374,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "losenordshantering.md",
+  "line": 42,
+  "column": 400,
+  "end_column": 428,
+  "text": "det fullständiga anvisningen",
+  "category": "en_ett",
+  "correction": "den fullständiga anvisningen",
+  "real_word": true
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 3,
+  "column": 21,
+  "end_column": 25,
+  "text": "Juni",
+  "category": "capitalization",
+  "correction": "juni"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 7,
+  "column": 229,
+  "end_column": 244,
+  "text": "har kontrollera",
+  "category": "supine",
+  "correction": "kontrollerade",
+  "real_word": true
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 9,
+  "column": 128,
+  "end_column": 136,
+  "text": "felaktig",
+  "category": "adj_agreement",
+  "correction": "felaktiga",
+  "real_word": true
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 20,
+  "column": 129,
+  "end_column": 143,
+  "text": "digitalt aktiv",
+  "category": "adj_agreement",
+  "correction": "digitalt aktiva",
+  "real_word": true
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 20,
+  "column": 214,
+  "end_column": 218,
+  "text": "oroa",
+  "category": "supine",
+  "correction": "oroat",
+  "real_word": true
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 22,
+  "column": 54,
+  "end_column": 61,
+  "text": "korrekt",
+  "category": "adj_agreement",
+  "correction": "korrekta",
+  "real_word": true
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 22,
+  "column": 81,
+  "end_column": 94,
+  "text": "för försiktig",
+  "category": "adj_agreement",
+  "correction": "för försiktiga",
+  "real_word": true
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 22,
+  "column": 154,
+  "end_column": 179,
+  "text": "den viktigaste resultatet",
+  "category": "en_ett",
+  "correction": "det viktigaste resultatet",
+  "real_word": true
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 26,
+  "column": 220,
+  "end_column": 228,
+  "text": "November",
+  "category": "capitalization",
+  "correction": "november"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 26,
+  "column": 230,
+  "end_column": 233,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 28,
+  "column": 160,
+  "end_column": 162,
+  "text": "de",
+  "category": "de_dem",
+  "correction": "dem",
+  "real_word": true
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 32,
+  "column": 53,
+  "end_column": 61,
+  "text": "Februari",
+  "category": "capitalization",
+  "correction": "februari"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 32,
+  "column": 94,
+  "end_column": 101,
+  "text": "svenskt",
+  "category": "adj_agreement",
+  "correction": "svensk",
+  "real_word": true
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 34,
+  "column": 360,
+  "end_column": 367,
+  "text": "Oktober",
+  "category": "capitalization",
+  "correction": "oktober"
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 34,
+  "column": 373,
+  "end_column": 376,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "slutrapport-pilot.md",
+  "line": 34,
+  "column": 387,
+  "end_column": 389,
+  "text": "få",
+  "category": "supine",
+  "correction": "fått",
+  "real_word": true
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 7,
+  "column": 29,
+  "end_column": 45,
+  "text": "Januari–februari",
+  "category": "capitalization",
+  "correction": "januari–februari"
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 11,
+  "column": 167,
+  "end_column": 172,
+  "text": "fylla",
+  "category": "supine",
+  "correction": "fyllt",
+  "real_word": true
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 11,
+  "column": 198,
+  "end_column": 201,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 13,
+  "column": 19,
+  "end_column": 30,
+  "text": "en lugn rum",
+  "category": "en_ett",
+  "correction": "ett lugnt rum",
+  "real_word": true
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 19,
+  "column": 76,
+  "end_column": 93,
+  "text": "vilket utbildning",
+  "category": "en_ett",
+  "correction": "vilken utbildning",
+  "real_word": true
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 22,
+  "column": 96,
+  "end_column": 104,
+  "text": "bestämma",
+  "category": "supine",
+  "correction": "bestämt",
+  "real_word": true
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 22,
+  "column": 224,
+  "end_column": 227,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 22,
+  "column": 231,
+  "end_column": 240,
+  "text": "frivillig",
+  "category": "adj_agreement",
+  "correction": "frivilliga",
+  "real_word": true
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 26,
+  "column": 209,
+  "end_column": 224,
+  "text": "Ett otydlig mål",
+  "category": "en_ett",
+  "correction": "Ett otydligt mål",
+  "real_word": true
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 28,
+  "column": 69,
+  "end_column": 79,
+  "text": "konstatera",
+  "category": "supine",
+  "correction": "konstaterats",
+  "real_word": true
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 28,
+  "column": 127,
+  "end_column": 130,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 32,
+  "column": 33,
+  "end_column": 41,
+  "text": "försämra",
+  "category": "supine",
+  "correction": "försämrats",
+  "real_word": true
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 32,
+  "column": 208,
+  "end_column": 223,
+  "text": "Ett svår samtal",
+  "category": "en_ett",
+  "correction": "Ett svårt samtal",
+  "real_word": true
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 34,
+  "column": 209,
+  "end_column": 212,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 34,
+  "column": 217,
+  "end_column": 224,
+  "text": "erbjuda",
+  "category": "supine",
+  "correction": "erbjudit",
+  "real_word": true
+ },
+ {
+  "file": "utvecklingssamtal.md",
+  "line": 34,
+  "column": 463,
+  "end_column": 472,
+  "text": "arkiverad",
+  "category": "adj_agreement",
+  "correction": "arkiverade",
+  "real_word": true
+ }
+]

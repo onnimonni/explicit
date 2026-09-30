@@ -1,0 +1,920 @@
+[
+ {
+  "file": "asiakaskirje-hinnasto.md",
+  "line": 5,
+  "column": 87,
+  "end_column": 92,
+  "text": "jotka",
+  "category": "joka_jotka",
+  "correction": "joka",
+  "real_word": true
+ },
+ {
+  "file": "asiakaskirje-hinnasto.md",
+  "line": 5,
+  "column": 106,
+  "end_column": 117,
+  "text": "Heinäkuussa",
+  "category": "capitalization",
+  "correction": "heinäkuussa"
+ },
+ {
+  "file": "asiakaskirje-hinnasto.md",
+  "line": 16,
+  "column": 8,
+  "end_column": 14,
+  "text": "nousee",
+  "category": "agreement",
+  "correction": "nousevat",
+  "real_word": true
+ },
+ {
+  "file": "asiakaskirje-hinnasto.md",
+  "line": 22,
+  "column": 51,
+  "end_column": 55,
+  "text": "vain",
+  "category": "vaan_vain",
+  "correction": "vaan",
+  "real_word": true
+ },
+ {
+  "file": "asiakaskirje-hinnasto.md",
+  "line": 22,
+  "column": 73,
+  "end_column": 85,
+  "text": "huomaat että",
+  "category": "punctuation",
+  "correction": "huomaat, että"
+ },
+ {
+  "file": "asiakaskirje-hinnasto.md",
+  "line": 22,
+  "column": 105,
+  "end_column": 117,
+  "text": "ilmoita sitä",
+  "category": "sita_siita",
+  "correction": "ilmoita siitä",
+  "real_word": true
+ },
+ {
+  "file": "asiakaskirje-hinnasto.md",
+  "line": 22,
+  "column": 145,
+  "end_column": 149,
+  "text": "joka",
+  "category": "joka_jotka",
+  "correction": "jotka",
+  "real_word": true
+ },
+ {
+  "file": "asiakaskirje-hinnasto.md",
+  "line": 26,
+  "column": 35,
+  "end_column": 52,
+  "text": "ota yhteyttä sitä",
+  "category": "sita_siihen",
+  "correction": "ota yhteyttä siihen",
+  "real_word": true
+ },
+ {
+  "file": "asiakaskirje-hinnasto.md",
+  "line": 28,
+  "column": 20,
+  "end_column": 37,
+  "text": "on tietoinen sitä",
+  "category": "sita_siita",
+  "correction": "on tietoinen siitä",
+  "real_word": true
+ },
+ {
+  "file": "asiakaskirje-hinnasto.md",
+  "line": 28,
+  "column": 94,
+  "end_column": 109,
+  "text": "osallistuu sitä",
+  "category": "sita_siihen",
+  "correction": "osallistuu siihen",
+  "real_word": true
+ },
+ {
+  "file": "asiakaskirje-hinnasto.md",
+  "line": 28,
+  "column": 145,
+  "end_column": 149,
+  "text": "joka",
+  "category": "joka_jotka",
+  "correction": "mikä",
+  "real_word": true
+ },
+ {
+  "file": "asiakaskirje-hinnasto.md",
+  "line": 32,
+  "column": 83,
+  "end_column": 88,
+  "text": "jotka",
+  "category": "joka_jotka",
+  "correction": "mikä",
+  "real_word": true
+ },
+ {
+  "file": "asiakaskirje-hinnasto.md",
+  "line": 32,
+  "column": 165,
+  "end_column": 169,
+  "text": "joka",
+  "category": "joka_jotka",
+  "correction": "joita",
+  "real_word": true
+ },
+ {
+  "file": "asiakaskirje-hinnasto.md",
+  "line": 32,
+  "column": 198,
+  "end_column": 205,
+  "text": "siirtyy",
+  "category": "agreement",
+  "correction": "siirtyvät",
+  "real_word": true
+ },
+ {
+  "file": "asiakaskirje-hinnasto.md",
+  "line": 34,
+  "column": 1,
+  "end_column": 16,
+  "text": "Ruotsinkielinen",
+  "category": "capitalization",
+  "correction": "ruotsinkielinen"
+ },
+ {
+  "file": "asiakaskirje-hinnasto.md",
+  "line": 34,
+  "column": 46,
+  "end_column": 50,
+  "text": "Sitä",
+  "category": "sita_siita",
+  "correction": "Siitä",
+  "real_word": true
+ },
+ {
+  "file": "kehityskeskustelu-ohje.md",
+  "line": 11,
+  "column": 12,
+  "end_column": 25,
+  "text": "tutustuu sitä",
+  "category": "sita_siihen",
+  "correction": "tutustuu siihen",
+  "real_word": true
+ },
+ {
+  "file": "kehityskeskustelu-ohje.md",
+  "line": 13,
+  "column": 132,
+  "end_column": 136,
+  "text": "vain",
+  "category": "vaan_vain",
+  "correction": "vaan",
+  "real_word": true
+ },
+ {
+  "file": "kehityskeskustelu-ohje.md",
+  "line": 22,
+  "column": 42,
+  "end_column": 45,
+  "text": "kun",
+  "category": "kun_kuin",
+  "correction": "kuin",
+  "real_word": true
+ },
+ {
+  "file": "kehityskeskustelu-ohje.md",
+  "line": 22,
+  "column": 65,
+  "end_column": 71,
+  "text": "huomaa",
+  "category": "agreement",
+  "correction": "huomaavat",
+  "real_word": true
+ },
+ {
+  "file": "kehityskeskustelu-ohje.md",
+  "line": 22,
+  "column": 177,
+  "end_column": 181,
+  "text": "joka",
+  "category": "joka_jotka",
+  "correction": "mikä",
+  "real_word": true
+ },
+ {
+  "file": "kehityskeskustelu-ohje.md",
+  "line": 26,
+  "column": 94,
+  "end_column": 102,
+  "text": "kertovat",
+  "category": "agreement",
+  "correction": "kertoo",
+  "real_word": true
+ },
+ {
+  "file": "kehityskeskustelu-ohje.md",
+  "line": 26,
+  "column": 134,
+  "end_column": 146,
+  "text": "Keskity sitä",
+  "category": "sita_siihen",
+  "correction": "Keskity siihen",
+  "real_word": true
+ },
+ {
+  "file": "kehityskeskustelu-ohje.md",
+  "line": 26,
+  "column": 185,
+  "end_column": 209,
+  "text": "älä sido tavoitetta sitä",
+  "category": "sita_siihen",
+  "correction": "älä sido tavoitetta siihen",
+  "real_word": true
+ },
+ {
+  "file": "kehityskeskustelu-ohje.md",
+  "line": 28,
+  "column": 52,
+  "end_column": 60,
+  "text": "hajottaa",
+  "category": "agreement",
+  "correction": "hajottavat",
+  "real_word": true
+ },
+ {
+  "file": "kehityskeskustelu-ohje.md",
+  "line": 28,
+  "column": 70,
+  "end_column": 74,
+  "text": "joka",
+  "category": "joka_jotka",
+  "correction": "mikä",
+  "real_word": true
+ },
+ {
+  "file": "kehityskeskustelu-ohje.md",
+  "line": 28,
+  "column": 122,
+  "end_column": 127,
+  "text": "jotka",
+  "category": "joka_jotka",
+  "correction": "joita",
+  "real_word": true
+ },
+ {
+  "file": "kehityskeskustelu-ohje.md",
+  "line": 32,
+  "column": 31,
+  "end_column": 35,
+  "text": "ovat",
+  "category": "agreement",
+  "correction": "on",
+  "real_word": true
+ },
+ {
+  "file": "kehityskeskustelu-ohje.md",
+  "line": 32,
+  "column": 49,
+  "end_column": 58,
+  "text": "puhu sitä",
+  "category": "sita_siita",
+  "correction": "puhu siitä",
+  "real_word": true
+ },
+ {
+  "file": "kehityskeskustelu-ohje.md",
+  "line": 34,
+  "column": 58,
+  "end_column": 72,
+  "text": "suhtautuu sitä",
+  "category": "sita_siihen",
+  "correction": "suhtautuu siihen",
+  "real_word": true
+ },
+ {
+  "file": "kehityskeskustelu-ohje.md",
+  "line": 34,
+  "column": 87,
+  "end_column": 103,
+  "text": "se ei kerro sitä",
+  "category": "sita_siita",
+  "correction": "se ei kerro siitä",
+  "real_word": true
+ },
+ {
+  "file": "kehityskeskustelu-ohje.md",
+  "line": 34,
+  "column": 162,
+  "end_column": 168,
+  "text": "auttaa",
+  "category": "agreement",
+  "correction": "auttavat",
+  "real_word": true
+ },
+ {
+  "file": "kehityskeskustelu-ohje.md",
+  "line": 34,
+  "column": 356,
+  "end_column": 360,
+  "text": "joka",
+  "category": "joka_jotka",
+  "correction": "mikä",
+  "real_word": true
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 7,
+  "column": 94,
+  "end_column": 107,
+  "text": "sitoutuu sitä",
+  "category": "sita_siihen",
+  "correction": "sitoutuu siihen",
+  "real_word": true
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 12,
+  "column": 72,
+  "end_column": 93,
+  "text": "olemme tietoisia sitä",
+  "category": "sita_siita",
+  "correction": "olemme tietoisia siitä",
+  "real_word": true
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 13,
+  "column": 46,
+  "end_column": 50,
+  "text": "joka",
+  "category": "joka_jotka",
+  "correction": "jotka",
+  "real_word": true
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 16,
+  "column": 13,
+  "end_column": 15,
+  "text": "on",
+  "category": "agreement",
+  "correction": "ovat",
+  "real_word": true
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 20,
+  "column": 12,
+  "end_column": 27,
+  "text": "osallistuu sitä",
+  "category": "sita_siihen",
+  "correction": "osallistuu siihen",
+  "real_word": true
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 20,
+  "column": 158,
+  "end_column": 167,
+  "text": "varmistaa",
+  "category": "agreement",
+  "correction": "varmistavat",
+  "real_word": true
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 22,
+  "column": 62,
+  "end_column": 76,
+  "text": "vaikuttaa sitä",
+  "category": "sita_siihen",
+  "correction": "vaikuttaa siihen",
+  "real_word": true
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 22,
+  "column": 137,
+  "end_column": 141,
+  "text": "joka",
+  "category": "joka_jotka",
+  "correction": "mikä",
+  "real_word": true
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 22,
+  "column": 205,
+  "end_column": 209,
+  "text": "vain",
+  "category": "vaan_vain",
+  "correction": "vaan",
+  "real_word": true
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 33,
+  "column": 86,
+  "end_column": 97,
+  "text": "toteudu syy",
+  "category": "punctuation",
+  "correction": "toteudu, syy"
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 37,
+  "column": 22,
+  "end_column": 27,
+  "text": "tekee",
+  "category": "agreement",
+  "correction": "tekevät",
+  "real_word": true
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 37,
+  "column": 51,
+  "end_column": 55,
+  "text": "joka",
+  "category": "joka_jotka",
+  "correction": "jotka",
+  "real_word": true
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 39,
+  "column": 29,
+  "end_column": 40,
+  "text": "Toukokuussa",
+  "category": "capitalization",
+  "correction": "toukokuussa"
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 39,
+  "column": 59,
+  "end_column": 73,
+  "text": "huomautti sitä",
+  "category": "sita_siita",
+  "correction": "huomautti siitä",
+  "real_word": true
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 39,
+  "column": 113,
+  "end_column": 116,
+  "text": "oli",
+  "category": "agreement",
+  "correction": "olivat",
+  "real_word": true
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 39,
+  "column": 132,
+  "end_column": 136,
+  "text": "Sitä",
+  "category": "sita_siita",
+  "correction": "Siitä",
+  "real_word": true
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 39,
+  "column": 185,
+  "end_column": 201,
+  "text": "varmistamme että",
+  "category": "punctuation",
+  "correction": "varmistamme, että"
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 41,
+  "column": 49,
+  "end_column": 60,
+  "text": "Tammikuussa",
+  "category": "capitalization",
+  "correction": "tammikuussa"
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 41,
+  "column": 98,
+  "end_column": 102,
+  "text": "joka",
+  "category": "joka_jotka",
+  "correction": "jossa",
+  "real_word": true
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 41,
+  "column": 141,
+  "end_column": 157,
+  "text": "on tottunut sitä",
+  "category": "sita_siihen",
+  "correction": "on tottunut siihen",
+  "real_word": true
+ },
+ {
+  "file": "laatupolitiikka.md",
+  "line": 41,
+  "column": 199,
+  "end_column": 204,
+  "text": "jotka",
+  "category": "joka_jotka",
+  "correction": "mikä",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 3,
+  "column": 98,
+  "end_column": 115,
+  "text": "ottaa kantaa sitä",
+  "category": "sita_siihen",
+  "correction": "ottaa kantaa siihen",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 7,
+  "column": 190,
+  "end_column": 193,
+  "text": "sai",
+  "category": "agreement",
+  "correction": "saivat",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 9,
+  "column": 60,
+  "end_column": 65,
+  "text": "jotka",
+  "category": "joka_jotka",
+  "correction": "joka",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 9,
+  "column": 96,
+  "end_column": 109,
+  "text": "varautui sitä",
+  "category": "sita_siihen",
+  "correction": "varautui siihen",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 20,
+  "column": 9,
+  "end_column": 15,
+  "text": "väheni",
+  "category": "agreement",
+  "correction": "vähenivät",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 20,
+  "column": 48,
+  "end_column": 51,
+  "text": "kun",
+  "category": "kun_kuin",
+  "correction": "kuin",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 20,
+  "column": 197,
+  "end_column": 201,
+  "text": "vain",
+  "category": "vaan_vain",
+  "correction": "vaan",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 20,
+  "column": 216,
+  "end_column": 239,
+  "text": "olimme huolissamme sitä",
+  "category": "sita_siita",
+  "correction": "olimme huolissamme siitä",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 22,
+  "column": 10,
+  "end_column": 16,
+  "text": "arvioi",
+  "category": "agreement",
+  "correction": "arvioivat",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 22,
+  "column": 70,
+  "end_column": 73,
+  "text": "oli",
+  "category": "agreement",
+  "correction": "olivat",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 22,
+  "column": 144,
+  "end_column": 148,
+  "text": "joka",
+  "category": "joka_jotka",
+  "correction": "mikä",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 26,
+  "column": 44,
+  "end_column": 58,
+  "text": "luottivat sitä",
+  "category": "sita_siihen",
+  "correction": "luottivat siihen",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 26,
+  "column": 95,
+  "end_column": 107,
+  "text": "valitti sitä",
+  "category": "sita_siita",
+  "correction": "valitti siitä",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 26,
+  "column": 137,
+  "end_column": 152,
+  "text": "Ruotsinkieliset",
+  "category": "capitalization",
+  "correction": "ruotsinkieliset"
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 26,
+  "column": 163,
+  "end_column": 169,
+  "text": "toivoi",
+  "category": "agreement",
+  "correction": "toivoivat",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 26,
+  "column": 197,
+  "end_column": 201,
+  "text": "joka",
+  "category": "joka_jotka",
+  "correction": "mikä",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 26,
+  "column": 211,
+  "end_column": 223,
+  "text": "Marraskuussa",
+  "category": "capitalization",
+  "correction": "marraskuussa"
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 28,
+  "column": 148,
+  "end_column": 152,
+  "text": "joka",
+  "category": "joka_jotka",
+  "correction": "jotka",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 32,
+  "column": 159,
+  "end_column": 161,
+  "text": "on",
+  "category": "agreement",
+  "correction": "ovat",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 32,
+  "column": 182,
+  "end_column": 186,
+  "text": "joka",
+  "category": "joka_jotka",
+  "correction": "mikä",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 34,
+  "column": 86,
+  "end_column": 112,
+  "text": "kiinnitetään huomiota sitä",
+  "category": "sita_siihen",
+  "correction": "kiinnitetään huomiota siihen",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 34,
+  "column": 350,
+  "end_column": 362,
+  "text": "käsittelevät",
+  "category": "agreement",
+  "correction": "käsittelee",
+  "real_word": true
+ },
+ {
+  "file": "loppuraportti-pilotti.md",
+  "line": 34,
+  "column": 367,
+  "end_column": 377,
+  "text": "Lokakuussa",
+  "category": "capitalization",
+  "correction": "lokakuussa"
+ },
+ {
+  "file": "ohje-salasanahallinta.md",
+  "line": 7,
+  "column": 43,
+  "end_column": 53,
+  "text": "Marraskuun",
+  "category": "capitalization",
+  "correction": "marraskuun"
+ },
+ {
+  "file": "ohje-salasanahallinta.md",
+  "line": 13,
+  "column": 59,
+  "end_column": 71,
+  "text": "synkronoituu",
+  "category": "agreement",
+  "correction": "synkronoituvat",
+  "real_word": true
+ },
+ {
+  "file": "ohje-salasanahallinta.md",
+  "line": 16,
+  "column": 69,
+  "end_column": 73,
+  "text": "joka",
+  "category": "joka_jotka",
+  "correction": "mikä",
+  "real_word": true
+ },
+ {
+  "file": "ohje-salasanahallinta.md",
+  "line": 16,
+  "column": 124,
+  "end_column": 136,
+  "text": "Varaudu sitä",
+  "category": "sita_siihen",
+  "correction": "Varaudu siihen",
+  "real_word": true
+ },
+ {
+  "file": "ohje-salasanahallinta.md",
+  "line": 20,
+  "column": 170,
+  "end_column": 174,
+  "text": "vain",
+  "category": "vaan_vain",
+  "correction": "vaan",
+  "real_word": true
+ },
+ {
+  "file": "ohje-salasanahallinta.md",
+  "line": 20,
+  "column": 190,
+  "end_column": 195,
+  "text": "jotka",
+  "category": "joka_jotka",
+  "correction": "joka",
+  "real_word": true
+ },
+ {
+  "file": "ohje-salasanahallinta.md",
+  "line": 22,
+  "column": 69,
+  "end_column": 86,
+  "text": "on vastuussa sitä",
+  "category": "sita_siita",
+  "correction": "on vastuussa siitä",
+  "real_word": true
+ },
+ {
+  "file": "ohje-salasanahallinta.md",
+  "line": 22,
+  "column": 136,
+  "end_column": 151,
+  "text": "lähtee omistaja",
+  "category": "punctuation",
+  "correction": "lähtee, omistaja"
+ },
+ {
+  "file": "ohje-salasanahallinta.md",
+  "line": 28,
+  "column": 33,
+  "end_column": 35,
+  "text": "on",
+  "category": "agreement",
+  "correction": "ovat",
+  "real_word": true
+ },
+ {
+  "file": "ohje-salasanahallinta.md",
+  "line": 28,
+  "column": 47,
+  "end_column": 52,
+  "text": "jotka",
+  "category": "joka_jotka",
+  "correction": "joka",
+  "real_word": true
+ },
+ {
+  "file": "ohje-salasanahallinta.md",
+  "line": 30,
+  "column": 79,
+  "end_column": 83,
+  "text": "vain",
+  "category": "vaan_vain",
+  "correction": "vaan",
+  "real_word": true
+ },
+ {
+  "file": "ohje-salasanahallinta.md",
+  "line": 30,
+  "column": 158,
+  "end_column": 171,
+  "text": "tottuvat sitä",
+  "category": "sita_siihen",
+  "correction": "tottuvat siihen",
+  "real_word": true
+ },
+ {
+  "file": "ohje-salasanahallinta.md",
+  "line": 40,
+  "column": 11,
+  "end_column": 15,
+  "text": "joka",
+  "category": "joka_jotka",
+  "correction": "jotka",
+  "real_word": true
+ },
+ {
+  "file": "ohje-salasanahallinta.md",
+  "line": 40,
+  "column": 76,
+  "end_column": 87,
+  "text": "reagoi sitä",
+  "category": "sita_siihen",
+  "correction": "reagoi siihen",
+  "real_word": true
+ },
+ {
+  "file": "ohje-salasanahallinta.md",
+  "line": 42,
+  "column": 19,
+  "end_column": 24,
+  "text": "jotka",
+  "category": "joka_jotka",
+  "correction": "joita",
+  "real_word": true
+ },
+ {
+  "file": "ohje-salasanahallinta.md",
+  "line": 42,
+  "column": 162,
+  "end_column": 167,
+  "text": "siitä",
+  "category": "sita_siihen",
+  "correction": "siihen",
+  "real_word": true
+ }
+]
