@@ -409,6 +409,7 @@ language markers take precedence over detection.
 Portuguese accepts both European and Brazilian spelling through separate dictionaries with
 independent affix rules. Dictionaries load once per process, only when used.
 Spelling and native grammar reuse each segment's character buffer; source offsets stay unchanged.
+Fully covered segments are borrowed rather than copied; partially marked regions stay masked.
 Dictionary lookups accept canonically decomposed accents without changing source offsets.
 English loanwords remain accepted, except when a native dictionary recognizes a spelling with
 one missing accent. Valid native homographs (Portuguese `por` and `pôr`) are not overridden.

@@ -544,6 +544,12 @@ fn check_language_in(
         .filter_map(|s| match ranges {
             None => Some(std::borrow::Cow::Borrowed(s)),
             Some(rs) => {
+                if rs
+                    .iter()
+                    .any(|r| r.start <= s.range.start && s.range.end <= r.end)
+                {
+                    return Some(std::borrow::Cow::Borrowed(s));
+                }
                 let inside: Vec<_> = rs
                     .iter()
                     .filter(|r| r.start < s.range.end && s.range.start < r.end)
