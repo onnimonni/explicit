@@ -1,6 +1,7 @@
 //! Conservative Portuguese grammar, with both Brazilian and European lexical forms.
 
 use std::collections::BTreeMap;
+use unicode_normalization::{UnicodeNormalization, char::is_combining_mark};
 
 use super::lint::{Lint, LintKind, Span, Suggestion};
 use super::spell_lang::{LangSpeller, quotations, tokens};
@@ -33,6 +34,10 @@ pub const RULES: &[(&str, &str)] = &[
     (
         "PortugueseRequiredSubjunctive",
         "Portuguese: explicit purpose and necessity clauses take the subjunctive",
+    ),
+    (
+        "PortugueseCopulaAccents",
+        "Portuguese: unambiguous personal-subject copulas require their accents",
     ),
 ];
 
@@ -83,7 +88,9 @@ fn words(chars: &[char]) -> Vec<Word> {
                 quote += 1;
             }
             let raw = &chars[start..end];
-            let plain = raw.iter().all(|c| c.is_alphabetic())
+            let plain = raw
+                .iter()
+                .all(|c| c.is_alphabetic() || is_combining_mark(*c))
                 && raw.iter().skip(1).all(|c| !c.is_uppercase())
                 && !matches!(chars.get(start.wrapping_sub(1)), Some('_' | '@'))
                 && !matches!(chars.get(end), Some('_' | '@'))
@@ -91,7 +98,7 @@ fn words(chars: &[char]) -> Vec<Word> {
             Word {
                 start,
                 end,
-                lower: raw.iter().flat_map(|c| c.to_lowercase()).collect(),
+                lower: raw.iter().flat_map(|c| c.to_lowercase()).nfc().collect(),
                 plain,
             }
         })
@@ -618,6 +625,56 @@ fn clause_start(chars: &[char], ws: &[Word], i: usize) -> bool {
             ))
 }
 
+fn copula_accents(
+    chars: &[char],
+    ws: &[Word],
+    enabled: &[&str],
+    out: &mut BTreeMap<String, Vec<Lint>>,
+) {
+    for i in 0..ws.len().saturating_sub(2) {
+        if person(&ws[i].lower) != Some(2)
+            || !clause_start(chars, ws, i)
+            || !adjacent(chars, &ws[i], &ws[i + 1])
+            || !adjacent(chars, &ws[i + 1], &ws[i + 2])
+            // A dot attached to the subject belongs to an identifier, not a clause.
+            || (ws[i].start > 0 && !chars[ws[i].start - 1].is_whitespace())
+        {
+            continue;
+        }
+        let fix = match ws[i + 1].lower.as_str() {
+            "e" => "é",
+            "esta" => "está",
+            _ => continue,
+        };
+        let adjective = &ws[i + 2];
+        // Do not turn `ele e novo funcionário` into a copula or guess whether
+        // `esta nova versão` is a demonstrative noun phrase.
+        if !chars[adjective.start].is_uppercase()
+            && ADJECTIVES
+                .iter()
+                .any(|forms| forms[..2].contains(&adjective.lower.as_str()))
+            && chars[adjective.end..]
+                .iter()
+                .find(|c| !c.is_whitespace())
+                .is_none_or(|c| matches!(c, '.' | '!' | '?' | ';' | ':'))
+            && (i + 3 == ws.len()
+                || chars[adjective.end..ws[i + 3].start]
+                    .iter()
+                    .any(|c| c.is_whitespace()))
+        {
+            add(
+                out,
+                enabled,
+                "PortugueseCopulaAccents",
+                chars,
+                &ws[i + 1],
+                fix,
+                "The copula requires an accent after this personal subject.",
+            );
+        }
+    }
+}
+
 fn pronoun_verbs(
     chars: &[char],
     ws: &[Word],
@@ -1019,6 +1076,9 @@ pub fn lints(
     if enabled.contains(&"PortugueseRequiredSubjunctive") {
         subjunctive(chars, &ws, enabled, &mut out);
     }
+    if enabled.contains(&"PortugueseCopulaAccents") {
+        copula_accents(chars, &ws, enabled, &mut out);
+    }
     out
 }
 
@@ -1047,6 +1107,81 @@ mod tests {
         for text in examples {
             assert!(fixes(rule, text).is_empty(), "{rule}: {text}");
         }
+    }
+
+    #[test]
+    fn copula_accents_have_exact_character_spans() {
+        let rule = "PortugueseCopulaAccents";
+        let sp = crate::rules::spell_lang::speller("pt", &crate::config::Config::default())
+            .expect("bundled Portuguese");
+        for (text, start, end, replacement) in [
+            ("Ele e importante.", 4, 5, "é"),
+            ("Ela esta disponível.", 4, 8, "está"),
+            ("Você e correto.", 5, 6, "é"),
+            ("Você e correcto.", 5, 6, "é"),
+            ("Ele E importante.", 4, 5, "É"),
+            ("Ela Esta segura.", 4, 8, "Está"),
+            ("É claro que ele e necessário.", 16, 17, "é"),
+            ("Espero que ela esta disponível.", 15, 19, "está"),
+        ] {
+            let chars: Vec<char> = text.chars().collect();
+            let found: Vec<_> = lints(&*sp, &chars, &[rule])
+                .into_values()
+                .flatten()
+                .map(|lint| {
+                    let Suggestion::ReplaceWith(fix) = &lint.suggestions[0] else {
+                        panic!("replacement")
+                    };
+                    (
+                        lint.span.start,
+                        lint.span.end,
+                        fix.iter().collect::<String>(),
+                    )
+                })
+                .collect();
+            assert_eq!(found, [(start, end, replacement.to_owned())], "{text}");
+        }
+    }
+
+    #[test]
+    fn copula_accent_ambiguities_and_regional_forms_remain_untouched() {
+        quiet(
+            "PortugueseCopulaAccents",
+            &[
+                "Ele e ela estão disponíveis.",
+                "Ela e você são importantes.",
+                "Ele e novo funcionário trabalham juntos.",
+                "Ele e seguro são assuntos diferentes.",
+                "Ele e Seguro estão disponíveis.",
+                "Ele é novo e importante.",
+                "Este e aquele são novos.",
+                "Ela esta tarde trabalha.",
+                "Ela esta vez chegou cedo.",
+                "Você esta semana trabalha.",
+                "Esta nova versão está disponível.",
+                "Esta segura resposta é importante.",
+                "Tu estás disponível.",
+                "Tu está disponível.",
+                "Você está disponível.",
+                "Você é correto.",
+                "Você é correcto.",
+                "Ela está ativa.",
+                "Ela está activa.",
+                "A gente está disponível.",
+                "Ele pode trabalhar hoje.",
+                "Ele pôde trabalhar ontem.",
+                "\"Ele e importante\" é uma citação.",
+                "«Ela esta disponível» é uma citação.",
+                "`Você e correto` é código.",
+                "Ele 'e' importante.",
+                "A letra «e» é uma vogal.",
+                "Ele_e importante.",
+                "Ela esta_disponível.",
+                "foo.ele e importante.",
+                "Ela esta disponível.foo",
+                "Ele e Importante.",
+            ],
+        );
     }
 
     #[test]

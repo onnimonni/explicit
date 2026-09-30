@@ -1,6 +1,7 @@
 //! Conservative Spanish grammar from closed lexical paradigms, not suffix guesses.
 
 use std::collections::BTreeMap;
+use unicode_normalization::{UnicodeNormalization, char::is_combining_mark};
 
 use super::lint::{Lint, LintKind, Span, Suggestion};
 use super::spell_lang::{LangSpeller, quotations, tokens};
@@ -33,6 +34,10 @@ pub const RULES: &[(&str, &str)] = &[
     (
         "SpanishRequiredSubjunctive",
         "Spanish: explicit purpose and necessity clauses take the subjunctive",
+    ),
+    (
+        "SpanishGrammaticalAccents",
+        "Spanish: unambiguous personal pronouns and copulas require their accents",
     ),
 ];
 
@@ -85,7 +90,9 @@ fn words(chars: &[char]) -> Vec<Word> {
                 quote += 1;
             }
             let raw = &chars[start..end];
-            let plain = raw.iter().all(|c| c.is_alphabetic())
+            let plain = raw
+                .iter()
+                .all(|c| c.is_alphabetic() || is_combining_mark(*c))
                 && raw.iter().skip(1).all(|c| !c.is_uppercase())
                 && !matches!(chars.get(start.wrapping_sub(1)), Some('_' | '@'))
                 && !matches!(chars.get(end), Some('_' | '@'))
@@ -93,7 +100,7 @@ fn words(chars: &[char]) -> Vec<Word> {
             Word {
                 start,
                 end,
-                lower: raw.iter().flat_map(|c| c.to_lowercase()).collect(),
+                lower: raw.iter().flat_map(|c| c.to_lowercase()).nfc().collect(),
                 plain,
             }
         })
@@ -566,6 +573,93 @@ fn clause_start(chars: &[char], ws: &[Word], i: usize) -> bool {
             ))
 }
 
+fn grammatical_accents(
+    chars: &[char],
+    ws: &[Word],
+    enabled: &[&str],
+    out: &mut BTreeMap<String, Vec<Lint>>,
+) {
+    for i in 0..ws.len().saturating_sub(1) {
+        if !clause_start(chars, ws, i)
+            || !adjacent(chars, &ws[i], &ws[i + 1])
+            // A dot attached to the subject belongs to an identifier, not a clause.
+            || (ws[i].start > 0
+                && !chars[ws[i].start - 1].is_whitespace()
+                && !matches!(chars[ws[i].start - 1], '¿' | '¡'))
+        {
+            continue;
+        }
+        let next = ws[i + 1].lower.as_str();
+        if ws[i].lower == "tu" {
+            // `haces`, `guardas`, `eras`, and `hayas` also have nominal readings.
+            let finite = !matches!(next, "haces" | "guardas" | "eras" | "hayas")
+                && !noun_verb_homograph(next)
+                && VERBS
+                    .iter()
+                    .flat_map(|(indicative, subjunctive)| [indicative, subjunctive])
+                    .chain(PAST.iter())
+                    .any(|forms| {
+                        next == forms[1] && forms.iter().filter(|&&form| form == next).count() == 1
+                    });
+            if finite {
+                add(
+                    out,
+                    enabled,
+                    "SpanishGrammaticalAccents",
+                    chars,
+                    &ws[i],
+                    "tú",
+                    "The subject pronoun tú requires an accent before this finite verb.",
+                );
+            }
+        } else if ws[i].lower == "el" && matches!(next, "es" | "está" | "estaba" | "fue") {
+            add(
+                out,
+                enabled,
+                "SpanishGrammaticalAccents",
+                chars,
+                &ws[i],
+                "él",
+                "The personal subject pronoun él requires an accent before this copula.",
+            );
+        } else if person(&ws[i].lower) == Some(2)
+            && next == "esta"
+            && i + 2 < ws.len()
+            && adjacent(chars, &ws[i + 1], &ws[i + 2])
+            && predicative_adjective(chars, ws, i + 2)
+        {
+            add(
+                out,
+                enabled,
+                "SpanishGrammaticalAccents",
+                chars,
+                &ws[i + 1],
+                "está",
+                "The copula está requires an accent before this predicate adjective.",
+            );
+        }
+    }
+}
+
+fn predicative_adjective(chars: &[char], ws: &[Word], i: usize) -> bool {
+    // A following noun could instead complete `esta nueva versión`. Only accept
+    // a clause-final adjective, not a guess about the following word's part of speech.
+    ws[i].plain
+        && !chars[ws[i].start].is_uppercase()
+        && ADJECTIVES
+            .iter()
+            .any(|forms| forms[..2].contains(&ws[i].lower.as_str()))
+        && chars[ws[i].end..]
+            .iter()
+            .find(|c| !c.is_whitespace())
+            .is_none_or(|c| matches!(c, '.' | '!' | '?' | ';' | ':'))
+        && (i + 1 == ws.len()
+            || (ws[i].end < ws[i + 1].start
+                && chars[ws[i].end..ws[i + 1].start]
+                    .iter()
+                    .any(|c| c.is_whitespace())))
+}
+
 fn pronoun_verbs(
     chars: &[char],
     ws: &[Word],
@@ -952,6 +1046,9 @@ pub fn lints(
     if enabled.contains(&"SpanishRequiredSubjunctive") {
         subjunctive(chars, &ws, enabled, &mut out);
     }
+    if enabled.contains(&"SpanishGrammaticalAccents") {
+        grammatical_accents(chars, &ws, enabled, &mut out);
+    }
     out
 }
 
@@ -980,6 +1077,83 @@ mod tests {
         for text in examples {
             assert!(fixes(rule, text).is_empty(), "{rule}: {text}");
         }
+    }
+
+    #[test]
+    fn grammatical_accents_have_exact_character_spans() {
+        let rule = "SpanishGrammaticalAccents";
+        let sp = crate::rules::spell_lang::speller("es", &crate::config::Config::default())
+            .expect("bundled Spanish");
+        for (text, start, end, replacement) in [
+            ("Tu eres responsable.", 0, 2, "Tú"),
+            ("¿Tu tienes permiso?", 1, 3, "Tú"),
+            ("Espero que tu puedas venir.", 11, 13, "tú"),
+            ("Tu fuiste amable.", 0, 2, "Tú"),
+            ("El es importante.", 0, 2, "Él"),
+            ("El está disponible.", 0, 2, "Él"),
+            ("Espero que el fue correcto.", 11, 13, "él"),
+            ("Él esta disponible.", 3, 7, "está"),
+            ("Ella Esta segura.", 5, 9, "Está"),
+            ("Usted esta correcto.", 6, 10, "está"),
+            ("María dijo que ella esta disponible.", 20, 24, "está"),
+        ] {
+            let chars: Vec<char> = text.chars().collect();
+            let found: Vec<_> = lints(&*sp, &chars, &[rule])
+                .into_values()
+                .flatten()
+                .map(|lint| {
+                    let Suggestion::ReplaceWith(fix) = &lint.suggestions[0] else {
+                        panic!("replacement")
+                    };
+                    (
+                        lint.span.start,
+                        lint.span.end,
+                        fix.iter().collect::<String>(),
+                    )
+                })
+                .collect();
+            assert_eq!(found, [(start, end, replacement.to_owned())], "{text}");
+        }
+    }
+
+    #[test]
+    fn grammatical_accent_ambiguities_remain_untouched() {
+        quiet(
+            "SpanishGrammaticalAccents",
+            &[
+                "Tu archivo está disponible.",
+                "Tu casa es pequeña.",
+                "Tu registro funciona.",
+                "Tu guarda está disponible.",
+                "El canto es importante.",
+                "El informe está completo.",
+                "El estado es seguro.",
+                "El ser humano es importante.",
+                "Ella esta tarde llega.",
+                "Ella esta vez tiene permiso.",
+                "Usted esta semana trabaja.",
+                "Esta nueva versión está disponible.",
+                "Esta segura respuesta es importante.",
+                "Ella y él están disponibles.",
+                "Tú eres responsable.",
+                "Él está disponible.",
+                "Vos tenés permiso.",
+                "Tú tenés permiso.",
+                "Vos sos importante.",
+                "\"Tu eres responsable\" es una cita.",
+                "«El es importante» es una cita.",
+                "`Ella esta disponible` es código.",
+                "'tu' eres tú.",
+                "'el' es un artículo.",
+                "La letra «e» es una vocal.",
+                "Tu_eres responsable.",
+                "foo.el es importante.",
+                "foo.ella esta disponible.",
+                "Ella esta disponible.foo",
+                "TU eres responsable.",
+                "Ella esta Disponible.",
+            ],
+        );
     }
 
     #[test]

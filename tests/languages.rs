@@ -160,3 +160,55 @@ fn english_homographs_do_not_hide_native_accents() {
         "accented French adjective"
     );
 }
+
+#[test]
+fn decomposed_accents_keep_native_grammar_and_source_spans() {
+    for (code, prose, rule, text, fix) in [
+        (
+            "de",
+            "Du pru\u{308}ft den Bericht.",
+            "GermanPronounVerbAgreement",
+            "pru\u{308}ft",
+            "prüfst",
+        ),
+        (
+            "fr",
+            "Elle est arrive\u{301}.",
+            "FrenchAdjectiveAgreement",
+            "arrive\u{301}",
+            "arrivée",
+        ),
+        (
+            "es",
+            "Tu\u{301} somos amables.",
+            "SpanishPronounVerbAgreement",
+            "somos",
+            "eres",
+        ),
+        (
+            "pt",
+            "Voce\u{302} estão disponíveis.",
+            "PortuguesePronounVerbAgreement",
+            "estão",
+            "está",
+        ),
+    ] {
+        let dir = tempfile::tempdir().unwrap();
+        let source = format!("---\nlang: {code}\n---\n\n# 1\n\n{prose}\n");
+        let path = dir.path().join("grammar.md");
+        std::fs::write(&path, &source).unwrap();
+        let config = Config {
+            root: dir.path().to_path_buf(),
+            ..Config::default()
+        };
+        let paths = [path];
+        let workspace = engine::build_workspace(&paths, &config);
+        let diagnostics = engine::check(&workspace, &paths, &config, &Options::default());
+        let expected = format!("grammar/{rule}");
+        let findings: Vec<_> = diagnostics.iter().filter(|d| d.rule == expected).collect();
+        assert_eq!(findings.len(), 1, "{code}: {diagnostics:?}");
+        assert_eq!(findings[0].text, text);
+        assert_eq!(&source[findings[0].range.clone()], text);
+        assert_eq!(findings[0].suggestions, [fix]);
+    }
+}

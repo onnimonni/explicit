@@ -3,6 +3,7 @@ use std::collections::BTreeMap;
 
 use super::lint::{Lint, LintKind, Span, Suggestion};
 use super::spell_lang::{LangSpeller, quotations, tokens};
+use unicode_normalization::{UnicodeNormalization, char::is_combining_mark};
 
 pub const RULES: &[(&str, &str)] = &[
     (
@@ -28,6 +29,10 @@ pub const RULES: &[(&str, &str)] = &[
     (
         "FrenchFormalSubjunctive",
         "French: fixed necessity and purpose constructions require the subjunctive",
+    ),
+    (
+        "FrenchPrepositionAccent",
+        "French: aller takes à before a clear determiner-led destination",
     ),
 ];
 
@@ -95,7 +100,9 @@ fn words(chars: &[char]) -> Vec<Word> {
                 .is_some_and(|r| r.start < end && start < r.end);
             let slice = &chars[start..end];
             let plain = !quoted
-                && slice.iter().all(|c| c.is_alphabetic())
+                && slice
+                    .iter()
+                    .all(|c| c.is_alphabetic() || is_combining_mark(*c))
                 && !slice.iter().skip(1).any(|c| c.is_uppercase())
                 && !start
                     .checked_sub(1)
@@ -107,7 +114,7 @@ fn words(chars: &[char]) -> Vec<Word> {
             Word {
                 start,
                 end,
-                lower: slice.iter().flat_map(|c| c.to_lowercase()).collect(),
+                lower: slice.iter().flat_map(|c| c.to_lowercase()).nfc().collect(),
                 plain,
             }
         })
@@ -750,6 +757,214 @@ fn agree_adjective(
     }
 }
 
+fn motion_form(chars: &[char], ws: &[Word], i: usize) -> bool {
+    let w = &ws[i];
+    let previous = i
+        .checked_sub(1)
+        .and_then(|j| ws.get(j))
+        .filter(|p| adjacent(chars, p, w));
+    match w.lower.as_str() {
+        "aller" => {
+            clause_start(chars, ws, i)
+                || previous.is_some_and(|p| {
+                    matches!(
+                        p.lower.as_str(),
+                        "pour" | "sans" | "de" | "d" | "faut" | "fallait"
+                    ) || VERBS.iter().any(|row| {
+                        matches!(row.indicative[0], "vais" | "peux" | "veux" | "dois")
+                            && (row.indicative.contains(&p.lower.as_str())
+                                || row.subjunctive.contains(&p.lower.as_str()))
+                    })
+                })
+        }
+        "allé" | "allée" | "allés" | "allées" => previous.is_some_and(|p| {
+            matches!(
+                p.lower.as_str(),
+                "être"
+                    | "été"
+                    | "suis"
+                    | "es"
+                    | "est"
+                    | "sommes"
+                    | "êtes"
+                    | "sont"
+                    | "étais"
+                    | "était"
+                    | "étions"
+                    | "étiez"
+                    | "étaient"
+                    | "serai"
+                    | "seras"
+                    | "sera"
+                    | "serons"
+                    | "serez"
+                    | "seront"
+                    | "serais"
+                    | "serait"
+                    | "serions"
+                    | "seriez"
+                    | "seraient"
+                    | "sois"
+                    | "soit"
+                    | "soyons"
+                    | "soyez"
+                    | "soient"
+                    | "fus"
+                    | "fut"
+                    | "fûmes"
+                    | "fûtes"
+                    | "furent"
+            )
+        }),
+        "allant" => clause_start(chars, ws, i) || previous.is_some_and(|p| p.lower == "en"),
+        _ => {
+            VERBS.iter().any(|row| {
+                row.indicative[0] == "vais"
+                    && (row.indicative.contains(&w.lower.as_str())
+                        || row.subjunctive.contains(&w.lower.as_str()))
+            }) || matches!(
+                w.lower.as_str(),
+                "allais"
+                    | "allait"
+                    | "allions"
+                    | "alliez"
+                    | "allaient"
+                    | "irai"
+                    | "iras"
+                    | "ira"
+                    | "irons"
+                    | "irez"
+                    | "iront"
+                    | "irais"
+                    | "irait"
+                    | "irions"
+                    | "iriez"
+                    | "iraient"
+                    | "allai"
+                    | "allas"
+                    | "alla"
+                    | "allâmes"
+                    | "allâtes"
+                    | "allèrent"
+                    | "allasse"
+                    | "allasses"
+                    | "allât"
+                    | "allassions"
+                    | "allassiez"
+                    | "allassent"
+            )
+        }
+    }
+}
+
+fn preposition_accent(
+    out: &mut BTreeMap<String, Vec<Lint>>,
+    enabled: &[&str],
+    chars: &[char],
+    ws: &[Word],
+    i: usize,
+) {
+    if !enabled.contains(&"FrenchPrepositionAccent")
+        || !ws
+            .get(i + 1)
+            .is_some_and(|a| a.lower == "a" && adjacent(chars, &ws[i], a))
+        || !motion_form(chars, ws, i)
+    {
+        return;
+    }
+    let a = &ws[i + 1];
+    let Some(det) = ws.get(i + 2).filter(|d| adjacent(chars, a, d)) else {
+        return;
+    };
+    // `le` and `les` require contractions, not merely an accent correction.
+    if !matches!(
+        det.lower.as_str(),
+        "la" | "l"
+            | "un"
+            | "une"
+            | "ce"
+            | "cet"
+            | "cette"
+            | "ces"
+            | "mon"
+            | "ma"
+            | "mes"
+            | "ton"
+            | "ta"
+            | "tes"
+            | "son"
+            | "sa"
+            | "ses"
+            | "notre"
+            | "nos"
+            | "votre"
+            | "vos"
+            | "leur"
+            | "leurs"
+    ) {
+        return;
+    }
+    let Some(mut head) = ws.get(i + 3).filter(|h| adjacent(chars, det, h)) else {
+        return;
+    };
+    if det.lower == "l" && !matches!(&chars[det.end..head.start], ['\'' | '’']) {
+        return;
+    }
+    if adjective(&head.lower).is_some() {
+        let Some(noun) = ws.get(i + 4).filter(|n| adjacent(chars, head, n)) else {
+            return;
+        };
+        head = noun;
+    }
+    // Places and navigation targets only: no broad `a`/`à` correction or inferred noun gender.
+    if !matches!(
+        head.lower.as_str(),
+        "maison"
+            | "maisons"
+            | "école"
+            | "écoles"
+            | "gare"
+            | "gares"
+            | "plage"
+            | "plages"
+            | "bibliothèque"
+            | "bibliothèques"
+            | "université"
+            | "universités"
+            | "piscine"
+            | "piscines"
+            | "banque"
+            | "banques"
+            | "jardin"
+            | "jardins"
+            | "hôpital"
+            | "hôpitaux"
+            | "bureau"
+            | "bureaux"
+            | "musée"
+            | "musées"
+            | "église"
+            | "églises"
+            | "page"
+            | "pages"
+            | "section"
+            | "sections"
+            | "étape"
+            | "étapes"
+    ) {
+        return;
+    }
+    emit(
+        out,
+        enabled,
+        "FrenchPrepositionAccent",
+        chars,
+        Span::new(a.start, a.end),
+        "à",
+        "La destination après aller est introduite ici par à.",
+    );
+}
+
 pub fn lints(
     _sp: &dyn LangSpeller,
     chars: &[char],
@@ -762,6 +977,7 @@ pub fn lints(
             continue;
         }
         noun_agreement(&mut out, enabled, chars, &ws, i);
+        preposition_accent(&mut out, enabled, chars, &ws, i);
         if let Some(p) = person(&w.lower).filter(|_| clause_start(chars, &ws, i)) {
             let mut v = i + 1;
             while v < ws.len()
@@ -1301,6 +1517,73 @@ mod tests {
                 fixes("FrenchAuxiliaryParticiple", text).is_empty(),
                 "{text}"
             );
+        }
+    }
+
+    #[test]
+    fn motion_destinations_receive_accents_with_character_spans() {
+        for (text, start, end, replacement) in [
+            ("Il va a la maison.", 6, 7, "à"),
+            ("Nous allons a cette école.", 12, 13, "à"),
+            ("Elles sont allées a l’école.", 18, 19, "à"),
+            ("Tu iras a une nouvelle bibliothèque.", 8, 9, "à"),
+            ("Je veux aller a ma maison.", 14, 15, "à"),
+            ("En allant a la gare, je téléphone.", 10, 11, "à"),
+            ("Il va A la plage.", 6, 7, "À"),
+            ("Va a l'hôpital.", 3, 4, "à"),
+            ("Nous allons a la page suivante.", 12, 13, "à"),
+        ] {
+            let chars: Vec<char> = text.chars().collect();
+            let actual: Vec<_> = lints(&Speller, &chars, &["FrenchPrepositionAccent"])
+                .into_values()
+                .flatten()
+                .map(|lint| {
+                    let Suggestion::ReplaceWith(fix) = &lint.suggestions[0] else {
+                        panic!("replacement required")
+                    };
+                    (lint.span, fix.iter().collect::<String>())
+                })
+                .collect();
+            assert_eq!(
+                actual,
+                vec![(Span::new(start, end), replacement.to_string())],
+                "{text}"
+            );
+        }
+    }
+
+    #[test]
+    fn accent_rule_preserves_avoir_nominal_motion_words_and_unclear_destinations() {
+        for text in [
+            "Il va à la maison.",
+            "Elle est allée à l’école.",
+            "Elle a la clé.",
+            "Il a une maison.",
+            "Cette allée a la largeur nécessaire.",
+            "L’allée a la forme d’un cercle.",
+            "Son aller a la priorité.",
+            "Cet allant a la force de convaincre.",
+            "Le laisser-aller a la vie dure.",
+            "Il va à Paris.",
+            "Elle est là où je travaille.",
+            "Il va ou il reste.",
+            "Elle pense a la maison.",
+            "Il commence a travailler.",
+            "Aller de Paris à Lyon.",
+            "Il va, a-t-il dit, à la maison.",
+            "Il va a la", // A fragment does not establish a destination phrase.
+            "Il va a l école.",
+            "« Il va a la maison » est un exemple.",
+            "« Elles sont allées a l’école » est un exemple.",
+            "Il va « a la maison ».",
+            "`Il va a la gare`",
+            "Il_va a la maison.",
+            "Il va_a la maison.",
+            "Il va a_la maison.",
+            "Il va a la_maison.",
+            "Il va a la maison_code.",
+        ] {
+            assert!(fixes("FrenchPrepositionAccent", text).is_empty(), "{text}");
         }
     }
 }

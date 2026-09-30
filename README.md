@@ -410,7 +410,8 @@ Portuguese accepts both European and Brazilian spelling through separate diction
 independent affix rules. Dictionaries load once per process, only when used.
 Spelling and native grammar reuse each segment's character buffer; source offsets stay unchanged.
 Fully covered segments are borrowed rather than copied; partially marked regions stay masked.
-Dictionary lookups accept canonically decomposed accents without changing source offsets.
+Dictionary lookups and these four grammars accept canonically decomposed accents without changing
+source offsets.
 English loanwords remain accepted, except when a native dictionary recognizes a spelling with
 one missing accent. Valid native homographs (Portuguese `por` and `pôr`) are not overridden;
 capitalized English terms may be names and are not forced into accented native spellings.
@@ -419,6 +420,9 @@ constructions; unknown words and ambiguous constructions are left unchecked. Ger
 capitalization does not turn recurring spelling errors into inferred project names. Agreement
 allows expletive `es` with a plural subject and both singular and plural/formal `sie`. UI action
 labels containing an object and infinitive are not treated as finite subject clauses.
+Context-bound homophone checks cover German `ihr seit` → `seid` and reporting-clause `das` → `dass`,
+French `allons a la page` → `à`, Spanish `tu eres` → `tú`, and Portuguese `ela esta disponível` →
+`está`. Possessives, relative pronouns, coordination and unclear tense remain unchanged.
 `slop/phrase` also checks stacked promotional claims in these four languages, Finnish and
 Swedish. It flags empty promises, not evidence of AI authorship, and runs independently of spelling.
 

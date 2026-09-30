@@ -3,6 +3,7 @@ use std::collections::BTreeMap;
 
 use super::lint::{Lint, LintKind, Span, Suggestion};
 use super::spell_lang::{LangSpeller, quotations, tokens};
+use unicode_normalization::{UnicodeNormalization, char::is_combining_mark};
 
 pub const RULES: &[(&str, &str)] = &[
     (
@@ -24,6 +25,10 @@ pub const RULES: &[(&str, &str)] = &[
     (
         "GermanSubordinateWordOrder",
         "German: the finite copula follows a short subordinate predicate",
+    ),
+    (
+        "GermanHomophones",
+        "German: clear personal and subordinate clauses distinguish seit/seid and das/dass",
     ),
 ];
 
@@ -73,7 +78,9 @@ fn words(chars: &[char]) -> Vec<Word> {
                 .is_some_and(|r| r.start < end && start < r.end);
             let slice = &chars[start..end];
             let plain = !quoted
-                && slice.iter().all(|c| c.is_alphabetic())
+                && slice
+                    .iter()
+                    .all(|c| c.is_alphabetic() || is_combining_mark(*c))
                 && !slice.iter().skip(1).any(|c| c.is_uppercase())
                 && !start
                     .checked_sub(1)
@@ -85,7 +92,7 @@ fn words(chars: &[char]) -> Vec<Word> {
             Word {
                 start,
                 end,
-                lower: slice.iter().flat_map(|c| c.to_lowercase()).collect(),
+                lower: slice.iter().flat_map(|c| c.to_lowercase()).nfc().collect(),
                 plain,
             }
         })
@@ -390,7 +397,11 @@ fn noun_agreement(
         return;
     };
     // Plural present forms are often infinitives: an object + infinitive can be a UI action.
-    if verb.lower == row[5] && row[0] != row[2] && row[0] != "bin" {
+    let compound_predicate = matches!(verb.lower.as_str(), "haben" | "werden")
+        && ws.get(head + 2).is_some_and(|pred| {
+            adjacent(chars, verb, pred) && PARTICIPLES.iter().any(|&(_, part)| part == pred.lower)
+        });
+    if verb.lower == row[5] && row[0] != row[2] && row[0] != "bin" && !compound_predicate {
         return;
     }
     let p = if plural { 5 } else { 2 };
@@ -417,6 +428,7 @@ fn noun_agreement(
 const PARTICIPLES: &[(&str, &str)] = &[
     ("machen", "gemacht"),
     ("arbeiten", "gearbeitet"),
+    ("funktionieren", "funktioniert"),
     ("schreiben", "geschrieben"),
     ("lesen", "gelesen"),
     ("sehen", "gesehen"),
@@ -443,6 +455,209 @@ const PARTICIPLES: &[(&str, &str)] = &[
     ("erhalten", "erhalten"),
 ];
 
+fn predicative(s: &str) -> bool {
+    matches!(
+        s,
+        "bereit"
+            | "gültig"
+            | "wichtig"
+            | "möglich"
+            | "notwendig"
+            | "verfügbar"
+            | "sicher"
+            | "richtig"
+            | "falsch"
+            | "fertig"
+            | "zufrieden"
+            | "krank"
+            | "müde"
+    )
+}
+
+// Present and past reporting/cognitive paradigms. Infinitive-shaped plural
+// forms need a personal subject before they count as finite verbs.
+const REPORTING_VERBS: &[[&str; 6]] = &[
+    ["sage", "sagst", "sagt", "sagen", "sagt", "sagen"],
+    ["sagte", "sagtest", "sagte", "sagten", "sagtet", "sagten"],
+    ["weiß", "weißt", "weiß", "wissen", "wisst", "wissen"],
+    [
+        "wusste", "wusstest", "wusste", "wussten", "wusstet", "wussten",
+    ],
+    ["denke", "denkst", "denkt", "denken", "denkt", "denken"],
+    [
+        "dachte", "dachtest", "dachte", "dachten", "dachtet", "dachten",
+    ],
+    [
+        "glaube", "glaubst", "glaubt", "glauben", "glaubt", "glauben",
+    ],
+    [
+        "glaubte",
+        "glaubtest",
+        "glaubte",
+        "glaubten",
+        "glaubtet",
+        "glaubten",
+    ],
+    ["meine", "meinst", "meint", "meinen", "meint", "meinen"],
+    [
+        "meinte", "meintest", "meinte", "meinten", "meintet", "meinten",
+    ],
+    ["hoffe", "hoffst", "hofft", "hoffen", "hofft", "hoffen"],
+    [
+        "hoffte", "hofftest", "hoffte", "hofften", "hofftet", "hofften",
+    ],
+    [
+        "berichte",
+        "berichtest",
+        "berichtet",
+        "berichten",
+        "berichtet",
+        "berichten",
+    ],
+    [
+        "berichtete",
+        "berichtetest",
+        "berichtete",
+        "berichteten",
+        "berichtetet",
+        "berichteten",
+    ],
+];
+
+fn homophones(
+    out: &mut BTreeMap<String, Vec<Lint>>,
+    enabled: &[&str],
+    chars: &[char],
+    ws: &[Word],
+    i: usize,
+) {
+    if !enabled.contains(&"GermanHomophones") {
+        return;
+    }
+    let w = &ws[i];
+    if w.lower == "ihr"
+        && clause_start(chars, ws, i)
+        && let (Some(verb), Some(pred)) = (ws.get(i + 1), ws.get(i + 2))
+        && verb.lower == "seit"
+        && adjacent(chars, w, verb)
+        && adjacent(chars, verb, pred)
+        && !chars[pred.start].is_uppercase()
+        && predicative(&pred.lower)
+        // A complete short predicate excludes possessive temporal phrases such
+        // as `Ihr seit sicher drei Jahren bekannter Nachbar`.
+        && chars[pred.end..]
+            .iter()
+            .find(|c| !c.is_whitespace())
+            .is_none_or(|c| matches!(c, '.' | '!' | '?' | ',' | ';'))
+    {
+        emit(
+            out,
+            enabled,
+            "GermanHomophones",
+            chars,
+            Span::new(verb.start, verb.end),
+            "seid",
+            "Mit dem persönlichen Subjekt ihr steht hier seid, nicht seit.",
+        );
+    }
+    if w.lower != "das" || i == 0 {
+        return;
+    }
+    let previous = &ws[i - 1];
+    let gap = &chars[previous.end..w.start];
+    if !previous.plain
+        || chars[previous.start].is_uppercase()
+        || gap.iter().filter(|&&c| c == ',').count() != 1
+        || !gap.iter().all(|c| c.is_whitespace() || *c == ',')
+        || gap.iter().filter(|&&c| c == '\n').count() >= 2
+    {
+        return;
+    }
+    let finite = REPORTING_VERBS.iter().any(|row| {
+        row.contains(&previous.lower.as_str())
+            && (!matches!(previous.lower.as_str(), "berichtet") && previous.lower != row[5]
+                || (i >= 2
+                    && adjacent(chars, &ws[i - 2], previous)
+                    && clause_start(chars, ws, i - 2)
+                    && person(&ws[i - 2].lower).is_some_and(|p| {
+                        row[p] == previous.lower
+                            || (ws[i - 2].lower == "sie" && row[5] == previous.lower)
+                    })))
+    });
+    let Some(subject) = ws.get(i + 1).filter(|s| {
+        adjacent(chars, w, s)
+            && matches!(
+                s.lower.as_str(),
+                "ich" | "du" | "er" | "sie" | "es" | "wir" | "ihr"
+            )
+    }) else {
+        return;
+    };
+    if !finite {
+        return;
+    }
+    let mut last = i + 1;
+    while last + 1 < ws.len() && adjacent(chars, &ws[last], &ws[last + 1]) {
+        last += 1;
+    }
+    if last == i + 1
+        || !VERBS
+            .iter()
+            .any(|row| row.contains(&ws[last].lower.as_str()))
+        || chars[ws[last].start].is_uppercase()
+        || !chars[ws[last].end..]
+            .iter()
+            .find(|c| !c.is_whitespace())
+            .is_none_or(|c| matches!(c, '.' | '!' | '?' | ',' | ';'))
+    {
+        return;
+    }
+    // Accusative `sie`/`es` can modify a participle in an article-led noun
+    // phrase: `das sie liebende Kind`. A following object article instead gives
+    // clear personal-clause evidence, as in `das sie das Buch lesen`.
+    if matches!(subject.lower.as_str(), "sie" | "es")
+        && ws[i + 2..last]
+            .iter()
+            .any(|word| chars[word.start].is_uppercase())
+        && !matches!(
+            ws[i + 2].lower.as_str(),
+            "der"
+                | "die"
+                | "das"
+                | "den"
+                | "dem"
+                | "des"
+                | "ein"
+                | "eine"
+                | "einen"
+                | "einem"
+                | "einer"
+                | "eines"
+        )
+    {
+        return;
+    }
+    // `das ihr bekannte Haus` starts with a dative/possessive homograph, not
+    // necessarily a personal subject. Require a short predicate with an explicit copula.
+    if subject.lower == "ihr"
+        && !(last == i + 3
+            && predicative(&ws[i + 2].lower)
+            && !chars[ws[i + 2].start].is_uppercase()
+            && matches!(ws[last].lower.as_str(), "seid" | "wart"))
+    {
+        return;
+    }
+    emit(
+        out,
+        enabled,
+        "GermanHomophones",
+        chars,
+        Span::new(w.start, w.end),
+        "dass",
+        "Der persönliche Nebensatz wird hier mit dass eingeleitet.",
+    );
+}
+
 pub fn lints(
     _sp: &dyn LangSpeller,
     chars: &[char],
@@ -455,6 +670,7 @@ pub fn lints(
             continue;
         }
         noun_agreement(&mut out, enabled, chars, &ws, i);
+        homophones(&mut out, enabled, chars, &ws, i);
         let Some(next) = ws.get(i + 1).filter(|n| adjacent(chars, w, n)) else {
             continue;
         };
@@ -635,22 +851,7 @@ pub fn lints(
                     verb.lower.as_str(),
                     "bin" | "bist" | "ist" | "sind" | "seid" | "war" | "warst" | "waren" | "wart"
                 )
-                && matches!(
-                    pred.lower.as_str(),
-                    "bereit"
-                        | "gültig"
-                        | "wichtig"
-                        | "möglich"
-                        | "notwendig"
-                        | "verfügbar"
-                        | "sicher"
-                        | "richtig"
-                        | "falsch"
-                        | "fertig"
-                        | "zufrieden"
-                        | "krank"
-                        | "müde"
-                )
+                && predicative(&pred.lower)
             {
                 let replacement = format!("{} {}", pred.lower, verb.lower);
                 emit(
@@ -856,6 +1057,74 @@ mod tests {
                 fixes("GermanSubordinateWordOrder", text).is_empty(),
                 "{text}"
             );
+        }
+    }
+
+    #[test]
+    fn homophones_replace_only_clear_personal_clauses_with_character_spans() {
+        for (text, start, end, replacement) in [
+            ("Ihr seit müde.", 4, 8, "seid"),
+            ("Ihr seit bereit!", 4, 8, "seid"),
+            ("Wenn ihr seit fertig, gehen wir.", 9, 13, "seid"),
+            ("Ihr Seit zufrieden.", 4, 8, "Seid"),
+            ("Ich weiß, das er müde ist.", 10, 13, "dass"),
+            ("Sie sagt, das wir morgen kommen.", 10, 13, "dass"),
+            ("Wir denken, das sie das Buch lesen.", 12, 15, "dass"),
+            ("Ich hoffe, das ihr bereit seid.", 11, 14, "dass"),
+            ("Er meinte, Das sie krank war.", 11, 14, "Dass"),
+        ] {
+            let chars: Vec<char> = text.chars().collect();
+            let actual: Vec<_> = lints(&Speller, &chars, &["GermanHomophones"])
+                .into_values()
+                .flatten()
+                .map(|lint| {
+                    let Suggestion::ReplaceWith(fix) = &lint.suggestions[0] else {
+                        panic!("replacement required")
+                    };
+                    (lint.span, fix.iter().collect::<String>())
+                })
+                .collect();
+            assert_eq!(
+                actual,
+                vec![(Span::new(start, end), replacement.to_string())],
+                "{text}"
+            );
+        }
+    }
+
+    #[test]
+    fn homophones_preserve_possessives_articles_relatives_and_indirect_questions() {
+        for text in [
+            "Ihr seid müde. Seit gestern bin ich krank.",
+            "Ihr seit gestern bekannter Nachbar ist freundlich.",
+            "Ihr seit langem verfügbares Gerät ist neu.",
+            "Ihr seit sicher drei Jahren verschollener Bruder ist zurück.",
+            "Ihr seit müde wirkender Nachbar ist hier.",
+            "Ihr seit Jahren wichtiges Anliegen bleibt bestehen.",
+            "Ich weiß, dass er müde ist.",
+            "Er sagt das jeden Tag.",
+            "Sie sagt, das Haus sei schön.",
+            "Ich kenne das Haus, das er gekauft hat.",
+            "Sie kennt das Buch, das wir lesen.",
+            "Ich glaube, das ihr bekannte Haus kommt später vor.",
+            "Er glaubt, das sie liebende Kind kommt.",
+            "Er meint, das ihm bekannte Haus sei schön.",
+            "Ich weiß, ob das erkrankte Kind kommt.",
+            "Er fragt, ob das Haus bereit ist.",
+            "Sie wissen, wer das geschrieben hat.",
+            "Sie lässt sagen, dass er krank ist.",
+            "Er sagt: Das Haus ist schön.",
+            "Ich weiß, das er", // Incomplete clauses provide no finite evidence.
+            "„Ihr seit müde“ ist ein Beispiel.",
+            "„Ich weiß, das er kommt“ ist ein Beispiel.",
+            "Ich weiß, „das er kommt“ ist ein Zitat.",
+            "`Ihr seit bereit`",
+            "Ihr_seit müde.",
+            "Ihr seit_müde.",
+            "Ich weiß, das_er kommt.",
+            "Ich weiß, das er_kommt.",
+        ] {
+            assert!(fixes("GermanHomophones", text).is_empty(), "{text}");
         }
     }
 }

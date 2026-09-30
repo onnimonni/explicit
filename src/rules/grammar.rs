@@ -591,9 +591,11 @@ fn check_language_in(
         .hash(&mut h);
     let key = h.finish();
     let mut file_names = Vec::new();
-    for seg in &segments {
-        let chars: Vec<char> = seg.text.chars().collect();
-        spell_lang::names(&*speller, code, &chars, &mut file_names);
+    if code != "de" {
+        for seg in &segments {
+            let chars: Vec<char> = seg.text.chars().collect();
+            spell_lang::names(&*speller, code, &chars, &mut file_names);
+        }
     }
     CHECKERS.with(|cell| {
         let mut cache = cell.borrow_mut();
