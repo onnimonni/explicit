@@ -20,19 +20,19 @@ fn pattern(code: &str) -> Option<&'static Regex> {
     // descriptive adjective or an ordinary connective is not evidence of slop.
     matcher!(
         DE,
-        r"(?i)\b(?:(?:revolutionär\w*|bahnbrechend\w*|einzigartig\w*)\b[ \p{L},-]{0,80}\b(?:bahnbrechend\w*|beispiellos\w*|alles[ ]+verändernd\w*|unbegrenzte[ ]+möglichkeiten)|welt[ ]+(?:voller|unbegrenzter|endloser)[ ]+möglichkeiten)\b"
+        r"(?i)\b(?:(?:revolutionär|bahnbrechend|einzigartig)(?:e[nmrs]?)?\b[^.!?\r\n]{0,80}\b(?:bahnbrechend(?:e[nmrs]?)?|beispiellos(?:e[nmrs]?)?|alles[ ]+verändernd(?:e[nmrs]?)?|unbegrenzte[ ]+möglichkeiten)|welt[ ]+(?:voller|unbegrenzter|endloser)[ ]+möglichkeiten)\b"
     );
     matcher!(
         FR,
-        r"(?i)\b(?:(?:révolutionnaire|miraculeu(?:x|se)|inégalé\w*)\b[ \p{L},-]{0,80}\b(?:sans[ ]+(?:égal|précédent)|possibilités[ ]+(?:infinies|illimitées))|monde[ ]+de[ ]+possibilités[ ]+(?:infinies|illimitées))\b"
+        r"(?i)\b(?:(?:révolutionnaire|miraculeu(?:x|se)|inégalée?s?)\b[^.!?\r\n]{0,80}\b(?:sans[ ]+(?:égal|précédent)|possibilités[ ]+(?:infinies|illimitées))|monde[ ]+de[ ]+possibilités[ ]+(?:infinies|illimitées))\b"
     );
     matcher!(
         ES,
-        r"(?i)\b(?:(?:revolucionari[oa]s?|revolución|incomparables?|definitiv[oa]s?)\b[ \p{L},-]{0,80}\b(?:incomparable|transforma[ ]+todo|sin[ ]+(?:igual|precedentes|límites))|posibilidades[ ]+(?:ilimitadas|infinitas)[ ]+y[ ]+(?:excelencia|perfección)[ ]+sin[ ]+límites)\b"
+        r"(?i)\b(?:(?:revolucionari[oa]s?|revolución|incomparables?|definitiv[oa]s?)\b[^.!?\r\n]{0,80}\b(?:incomparable|transforma[ ]+todo|sin[ ]+(?:igual|precedentes|límites))|posibilidades[ ]+(?:ilimitadas|infinitas)[ ]+y[ ]+(?:excelencia|perfección)[ ]+sin[ ]+límites)\b"
     );
     matcher!(
         PT,
-        r"(?i)\b(?:(?:revolucionári[oa]s?|milagros[oa]s?|incomparáveis)\b[ \p{L},-]{0,80}\b(?:redefine[ ]+tudo|sem[ ]+(?:precedentes|limites))|possibilidades[ ]+(?:infinitas|ilimitadas)[ ]+e[ ]+(?:excelência|perfeição)[ ]+sem[ ]+limites)\b"
+        r"(?i)\b(?:(?:revolucionári[oa]s?|milagros[oa]s?|incomparáveis)\b[^.!?\r\n]{0,80}\b(?:redefine[ ]+tudo|sem[ ]+(?:precedentes|limites))|possibilidades[ ]+(?:infinitas|ilimitadas)[ ]+e[ ]+(?:excelência|perfeição)[ ]+sem[ ]+limites)\b"
     );
     matcher!(
         FI,

@@ -389,6 +389,10 @@ fn noun_agreement(
     let Some(row) = VERBS.iter().find(|r| r.contains(&verb.lower.as_str())) else {
         return;
     };
+    // Plural present forms are often infinitives: an object + infinitive can be a UI action.
+    if verb.lower == row[5] && row[0] != row[2] && row[0] != "bin" {
+        return;
+    }
     let p = if plural { 5 } else { 2 };
     // Present third-person subjunctive I shares the first-person indicative form.
     let subjunctive = !plural
@@ -729,6 +733,8 @@ mod tests {
             "Die Geräte werden geprüft.",
             "Dateien sind vorhanden.",
             "Die Datei haben wir geöffnet.",
+            "Die Datei speichern.",
+            "Das Bild prüfen.",
             "Das Buch liest die Frau.",
             "Die Seiten liest der Benutzer.",
             "Die Fragen hat der Lehrer beantwortet.",

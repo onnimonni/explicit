@@ -412,7 +412,8 @@ Dictionary lookups accept canonically decomposed accents without changing source
 Grammar checks use closed lexical paradigms for pronoun/noun agreement, auxiliaries and selected clause
 constructions; unknown words and ambiguous constructions are left unchecked. German noun
 capitalization does not turn recurring spelling errors into inferred project names. Agreement
-allows expletive `es` with a plural subject and both singular and plural/formal `sie`.
+allows expletive `es` with a plural subject and both singular and plural/formal `sie`. UI action
+labels containing an object and infinitive are not treated as finite subject clauses.
 `slop/phrase` also checks stacked promotional claims in these four languages, Finnish and
 Swedish. It flags empty promises, not evidence of AI authorship, and runs independently of spelling.
 
