@@ -706,6 +706,83 @@ pub fn document_nordic(segments: &[Segment]) -> Option<&'static str> {
     looks_nordic(&text, 20, false).then(|| nordic_language(&text))
 }
 
+/// A cheap German, French, Spanish or Portuguese hint from distinctive function words.
+/// At least two distinct markers, enough prose, little English evidence and a clear winner
+/// are required. Ambiguous and short stretches remain unclassified; no dictionary is loaded.
+pub fn language_hint(text: &str, min_words: usize) -> Option<&'static str> {
+    const PROFILES: &[(&str, &[&str])] = &[
+        (
+            "de",
+            &[
+                "der", "die", "das", "und", "nicht", "ist", "eine", "einen", "einer", "wird",
+                "werden", "mit", "auch", "sich", "auf", "für", "zum", "zur",
+            ],
+        ),
+        (
+            "fr",
+            &[
+                "le", "les", "une", "des", "dans", "avec", "pour", "est", "sont", "vous", "nous",
+                "cette", "cet", "aux", "du", "ne",
+            ],
+        ),
+        (
+            "es",
+            &[
+                "el", "los", "las", "una", "unos", "unas", "del", "hay", "muy", "pero", "porque",
+                "también", "puede", "debe", "son", "sus",
+            ],
+        ),
+        (
+            "pt",
+            &[
+                "uma",
+                "um",
+                "não",
+                "são",
+                "dos",
+                "das",
+                "pelo",
+                "pela",
+                "os",
+                "ao",
+                "aos",
+                "você",
+                "também",
+                "ficheiro",
+                "utilizador",
+                "tem",
+            ],
+        ),
+    ];
+    let mut counts = [0usize; 4];
+    let mut seen = [0u32; 4];
+    let (mut total, mut english) = (0usize, 0usize);
+    for word in words(text).filter(|w| !neutral(w)) {
+        total += 1;
+        english += usize::from(is_stopword(word));
+        for (index, (_, markers)) in PROFILES.iter().enumerate() {
+            if let Some(marker) = markers.iter().position(|m| eq_lower(word, m)) {
+                counts[index] += 1;
+                seen[index] |= 1 << marker;
+            }
+        }
+    }
+    if total < min_words.max(4) || english * 4 >= total {
+        return None;
+    }
+    let winner = (0..counts.len()).max_by_key(|&i| counts[i])?;
+    let runner_up = (0..counts.len())
+        .filter(|&i| i != winner)
+        .map(|i| counts[i])
+        .max()
+        .unwrap_or(0);
+    (counts[winner] >= 2
+        && seen[winner].count_ones() >= 2
+        && counts[winner] * 8 >= total
+        && counts[winner] >= 2 * runner_up.max(1))
+    .then_some(PROFILES[winner].0)
+}
+
 /// English-only rule families.
 pub fn is_english_rule(rule: &str) -> bool {
     rule == "spelling"
@@ -735,6 +812,34 @@ mod tests {
     use crate::rules::Analyzed;
     use crate::source::{FileKind, SourceFile};
     use std::path::PathBuf;
+
+    #[test]
+    fn function_word_hints_leave_english_and_ambiguous_text_alone() {
+        for (language, sentence) in [
+            (
+                "de",
+                "Der Bericht wird auf dem Server gespeichert und nicht gelöscht.",
+            ),
+            (
+                "fr",
+                "Le rapport est dans le dossier et les données sont disponibles.",
+            ),
+            (
+                "es",
+                "El informe contiene los datos pero las imágenes son nuevas.",
+            ),
+            ("pt", "O ficheiro tem uma imagem e os dados não são novos."),
+        ] {
+            assert_eq!(language_hint(sentence, 4), Some(language), "{sentence}");
+        }
+        assert_eq!(
+            language_hint("The die is cast and the report is ready.", 4),
+            None
+        );
+        assert_eq!(language_hint("Le de la que para da do.", 4), None);
+        assert_eq!(language_hint("Le fichier.", 4), None);
+        assert_eq!(language_hint("Der der der der.", 4), None);
+    }
 
     fn md(text: &str) -> Analyzed {
         Analyzed::new(SourceFile::new(

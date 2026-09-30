@@ -528,7 +528,9 @@ fn check_language_in(
     ranges: Option<&[std::ops::Range<usize>]>,
     out: &mut Out,
 ) {
-    if !ctx.enabled("spelling") || ranges.is_some_and(<[_]>::is_empty) {
+    if ranges.is_some_and(<[_]>::is_empty)
+        || (!ctx.enabled("spelling") && !ctx.family_enabled("grammar/"))
+    {
         return;
     }
     let is_code = ctx.a.md.is_none();
@@ -816,6 +818,10 @@ impl Checker {
             let rules = match code {
                 "fi" if speller.voikko().is_some() => super::grammar_fi::RULES,
                 "sv" => super::grammar_sv::RULES,
+                "de" => super::grammar_de::RULES,
+                "fr" => super::grammar_fr::RULES,
+                "es" => super::grammar_es::RULES,
+                "pt" => super::grammar_pt::RULES,
                 _ => &[],
             };
             rules
@@ -988,6 +994,14 @@ impl Checker {
                     lints = super::grammar_fi::lints(v, &**sp, &chars, &own);
                 } else if code == "sv" {
                     lints = super::grammar_sv::lints(&**sp, &chars, &own);
+                } else if code == "de" {
+                    lints = super::grammar_de::lints(&**sp, &chars, &own);
+                } else if code == "fr" {
+                    lints = super::grammar_fr::lints(&**sp, &chars, &own);
+                } else if code == "es" {
+                    lints = super::grammar_es::lints(&**sp, &chars, &own);
+                } else if code == "pt" {
+                    lints = super::grammar_pt::lints(&**sp, &chars, &own);
                 }
             }
             if spell {
@@ -1224,7 +1238,8 @@ impl Checker {
                 }
                 if is_spell
                     && (jargon(seg, ctx, s, e, idents, self.lang.is_none())
-                        || idents.project_name(self.name_speller(), word)
+                        || (self.lang.as_ref().is_none_or(|(code, _)| code != "de")
+                            && idents.project_name(self.name_speller(), word))
                         || (self.lang.is_none()
                             && spell::foreign_name(self.name_speller(), &seg.text, s, e))
                         || emphasis_split(seg, ctx.src(), s, e)

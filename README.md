@@ -403,10 +403,13 @@ comes from, in order:
    stop words is Finnish or Swedish when it looks like it, else another language.
 
 German (`de`), French (`fr`), Spanish (`es`) and Portuguese (`pt`) have bundled Hunspell
-spelling in every build. Declare the language in front matter, a language override, or an
+spelling and conservative native grammar in every build. Declare the language in front matter, a language override, or an
 explicit language marker; automatic detection currently recognizes Finnish and Swedish only.
 Portuguese accepts both European and Brazilian spelling through separate dictionaries with
 independent affix rules. Dictionaries load once per process, only when used.
+Grammar checks use closed lexical paradigms for agreement, auxiliaries and selected clause
+constructions; unknown words and ambiguous constructions are left unchecked. German noun
+capitalization does not turn recurring spelling errors into inferred project names.
 
 **Finnish** (`fi`, `voikko` feature) and **Swedish** (`sv`, `swedish` feature, on by default) files get
 spelling in their language with suggestions, plus a few rules where the orthography leaves no
@@ -569,7 +572,7 @@ the same directory), msgids and extracted comments are checked in the template o
 finding appears once. Translations (`msgstr`, `msgstr[N]`) are prose in the catalog's language,
 taken from the header `Language` or else the path (`fi/LC_MESSAGES/x.po`, `fi.po`): English
 catalogs get the English rules; translations with a bundled or configured dictionary get
-their language's spelling (placeholders and markup blanked as in msgids). Unsupported languages
+their language's spelling and native grammar (placeholders and markup blanked as in msgids). Unsupported languages
 have no built-in prose checks. Copies of source text are skipped.
 
 ## Suppressing findings

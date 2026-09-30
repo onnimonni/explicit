@@ -1197,6 +1197,10 @@ fn after_given_name(
 }
 
 pub fn names(sp: &dyn LangSpeller, code: &str, chars: &[char], out: &mut Vec<String>) {
+    // German capitalizes ordinary nouns too; capitalization is not name evidence.
+    if code == "de" {
+        return;
+    }
     let toks = tokens(chars);
     for (k, &(s, e)) in toks.iter().enumerate() {
         let word: String = chars[s..e].iter().collect();
@@ -1281,10 +1285,11 @@ pub fn misspelled(sp: &dyn LangSpeller, code: &str, chars: &[char]) -> Vec<Lint>
             continue;
         }
         // `App Storesta`: an English word capitalized inside a sentence is part of a name.
-        if mid_sentence(chars, s)
-            && (unknown_name(sp, &word)
-                || word.starts_with(char::is_uppercase) && foreign_stem(sp, &word))
-            || after_given_name(sp, chars, &toks, k)
+        if code != "de"
+            && (mid_sentence(chars, s)
+                && (unknown_name(sp, &word)
+                    || word.starts_with(char::is_uppercase) && foreign_stem(sp, &word))
+                || after_given_name(sp, chars, &toks, k))
         {
             continue;
         }
