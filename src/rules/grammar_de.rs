@@ -797,10 +797,41 @@ pub fn lints(
             .iter()
             .find(|&&(inf, part)| inf == next.lower && inf != part)
         {
+            let comma_coordination = |j: usize| {
+                let previous = &ws[j - 1];
+                let current = &ws[j];
+                if !previous.plain
+                    || !current.plain
+                    || chars[current.start].is_uppercase()
+                    || !PARTICIPLES.iter().any(|&(inf, _)| inf == previous.lower)
+                    || !PARTICIPLES.iter().any(|&(inf, _)| inf == current.lower)
+                {
+                    return false;
+                }
+                let (mut commas, mut newlines) = (0, 0);
+                for &c in &chars[previous.end..current.start] {
+                    if c == ',' {
+                        commas += 1;
+                    } else if c == '\n' {
+                        newlines += 1;
+                    } else if !c.is_whitespace() {
+                        return false;
+                    }
+                }
+                commas == 1 && newlines < 2
+            };
+            let end = ws.len().min(i + 8);
+            let mut complete = end == ws.len();
+            let mut coordinated = false;
             let mut replacement_infinitive = false;
-            for j in i + 2..ws.len().min(i + 8) {
+            for j in i + 2..end {
                 if !adjacent(chars, &ws[j - 1], &ws[j]) {
-                    break;
+                    if comma_coordination(j) {
+                        coordinated = true;
+                    } else {
+                        complete = true;
+                        break;
+                    }
                 }
                 if matches!(
                     ws[j].lower.as_str(),
@@ -820,11 +851,20 @@ pub fn lints(
                         | "gemusst"
                         | "gedurft"
                 ) {
-                    replacement_infinitive = true;
+                    // A modal before a new personal subject governs the next clause.
+                    replacement_infinitive = !(coordinated
+                        && ws.get(j + 1).is_some_and(|subject| {
+                            adjacent(chars, &ws[j], subject) && person(&subject.lower).is_some()
+                        }));
+                    complete = true;
                     break;
                 }
             }
-            if !replacement_infinitive && !chars[next.start].is_uppercase() {
+            // A bounded scan cannot rule out a governing modal beyond the window.
+            if !complete {
+                complete = !adjacent(chars, &ws[end - 1], &ws[end]) && !comma_coordination(end);
+            }
+            if complete && !replacement_infinitive && !chars[next.start].is_uppercase() {
                 emit(
                     &mut out,
                     enabled,
@@ -1026,11 +1066,21 @@ mod tests {
             fixes("GermanAuxiliaryParticiple", "Er hat installieren."),
             vec![("installieren".into(), "installiert".into())]
         );
+        assert_eq!(
+            fixes(
+                "GermanAuxiliaryParticiple",
+                "Er hat arbeiten, lernen müssen wir nun."
+            ),
+            vec![("arbeiten".into(), "gearbeitet".into())]
+        );
         for text in [
             "Er hat arbeiten müssen.",
             "Sie hat ihn arbeiten lassen.",
             "Wir haben Lesen und Schreiben geübt.",
             "Er hat lesen gelernt.",
+            "Er hat arbeiten, lernen und warten müssen.",
+            "Er hat arbeiten, lernen, lesen, schreiben, warten, kaufen und bezahlen müssen.",
+            "Er hat pru\u{308}fen, lesen und warten mu\u{308}ssen.",
             "Er ist arbeiten.",
             "Sie hat geschrieben.",
         ] {

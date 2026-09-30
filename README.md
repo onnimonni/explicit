@@ -423,6 +423,8 @@ constructions; unknown words and ambiguous constructions are left unchecked. Ger
 capitalization does not turn recurring spelling errors into inferred project names. Agreement
 allows expletive `es` with a plural subject and both singular and plural/formal `sie`. UI action
 labels containing an object and infinitive are not treated as finite subject clauses.
+German modal constructions keep coordinated infinitives across commas; truncated context does
+not justify forcing a past participle.
 French mood checks separate `bien que` meaning “although” from reporting, comparison and noun
 readings, including result clauses with `si bien que`.
 French verb homographs can offer several corrections; the diagnostic makes the ambiguity explicit
