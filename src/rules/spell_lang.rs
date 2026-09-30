@@ -429,7 +429,8 @@ fn accent_variant(sp: &dyn LangSpeller, code: &str, word: &str) -> bool {
         "pt" => &['\u{301}', '\u{300}', '\u{302}', '\u{303}', '\u{327}'],
         _ => return false,
     };
-    if !word.is_ascii() || word.len() > 64 {
+    // Capitalized English terms may be names (a paper format or product), not native words.
+    if !word.is_ascii() || word.len() > 64 || word.starts_with(|c: char| c.is_ascii_uppercase()) {
         return false;
     }
     let source = word.as_bytes();

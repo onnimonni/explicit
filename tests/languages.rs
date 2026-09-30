@@ -150,4 +150,13 @@ fn english_homographs_do_not_hide_native_accents() {
             assert!(word_ok(&*sp, code, word, Some(' ')), "{code}: {word}");
         }
     }
+    let french = speller("fr", &config).unwrap();
+    assert!(
+        word_ok(&*french, "fr", "Legal", Some(' ')),
+        "paper format name"
+    );
+    assert!(
+        word_ok(&*french, "fr", "légal", Some(' ')),
+        "accented French adjective"
+    );
 }

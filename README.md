@@ -412,7 +412,8 @@ Spelling and native grammar reuse each segment's character buffer; source offset
 Fully covered segments are borrowed rather than copied; partially marked regions stay masked.
 Dictionary lookups accept canonically decomposed accents without changing source offsets.
 English loanwords remain accepted, except when a native dictionary recognizes a spelling with
-one missing accent. Valid native homographs (Portuguese `por` and `pôr`) are not overridden.
+one missing accent. Valid native homographs (Portuguese `por` and `pôr`) are not overridden;
+capitalized English terms may be names and are not forced into accented native spellings.
 Grammar checks use closed lexical paradigms for pronoun/noun agreement, auxiliaries and selected clause
 constructions; unknown words and ambiguous constructions are left unchecked. German noun
 capitalization does not turn recurring spelling errors into inferred project names. Agreement
