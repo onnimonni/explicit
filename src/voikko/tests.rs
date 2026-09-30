@@ -57,3 +57,15 @@ fn suggestions() {
         Some("Helsinki")
     );
 }
+
+#[test]
+fn base_forms() {
+    let bases =
+        |w: &str| -> Vec<Option<String>> { v().analyses(w).into_iter().map(|r| r.base).collect() };
+    assert!(bases("pidän").contains(&Some("pitää".into())));
+    assert!(bases("sitä").contains(&Some("se".into())));
+    assert!(bases("jotka").contains(&Some("joka".into())));
+    assert!(bases("tietokannassa").contains(&Some("kanta".into())));
+    // A derivation has no base of its own.
+    assert!(bases("palvelu").contains(&None));
+}

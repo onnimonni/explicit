@@ -25,6 +25,8 @@ pub struct Analysis {
     /// `singular` or `plural`.
     pub number: Option<&'static str>,
     pub vapaa_jalkiosa: bool,
+    /// Base form of the last word part (`[Xp]...[X]`); `None` for a derivation (`[Xj]`).
+    pub base: Option<String>,
 }
 
 /// Character at `i`, NUL past the end (the C code reads NUL-terminated strings).
@@ -547,6 +549,22 @@ fn fix_structure(s: &mut [char], o: &[char]) {
     }
 }
 
+/// The last `[Xp]base[X]` of an analysis, unless a derivation suffix (`[Xj]`) follows it.
+fn parse_base(o: &[char]) -> Option<String> {
+    let start = (0..o.len()).rev().find(|&i| starts(o, i, "[Xp]"))? + 4;
+    let len = (start..o.len()).find(|&i| starts(o, i, "[X]"))? - start;
+    let rest = &o[start + len..];
+    if (0..rest.len()).any(|i| starts(rest, i, "[Xj]")) {
+        return None;
+    }
+    Some(
+        o[start..start + len]
+            .iter()
+            .filter(|&&c| c != '=')
+            .collect(),
+    )
+}
+
 /// libvoikko's `duplicateOrgName`: a compound ending in an organization suffix (`[Ion]`)
 /// is also a proper name.
 fn duplicate_org_name(a: &Analysis, o: &[char]) -> Option<Analysis> {
@@ -604,6 +622,7 @@ pub fn analyze(t: &Transducer, c: &mut Configuration, word: &[char]) -> Vec<Anal
         parse_basic_attributes(&mut a, &o);
         fix_structure(&mut structure, &o);
         a.structure = structure;
+        a.base = parse_base(&o);
         if a.participle == Some("past_passive") {
             a.class = Some("laatusana");
         }

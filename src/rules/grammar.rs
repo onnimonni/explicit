@@ -573,6 +573,8 @@ fn check_language_in(
     let idents = identifiers(ctx);
     let mut h = DefaultHasher::new();
     (config_key(ctx.config), code).hash(&mut h);
+    // A reloaded dictionary (watch mode) is a new speller: a new checker.
+    (Arc::as_ptr(&speller).cast::<()>() as usize).hash(&mut h);
     secondary
         .as_ref()
         .map(|s| Arc::as_ptr(s).cast::<()>() as usize)
@@ -794,7 +796,8 @@ impl Checker {
         // Shared accept lists, vocab for this language and `[languages.<code>] accept`.
         let words = config.accepted_words_in(code);
         let mut suggest_key = DefaultHasher::new();
-        (words_key(config), code, &*words).hash(&mut suggest_key);
+        let speller_at = Arc::as_ptr(&speller).cast::<()>() as usize;
+        (words_key(config), code, &*words, speller_at).hash(&mut suggest_key);
         // Finnish grammar rules need the Voikko morphology.
         let own = |is_code: bool| -> Vec<&'static str> {
             let rules = match code {

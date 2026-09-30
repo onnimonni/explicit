@@ -937,7 +937,7 @@ fn language_prose(
 fn check_stretches(ctx: &FileCtx, lang: &str, skip: &[std::ops::Range<usize>], out: &mut Out) {
     let mut by_lang: std::collections::BTreeMap<&str, Vec<std::ops::Range<usize>>> =
         Default::default();
-    for (r, l) in crate::lang::foreign_stretches(&ctx.a.segments) {
+    for (r, l) in crate::lang::foreign_stretches(&ctx.a.segments, &ctx.a.file.text) {
         if let Some(l) = l.filter(|l| *l != lang)
             && !skip.iter().any(|s| s.contains(&r.start))
         {
@@ -956,13 +956,13 @@ fn check_stretches(ctx: &FileCtx, lang: &str, skip: &[std::ops::Range<usize>], o
 /// [`marked_prose`].
 fn drop_foreign_segment_findings(a: &Analyzed, marked: &[std::ops::Range<usize>], out: &mut Out) {
     if marked.is_empty() {
-        crate::lang::drop_foreign_findings(&a.segments, out);
+        crate::lang::drop_foreign_findings(&a.segments, &a.file.text, out);
         return;
     }
     let (mut kept, mut rest): (Out, Out) = std::mem::take(out)
         .into_iter()
         .partition(|f| marked.iter().any(|r| r.contains(&f.range.start)));
-    crate::lang::drop_foreign_findings(&a.segments, &mut rest);
+    crate::lang::drop_foreign_findings(&a.segments, &a.file.text, &mut rest);
     kept.extend(rest);
     *out = kept;
 }
@@ -1203,7 +1203,7 @@ mod tests {
 
     #[test]
     fn non_english_files_skip_prose_rules() {
-        let bad = "# Otsikko\n\nTämä teksti on suomea ja sisältää sanoja joita ei ole englannissa.\n\n[rikki](puuttuu.md)\n";
+        let bad = "# Otsikko\n\nTämä teksti on suomea ja sisältää sanoja, joita ei ole englannissa.\n\n[rikki](puuttuu.md)\n";
         let (_dir, c) = project(
             &[
                 ("docs/fi/a.md", bad),
@@ -1261,6 +1261,33 @@ mod tests {
         assert!(got.contains(&("grammar/FinnishCapitalization".into(), "Tiistaina".into())));
         // English-only families stay off for the Finnish prose.
         assert!(!got.iter().any(|(r, _)| r.starts_with("slop/")), "{got:?}");
+    }
+
+    /// One-word Finnish cells of an English table: Finnish spelling when their column has
+    /// Finnish cells (with `voikko`), else no English spelling finding either.
+    #[test]
+    fn short_finnish_table_cells_in_english_file() {
+        let md = "# Requirements\n\nThe matrix below lists the requirements and their state.\n\n\
+            | Id | Vaatimus | Tila |\n\
+            |----|----------|------|\n\
+            | R1 | Potilastiedot tallennetaan salattuna | Valmis |\n\
+            | R2 | Lokitiedot säilytetään viisi vuotta | Kesken |\n\
+            | R3 | Käyttäjä tunnistetaan vahvasti | Valmsi |\n\
+            | R4 | Varmuuskopiot otetaan päivittäin | recieved |\n";
+        let (_dir, c) = project(&[("a.md", md)], "");
+        let path = c.root.join("a.md");
+        let ws = build_workspace(std::slice::from_ref(&path), &c);
+        let spelled: Vec<String> = check(&ws, &[path], &c, &Options::default())
+            .into_iter()
+            .filter(|d| d.rule == "spelling")
+            .map(|d| md[d.range].to_string())
+            .collect();
+        let want: &[&str] = if cfg!(feature = "voikko") {
+            &["Valmsi", "recieved"]
+        } else {
+            &["recieved"]
+        };
+        assert_eq!(spelled, want);
     }
 
     /// English words and passages inside a Finnish file follow `prose.dialect`.

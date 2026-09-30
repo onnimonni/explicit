@@ -145,9 +145,12 @@ fn swedish() -> Result<Dictionary, String> {
     let dic = String::from_utf8(dic).map_err(|e| e.to_string())?;
     let mut d = Dictionary::new(include_str!("../../dictionaries/sv/index.aff"), &dic)
         .map_err(|e| e.to_string())?;
-    for line in include_str!("../../dictionaries/sv/sv-FI.dic").lines() {
+    let fi = include_str!("../../dictionaries/sv/sv-FI.dic");
+    for line in fi.lines() {
         let _ = d.add(line);
     }
+    // Noun genders for the Swedish article and adjective rules, from the same flags.
+    super::grammar_sv::index_genders(&[&dic, fi]);
     Ok(d)
 }
 
@@ -168,51 +171,89 @@ fn configured_path(code: &str, config: &Config) -> Option<PathBuf> {
 
 /// Dictionary files `config` points at, for the results cache key.
 pub fn dictionary_files(config: &Config) -> Vec<PathBuf> {
+    config
+        .languages
+        .keys()
+        .filter_map(|code| configured_path(code, config))
+        .flat_map(|p| files_of(&p))
+        .collect()
+}
+
+/// The files a configured dictionary path reads: an `.aff` and its `.dic`, a `mor.vfst`, or
+/// those inside a dictionary directory.
+fn files_of(p: &Path) -> Vec<PathBuf> {
     let mut out = Vec::new();
-    for code in config.languages.keys() {
-        let Some(p) = configured_path(code, config) else {
-            continue;
-        };
-        if p.is_file() {
-            if p.extension().is_some_and(|x| x == "aff") {
-                out.push(p.with_extension("dic"));
-            }
-            out.push(p);
-        } else {
-            for f in [
-                "mor.vfst",
-                "mor-standard/mor.vfst",
-                "5/mor-standard/mor.vfst",
-                "index.aff",
-                "index.dic",
-            ] {
-                let f = p.join(f);
-                if f.is_file() {
-                    out.push(f);
-                }
+    if p.is_file() {
+        if p.extension().is_some_and(|x| x == "aff") {
+            out.push(p.with_extension("dic"));
+        }
+        out.push(p.to_path_buf());
+    } else {
+        for f in [
+            "mor.vfst",
+            "mor-standard/mor.vfst",
+            "5/mor-standard/mor.vfst",
+            "index.aff",
+            "index.dic",
+        ] {
+            let f = p.join(f);
+            if f.is_file() {
+                out.push(f);
             }
         }
     }
     out
 }
 
-type Registry = HashMap<(String, Option<PathBuf>), Option<Arc<dyn LangSpeller>>>;
+/// Content hashes of dictionary files, read once until [`refresh_dictionaries`].
+static FILE_HASHES: LazyLock<Mutex<HashMap<PathBuf, u64>>> = LazyLock::new(Default::default);
 
-/// The speller for language `code` under `config`, built once per process; `None` when the
-/// language has no dictionary in this build or config. English has none here (see `spell`).
+/// Hash of the contents of the files of dictionary path `p` (0 when there are none).
+fn dictionary_hash(p: &Path) -> u64 {
+    use std::hash::{Hash, Hasher};
+    let mut h = std::collections::hash_map::DefaultHasher::new();
+    for f in files_of(p) {
+        let mut hashes = FILE_HASHES.lock().unwrap_or_else(PoisonError::into_inner);
+        let fh = *hashes.entry(f.clone()).or_insert_with(|| {
+            let mut fh = std::collections::hash_map::DefaultHasher::new();
+            std::fs::read(&f).unwrap_or_default().hash(&mut fh);
+            fh.finish()
+        });
+        (f, fh).hash(&mut h);
+    }
+    h.finish()
+}
+
+/// Forget the dictionary file hashes: the next [`speller`] call re-reads the configured
+/// dictionaries and rebuilds any whose contents changed (watch mode, after a file event).
+pub fn refresh_dictionaries() {
+    FILE_HASHES
+        .lock()
+        .unwrap_or_else(PoisonError::into_inner)
+        .clear();
+}
+
+/// Spellers by language, configured path and content hash of its files. Replaced spellers
+/// stay in the map, so the address of a live speller (a cache key elsewhere) is never reused.
+type Registry = HashMap<(String, Option<PathBuf>, u64), Option<Arc<dyn LangSpeller>>>;
+
+/// The speller for language `code` under `config`, built once per process and dictionary
+/// contents; `None` when the language has no dictionary in this build or config. English has
+/// none here (see `spell`).
 pub fn speller(code: &str, config: &Config) -> Option<Arc<dyn LangSpeller>> {
     static REGISTRY: LazyLock<Mutex<Registry>> = LazyLock::new(Default::default);
     if code == "en" {
         return None;
     }
     let path = configured_path(code, config);
-    let key = (code.to_string(), path.clone());
+    let hash = path.as_deref().map_or(0, dictionary_hash);
+    let key = (code.to_string(), path.clone(), hash);
     let mut reg = REGISTRY.lock().unwrap_or_else(PoisonError::into_inner);
     if let Some(s) = reg.get(&key) {
         return s.clone();
     }
     let built: Result<Option<Arc<dyn LangSpeller>>, String> = match (code, &path) {
-        ("fi", Some(p)) => crate::voikko::from_path_cached(p)
+        ("fi", Some(p)) => crate::voikko::from_path_cached(p, hash)
             .map(|v| Some(Arc::new(Finnish(v)) as Arc<dyn LangSpeller>)),
         ("fi", None) => Ok(finnish_embedded()),
         (_, Some(p)) => load_hunspell(p).map(|d| Some(Arc::new(Hunspell(d)) as _)),

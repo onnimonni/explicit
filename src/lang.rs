@@ -320,9 +320,9 @@ fn nordic_runs(text: &str) -> Vec<Range<usize>> {
     out
 }
 
-/// Byte ranges (file offsets) of foreign-language stretches in `segments`.
-pub fn foreign_ranges(segments: &[Segment]) -> Vec<Range<usize>> {
-    foreign_stretches(segments)
+/// Byte ranges (file offsets) of foreign-language stretches in `segments` of file text `src`.
+pub fn foreign_ranges(segments: &[Segment], src: &str) -> Vec<Range<usize>> {
+    foreign_stretches(segments, src)
         .into_iter()
         .map(|(r, _)| r)
         .collect()
@@ -342,10 +342,160 @@ fn phrases(text: &str) -> impl Iterator<Item = Range<usize>> + '_ {
         })
 }
 
-/// Foreign-language stretches of `segments` (file offsets), tagged `fi` / `sv` when they look
-/// Finnish or Swedish and `None` for other languages.
-pub fn foreign_stretches(segments: &[Segment]) -> Vec<(Range<usize>, Option<&'static str>)> {
-    let mut foreign = Vec::new();
+/// `w` (five letters or more) is one swap, deletion or insertion away from an English word
+/// (`recieved`): an English typo rather than a foreign word. Shorter words have English
+/// neighbours by chance (`tila`, `til`).
+fn english_typo(w: &str) -> bool {
+    let c: Vec<char> = w.to_lowercase().chars().collect();
+    if c.len() < 5 {
+        return false;
+    }
+    let known = |v: &[char]| english_known(&v.iter().collect::<String>());
+    for i in 0..c.len() {
+        let mut v = c.clone();
+        if i + 1 < c.len() {
+            v.swap(i, i + 1);
+            if known(&v) {
+                return true;
+            }
+        }
+        let mut v = c.clone();
+        v.remove(i);
+        if c.len() >= 4 && known(&v) {
+            return true;
+        }
+    }
+    for i in 0..=c.len() {
+        for l in 'a'..='z' {
+            let mut v = c.clone();
+            v.insert(i, l);
+            if known(&v) {
+                return true;
+            }
+        }
+    }
+    false
+}
+
+/// Short table cells (one or two words, all unknown to English) that no detector marks on
+/// their own but whose row or column has Finnish or Swedish cells: a `Valmis` or `Kesken`
+/// status next to Finnish requirement text. They take the language of those cells (the
+/// majority, column before row). File offsets; `src` is the file text the segments index.
+pub fn table_cell_stretches(segments: &[Segment], src: &str) -> Vec<(Range<usize>, &'static str)> {
+    struct Cell {
+        at: usize,
+        table: usize,
+        line: usize,
+        column: usize,
+        lang: Option<&'static str>,
+        short: bool,
+    }
+    let mut cells: Vec<Cell> = Vec::new();
+    let (mut line, mut scanned) = (0, 0);
+    let mut table = 0;
+    let mut prev: Option<(usize, usize)> = None; // (segment index, offset) of the previous cell
+    for (i, s) in segments.iter().enumerate() {
+        if s.kind != SegmentKind::TableCell || s.range.start > src.len() {
+            continue;
+        }
+        let Some(before) = src.get(scanned..s.range.start) else {
+            continue;
+        };
+        line += before.matches('\n').count();
+        scanned = s.range.start;
+        // A new table after another segment or a blank line.
+        let same_table = prev.is_some_and(|(pi, at)| {
+            let between: Vec<&str> = src[at..s.range.start].split('\n').collect();
+            pi + 1 == i
+                && between.len() >= 2
+                && between[1..between.len() - 1]
+                    .iter()
+                    .all(|l| !l.trim().is_empty())
+                || pi + 1 == i && between.len() == 1
+        });
+        if !same_table {
+            table += 1;
+        }
+        prev = Some((i, s.range.start));
+        let line_start = src[..s.range.start].rfind('\n').map_or(0, |n| n + 1);
+        let head = &src[line_start..s.range.start];
+        let column = head
+            .char_indices()
+            .filter(|&(j, c)| c == '|' && !head[..j].ends_with('\\'))
+            .count();
+        let lang = looks_nordic(&s.text, 1, true).then(|| nordic_language(&s.text));
+        let ws: Vec<&str> = words(&s.text).filter(|w| !neutral(w)).collect();
+        let short = lang.is_none()
+            && (1..=2).contains(&ws.len())
+            && words(&s.text).count() == ws.len()
+            && ws.iter().all(|w| {
+                w.chars().count() >= 3
+                    && !english_known(w)
+                    && !english_known(&w.to_lowercase())
+                    && !english_typo(w)
+            });
+        cells.push(Cell {
+            at: i,
+            table,
+            line,
+            column,
+            lang,
+            short,
+        });
+    }
+    // Two rounds: a cell settled in the first (by its row) is evidence for its column in the
+    // second (the `Tila` header over `Valmis` and `Kesken`).
+    for _ in 0..2 {
+        let settled: Vec<(usize, &'static str)> = cells
+            .iter()
+            .enumerate()
+            .filter(|(_, c)| c.short && c.lang.is_none())
+            .filter_map(|(i, c)| {
+                let vote = |same: &dyn Fn(&Cell) -> bool| -> Option<&'static str> {
+                    let (mut fi, mut sv) = (0, 0);
+                    for o in cells
+                        .iter()
+                        .filter(|o| o.table == c.table && o.at != c.at && same(o))
+                    {
+                        match o.lang {
+                            Some("fi") => fi += 1,
+                            Some("sv") => sv += 1,
+                            _ => {}
+                        }
+                    }
+                    match (fi, sv) {
+                        (0, 0) => None,
+                        _ if sv > fi => Some("sv"),
+                        _ => Some("fi"),
+                    }
+                };
+                vote(&|o| o.column == c.column)
+                    .or_else(|| vote(&|o| o.line == c.line))
+                    .map(|l| (i, l))
+            })
+            .collect();
+        for (i, l) in settled {
+            cells[i].lang = Some(l);
+        }
+    }
+    cells
+        .iter()
+        .filter(|c| c.short)
+        .filter_map(|c| c.lang.map(|l| (segments[c.at].range.clone(), l)))
+        .collect()
+}
+
+/// Foreign-language stretches of `segments` (file offsets into `src`), tagged `fi` / `sv` when
+/// they look Finnish or Swedish and `None` for other languages.
+pub fn foreign_stretches(
+    segments: &[Segment],
+    src: &str,
+) -> Vec<(Range<usize>, Option<&'static str>)> {
+    let mut foreign: Vec<(Range<usize>, Option<&'static str>)> =
+        table_cell_stretches(segments, src)
+            .into_iter()
+            .map(|(r, l)| (r, Some(l)))
+            .collect();
     for s in segments {
         // A table cell is one unit: a one-word Finnish cell counts.
         let min_words = if s.kind == SegmentKind::TableCell {
@@ -506,12 +656,13 @@ pub fn is_english_rule(rule: &str) -> bool {
             .any(|p| rule.starts_with(p))
 }
 
-/// Drop English-only findings that start inside foreign-language stretches of `segments`.
-pub fn drop_foreign_findings(segments: &[Segment], out: &mut Out) {
+/// Drop English-only findings that start inside foreign-language stretches of `segments`
+/// (of file text `src`).
+pub fn drop_foreign_findings(segments: &[Segment], src: &str, out: &mut Out) {
     if !out.iter().any(|f| is_english_rule(&f.rule)) {
         return;
     }
-    let foreign = foreign_ranges(segments);
+    let foreign = foreign_ranges(segments, src);
     if !foreign.is_empty() {
         out.retain(|f| {
             !is_english_rule(&f.rule) || !foreign.iter().any(|r| r.contains(&f.range.start))
@@ -546,7 +697,7 @@ mod tests {
                 Finding::new("spelling", Severity::Error, at..at + w.len(), "x")
             })
             .collect();
-        drop_foreign_findings(&a.segments, &mut out);
+        drop_foreign_findings(&a.segments, text, &mut out);
         out.iter()
             .map(|f| text[f.range.clone()].to_string())
             .collect()
@@ -569,7 +720,7 @@ mod tests {
         let a = md(&text);
         let at = text.find("älä").unwrap();
         let mut out: Out = vec![Finding::new("md/x", Severity::Error, at..at + 4, "x")];
-        drop_foreign_findings(&a.segments, &mut out);
+        drop_foreign_findings(&a.segments, &a.file.text, &mut out);
         assert_eq!(out.len(), 1);
     }
 
@@ -640,7 +791,7 @@ mod tests {
             mixed..mixed + 7,
             "x",
         )];
-        drop_foreign_findings(&a.segments, &mut out);
+        drop_foreign_findings(&a.segments, &a.file.text, &mut out);
         assert_eq!(
             out.len(),
             1,
@@ -659,6 +810,57 @@ mod tests {
                 &["toimikortti", "requierd", "Mäkinen", "Kela", "speling"]
             ),
             ["toimikortti", "requierd", "Mäkinen", "Kela", "speling"]
+        );
+    }
+
+    /// One- and two-word cells unknown to English take the language of the Finnish or Swedish
+    /// cells in their column (or row); English words, other tables and lone cells stay English.
+    #[test]
+    fn short_cells_next_to_finnish_cells() {
+        let text = "# Matrix\n\n\
+            | Id | Vaatimus | Tila |\n\
+            |----|----------|------|\n\
+            | R1 | Potilastiedot tallennetaan salattuna | Valmis |\n\
+            | R2 | Lokitiedot säilytetään viisi vuotta | Kesken |\n\
+            | R3 | Käyttäjä tunnistetaan vahvasti | done |\n\n\
+            | Key | Value |\n\
+            |-----|-------|\n\
+            | Owner | Valmis |\n\n\
+            | Tila | Kuvaus |\n\
+            |------|--------|\n\
+            | Hyvaksytty | Muutos on hyväksytty ja otetaan käyttöön |\n";
+        let a = md(text);
+        let got: Vec<(&str, &str)> = table_cell_stretches(&a.segments, text)
+            .into_iter()
+            .map(|(r, l)| (text[r].trim(), l))
+            .collect();
+        // `Valmis`, `Kesken` and the header `Vaatimus` by column, `Hyvaksytty` by row, the
+        // header `Tila` by the settled cells below it; `done` is English; the `Owner | Valmis`
+        // table has no Finnish cells.
+        assert_eq!(
+            got,
+            [
+                ("Vaatimus", "fi"),
+                ("Tila", "fi"),
+                ("Valmis", "fi"),
+                ("Kesken", "fi"),
+                ("Tila", "fi"),
+                ("Kuvaus", "fi"),
+                ("Hyvaksytty", "fi")
+            ]
+        );
+        assert_eq!(
+            kept(
+                text,
+                &[
+                    "Valmis |\n| R2",
+                    "Kesken",
+                    "done",
+                    "Valmis |\n\n",
+                    "Hyvaksytty"
+                ]
+            ),
+            ["done", "Valmis |\n\n"]
         );
     }
 }

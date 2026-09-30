@@ -332,11 +332,23 @@ choice: `grammar/FinnishCompoundSplit` and `grammar/SwedishCompoundSplit` (`tiet
 `kund tjänsten`), `grammar/FinnishCompoundJoined` (`kirjautumisenjälkeen`),
 `grammar/FinnishCapitalization` and `grammar/SwedishCapitalization` (months, weekdays,
 nationalities inside a sentence), `grammar/FinnishSentenceStart` and
-`grammar/SwedishSentenceStart`, `grammar/FinnishKuin` (`parempi kun`),
-`grammar/FinnishComma` (a comma before `jos`, `että`, `koska`, `kun`, ...),
-`grammar/FinnishVaanVain` (`on vaan kaksi`, `ei sisällä logiikkaa vain kutsuu`),
-`grammar/FinnishAgreement` (`tiedot siirtyy`, `katselija pystyivät`) and
-`grammar/SwedishDomDem` (`dom` or `dem` as a subject: `om dem är klara`). The split-compound rules
+`grammar/SwedishSentenceStart`, `grammar/FinnishKuin` (`parempi kun`, `yhtä hyvä kun`, `sama
+kun`, and `soita, kuin olet valmis` for `kun`), `grammar/FinnishComma` (a comma before `jos`,
+`että`, `koska`, `kun`, `ennen kuin`, `sillä` and relative pronouns: `tiedosto joka`; not after
+`ja`/`tai`, in `sekä ... että` or `kuin` comparisons, or before a clause without a finite verb),
+`grammar/FinnishVaanVain` (`on vaan kaksi`, `ei sisällä logiikkaa vain kutsuu`, `ei vain ... vain
+myös`), `grammar/FinnishAgreement` (`tiedot siirtyy`, `katselija pystyivät`),
+`grammar/FinnishElative` (`tykkään sitä`, `huolehdi tätä`, `pidän sitä.` for `siitä`, `tästä`),
+`grammar/FinnishRelative` (`tiedostot, joka` -> `jotka`, `palvelu, jotka` -> `joka`, `palvelu
+kaatui, joka` -> `mikä`) and
+`grammar/SwedishDomDem` (`dom` or `dem` as a subject: `om dem är klara`), with
+`grammar/SwedishDeDem` (`med de.` -> `dem`, `med dem nya reglerna` -> `de`),
+`grammar/SwedishArticleGender` (`en hus`, `ett bil`, `den huset`; gender from the dictionary's
+inflection flags, compounds by their head), `grammar/SwedishAdjectiveGender` (`ett stor hus`),
+`grammar/SwedishPresentTense` (`han skriva`, `systemet fungera`), `grammar/SwedishSupine`
+(`har skriven` -> `skrivit`) and `grammar/SwedishAttInfinitive` (`att skriver` -> `skriva`).
+These take only clear contexts: nouns of both genders, a noun or adjective after the phrase,
+double objects (`gav dem nya regler`) and inverted clauses are left alone. The split-compound rules
 want two nouns (Voikko's analysis for Finnish, the dictionary's inflections for Swedish), skip
 noun phrases (`unohtunut annos väliin`, `föregående mötes protokoll`, `två veckors`) and stay
 off in headings and table header rows. English-only
@@ -368,8 +380,10 @@ cells and quotes in an English file the Finnish or Swedish speller instead of be
 Files in other languages (and builds without the language's feature or dictionary) keep only
 the language-independent rules.
 
-Mark mixed passages explicitly when detection is not enough (a one-word Finnish cell, a quote
-that looks English). A marked region is checked in its language whatever detection says, with
+A one- or two-word table cell unknown to English (`Valmis`, `Kesken`) takes the language of the
+Finnish or Swedish cells in its column or row (checked with that speller, or skipped in builds
+without it); near-misses of English words (`recieved`) stay English. Mark mixed passages
+explicitly when detection is not enough (a lone Finnish word, a quote that looks English). A marked region is checked in its language whatever detection says, with
 the English rules (`en`), the Finnish or Swedish speller (`fi`, `sv`), or only the
 language-independent rules (any other tag); detection of the rest of the file ignores it.
 
@@ -409,7 +423,8 @@ dictionary_path = "dictionaries/de"     # any language with a Hunspell index.aff
 ```
 
 `dictionary_path` is relative to the config root; its contents are part of the results cache
-key. A configured Voikko dictionary also works in builds without the `voikko` feature.
+key. `explicit watch` reloads a dictionary or vocab file (`prose.vocab_files`) when its contents
+change and re-checks everything. A configured Voikko dictionary also works in builds without the `voikko` feature.
 
 `[[vocab]]` and `[[entity]]` entries apply to every language unless they name one: with
 `lang = "fi"` (or `langs = ["fi", "sv"]`) a term is accepted in Finnish text (files, stretches,

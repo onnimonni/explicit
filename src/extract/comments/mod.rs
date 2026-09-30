@@ -111,8 +111,11 @@ pub fn segments(src: &str, blocks: &[CommentBlock]) -> Vec<Segment> {
         .collect()
 }
 
-static CODE_SPAN_RE: std::sync::LazyLock<regex::Regex> =
-    std::sync::LazyLock::new(|| regex::Regex::new(r"`[^`\n]+`").expect("hardcoded regex is valid"));
+/// Inline code, which may wrap onto the next comment line (Markdown code spans can contain
+/// one line break; the comment marker between is already blanked).
+static CODE_SPAN_RE: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| {
+    regex::Regex::new(r"`[^`\n]+(?:\n[^`\n]*)?`").expect("hardcoded regex is valid")
+});
 
 static CODE_LINE_RE: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| {
     regex::Regex::new(

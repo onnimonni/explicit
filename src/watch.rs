@@ -1,4 +1,6 @@
-//! Watch mode: re-check changed files and the files that link to them.
+//! Watch mode: re-check changed files and the files that link to them. A change to the config,
+//! a configured spelling dictionary (`[languages.*] dictionary_path`) or a vocab file
+//! (`prose.vocab_files`) re-checks everything: dictionaries reload when their contents change.
 
 use std::collections::{HashMap, HashSet};
 use std::io::Write;
@@ -41,6 +43,21 @@ pub fn run(
             .watch(p, RecursiveMode::Recursive)
             .map_err(|e| format!("{}: {e}", p.display()))?;
     }
+    // Dictionaries and vocab files may live outside the watched paths: watch their directories.
+    let watched: Vec<PathBuf> = paths.iter().map(|p| canonical(p)).collect();
+    let mut extra_dirs: HashSet<PathBuf> = HashSet::new();
+    let mut inputs = input_files(&config);
+    let mut watch_inputs =
+        |inputs: &[PathBuf], debouncer: &mut notify_debouncer_mini::Debouncer<_>| {
+            for dir in inputs.iter().filter_map(|f| f.parent()) {
+                if !watched.iter().any(|w| dir.starts_with(w))
+                    && extra_dirs.insert(dir.to_path_buf())
+                {
+                    let _ = debouncer.watcher().watch(dir, RecursiveMode::NonRecursive);
+                }
+            }
+        };
+    watch_inputs(&inputs, &mut debouncer);
 
     for batch in rx {
         let events = match batch {
@@ -67,10 +84,17 @@ pub fn run(
         if changed.is_empty() {
             continue;
         }
-        if changed.iter().any(|p| {
-            p.file_name()
-                .is_some_and(|n| n == CONFIG_FILE || n == ".gitignore" || n == ".explicitignore")
-        }) {
+        let dictionaries = inputs_changed(&changed, &inputs);
+        if dictionaries {
+            crate::rules::spell_lang::refresh_dictionaries();
+        }
+        if dictionaries
+            || changed.iter().any(|p| {
+                p.file_name().is_some_and(|n| {
+                    n == CONFIG_FILE || n == ".gitignore" || n == ".explicitignore"
+                })
+            })
+        {
             match load_config() {
                 Ok(c) => config = c,
                 Err(e) => {
@@ -78,6 +102,8 @@ pub fn run(
                     continue;
                 }
             }
+            inputs = input_files(&config);
+            watch_inputs(&inputs, &mut debouncer);
             files = match engine::discover(paths, &config) {
                 Ok(f) => f,
                 Err(e) => {
@@ -142,6 +168,25 @@ pub fn run(
         render(&results, &ws, format);
     }
     Ok(())
+}
+
+/// Files besides the checked ones whose contents change results: configured spelling
+/// dictionaries and vocab files, canonical.
+pub fn input_files(config: &Config) -> Vec<PathBuf> {
+    let mut out = crate::rules::spell_lang::dictionary_files(config);
+    out.extend(config.prose.vocab_files.iter().map(|f| {
+        if f.is_absolute() {
+            f.clone()
+        } else {
+            config.root.join(f)
+        }
+    }));
+    out.iter().map(|p| canonical(p)).collect()
+}
+
+/// Some changed path is an input file ([`input_files`]).
+pub fn inputs_changed(changed: &HashSet<PathBuf>, inputs: &[PathBuf]) -> bool {
+    inputs.iter().any(|f| changed.contains(f))
 }
 
 /// Canonical form of an event path; deleted files resolve via their parent.
@@ -239,6 +284,48 @@ mod tests {
         let current = ws(&[("/r/a.md", &[]), ("/r/b.md", &[])]);
         let got = plan_recheck(&set(&["/r/a.md"]), &set(&["/r/b.md"]), &current);
         assert_eq!(got, set(&["/r/a.md", "/r/b.md"]));
+    }
+
+    /// Editing a configured dictionary or vocab file during `explicit watch` is an input change:
+    /// the speller reloads (its dictionary's content hash changed) and a reloaded config reads
+    /// the new vocab words.
+    #[test]
+    fn changed_dictionary_and_vocab_files_reload() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path().canonicalize().unwrap();
+        std::fs::write(root.join("xx.aff"), "SET UTF-8\n").unwrap();
+        std::fs::write(root.join("xx.dic"), "1\nhello\n").unwrap();
+        std::fs::write(root.join("words.txt"), "Frobnic\n").unwrap();
+        std::fs::write(
+            root.join(CONFIG_FILE),
+            "[prose]\nvocab_files = [\"words.txt\"]\n\n[languages.xx]\ndictionary_path = \"xx.aff\"\n",
+        )
+        .unwrap();
+        let load = || Config::load(&root.join(CONFIG_FILE)).unwrap();
+        let config = load();
+        let inputs = input_files(&config);
+        assert!(inputs.contains(&root.join("xx.dic")), "{inputs:?}");
+        assert!(inputs.contains(&root.join("words.txt")), "{inputs:?}");
+        let sp = crate::rules::spell_lang::speller("xx", &config).unwrap();
+        assert!(sp.check("hello") && !sp.check("world"));
+        assert!(config.accepted_words().iter().any(|w| w == "Frobnic"));
+
+        std::fs::write(root.join("xx.dic"), "2\nhello\nworld\n").unwrap();
+        std::fs::write(root.join("words.txt"), "Blorb\n").unwrap();
+        assert!(!inputs_changed(&set(&["/elsewhere/a.md"]), &inputs));
+        let changed: HashSet<PathBuf> = [root.join("xx.dic"), root.join("words.txt")].into();
+        assert!(inputs_changed(&changed, &inputs));
+        // What the watch loop does on an input change.
+        crate::rules::spell_lang::refresh_dictionaries();
+        let config = load();
+        let sp2 = crate::rules::spell_lang::speller("xx", &config).unwrap();
+        assert!(sp2.check("world"), "reloaded dictionary");
+        assert!(!Arc::ptr_eq(&sp, &sp2));
+        assert!(config.accepted_words().iter().any(|w| w == "Blorb"));
+        // Unchanged contents: the same speller.
+        crate::rules::spell_lang::refresh_dictionaries();
+        let sp3 = crate::rules::spell_lang::speller("xx", &load()).unwrap();
+        assert!(Arc::ptr_eq(&sp2, &sp3));
     }
 
     #[test]

@@ -534,3 +534,15 @@ foo(); // nolint:errcheck because reasons\n\
         ["because reasons", "See and for why. We run eslint in CI."]
     );
 }
+
+#[test]
+fn code_span_wrapping_onto_next_comment_line_is_blanked() {
+    let src = "/// Flags `sitä`, `tätä\n/// ja`, then `pitää` only after the verb.\nfn f() {}\n";
+    let blocks = extract(Lang::Rust, src);
+    let segs = segments(src, &blocks);
+    let text: String = segs.iter().map(|s| s.text.as_str()).collect();
+    for word in ["sitä", "tätä", "ja", "pitää"] {
+        assert!(!text.contains(word), "{word} should be blanked: {text:?}");
+    }
+    assert!(text.contains("only after the verb"), "{text:?}");
+}

@@ -50,6 +50,9 @@ pub struct Reading {
     pub number: Option<&'static str>,
     /// Compound parts.
     pub parts: usize,
+    /// Base form of the (last part of the) word: `pitää` for `pidän`, `se` for `sitä`;
+    /// `None` for derivations.
+    pub base: Option<String>,
     /// Starts with a capital letter (a name).
     pub proper: bool,
 }
@@ -279,6 +282,7 @@ impl Voikko {
                 person: a.person,
                 number: a.number,
                 parts: a.structure.iter().filter(|&&ch| ch == '=').count(),
+                base: a.base,
                 proper: a.structure.iter().find(|ch| !matches!(ch, '=' | '-')) == Some(&'i'),
             })
             .collect()
@@ -918,18 +922,21 @@ pub fn embedded() -> &'static Voikko {
     })
 }
 
-/// A `mor.vfst` loaded from a configured path, kept for the process.
-pub fn from_path_cached(path: &Path) -> Result<&'static Voikko, String> {
+/// A `mor.vfst` loaded from a configured path, kept for the process; `hash` (of the file's
+/// contents) tells a changed file from the one loaded before.
+pub fn from_path_cached(path: &Path, hash: u64) -> Result<&'static Voikko, String> {
     use std::collections::HashMap;
     use std::sync::{Mutex, PoisonError};
-    static LOADED: OnceLock<Mutex<HashMap<std::path::PathBuf, &'static Voikko>>> = OnceLock::new();
+    type Loaded = HashMap<(std::path::PathBuf, u64), &'static Voikko>;
+    static LOADED: OnceLock<Mutex<Loaded>> = OnceLock::new();
     let map = LOADED.get_or_init(Default::default);
     let mut map = map.lock().unwrap_or_else(PoisonError::into_inner);
-    if let Some(v) = map.get(path) {
+    let key = (path.to_path_buf(), hash);
+    if let Some(v) = map.get(&key) {
         return Ok(v);
     }
     let v: &'static Voikko = Box::leak(Box::new(Voikko::from_path(path)?));
-    map.insert(path.to_path_buf(), v);
+    map.insert(key, v);
     Ok(v)
 }
 
