@@ -433,7 +433,8 @@ Context-bound homophone checks cover German `ihr seit` → `seid` and reporting-
 French `allons a la page` → `à`, Spanish `tu eres` → `tú`, and Portuguese `ela esta disponível` →
 `está`. Possessives, relative pronouns, coordination and unclear tense remain unchanged.
 French contracts clear noun phrases (`à le bureau` → `au bureau`, `de les fichiers` → `des fichiers`)
-without changing object clitics (`de le faire`) or proper titles. Portuguese checks missing `à`
+without changing object clitics (`de le faire`) or proper titles. Singular-only elision is checked
+too (`l’applications` → `les applications`). Portuguese checks missing `à`
 after clear motion forms (`vou a escola` → `vou à escola`); optional house/place names and
 ambiguous inverted subjects stay unchecked.
 `slop/phrase` also checks stacked promotional claims in these four languages, Finnish and

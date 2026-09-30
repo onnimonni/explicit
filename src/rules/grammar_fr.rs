@@ -1322,6 +1322,17 @@ pub fn lints(
                 continue;
             }
         }
+        if w.lower == "l" && noun_plural && matches!(&chars[w.end..next.start], ['\'' | '’']) {
+            emit(
+                &mut out,
+                enabled,
+                "FrenchArticleAgreement",
+                chars,
+                Span::new(w.start, next.start),
+                &["les "],
+                "L’article élidé est singulier ; ce nom exige les.",
+            );
+        }
         let expected_plural = article.is_some_and(|r| w.lower == r[2] || w.lower == "quelles");
         let plural = if w.lower == "l" {
             noun_plural
@@ -1967,6 +1978,35 @@ mod tests {
                 "{text}"
             );
             assert!(fixes("FrenchFormalSubjunctive", text).is_empty(), "{text}");
+        }
+    }
+
+    #[test]
+    fn elided_definite_articles_are_singular_and_preserve_spacing() {
+        for (text, original, replacement) in [
+            ("L’applications sont disponibles.", "L’", "Les "),
+            ("l'applications sont disponibles.", "l'", "les "),
+            ("L’utilisateurs sont prêts.", "L’", "Les "),
+            ("L’utiles applications sont disponibles.", "L’", "Les "),
+        ] {
+            assert_eq!(
+                fixes("FrenchArticleAgreement", text),
+                vec![(original.into(), replacement.into())],
+                "{text}"
+            );
+            let chars: Vec<_> = text.chars().collect();
+            let found = lints(&Speller, &chars, &["FrenchArticleAgreement"]);
+            let lint = &found["FrenchArticleAgreement"][0];
+            assert_eq!(lint.span, Span::new(0, 2));
+        }
+        for text in [
+            "L’application est disponible.",
+            "L'utilisateur est prêt.",
+            "Ils l’ouvrent demain.",
+            "L’Applications est le nom de la revue.",
+            "« L’applications sont disponibles » est un exemple.",
+        ] {
+            assert!(fixes("FrenchArticleAgreement", text).is_empty(), "{text}");
         }
     }
 }
