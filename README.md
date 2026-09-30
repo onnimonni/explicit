@@ -409,7 +409,8 @@ Portuguese accepts both European and Brazilian spelling through separate diction
 independent affix rules. Dictionaries load once per process, only when used.
 Grammar checks use closed lexical paradigms for agreement, auxiliaries and selected clause
 constructions; unknown words and ambiguous constructions are left unchecked. German noun
-capitalization does not turn recurring spelling errors into inferred project names.
+capitalization does not turn recurring spelling errors into inferred project names. Agreement
+allows expletive `es` with a plural subject and both singular and plural/formal `sie`.
 
 **Finnish** (`fi`, `voikko` feature) and **Swedish** (`sv`, `swedish` feature, on by default) files get
 spelling in their language with suggestions, plus a few rules where the orthography leaves no

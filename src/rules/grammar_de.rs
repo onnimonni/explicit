@@ -347,9 +347,10 @@ pub fn lints(
                         | "will"
                         | "weiß"
                 );
-            let ambiguous_sie = w.lower == "sie" && next.lower == row[5];
+            // Initial `es` can introduce a following plural subject; `sie` can be plural or formal.
+            let ambiguous_third = matches!(w.lower.as_str(), "sie" | "es") && next.lower == row[5];
             if row[p] != next.lower
-                && !ambiguous_sie
+                && !ambiguous_third
                 && !subjunctive
                 && !chars[next.start].is_uppercase()
             {
@@ -580,6 +581,9 @@ mod tests {
         );
         for text in [
             "Sie ist bereit. Sie sind bereit.",
+            "Es sind drei Lösungen vorhanden.",
+            "Es werden viele Aufgaben bearbeitet.",
+            "Es können mehrere Personen teilnehmen.",
             "Er sagt, dass er habe arbeiten müssen.",
             "Heute bist du müde.",
             "Du und ich sind bereit.",
