@@ -22,8 +22,8 @@ A fast Rust linter for prose in Markdown files and code comments. It combines id
 - **Gettext catalogs:** PO/POT syntax, headers, plural forms, placeholders and markup kept in
   translations, and English msgids through the prose checks.
 
-Words containing inline code are excluded from prose checks as a whole: `` `E`rror `` does not
-produce a spelling finding on `rror`. Nearby ordinary prose remains checked.
+Markdown words containing inline code are excluded from prose checks as a whole: `` `E`rror ``
+does not produce a spelling finding on `rror`. Nearby ordinary prose remains checked.
 
 ## Install
 
