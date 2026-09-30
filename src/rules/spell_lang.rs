@@ -1,7 +1,5 @@
-//! Spelling for prose languages other than English: Finnish through the Voikko port
-//! ([`crate::voikko`], dictionary embedded with the `voikko` feature), Swedish through
-//! Hunspell (`spellbook`, dictionary embedded with the `swedish` feature), and any language
-//! whose Hunspell dictionary `[languages.<code>] dictionary_path` names.
+//! Spelling for non-English prose: Finnish through Voikko, Swedish and bundled German,
+//! French, Spanish and Portuguese through Hunspell, and configured Hunspell dictionaries.
 
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
@@ -111,6 +109,56 @@ impl LangSpeller for Hunspell {
         out.retain(|s| !s.starts_with('-') && !s.ends_with('-'));
         out
     }
+}
+
+/// Portuguese variants use incompatible affix flags; never merge their word lists.
+struct Portuguese(Hunspell, Hunspell);
+
+impl LangSpeller for Portuguese {
+    fn check(&self, word: &str) -> bool {
+        self.0.check(word) || self.1.check(word)
+    }
+
+    fn suggest(&self, word: &str) -> Vec<String> {
+        let mut out = self.0.suggest(word);
+        for suggestion in self.1.suggest(word) {
+            if !out.contains(&suggestion) {
+                out.push(suggestion);
+            }
+        }
+        out
+    }
+}
+
+/// Decode a bundled Hunspell dictionary only when its language is used.
+fn bundled_hunspell(code: &str) -> Result<Dictionary, String> {
+    let (aff, compressed): (&str, &[u8]) = match code {
+        "de" => (
+            include_str!("../../dictionaries/de/index.aff"),
+            include_bytes!("../../dictionaries/de/index.dic.zlib"),
+        ),
+        "fr" => (
+            include_str!("../../dictionaries/fr/index.aff"),
+            include_bytes!("../../dictionaries/fr/index.dic.zlib"),
+        ),
+        "es" => (
+            include_str!("../../dictionaries/es/index.aff"),
+            include_bytes!("../../dictionaries/es/index.dic.zlib"),
+        ),
+        "pt" => (
+            include_str!("../../dictionaries/pt/index.aff"),
+            include_bytes!("../../dictionaries/pt/index.dic.zlib"),
+        ),
+        "pt-BR" => (
+            include_str!("../../dictionaries/pt/brazil.aff"),
+            include_bytes!("../../dictionaries/pt/brazil.dic.zlib"),
+        ),
+        _ => return Err(format!("no bundled Hunspell dictionary for {code}")),
+    };
+    let dic = miniz_oxide::inflate::decompress_to_vec_zlib(compressed)
+        .map_err(|e| format!("bundled {code} dictionary: {e:?}"))?;
+    let dic = std::str::from_utf8(&dic).map_err(|e| e.to_string())?;
+    Dictionary::new(aff, dic).map_err(|e| format!("bundled {code} dictionary: {e}"))
 }
 
 /// Hunspell dictionary at `path`: an `.aff` file with its `.dic` beside it, or a directory
@@ -262,6 +310,14 @@ pub fn speller(code: &str, config: &Config) -> Option<Arc<dyn LangSpeller>> {
             Err(_) if cfg!(not(feature = "swedish")) => Ok(None),
             Err(e) => Err(e),
         },
+        ("pt", None) => bundled_hunspell("pt").and_then(|european| {
+            bundled_hunspell("pt-BR").map(|brazilian| {
+                Some(Arc::new(Portuguese(Hunspell(european), Hunspell(brazilian))) as _)
+            })
+        }),
+        ("de" | "fr" | "es", None) => {
+            bundled_hunspell(code).map(|d| Some(Arc::new(Hunspell(d)) as _))
+        }
         _ => Ok(None),
     };
     let s = built.unwrap_or_else(|e| {

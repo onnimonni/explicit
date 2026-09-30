@@ -402,6 +402,12 @@ comes from, in order:
 3. detection (`general.detect_language`, on by default): prose of 80+ words with few English
    stop words is Finnish or Swedish when it looks like it, else another language.
 
+German (`de`), French (`fr`), Spanish (`es`) and Portuguese (`pt`) have bundled Hunspell
+spelling in every build. Declare the language in front matter, a language override, or an
+explicit language marker; automatic detection currently recognizes Finnish and Swedish only.
+Portuguese accepts both European and Brazilian spelling through separate dictionaries with
+independent affix rules. Dictionaries load once per process, only when used.
+
 **Finnish** (`fi`, `voikko` feature) and **Swedish** (`sv`, `swedish` feature, on by default) files get
 spelling in their language with suggestions, plus a few rules where the orthography leaves no
 choice: `grammar/FinnishCompoundSplit` and `grammar/SwedishCompoundSplit` (`tieto kanta`,
@@ -500,7 +506,7 @@ accept = ["Omakanta"]                   # words accepted only in Finnish text
 # dictionary_path = "dictionaries/sv_FI.aff"   # optional: a Hunspell .aff (its .dic beside it)
 
 [languages.de]
-dictionary_path = "dictionaries/de"     # any language with a Hunspell index.aff / index.dic
+# dictionary_path = "dictionaries/de"   # optional: replace the bundled German dictionary
 ```
 
 `dictionary_path` is relative to the config root; its contents are part of the results cache
@@ -562,9 +568,9 @@ placeholders, tags and escapes blanked. When a PO file has a POT template next t
 the same directory), msgids and extracted comments are checked in the template only, so each
 finding appears once. Translations (`msgstr`, `msgstr[N]`) are prose in the catalog's language,
 taken from the header `Language` or else the path (`fi/LC_MESSAGES/x.po`, `fi.po`): English
-catalogs get the English rules, Finnish and Swedish ones their spellers (placeholders and markup
-blanked as in msgids). Translations in other languages, and copies of the source text, are
-skipped.
+catalogs get the English rules; translations with a bundled or configured dictionary get
+their language's spelling (placeholders and markup blanked as in msgids). Unsupported languages
+have no built-in prose checks. Copies of source text are skipped.
 
 ## Suppressing findings
 

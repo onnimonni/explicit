@@ -154,3 +154,40 @@ dictionaries/sv/ holds Göran Andersson's Swedish dictionary (sv_SE, plus the
 entries only the sv_FI dictionary has), taken from wooorm/dictionaries
 (dictionaries/sv and dictionaries/sv-FI, 4.0.0), LGPL-3.0. Details in
 dictionaries/sv/license.
+
+--------------------------------------------------------------------------------
+German, French, Spanish and Portuguese Hunspell dictionaries
+--------------------------------------------------------------------------------
+
+Source: https://github.com/wooorm/dictionaries
+Commit: 8cfea406b505e4d7df52d5a19bce525df98c54ab
+Upstream files: dictionaries/{de,fr,es,pt-PT,pt}/index.{aff,dic}, license.
+Local files: dictionaries/{de,fr,es,pt}/index.aff, index.dic.zlib, license;
+Brazilian Portuguese: dictionaries/pt/brazil.aff, brazil.dic.zlib, brazil.license.
+Affix and license files are unchanged; word lists are zlib-compressed without
+content changes. Portuguese variants are parsed separately, never merged.
+
+German: igerman98 version 20161207, Björn Jacke and contributors,
+copyright 1998-2016. GPL-2.0-only OR GPL-3.0-only; used under GPL-3.0.
+The original notice and both complete license alternatives are in dictionaries/de/.
+
+French: Classique version 7.5, Olivier R. and contributors, MPL-2.0.
+Attribution and contributor list: dictionaries/fr/license; full terms:
+dictionaries/fr/license-mpl-2.0.
+
+Spanish: version 2.8, Santiago Bosio and contributors, GPL-3.0-or-later OR
+LGPL-3.0-or-later OR MPL-1.1-or-later; used under GPL-3.0-or-later.
+Attribution: dictionaries/es/license; full GPL-3.0 terms: LICENSE.
+
+European Portuguese: José João de Almeida, Rui Vilela and Alberto Simões,
+copyright 2006-2009, GPL-2.0 OR LGPL-2.1 OR MPL-1.1; used under LGPL-2.1.
+Attribution: dictionaries/pt/license; full terms: dictionaries/pt/license-lgpl-2.1.
+
+Brazilian Portuguese: VERO version 3.2, Raimundo Santos Moura and contributors,
+copyright 2006-2013, LGPL-3.0 OR MPL-2.0; used under MPL-2.0.
+Attribution: dictionaries/pt/brazil.license; full MPL-2.0 terms:
+dictionaries/fr/license-mpl-2.0.
+
+Supplementary license texts come from spdx/license-list-data commit
+31ba1a50e5397e00a304dbadc76531740e89ee48,
+text/{GPL-2.0-only,GPL-3.0-only,LGPL-2.1-only,MPL-2.0}.txt.

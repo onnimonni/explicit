@@ -499,11 +499,3 @@ fn finnish_translations_get_finnish_spelling() {
         fi("msgid \"Could not recieve the messages\"\nmsgstr \"Viestejä ei voitu vastanottaa\"\n");
     assert_eq!(spelled(FI_PATH, &src), ["recieve", "vastanottaa"]);
 }
-
-#[test]
-fn unsupported_translation_languages_are_skipped() {
-    let src = "msgid \"\"\nmsgstr \"\"\n\"Language: de\\n\"\n\nmsgid \"Save\"\nmsgstr \"Speichern Sie die Dateien\"\n";
-    let a = analyzed("po/de.po", src);
-    assert!(a.segments.iter().all(|s| !s.text.contains("Speichern")));
-    assert!(spelled("po/de.po", src).is_empty());
-}
