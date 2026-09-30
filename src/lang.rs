@@ -763,21 +763,20 @@ fn language_hint_words<'a>(
         (
             "fr",
             &[
-                "et", "le", "les", "une", "des", "dans", "avec", "pour", "est", "sont", "vous",
-                "nous", "cette", "cet", "aux", "du", "ne", "il", "elle", "ils", "elles",
+                "le", "les", "une", "des", "dans", "avec", "pour", "est", "sont", "vous", "nous",
+                "cette", "cet", "aux", "du", "ne", "il", "elle", "ils", "elles",
             ],
         ),
         (
             "es",
             &[
-                "con", "el", "los", "las", "una", "unos", "unas", "del", "hay", "muy", "pero",
-                "porque", "también", "puede", "debe", "son", "sus",
+                "el", "los", "las", "una", "unos", "unas", "del", "hay", "muy", "pero", "porque",
+                "también", "puede", "debe", "son", "sus",
             ],
         ),
         (
             "pt",
             &[
-                "com",
                 "uma",
                 "um",
                 "não",
@@ -1119,23 +1118,5 @@ mod tests {
         ] {
             assert!(looks_english(text, 3), "{text}");
         }
-    }
-
-    #[test]
-    fn basic_native_conjunctions_and_prepositions_complete_language_evidence() {
-        for (text, language) in [
-            (
-                "Le service fonctionne et affiche plusieurs informations.",
-                "fr",
-            ),
-            ("El sistema trabaja con datos.", "es"),
-            ("Uma instalação funciona com dados.", "pt"),
-        ] {
-            assert_eq!(language_hint(text, 4), Some(language), "{text}");
-        }
-        assert_eq!(
-            language_hint("The con artist builds a network with tools.", 4),
-            None
-        );
     }
 }
