@@ -155,21 +155,28 @@ fn emit(
     rule: &str,
     chars: &[char],
     span: Span,
-    replacement: &str,
+    replacements: &[&str],
     message: &str,
 ) {
     if !enabled.contains(&rule) {
         return;
     }
-    let mut fix: Vec<char> = replacement.chars().collect();
-    if chars[span.start].is_uppercase() && !fix.is_empty() {
-        let first: Vec<char> = fix[0].to_uppercase().collect();
-        fix.splice(0..1, first);
-    }
+    let capitalized = chars[span.start].is_uppercase();
+    let suggestions = replacements
+        .iter()
+        .map(|replacement| {
+            let mut fix: Vec<char> = replacement.chars().collect();
+            if capitalized && !fix.is_empty() {
+                let first = fix[0].to_uppercase();
+                fix.splice(0..1, first);
+            }
+            Suggestion::ReplaceWith(fix)
+        })
+        .collect();
     out.entry(rule.to_string()).or_default().push(Lint {
         span,
         lint_kind: LintKind::Grammar,
-        suggestions: vec![Suggestion::ReplaceWith(fix)],
+        suggestions,
         message: message.to_string(),
         priority: 31,
     });
@@ -793,7 +800,7 @@ fn noun_agreement(
             "FrenchNounVerbAgreement",
             chars,
             Span::new(verb.start, verb.end),
-            fix,
+            &[fix],
             "Le verbe s’accorde en nombre avec le nom sujet.",
         );
     }
@@ -826,7 +833,7 @@ fn agree_adjective(
                 "FrenchAdjectiveAgreement",
                 chars,
                 Span::new(w.start, w.end),
-                fix,
+                &[fix],
                 "L’adjectif s’accorde en genre et en nombre avec le nom.",
             );
         }
@@ -1002,7 +1009,7 @@ fn preposition_accent(
         "FrenchPrepositionAccent",
         chars,
         Span::new(a.start, a.end),
-        "à",
+        &["à"],
         "La destination après aller est introduite ici par à.",
     );
 }
@@ -1083,7 +1090,7 @@ fn preposition_contraction(
         "FrenchPrepositionContraction",
         chars,
         Span::new(prep.start, det.end),
-        replacement,
+        &[replacement],
         "La préposition et l’article défini se contractent devant ce nom.",
     );
 }
@@ -1117,13 +1124,16 @@ pub fn lints(
                     r.indicative.contains(&verb.lower.as_str())
                         || r.subjunctive.contains(&verb.lower.as_str())
                 }) {
-                    let fix = if subj {
-                        row.subjunctive[p]
-                    } else if row.indicative.contains(&verb.lower.as_str()) {
-                        row.indicative[p]
-                    } else {
-                        row.subjunctive[p]
+                    let correction = |r: &Verb| {
+                        if subj {
+                            r.subjunctive[p]
+                        } else if r.indicative.contains(&verb.lower.as_str()) {
+                            r.indicative[p]
+                        } else {
+                            r.subjunctive[p]
+                        }
                     };
+                    let fix = correction(row);
                     // allions/alliez may be indicative imperfect or subjunctive present.
                     let ambiguous = if subj {
                         VERBS.iter().any(|r| r.subjunctive[p] == verb.lower)
@@ -1134,6 +1144,19 @@ pub fn lints(
                             })
                     };
                     if fix != verb.lower && !ambiguous {
+                        // A certain agreement/mood error may still have several verb readings.
+                        let mut choices = [""; VERBS.len()];
+                        let mut len = 0;
+                        for candidate in VERBS.iter().filter(|r| {
+                            r.indicative.contains(&verb.lower.as_str())
+                                || r.subjunctive.contains(&verb.lower.as_str())
+                        }) {
+                            let replacement = correction(candidate);
+                            if !choices[..len].contains(&replacement) {
+                                choices[len] = replacement;
+                                len += 1;
+                            }
+                        }
                         emit(
                             &mut out,
                             enabled,
@@ -1144,8 +1167,10 @@ pub fn lints(
                             },
                             chars,
                             Span::new(verb.start, verb.end),
-                            fix,
-                            if subj {
+                            &choices[..len],
+                            if len > 1 {
+                                "Le sens du verbe détermine la correction parmi ces formes."
+                            } else if subj {
                                 "Cette construction demande le subjonctif."
                             } else {
                                 "Le verbe s’accorde avec le pronom sujet."
@@ -1162,7 +1187,7 @@ pub fn lints(
                         "FrenchPronounVerbAgreement",
                         chars,
                         Span::new(verb.start, verb.end),
-                        row[p],
+                        &[row[p]],
                         "Le verbe s’accorde avec le pronom sujet.",
                     );
                 }
@@ -1212,7 +1237,7 @@ pub fn lints(
                 "FrenchAuxiliaryParticiple",
                 chars,
                 Span::new(next.start, next.end),
-                part,
+                &[part],
                 "Après avoir, le passé composé emploie un participe passé.",
             );
         }
@@ -1311,11 +1336,11 @@ pub fn lints(
                     "FrenchArticleAgreement",
                     chars,
                     Span::new(head.start, head.end),
-                    if expected_plural {
+                    &[if expected_plural {
                         plural_form
                     } else {
                         singular
-                    },
+                    }],
                     "Le nom s’accorde en nombre avec le déterminant.",
                 );
             }
@@ -1338,7 +1363,7 @@ pub fn lints(
                         "FrenchArticleAgreement",
                         chars,
                         Span::new(w.start, next.start),
-                        "l’",
+                        &["l’"],
                         "L’article s’élide devant une voyelle ou un h muet.",
                     );
                 } else if fix != w.lower {
@@ -1348,7 +1373,7 @@ pub fn lints(
                         "FrenchArticleAgreement",
                         chars,
                         Span::new(w.start, w.end),
-                        fix,
+                        &[fix],
                         "Le déterminant s’accorde avec le genre du nom.",
                     );
                 }
@@ -1361,7 +1386,7 @@ pub fn lints(
                         "FrenchArticleAgreement",
                         chars,
                         Span::new(w.start, w.end),
-                        fix,
+                        &[fix],
                         "Le déterminant s’accorde avec le genre du nom.",
                     );
                 }
@@ -1911,5 +1936,37 @@ mod tests {
             ),
             vec![("sommes".into(), "soyons".into())]
         );
+    }
+
+    #[test]
+    fn homograph_errors_offer_each_verb_reading_without_flagging_valid_forms() {
+        let text = "Il faut que tu suis les instructions.";
+        let chars: Vec<_> = text.chars().collect();
+        let found = lints(&Speller, &chars, &["FrenchFormalSubjunctive"]);
+        let lint = &found["FrenchFormalSubjunctive"][0];
+        let choices: Vec<String> = lint
+            .suggestions
+            .iter()
+            .map(|s| {
+                let Suggestion::ReplaceWith(chars) = s else {
+                    panic!("replacement required")
+                };
+                chars.iter().collect()
+            })
+            .collect();
+        assert_eq!(choices, ["sois", "suives"]);
+        assert_eq!(lint.span, Span::new(15, 19));
+        for text in [
+            "Je suis les instructions.",
+            "Tu suis les instructions.",
+            "Il faut que tu suives les instructions.",
+            "Il faut que tu sois le responsable.",
+        ] {
+            assert!(
+                fixes("FrenchPronounVerbAgreement", text).is_empty(),
+                "{text}"
+            );
+            assert!(fixes("FrenchFormalSubjunctive", text).is_empty(), "{text}");
+        }
     }
 }
