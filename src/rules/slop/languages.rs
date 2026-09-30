@@ -1,18 +1,50 @@
 //! Conservative non-English hype: empty promises and stacked promotional claims, not words
 //! such as “innovative” or ordinary connective phrases in isolation.
+use std::borrow::Cow;
 use std::ops::Range;
 use std::sync::LazyLock;
 
 use regex::Regex;
+use unicode_normalization::UnicodeNormalization;
 
 use super::{FileCtx, Out};
 use crate::diagnostic::Finding;
+
+/// These curated patterns use non-ASCII letters as word literals, never in character classes.
+/// Match either canonical spelling without normalizing or copying the source.
+fn canonical_word_literals(pattern: &str) -> Cow<'_, str> {
+    if pattern.is_ascii() {
+        return Cow::Borrowed(pattern);
+    }
+    let mut expanded = String::with_capacity(pattern.len() * 2);
+    for c in pattern.chars() {
+        if c.is_ascii() || !c.is_alphabetic() {
+            expanded.push(c);
+            continue;
+        }
+        let mut decomposed = std::iter::once(c).nfd();
+        let first = decomposed.next().expect("a character has a decomposition");
+        if let Some(second) = decomposed.next() {
+            expanded.push_str("(?:");
+            expanded.push(c);
+            expanded.push('|');
+            expanded.push(first);
+            expanded.push(second);
+            expanded.extend(decomposed);
+            expanded.push(')');
+        } else {
+            expanded.push(c);
+        }
+    }
+    Cow::Owned(expanded)
+}
 
 fn pattern(code: &str) -> Option<&'static Regex> {
     macro_rules! matcher {
         ($name:ident, $pattern:literal) => {
             static $name: LazyLock<Regex> = LazyLock::new(|| {
-                Regex::new($pattern).expect("hardcoded multilingual hype regex is valid")
+                Regex::new(&canonical_word_literals($pattern))
+                    .expect("hardcoded multilingual hype regex is valid")
             });
         };
     }

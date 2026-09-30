@@ -287,3 +287,47 @@ fn native_hype_wraps_lines_without_crossing_comment_paragraphs() {
         assert_eq!(&source[finding.range.clone()], expected);
     }
 }
+
+#[test]
+fn decomposed_and_mixed_accents_preserve_native_hype_source_spans() {
+    let dir = tempfile::tempdir().unwrap();
+    let cases = [
+        ("de", "Revolutiona\u{308}r und beispiellos"),
+        ("fr", "monde de possibilite\u{301}s illimite\u{301}es"),
+        ("es", "Revolucionario sin li\u{301}mites"),
+        ("pt", "Revoluciona\u{301}ria e sem precedentes"),
+        (
+            "fi",
+            "Vallankumouksellinen ja ennenna\u{308}kema\u{308}to\u{308}n",
+        ),
+        ("sv", "Revolutionerar allt"),
+        ("fr", "monde de possibilite\u{301}s illimitées"),
+    ];
+    let mut source = String::from("# 1\n\n");
+    for (language, claim) in cases {
+        source.push_str(&format!("<!-- explicit-lang {language} -->\n{claim}.\n\n"));
+    }
+    source.push_str("<!-- explicit-lang end -->\n");
+    let path = dir.path().join("claims.md");
+    std::fs::write(&path, &source).unwrap();
+    let mut config = Config {
+        root: dir.path().to_path_buf(),
+        ..Config::default()
+    };
+    config.general.detect_language = false;
+    config
+        .rules
+        .insert("spelling".into(), explicit::config::Level::Off);
+    let paths = [path];
+    let workspace = engine::build_workspace(&paths, &config);
+    let diagnostics = engine::check(&workspace, &paths, &config, &Options::default());
+    let slop: Vec<_> = diagnostics
+        .iter()
+        .filter(|d| d.rule == "slop/phrase")
+        .collect();
+    assert_eq!(slop.len(), cases.len(), "{diagnostics:?}");
+    for (finding, (_, claim)) in slop.iter().zip(cases) {
+        assert_eq!(finding.text, claim);
+        assert_eq!(&source[finding.range.clone()], claim);
+    }
+}
