@@ -616,6 +616,30 @@ scripts/update-linguist.sh       # refresh the embedded GitHub language list
 scripts/update-harper-words.sh   # regenerate dictionaries/harper after bumping harper-core
 ```
 
+### Multilingual benchmark
+
+Run `bash autoresearch.sh` through the existing devenv environment. The script builds a
+release benchmark offline, then executes the real discovery, extraction and checking pipeline
+with the default features plus `voikko`. Build time is excluded from measurements.
+
+`eval/multilingual/*.json` contains fixed public error/clean pairs for German, French,
+Spanish and Portuguese, with English, Finnish and Swedish controls. Each pair runs as
+a language-tagged Markdown document, a Rust comment with a language override, a marked
+region in English Markdown and a gettext translation. These are development fixtures,
+not unseen holdouts; they do not replace the existing language evaluations.
+
+The primary `detection_score` is a 0–100 language-macro score: 90% spelling/grammar F1
+and 10% slop F1. Diagnostics must overlap the planted byte span and match its category.
+Each label earns at most one true positive; duplicate, wrong-category and clean-text
+findings count as false positives. Unsupported languages score zero. Per-language
+quality, precision and recall expose regressions in the existing languages.
+
+Secondary metrics include cold pipeline milliseconds, median milliseconds over five
+uncached warm runs, source MiB/s and process peak RSS in MiB (macOS/Linux). The workload
+and diagnostic signatures are checked on every run. Results and link caches are disabled;
+no network, configured external dictionaries, git/gh lookup or holdout data is used.
+Timing and RSS vary with the machine and system load; compare on the same idle machine.
+
 The comment rules in `src/rules/slop/comments.rs` are ported from aislop (MIT); see [NOTICE](NOTICE).
 
 ## License

@@ -1,0 +1,282 @@
+[
+  {
+    "language": "es",
+    "category": "spelling",
+    "correct": "La configuración se guarda en un archivo local.",
+    "incorrect": "La configuracíon se guarda en un archivo local.",
+    "error": "configuracíon"
+  },
+  {
+    "language": "es",
+    "category": "spelling",
+    "correct": "La conexión permanece abierta durante la descarga.",
+    "incorrect": "La conección permanece abierta durante la descarga.",
+    "error": "conección"
+  },
+  {
+    "language": "es",
+    "category": "spelling",
+    "correct": "El servidor recibió la solicitud a las nueve.",
+    "incorrect": "El servidor recibió la solicítud a las nueve.",
+    "error": "solicítud"
+  },
+  {
+    "language": "es",
+    "category": "spelling",
+    "correct": "Es necesario reiniciar el servicio después del cambio.",
+    "incorrect": "Es necesário reiniciar el servicio después del cambio.",
+    "error": "necesário"
+  },
+  {
+    "language": "es",
+    "category": "spelling",
+    "correct": "Copia el archivo antes de modificar su contenido.",
+    "incorrect": "Copia el archibo antes de modificar su contenido.",
+    "error": "archibo"
+  },
+  {
+    "language": "es",
+    "category": "spelling",
+    "correct": "Esta herramienta compara dos versiones del documento.",
+    "incorrect": "Esta herramientta compara dos versiones del documento.",
+    "error": "herramientta"
+  },
+  {
+    "language": "es",
+    "category": "spelling",
+    "correct": "El entorno de pruebas no contiene datos personales.",
+    "incorrect": "El entorrno de pruebas no contiene datos personales.",
+    "error": "entorrno"
+  },
+  {
+    "language": "es",
+    "category": "spelling",
+    "correct": "La sincronización comienza cuando hay una conexión disponible.",
+    "incorrect": "La sincronisación comienza cuando hay una conexión disponible.",
+    "error": "sincronisación"
+  },
+  {
+    "language": "es",
+    "category": "spelling",
+    "correct": "La ventana del comedor da al jardín.",
+    "incorrect": "La ventanna del comedor da al jardín.",
+    "error": "ventanna"
+  },
+  {
+    "language": "es",
+    "category": "spelling",
+    "correct": "Dejé la bicicleta junto a la puerta.",
+    "incorrect": "Dejé la bicicléta junto a la puerta.",
+    "error": "bicicléta"
+  },
+  {
+    "language": "es",
+    "category": "grammar",
+    "correct": "La carpeta contiene los archivos necesarios para la instalación.",
+    "incorrect": "La carpeta contiene los archivos necesarias para la instalación.",
+    "error": "necesarias"
+  },
+  {
+    "language": "es",
+    "category": "grammar",
+    "correct": "Los procesos terminan cuando se cierra la sesión.",
+    "incorrect": "Los procesos termina cuando se cierra la sesión.",
+    "error": "termina"
+  },
+  {
+    "language": "es",
+    "category": "grammar",
+    "correct": "El resultado de las pruebas es correcto.",
+    "incorrect": "El resultado de las pruebas son correcto.",
+    "error": "son"
+  },
+  {
+    "language": "es",
+    "category": "grammar",
+    "correct": "Las conexiones están protegidas mediante cifrado.",
+    "incorrect": "Las conexiones está protegidas mediante cifrado.",
+    "error": "está"
+  },
+  {
+    "language": "es",
+    "category": "grammar",
+    "correct": "El servicio ha recibido la solicitud.",
+    "incorrect": "El servicio han recibido la solicitud.",
+    "error": "han"
+  },
+  {
+    "language": "es",
+    "category": "grammar",
+    "correct": "Mis vecinos han comprado una mesa nueva.",
+    "incorrect": "Mis vecinos ha comprado una mesa nueva.",
+    "error": "ha"
+  },
+  {
+    "language": "es",
+    "category": "grammar",
+    "correct": "Había tres mensajes pendientes en la cola.",
+    "incorrect": "Habían tres mensajes pendientes en la cola.",
+    "error": "Habían"
+  },
+  {
+    "language": "es",
+    "category": "grammar",
+    "correct": "Es necesario que el servidor responda antes de continuar.",
+    "incorrect": "Es necesario que el servidor responde antes de continuar.",
+    "error": "responde"
+  },
+  {
+    "language": "es",
+    "category": "slop",
+    "correct": "La herramienta valida los archivos antes de guardarlos.",
+    "incorrect": "La herramienta valida los archivos antes de guardarlos. ¡Una revolución incomparable que transforma todo para siempre!",
+    "error": "¡Una revolución incomparable que transforma todo para siempre!"
+  },
+  {
+    "language": "es",
+    "category": "slop",
+    "correct": "El panel muestra el estado de cada tarea.",
+    "incorrect": "El panel muestra el estado de cada tarea. ¡El futuro definitivo de posibilidades ilimitadas y excelencia sin límites!",
+    "error": "¡El futuro definitivo de posibilidades ilimitadas y excelencia sin límites!"
+  },
+  {
+    "language": "pt",
+    "category": "spelling",
+    "correct": "A configuração fica guardada num ficheiro local.",
+    "incorrect": "A configuraçâo fica guardada num ficheiro local.",
+    "error": "configuraçâo"
+  },
+  {
+    "language": "pt",
+    "category": "spelling",
+    "correct": "A ligação permanece aberta durante a transferência.",
+    "incorrect": "A ligassão permanece aberta durante a transferência.",
+    "error": "ligassão"
+  },
+  {
+    "language": "pt",
+    "category": "spelling",
+    "correct": "O ficheiro contém uma lista de endereços.",
+    "incorrect": "O fichiero contém uma lista de endereços.",
+    "error": "fichiero"
+  },
+  {
+    "language": "pt",
+    "category": "spelling",
+    "correct": "É necessário reiniciar o serviço depois da alteração.",
+    "incorrect": "É nessessário reiniciar o serviço depois da alteração.",
+    "error": "nessessário"
+  },
+  {
+    "language": "pt",
+    "category": "spelling",
+    "correct": "A atualização inclui uma correção para este erro.",
+    "incorrect": "A atualisação inclui uma correção para este erro.",
+    "error": "atualisação"
+  },
+  {
+    "language": "pt",
+    "category": "spelling",
+    "correct": "Esta mensagem indica que o pedido foi recebido.",
+    "incorrect": "Esta menssagem indica que o pedido foi recebido.",
+    "error": "menssagem"
+  },
+  {
+    "language": "pt",
+    "category": "spelling",
+    "correct": "O administrador alterou as opções de segurança.",
+    "incorrect": "O administrador alterou as opções de seguransa.",
+    "error": "seguransa"
+  },
+  {
+    "language": "pt",
+    "category": "spelling",
+    "correct": "O tamanho máximo do anexo é de dez megabytes.",
+    "incorrect": "O tamanhho máximo do anexo é de dez megabytes.",
+    "error": "tamanhho"
+  },
+  {
+    "language": "pt",
+    "category": "spelling",
+    "correct": "A janela da cozinha está aberta.",
+    "incorrect": "A janella da cozinha está aberta.",
+    "error": "janella"
+  },
+  {
+    "language": "pt",
+    "category": "spelling",
+    "correct": "Deixei a bicicleta ao lado da porta.",
+    "incorrect": "Deixei a bicicléta ao lado da porta.",
+    "error": "bicicléta"
+  },
+  {
+    "language": "pt",
+    "category": "grammar",
+    "correct": "As pastas estão vazias depois da limpeza.",
+    "incorrect": "As pastas estão vazios depois da limpeza.",
+    "error": "vazios"
+  },
+  {
+    "language": "pt",
+    "category": "grammar",
+    "correct": "Os processos terminam quando a sessão é encerrada.",
+    "incorrect": "Os processos termina quando a sessão é encerrada.",
+    "error": "termina"
+  },
+  {
+    "language": "pt",
+    "category": "grammar",
+    "correct": "O resultado dos testes é válido.",
+    "incorrect": "O resultado dos testes são válido.",
+    "error": "são"
+  },
+  {
+    "language": "pt",
+    "category": "grammar",
+    "correct": "As ligações estão protegidas por uma palavra-passe.",
+    "incorrect": "As ligações está protegidas por uma palavra-passe.",
+    "error": "está"
+  },
+  {
+    "language": "pt",
+    "category": "grammar",
+    "correct": "O serviço tem recebido pedidos desde manhã.",
+    "incorrect": "O serviço têm recebido pedidos desde manhã.",
+    "error": "têm"
+  },
+  {
+    "language": "pt",
+    "category": "grammar",
+    "correct": "Os utilizadores têm recebido notificações.",
+    "incorrect": "Os utilizadores tem recebido notificações.",
+    "error": "tem"
+  },
+  {
+    "language": "pt",
+    "category": "grammar",
+    "correct": "Havia três mensagens pendentes na fila.",
+    "incorrect": "Haviam três mensagens pendentes na fila.",
+    "error": "Haviam"
+  },
+  {
+    "language": "pt",
+    "category": "grammar",
+    "correct": "É necessário que o servidor responda antes de continuar.",
+    "incorrect": "É necessário que o servidor responde antes de continuar.",
+    "error": "responde"
+  },
+  {
+    "language": "pt",
+    "category": "slop",
+    "correct": "A ferramenta valida os ficheiros antes de os guardar.",
+    "incorrect": "A ferramenta valida os ficheiros antes de os guardar. Uma solução revolucionária que redefine tudo e leva o futuro a outro nível!",
+    "error": "Uma solução revolucionária que redefine tudo e leva o futuro a outro nível!"
+  },
+  {
+    "language": "pt",
+    "category": "slop",
+    "correct": "O painel apresenta o estado de cada tarefa.",
+    "incorrect": "O painel apresenta o estado de cada tarefa. A derradeira experiência de possibilidades infinitas e excelência sem limites!",
+    "error": "A derradeira experiência de possibilidades infinitas e excelência sem limites!"
+  }
+]

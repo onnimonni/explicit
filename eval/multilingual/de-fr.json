@@ -1,0 +1,282 @@
+[
+  {
+    "language": "de",
+    "category": "spelling",
+    "correct": "Die Konfiguration wird beim Start geladen.",
+    "incorrect": "Die Konfigurration wird beim Start geladen.",
+    "error": "Konfigurration"
+  },
+  {
+    "language": "de",
+    "category": "spelling",
+    "correct": "Der Server beendet die Verbindung nach einer Minute.",
+    "incorrect": "Der Server beendet die Verbindug nach einer Minute.",
+    "error": "Verbindug"
+  },
+  {
+    "language": "de",
+    "category": "spelling",
+    "correct": "Der Schlüssel darf nicht veröffentlicht werden.",
+    "incorrect": "Der Schlüsel darf nicht veröffentlicht werden.",
+    "error": "Schlüsel"
+  },
+  {
+    "language": "de",
+    "category": "spelling",
+    "correct": "Der Dienst prüft regelmäßig den verfügbaren Speicher.",
+    "incorrect": "Der Dienst prüft regelmäsig den verfügbaren Speicher.",
+    "error": "regelmäsig"
+  },
+  {
+    "language": "de",
+    "category": "spelling",
+    "correct": "Nach dem Neustart ist die Oberfläche sichtbar.",
+    "incorrect": "Nach dem Neustart ist die Oberfläsche sichtbar.",
+    "error": "Oberfläsche"
+  },
+  {
+    "language": "de",
+    "category": "spelling",
+    "correct": "Der Zugriff erfordert eine Berechtigung.",
+    "incorrect": "Der Zugriff erfordert eine Berrechtigung.",
+    "error": "Berrechtigung"
+  },
+  {
+    "language": "de",
+    "category": "spelling",
+    "correct": "Die Änderungen werden automatisch gespeichert.",
+    "incorrect": "Die Änderungen werden automatsich gespeichert.",
+    "error": "automatsich"
+  },
+  {
+    "language": "de",
+    "category": "spelling",
+    "correct": "Der Entwickler prüft die Abhängigkeiten.",
+    "incorrect": "Der Entwickler prüft die Abhängikeiten.",
+    "error": "Abhängikeiten"
+  },
+  {
+    "language": "de",
+    "category": "spelling",
+    "correct": "Die Schüler warten vor dem Gebäude.",
+    "incorrect": "Die Schüler warten vor dem Gebäde.",
+    "error": "Gebäde"
+  },
+  {
+    "language": "de",
+    "category": "spelling",
+    "correct": "Morgen besuchen wir die Bibliothek.",
+    "incorrect": "Morgen besuchen wir die Bibilothek.",
+    "error": "Bibilothek"
+  },
+  {
+    "language": "de",
+    "category": "grammar",
+    "correct": "Die Dateien werden nach dem Upload gelöscht.",
+    "incorrect": "Die Dateien wird nach dem Upload gelöscht.",
+    "error": "wird"
+  },
+  {
+    "language": "de",
+    "category": "grammar",
+    "correct": "Eine neue Verbindung wird aufgebaut.",
+    "incorrect": "Ein neue Verbindung wird aufgebaut.",
+    "error": "Ein"
+  },
+  {
+    "language": "de",
+    "category": "grammar",
+    "correct": "Der Client verbindet sich mit dem Server.",
+    "incorrect": "Der Client verbindet sich mit den Server.",
+    "error": "den"
+  },
+  {
+    "language": "de",
+    "category": "grammar",
+    "correct": "Das Programm liest eine kleine Datei.",
+    "incorrect": "Das Programm liest eine kleiner Datei.",
+    "error": "kleiner"
+  },
+  {
+    "language": "de",
+    "category": "grammar",
+    "correct": "Der Prozess ist gestern abgestürzt.",
+    "incorrect": "Der Prozess hat gestern abgestürzt.",
+    "error": "hat"
+  },
+  {
+    "language": "de",
+    "category": "grammar",
+    "correct": "Die Anwendung läuft weiter, obwohl der Server nicht antwortet.",
+    "incorrect": "Die Anwendung läuft weiter, obwohl der Server antwortet nicht.",
+    "error": "antwortet nicht"
+  },
+  {
+    "language": "de",
+    "category": "grammar",
+    "correct": "Du kannst den Bericht herunterladen.",
+    "incorrect": "Du kann den Bericht herunterladen.",
+    "error": "kann"
+  },
+  {
+    "language": "de",
+    "category": "grammar",
+    "correct": "Wir haben zwei neue Schlüssel erstellt.",
+    "incorrect": "Wir haben zwei neuen Schlüssel erstellt.",
+    "error": "neuen"
+  },
+  {
+    "language": "de",
+    "category": "slop",
+    "correct": "Die Anwendung zeigt den Status der Verbindung an.",
+    "incorrect": "Die revolutionäre, bahnbrechende Anwendung zeigt den Status der Verbindung an.",
+    "error": "revolutionäre, bahnbrechende"
+  },
+  {
+    "language": "de",
+    "category": "slop",
+    "correct": "Mit dem Werkzeug können Sie Berichte exportieren.",
+    "incorrect": "Mit dem revolutionären, alles verändernden Werkzeug können Sie Berichte exportieren.",
+    "error": "revolutionären, alles verändernden"
+  },
+  {
+    "language": "fr",
+    "category": "spelling",
+    "correct": "La configuration est enregistrée dans un fichier.",
+    "incorrect": "La configurration est enregistrée dans un fichier.",
+    "error": "configurration"
+  },
+  {
+    "language": "fr",
+    "category": "spelling",
+    "correct": "Le serveur accepte une nouvelle connexion.",
+    "incorrect": "Le serveur accepte une nouvelle connextion.",
+    "error": "connextion"
+  },
+  {
+    "language": "fr",
+    "category": "spelling",
+    "correct": "La clé doit rester confidentielle.",
+    "incorrect": "La clè doit rester confidentielle.",
+    "error": "clè"
+  },
+  {
+    "language": "fr",
+    "category": "spelling",
+    "correct": "Le résumé figure au début du rapport.",
+    "incorrect": "Le résummé figure au début du rapport.",
+    "error": "résummé"
+  },
+  {
+    "language": "fr",
+    "category": "spelling",
+    "correct": "Cette commande supprime les fichiers temporaires.",
+    "incorrect": "Cette commande supprime les fichiers temporraires.",
+    "error": "temporraires"
+  },
+  {
+    "language": "fr",
+    "category": "spelling",
+    "correct": "Le navigateur affiche une notification.",
+    "incorrect": "Le navigatteur affiche une notification.",
+    "error": "navigatteur"
+  },
+  {
+    "language": "fr",
+    "category": "spelling",
+    "correct": "Nous vérifions les dépendances avant la compilation.",
+    "incorrect": "Nous vérifions les dépandances avant la compilation.",
+    "error": "dépandances"
+  },
+  {
+    "language": "fr",
+    "category": "spelling",
+    "correct": "La fenêtre reste ouverte pendant le téléchargement.",
+    "incorrect": "La fenêtre reste ouverte pendant le téléchargment.",
+    "error": "téléchargment"
+  },
+  {
+    "language": "fr",
+    "category": "spelling",
+    "correct": "Les enfants attendent devant la bibliothèque.",
+    "incorrect": "Les enfants attendent devant la bibliotèque.",
+    "error": "bibliotèque"
+  },
+  {
+    "language": "fr",
+    "category": "spelling",
+    "correct": "La réunion commence après le déjeuner.",
+    "incorrect": "La réunnion commence après le déjeuner.",
+    "error": "réunnion"
+  },
+  {
+    "language": "fr",
+    "category": "grammar",
+    "correct": "La connexion est sécurisée.",
+    "incorrect": "La connexion est sécurisé.",
+    "error": "sécurisé"
+  },
+  {
+    "language": "fr",
+    "category": "grammar",
+    "correct": "Les fichiers sont disponibles.",
+    "incorrect": "Les fichiers sont disponible.",
+    "error": "disponible"
+  },
+  {
+    "language": "fr",
+    "category": "grammar",
+    "correct": "Le serveur répond aux requêtes.",
+    "incorrect": "Le serveur répondent aux requêtes.",
+    "error": "répondent"
+  },
+  {
+    "language": "fr",
+    "category": "grammar",
+    "correct": "Vous devez fermer cette fenêtre.",
+    "incorrect": "Vous doit fermer cette fenêtre.",
+    "error": "doit"
+  },
+  {
+    "language": "fr",
+    "category": "grammar",
+    "correct": "Les données que nous avons reçues sont complètes.",
+    "incorrect": "Les données que nous avons reçu sont complètes.",
+    "error": "reçu"
+  },
+  {
+    "language": "fr",
+    "category": "grammar",
+    "correct": "Ils sont partis hier.",
+    "incorrect": "Ils ont partis hier.",
+    "error": "ont"
+  },
+  {
+    "language": "fr",
+    "category": "grammar",
+    "correct": "Il faut que le service soit disponible.",
+    "incorrect": "Il faut que le service est disponible.",
+    "error": "est"
+  },
+  {
+    "language": "fr",
+    "category": "grammar",
+    "correct": "Nous accédons au serveur.",
+    "incorrect": "Nous accédons le serveur.",
+    "error": "le"
+  },
+  {
+    "language": "fr",
+    "category": "slop",
+    "correct": "Ce guide explique comment installer le logiciel.",
+    "incorrect": "Ce guide révolutionnaire et sans égal explique comment installer le logiciel.",
+    "error": "révolutionnaire et sans égal"
+  },
+  {
+    "language": "fr",
+    "category": "slop",
+    "correct": "Cet outil exporte les tableaux.",
+    "incorrect": "Cet outil miraculeux aux possibilités infinies exporte les tableaux.",
+    "error": "miraculeux aux possibilités infinies"
+  }
+]
