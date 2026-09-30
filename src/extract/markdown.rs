@@ -8,6 +8,7 @@ use pulldown_cmark::{
     BrokenLink, CodeBlockKind, Event, HeadingLevel, LinkType, Options, Parser, Tag, TagEnd,
 };
 use regex::Regex;
+use unicode_normalization::char::is_combining_mark;
 
 use crate::segment::{Segment, SegmentKind};
 
@@ -251,6 +252,10 @@ struct Block {
     keep: Vec<Range<usize>>,
 }
 
+fn code_word_character(c: char) -> bool {
+    c.is_alphanumeric() || c == '_' || is_combining_mark(c)
+}
+
 pub fn parse(src: &str) -> MdDoc {
     let mut doc = MdDoc::default();
     let mut undefined: Vec<(String, Range<usize>)> = Vec::new();
@@ -272,6 +277,7 @@ pub fn parse(src: &str) -> MdDoc {
     let mut list_stack: Vec<List> = Vec::new();
     let mut slug_counts: HashMap<String, usize> = HashMap::new();
     let mut bare_run: Option<Range<usize>> = None;
+    let mut code_word_end = 0;
 
     fn flush(cur: &mut Option<Block>, end: usize, src: &str, out: &mut Vec<Segment>) {
         if let Some(b) = cur.take() {
@@ -523,7 +529,10 @@ pub fn parse(src: &str) -> MdDoc {
                 });
                 // Text may be a decoded entity/escape; only keep it when it is the raw source.
                 if src.get(range.clone()) == Some(&*t) {
-                    cur.keep.push(range);
+                    let start = range.start.max(code_word_end).min(range.end);
+                    if start < range.end {
+                        cur.keep.push(start..range.end);
+                    }
                 }
             }
             Event::Code(t) => {
@@ -533,6 +542,27 @@ pub fn parse(src: &str) -> MdDoc {
                 for l in &mut link_stack {
                     l.text.push_str(&t);
                 }
+                // Inline code inside an orthographic word leaves no standalone
+                // prose token on either side. Keep syntax ranges exact; trim only prose.
+                let start = src[..range.start]
+                    .char_indices()
+                    .rev()
+                    .take_while(|(_, c)| code_word_character(*c))
+                    .last()
+                    .map_or(range.start, |(i, _)| i);
+                if let Some(cur) = current.as_mut() {
+                    for keep in cur.keep.iter_mut().rev() {
+                        if keep.end <= start {
+                            break;
+                        }
+                        keep.end = keep.end.min(start).max(keep.start);
+                    }
+                }
+                code_word_end = src[range.end..]
+                    .char_indices()
+                    .take_while(|(_, c)| code_word_character(*c))
+                    .last()
+                    .map_or(range.end, |(i, c)| range.end + i + c.len_utf8());
                 doc.code_spans.push(range);
             }
             Event::Rule => doc.thematic_breaks.push(range),

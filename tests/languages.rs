@@ -377,3 +377,33 @@ fn short_native_documents_keep_their_language_in_isolated_link_prefixes() {
             .any(|word| word == "Contactez")
     );
 }
+
+#[test]
+fn code_inside_words_does_not_leave_spelling_fragments() {
+    let dir = tempfile::tempdir().unwrap();
+    let source = "# 1\n\nThe `E`rror handler uses pré`API`fi\u{301}xe identifiers.\n\n\
+        The neighbour sees a `code` example.\n";
+    let path = dir.path().join("fragments.md");
+    std::fs::write(&path, source).unwrap();
+    let config = Config {
+        root: dir.path().to_path_buf(),
+        ..Config::default()
+    };
+    let paths = [path];
+    let workspace = engine::build_workspace(&paths, &config);
+    let diagnostics = engine::check(&workspace, &paths, &config, &Options::default());
+    let spelling: Vec<_> = diagnostics
+        .iter()
+        .filter(|finding| finding.rule == "spelling")
+        .collect();
+    assert_eq!(spelling.len(), 1, "{diagnostics:?}");
+    assert_eq!(spelling[0].text, "neighbour");
+    let start = source.find("neighbour").unwrap();
+    assert_eq!(spelling[0].range, start..start + "neighbour".len());
+    assert!(
+        spelling[0]
+            .suggestions
+            .iter()
+            .any(|word| word == "neighbor")
+    );
+}
