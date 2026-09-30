@@ -635,6 +635,8 @@ pub fn looks_english(text: &str, min_words: usize) -> bool {
     n >= min_words.max(1)
         && known * 5 >= n * 4
         && evidence
+        // Dictionary homographs alone do not outweigh a native function-word profile.
+        && (stop > 0 || function > 0 || language_hint(text, 4).is_none())
         && !words(text).any(|w| nordic_letters_or_ending(w) && !english_word(w))
 }
 
@@ -749,7 +751,7 @@ fn language_hint_words<'a>(
             "fr",
             &[
                 "le", "les", "une", "des", "dans", "avec", "pour", "est", "sont", "vous", "nous",
-                "cette", "cet", "aux", "du", "ne",
+                "cette", "cet", "aux", "du", "ne", "il", "elle", "ils", "elles",
             ],
         ),
         (

@@ -483,6 +483,8 @@ compound flags allow, or is an English, developer or configured term, and whose 
 
 With detection on, confident stretches of another supported language use their own dictionary
 and native rules; English stretches get English rules in the configured `prose.dialect`.
+English dictionary homographs alone do not override a clear native function-word profile in a
+short sentence; English function words still license English crossover.
 Nordic crossover retains its short-phrase handling, while Nordic text inside other languages
 needs longer evidence. Builds without a language's dictionary skip its spelling and grammar;
 language-independent rules and supported promotional-claim checks still run.

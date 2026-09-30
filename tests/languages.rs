@@ -212,3 +212,31 @@ fn decomposed_accents_keep_native_grammar_and_source_spans() {
         assert_eq!(findings[0].suggestions, [fix]);
     }
 }
+
+#[test]
+fn french_homographs_stay_native_without_disabling_english_crossover() {
+    let dir = tempfile::tempdir().unwrap();
+    let source = "---\nlang: fr\n---\n\n# Exemple\n\n\
+        Il commence à le lire. Il refuse de le faire.\n\n\
+        The colour of the button is set in the settings and saved to the profile.\n";
+    let path = dir.path().join("mixed.md");
+    std::fs::write(&path, source).unwrap();
+    for (dialect, expected) in [
+        ("american", vec![("spelling", "colour")]),
+        ("british", vec![]),
+    ] {
+        let mut config = Config {
+            root: dir.path().to_path_buf(),
+            ..Config::default()
+        };
+        config.prose.dialect = dialect.into();
+        let paths = [path.clone()];
+        let workspace = engine::build_workspace(&paths, &config);
+        let diagnostics = engine::check(&workspace, &paths, &config, &Options::default());
+        let actual: Vec<_> = diagnostics
+            .iter()
+            .map(|d| (d.rule.as_str(), d.text.as_str()))
+            .collect();
+        assert_eq!(actual, expected, "{dialect}: {diagnostics:?}");
+    }
+}
