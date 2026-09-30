@@ -1,0 +1,1514 @@
+[
+ {
+  "file": "anvandarvillkor.md",
+  "line": 7,
+  "column": 24,
+  "end_column": 32,
+  "text": "MinHälsa",
+  "kind": "product"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 11,
+  "column": 81,
+  "end_column": 90,
+  "text": "dina egna",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 11,
+  "column": 162,
+  "end_column": 166,
+  "text": "ring",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 11,
+  "column": 167,
+  "end_column": 170,
+  "text": "112",
+  "kind": "number"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 13,
+  "column": 80,
+  "end_column": 88,
+  "text": "30 dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 13,
+  "column": 135,
+  "end_column": 144,
+  "text": "kan träda",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 17,
+  "column": 29,
+  "end_column": 39,
+  "text": "hålla sina",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 19,
+  "column": 59,
+  "end_column": 72,
+  "text": "dess funktion",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 19,
+  "column": 123,
+  "end_column": 131,
+  "text": "annat än",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 19,
+  "column": 181,
+  "end_column": 204,
+  "text": "både privatpersoner och",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 19,
+  "column": 237,
+  "end_column": 246,
+  "text": "stängs av",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 23,
+  "column": 203,
+  "end_column": 213,
+  "text": "kan finnas",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 23,
+  "column": 236,
+  "end_column": 238,
+  "text": "EU",
+  "kind": "acronym"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 25,
+  "column": 25,
+  "end_column": 42,
+  "text": "som är nödvändiga",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 25,
+  "column": 130,
+  "end_column": 144,
+  "text": "kan återkallas",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 29,
+  "column": 120,
+  "end_column": 129,
+  "text": "de flesta",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 29,
+  "column": 201,
+  "end_column": 215,
+  "text": "begränsas till",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 35,
+  "column": 23,
+  "end_column": 31,
+  "text": "1.1.2027",
+  "kind": "unit"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 35,
+  "column": 254,
+  "end_column": 267,
+  "text": "sluta använda",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 35,
+  "column": 290,
+  "end_column": 306,
+  "text": "medför kostnader",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 37,
+  "column": 131,
+  "end_column": 151,
+  "text": "Stockholms tingsrätt",
+  "kind": "name"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 37,
+  "column": 175,
+  "end_column": 184,
+  "text": "vända sig",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 37,
+  "column": 190,
+  "end_column": 218,
+  "text": "Allmänna reklamationsnämnden",
+  "kind": "name"
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 37,
+  "column": 251,
+  "end_column": 343,
+  "text": "\"These terms are governed by Swedish law; the Swedish version prevails in case of conflict.\"",
+  "kind": "foreign"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 7,
+  "column": 36,
+  "end_column": 49,
+  "text": "minst en gång",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 8,
+  "column": 22,
+  "end_column": 42,
+  "text": "på en annan plats än",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 8,
+  "column": 57,
+  "end_column": 79,
+  "text": "Det håller vi fast vid",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 9,
+  "column": 25,
+  "end_column": 38,
+  "text": "varje kvartal",
+  "kind": "unit"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 10,
+  "column": 34,
+  "end_column": 39,
+  "text": "Vault",
+  "kind": "product"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 10,
+  "column": 61,
+  "end_column": 70,
+  "text": "kommer åt",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 12,
+  "column": 18,
+  "end_column": 30,
+  "text": "vilken klass",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 12,
+  "column": 72,
+  "end_column": 74,
+  "text": "IT",
+  "kind": "acronym"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 12,
+  "column": 96,
+  "end_column": 107,
+  "text": "kan föreslå",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 12,
+  "column": 128,
+  "end_column": 145,
+  "text": "måste då motivera",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 18,
+  "column": 3,
+  "end_column": 13,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 18,
+  "column": 30,
+  "end_column": 33,
+  "text": "WAL",
+  "kind": "acronym"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 18,
+  "column": 37,
+  "end_column": 43,
+  "text": "kl. 01",
+  "kind": "unit"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 18,
+  "column": 46,
+  "end_column": 54,
+  "text": "35 dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 19,
+  "column": 14,
+  "end_column": 17,
+  "text": "4 h",
+  "kind": "unit"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 19,
+  "column": 20,
+  "end_column": 28,
+  "text": "90 dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 20,
+  "column": 12,
+  "end_column": 16,
+  "text": "dygn",
+  "kind": "unit"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 20,
+  "column": 19,
+  "end_column": 23,
+  "text": "1 år",
+  "kind": "unit"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 21,
+  "column": 3,
+  "end_column": 13,
+  "text": "Kubernetes",
+  "kind": "product"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 21,
+  "column": 50,
+  "end_column": 54,
+  "text": "2 år",
+  "kind": "unit"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 23,
+  "column": 122,
+  "end_column": 138,
+  "text": "raderas kopiorna",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 23,
+  "column": 183,
+  "end_column": 197,
+  "text": "ansöker om det",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 23,
+  "column": 202,
+  "end_column": 204,
+  "text": "IT",
+  "kind": "acronym"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 27,
+  "column": 111,
+  "end_column": 122,
+  "text": "#incidenter",
+  "kind": "identifier"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 27,
+  "column": 156,
+  "end_column": 164,
+  "text": "en timme",
+  "kind": "unit"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 27,
+  "column": 193,
+  "end_column": 208,
+  "text": "har sparad data",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 27,
+  "column": 239,
+  "end_column": 254,
+  "text": "en enstaka miss",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 29,
+  "column": 190,
+  "end_column": 196,
+  "text": "de nya",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 29,
+  "column": 210,
+  "end_column": 219,
+  "text": "får delta",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 31,
+  "column": 141,
+  "end_column": 148,
+  "text": "staging",
+  "kind": "code"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 35,
+  "column": 20,
+  "end_column": 23,
+  "text": "två",
+  "kind": "unit"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 35,
+  "column": 191,
+  "end_column": 200,
+  "text": "Den stora",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 37,
+  "column": 70,
+  "end_column": 149,
+  "text": "Backups are taken daily, retained for 35 days and restore-tested every quarter.",
+  "kind": "foreign"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 37,
+  "column": 167,
+  "end_column": 178,
+  "text": "är översatt",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 37,
+  "column": 206,
+  "end_column": 220,
+  "text": "det inte krävs",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 3,
+  "column": 30,
+  "end_column": 44,
+  "text": "räknade vi med",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 3,
+  "column": 122,
+  "end_column": 132,
+  "text": "om vad som",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 3,
+  "column": 156,
+  "end_column": 167,
+  "text": "skulle göra",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 7,
+  "column": 108,
+  "end_column": 118,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 7,
+  "column": 129,
+  "end_column": 136,
+  "text": "MongoDB",
+  "kind": "product"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 7,
+  "column": 144,
+  "end_column": 156,
+  "text": "motsatte sig",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 11,
+  "column": 34,
+  "end_column": 44,
+  "text": "lättare än",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 11,
+  "column": 117,
+  "end_column": 128,
+  "text": "två procent",
+  "kind": "unit"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 11,
+  "column": 168,
+  "end_column": 176,
+  "text": "kom ihåg",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 13,
+  "column": 61,
+  "end_column": 71,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 13,
+  "column": 117,
+  "end_column": 133,
+  "text": "den var snabbare",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 13,
+  "column": 144,
+  "end_column": 153,
+  "text": "pgBouncer",
+  "kind": "product"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 13,
+  "column": 177,
+  "end_column": 186,
+  "text": "att öppna",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 15,
+  "column": 176,
+  "end_column": 181,
+  "text": "så få",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 19,
+  "column": 40,
+  "end_column": 50,
+  "text": "sex veckor",
+  "kind": "unit"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 19,
+  "column": 82,
+  "end_column": 98,
+  "text": "läsningarna bara",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 19,
+  "column": 154,
+  "end_column": 174,
+  "text": "loggade skillnaderna",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 19,
+  "column": 177,
+  "end_column": 184,
+  "text": "Grafana",
+  "kind": "product"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 19,
+  "column": 258,
+  "end_column": 265,
+  "text": "den nya",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 22,
+  "column": 1,
+  "end_column": 73,
+  "text": "SELECT count(*) FROM bokningar WHERE skapad >= now() - interval '1 day';",
+  "kind": "code_block"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 25,
+  "column": 70,
+  "end_column": 72,
+  "text": "Go",
+  "kind": "product"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 25,
+  "column": 123,
+  "end_column": 136,
+  "text": "anser att det",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 25,
+  "column": 248,
+  "end_column": 262,
+  "text": "de nya raderna",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 31,
+  "column": 26,
+  "end_column": 33,
+  "text": "är kvar",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 33,
+  "column": 10,
+  "end_column": 22,
+  "text": "Juha Itkonen",
+  "kind": "name"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 33,
+  "column": 54,
+  "end_column": 96,
+  "text": "\"the migration was easy, the data was not\"",
+  "kind": "foreign"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 33,
+  "column": 106,
+  "end_column": 116,
+  "text": "håller med",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 33,
+  "column": 188,
+  "end_column": 202,
+  "text": "orkade jämföra",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 33,
+  "column": 332,
+  "end_column": 346,
+  "text": "den kommer att",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 7,
+  "column": 45,
+  "end_column": 53,
+  "text": "MinHälsa",
+  "kind": "product"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 7,
+  "column": 101,
+  "end_column": 113,
+  "text": "skickas inte",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 11,
+  "column": 28,
+  "end_column": 42,
+  "text": "uppskattar den",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 11,
+  "column": 105,
+  "end_column": 114,
+  "text": "på vilken",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 13,
+  "column": 21,
+  "end_column": 33,
+  "text": "två vardagar",
+  "kind": "unit"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 13,
+  "column": 92,
+  "end_column": 111,
+  "text": "patientombudsmannen",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 17,
+  "column": 88,
+  "end_column": 95,
+  "text": "Android",
+  "kind": "product"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 17,
+  "column": 108,
+  "end_column": 115,
+  "text": "den nya",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 17,
+  "column": 148,
+  "end_column": 159,
+  "text": "Google Play",
+  "kind": "product"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 17,
+  "column": 164,
+  "end_column": 183,
+  "text": "kommer inloggningen",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 19,
+  "column": 34,
+  "end_column": 44,
+  "text": "fortsätter",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 19,
+  "column": 72,
+  "end_column": 91,
+  "text": "enhetens modell och",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 19,
+  "column": 151,
+  "end_column": 165,
+  "text": "klockslaget då",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 23,
+  "column": 37,
+  "end_column": 49,
+  "text": "sjukskötaren",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 23,
+  "column": 102,
+  "end_column": 111,
+  "text": "kl. 10.15",
+  "kind": "unit"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 23,
+  "column": 134,
+  "end_column": 145,
+  "text": "kan du byta",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 25,
+  "column": 152,
+  "end_column": 160,
+  "text": "en månad",
+  "kind": "unit"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 25,
+  "column": 169,
+  "end_column": 182,
+  "text": "vilket är bra",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 25,
+  "column": 246,
+  "end_column": 253,
+  "text": "ser den",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 31,
+  "column": 23,
+  "end_column": 31,
+  "text": "får svar",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 31,
+  "column": 183,
+  "end_column": 308,
+  "text": "\"Thank you for your feedback. We have forwarded it to the development team and will get back to you within two working days.\"",
+  "kind": "foreign"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 35,
+  "column": 26,
+  "end_column": 41,
+  "text": "lika snabbt som",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 35,
+  "column": 60,
+  "end_column": 69,
+  "text": "medger vi",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 35,
+  "column": 137,
+  "end_column": 150,
+  "text": "märker genast",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 37,
+  "column": 125,
+  "end_column": 132,
+  "text": "Valvira",
+  "kind": "name"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 37,
+  "column": 185,
+  "end_column": 194,
+  "text": "Anni Swan",
+  "kind": "name"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 37,
+  "column": 275,
+  "end_column": 286,
+  "text": "varje månad",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 3,
+  "column": 6,
+  "end_column": 25,
+  "text": "7.10.2026 kl. 13–14",
+  "kind": "unit"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 4,
+  "column": 13,
+  "end_column": 25,
+  "text": "Aleksis Kivi",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 4,
+  "column": 35,
+  "end_column": 46,
+  "text": "Aino Kallas",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 4,
+  "column": 48,
+  "end_column": 60,
+  "text": "Sirkka Selja",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 4,
+  "column": 62,
+  "end_column": 73,
+  "text": "Ville Ranta",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 8,
+  "column": 1,
+  "end_column": 7,
+  "text": "Kallas",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 8,
+  "column": 21,
+  "end_column": 27,
+  "text": "Trivys",
+  "kind": "product"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 8,
+  "column": 47,
+  "end_column": 50,
+  "text": "tre",
+  "kind": "number"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 8,
+  "column": 89,
+  "end_column": 98,
+  "text": "den gamla",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 8,
+  "column": 112,
+  "end_column": 119,
+  "text": "OpenSSL",
+  "kind": "product"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 8,
+  "column": 132,
+  "end_column": 149,
+  "text": "har redan rättats",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 10,
+  "column": 1,
+  "end_column": 6,
+  "text": "Selja",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 14,
+  "column": 34,
+  "end_column": 37,
+  "text": "två",
+  "kind": "number"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 16,
+  "column": 19,
+  "end_column": 24,
+  "text": "Ranta",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 16,
+  "column": 82,
+  "end_column": 88,
+  "text": "Kallas",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 16,
+  "column": 174,
+  "end_column": 259,
+  "text": "\"Both findings were remediated; a re-test is scheduled for the last week of October.\"",
+  "kind": "foreign"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 20,
+  "column": 54,
+  "end_column": 63,
+  "text": "16 tecken",
+  "kind": "unit"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 20,
+  "column": 65,
+  "end_column": 70,
+  "text": "Selja",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 20,
+  "column": 96,
+  "end_column": 105,
+  "text": "bättre än",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 20,
+  "column": 144,
+  "end_column": 155,
+  "text": "avskaffades",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 20,
+  "column": 257,
+  "end_column": 275,
+  "text": "de flesta använder",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 22,
+  "column": 25,
+  "end_column": 34,
+  "text": "16 tecken",
+  "kind": "unit"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 22,
+  "column": 40,
+  "end_column": 44,
+  "text": "1.12",
+  "kind": "unit"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 26,
+  "column": 16,
+  "end_column": 23,
+  "text": "som har",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 26,
+  "column": 52,
+  "end_column": 65,
+  "text": "Authenticator",
+  "kind": "product"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 26,
+  "column": 78,
+  "end_column": 87,
+  "text": "de delade",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 26,
+  "column": 121,
+  "end_column": 126,
+  "text": "Ranta",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 26,
+  "column": 159,
+  "end_column": 166,
+  "text": "YubiKey",
+  "kind": "product"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 28,
+  "column": 60,
+  "end_column": 69,
+  "text": "de delade",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 28,
+  "column": 156,
+  "end_column": 172,
+  "text": "innan revisionen",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 32,
+  "column": 82,
+  "end_column": 95,
+  "text": "även cheferna",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 33,
+  "column": 14,
+  "end_column": 23,
+  "text": "4.11.2026",
+  "kind": "unit"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 33,
+  "column": 90,
+  "end_column": 99,
+  "text": "tre dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 35,
+  "column": 18,
+  "end_column": 27,
+  "text": "kl. 13.55",
+  "kind": "unit"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 35,
+  "column": 50,
+  "end_column": 61,
+  "text": "Ville Ranta",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 35,
+  "column": 70,
+  "end_column": 80,
+  "text": "kortare än",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 35,
+  "column": 110,
+  "end_column": 119,
+  "text": "flyttades",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 35,
+  "column": 137,
+  "end_column": 143,
+  "text": "De som",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 35,
+  "column": 149,
+  "end_column": 157,
+  "text": "kan läsa",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 35,
+  "column": 170,
+  "end_column": 180,
+  "text": "Confluence",
+  "kind": "product"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 7,
+  "column": 59,
+  "end_column": 63,
+  "text": "Jira",
+  "kind": "product"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 7,
+  "column": 118,
+  "end_column": 125,
+  "text": "som har",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 7,
+  "column": 141,
+  "end_column": 149,
+  "text": "#support",
+  "kind": "identifier"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 11,
+  "column": 29,
+  "end_column": 37,
+  "text": "en timme",
+  "kind": "unit"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 11,
+  "column": 108,
+  "end_column": 114,
+  "text": "de kan",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 11,
+  "column": 164,
+  "end_column": 174,
+  "text": "den delade",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 13,
+  "column": 121,
+  "end_column": 133,
+  "text": "slår vi ihop",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 19,
+  "column": 48,
+  "end_column": 51,
+  "text": "4 h",
+  "kind": "unit"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 20,
+  "column": 59,
+  "end_column": 70,
+  "text": "1 arbetsdag",
+  "kind": "unit"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 21,
+  "column": 41,
+  "end_column": 62,
+  "text": "en tillfällig lösning",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 21,
+  "column": 65,
+  "end_column": 78,
+  "text": "3 arbetsdagar",
+  "kind": "unit"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 24,
+  "column": 23,
+  "end_column": 40,
+  "text": "både påverkan och",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 24,
+  "column": 83,
+  "end_column": 97,
+  "text": "det inte finns",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 24,
+  "column": 153,
+  "end_column": 164,
+  "text": "besluta att",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 28,
+  "column": 21,
+  "end_column": 35,
+  "text": "reder först ut",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 28,
+  "column": 78,
+  "end_column": 88,
+  "text": "är listade",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 28,
+  "column": 91,
+  "end_column": 101,
+  "text": "Confluence",
+  "kind": "product"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 30,
+  "column": 98,
+  "end_column": 110,
+  "text": "tydligare än",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 30,
+  "column": 215,
+  "end_column": 232,
+  "text": "vet att lösningen",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 32,
+  "column": 43,
+  "end_column": 51,
+  "text": "en vecka",
+  "kind": "unit"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 32,
+  "column": 102,
+  "end_column": 116,
+  "text": "går igenom dem",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 36,
+  "column": 111,
+  "end_column": 129,
+  "text": "som har samlats in",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 36,
+  "column": 135,
+  "end_column": 142,
+  "text": "Grafana",
+  "kind": "product"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 36,
+  "column": 186,
+  "end_column": 197,
+  "text": "svarar inom",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 36,
+  "column": 198,
+  "end_column": 213,
+  "text": "två arbetsdagar",
+  "kind": "unit"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 36,
+  "column": 265,
+  "end_column": 275,
+  "text": "#plattform",
+  "kind": "identifier"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 38,
+  "column": 37,
+  "end_column": 43,
+  "text": "kan se",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 38,
+  "column": 72,
+  "end_column": 143,
+  "text": "\"Escalated to engineering\" means the ticket has left the support queue.",
+  "kind": "foreign"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 38,
+  "column": 162,
+  "end_column": 181,
+  "text": "transparent, vilket",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 38,
+  "column": 247,
+  "end_column": 260,
+  "text": "sällan ringer",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 40,
+  "column": 34,
+  "end_column": 43,
+  "text": "Anni Swan",
+  "kind": "name"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 40,
+  "column": 93,
+  "end_column": 103,
+  "text": "där de nya",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 40,
+  "column": 120,
+  "end_column": 131,
+  "text": "ska skrivas",
+  "kind": "grammar_ok"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 40,
+  "column": 137,
+  "end_column": 147,
+  "text": "Confluence",
+  "kind": "product"
+ }
+]

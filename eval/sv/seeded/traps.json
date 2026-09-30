@@ -1,0 +1,3698 @@
+[
+ {
+  "file": "adr-001-databas.md",
+  "line": 10,
+  "column": 95,
+  "end_column": 99,
+  "text": "1177",
+  "kind": "name"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 10,
+  "column": 104,
+  "end_column": 132,
+  "text": "Nationella patientöversikten",
+  "kind": "name"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 10,
+  "column": 155,
+  "end_column": 170,
+  "text": "högst 72 timmar",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 10,
+  "column": 218,
+  "end_column": 225,
+  "text": "MongoDB",
+  "kind": "product"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 12,
+  "column": 19,
+  "end_column": 33,
+  "text": "Selma Lagerlöf",
+  "kind": "name"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 12,
+  "column": 46,
+  "end_column": 56,
+  "text": "Karin Boye",
+  "kind": "name"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 12,
+  "column": 84,
+  "end_column": 101,
+  "text": "Hjalmar Söderberg",
+  "kind": "name"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 16,
+  "column": 5,
+  "end_column": 15,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 18,
+  "column": 66,
+  "end_column": 71,
+  "text": "JSONB",
+  "kind": "product"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 18,
+  "column": 115,
+  "end_column": 122,
+  "text": "Patroni",
+  "kind": "product"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 20,
+  "column": 5,
+  "end_column": 12,
+  "text": "MongoDB",
+  "kind": "product"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 22,
+  "column": 21,
+  "end_column": 25,
+  "text": "SSPL",
+  "kind": "acronym"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 24,
+  "column": 5,
+  "end_column": 16,
+  "text": "CockroachDB",
+  "kind": "product"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 26,
+  "column": 18,
+  "end_column": 28,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 26,
+  "column": 151,
+  "end_column": 153,
+  "text": "ca",
+  "kind": "abbrev"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 30,
+  "column": 11,
+  "end_column": 21,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 32,
+  "column": 4,
+  "end_column": 21,
+  "text": "Patientdatalagens",
+  "kind": "compound"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 33,
+  "column": 4,
+  "end_column": 19,
+  "text": "Socialstyrelsen",
+  "kind": "name"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 33,
+  "column": 24,
+  "end_column": 27,
+  "text": "IMY",
+  "kind": "name"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 36,
+  "column": 105,
+  "end_column": 115,
+  "text": "två veckor",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 41,
+  "column": 14,
+  "end_column": 23,
+  "text": "pgBouncer",
+  "kind": "product"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 41,
+  "column": 54,
+  "end_column": 64,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 42,
+  "column": 41,
+  "end_column": 56,
+  "text": "den 31 december",
+  "kind": "ordinal"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 7,
+  "column": 73,
+  "end_column": 89,
+  "text": "Keep a Changelog",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 7,
+  "column": 106,
+  "end_column": 125,
+  "text": "Semantic Versioning",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 13,
+  "column": 11,
+  "end_column": 22,
+  "text": "`granskare`",
+  "kind": "identifier"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 14,
+  "column": 3,
+  "end_column": 16,
+  "text": "OpenTelemetry",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 14,
+  "column": 35,
+  "end_column": 39,
+  "text": "HTTP",
+  "kind": "acronym"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 14,
+  "column": 67,
+  "end_column": 72,
+  "text": "Tempo",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 15,
+  "column": 12,
+  "end_column": 17,
+  "text": "Redis",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 19,
+  "column": 46,
+  "end_column": 52,
+  "text": "BankID",
+  "kind": "name"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 20,
+  "column": 42,
+  "end_column": 50,
+  "text": "90 dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 20,
+  "column": 56,
+  "end_column": 64,
+  "text": "30 dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 24,
+  "column": 15,
+  "end_column": 20,
+  "text": "Excel",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 24,
+  "column": 56,
+  "end_column": 62,
+  "text": "65 536",
+  "kind": "number"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 30,
+  "column": 29,
+  "end_column": 41,
+  "text": "`åååå-mm-dd`",
+  "kind": "code"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 38,
+  "column": 48,
+  "end_column": 58,
+  "text": "tre veckor",
+  "kind": "unit"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 39,
+  "column": 3,
+  "end_column": 6,
+  "text": "PDF",
+  "kind": "acronym"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 40,
+  "column": 40,
+  "end_column": 43,
+  "text": "SMS",
+  "kind": "acronym"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 40,
+  "column": 69,
+  "end_column": 75,
+  "text": "Twilio",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 44,
+  "column": 43,
+  "end_column": 52,
+  "text": "12 tecken",
+  "kind": "unit"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 45,
+  "column": 3,
+  "end_column": 10,
+  "text": "Node.js",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 45,
+  "column": 35,
+  "end_column": 37,
+  "text": "22",
+  "kind": "number"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 45,
+  "column": 39,
+  "end_column": 43,
+  "text": "Node",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 49,
+  "column": 13,
+  "end_column": 17,
+  "text": "SOAP",
+  "kind": "acronym"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 49,
+  "column": 31,
+  "end_column": 44,
+  "text": "`/ws/bokning`",
+  "kind": "code"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 55,
+  "column": 3,
+  "end_column": 10,
+  "text": "OpenSSL",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 55,
+  "column": 34,
+  "end_column": 47,
+  "text": "CVE-2026-1123",
+  "kind": "identifier"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 63,
+  "column": 5,
+  "end_column": 11,
+  "text": "Safari",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 64,
+  "column": 11,
+  "end_column": 25,
+  "text": "`X-Request-Id`",
+  "kind": "identifier"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 3,
+  "column": 1,
+  "end_column": 9,
+  "text": "MinHälsa",
+  "kind": "product"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 3,
+  "column": 136,
+  "end_column": 145,
+  "text": "App Store",
+  "kind": "product"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 3,
+  "column": 150,
+  "end_column": 161,
+  "text": "Google Play",
+  "kind": "product"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 8,
+  "column": 17,
+  "end_column": 23,
+  "text": "BankID",
+  "kind": "name"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 8,
+  "column": 30,
+  "end_column": 35,
+  "text": "Freja",
+  "kind": "name"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 9,
+  "column": 21,
+  "end_column": 24,
+  "text": "PIN",
+  "kind": "acronym"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 13,
+  "column": 23,
+  "end_column": 26,
+  "text": "PIN",
+  "kind": "acronym"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 13,
+  "column": 63,
+  "end_column": 69,
+  "text": "BankID",
+  "kind": "name"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 17,
+  "column": 6,
+  "end_column": 11,
+  "text": "Tider",
+  "kind": "code"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 17,
+  "column": 33,
+  "end_column": 44,
+  "text": "Boka ny tid",
+  "kind": "code"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 19,
+  "column": 32,
+  "end_column": 41,
+  "text": "24 timmar",
+  "kind": "unit"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 19,
+  "column": 100,
+  "end_column": 106,
+  "text": "400 kr",
+  "kind": "unit"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 19,
+  "column": 114,
+  "end_column": 127,
+  "text": "Region Skånes",
+  "kind": "name"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 23,
+  "column": 158,
+  "end_column": 170,
+  "text": "1–3 vardagar",
+  "kind": "unit"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 25,
+  "column": 27,
+  "end_column": 30,
+  "text": "PDF",
+  "kind": "acronym"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 25,
+  "column": 51,
+  "end_column": 55,
+  "text": "Dela",
+  "kind": "code"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 29,
+  "column": 100,
+  "end_column": 112,
+  "text": "tre vardagar",
+  "kind": "unit"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 29,
+  "column": 147,
+  "end_column": 151,
+  "text": "1177",
+  "kind": "number"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 29,
+  "column": 175,
+  "end_column": 178,
+  "text": "112",
+  "kind": "number"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 31,
+  "column": 37,
+  "end_column": 42,
+  "text": "10 år",
+  "kind": "unit"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 38,
+  "column": 25,
+  "end_column": 29,
+  "text": "24 h",
+  "kind": "unit"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 38,
+  "column": 34,
+  "end_column": 37,
+  "text": "2 h",
+  "kind": "unit"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 40,
+  "column": 23,
+  "end_column": 26,
+  "text": "PIN",
+  "kind": "acronym"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 44,
+  "column": 109,
+  "end_column": 112,
+  "text": "iOS",
+  "kind": "product"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 44,
+  "column": 147,
+  "end_column": 193,
+  "text": "Inställningar → Appar → MinHälsa → Rensa cache",
+  "kind": "code"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 46,
+  "column": 60,
+  "end_column": 75,
+  "text": "Skicka feedback",
+  "kind": "code"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 46,
+  "column": 137,
+  "end_column": 156,
+  "text": "support@minhalsa.se",
+  "kind": "url"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 46,
+  "column": 167,
+  "end_column": 175,
+  "text": "kl. 8–18",
+  "kind": "unit"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 48,
+  "column": 43,
+  "end_column": 47,
+  "text": "WCAG",
+  "kind": "acronym"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 48,
+  "column": 84,
+  "end_column": 118,
+  "text": "https://minhalsa.se/tillganglighet",
+  "kind": "url"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 3,
+  "column": 34,
+  "end_column": 38,
+  "text": "REST",
+  "kind": "product"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 3,
+  "column": 119,
+  "end_column": 124,
+  "text": "HTTPS",
+  "kind": "product"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 3,
+  "column": 152,
+  "end_column": 161,
+  "text": "OAuth 2.0",
+  "kind": "product"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 5,
+  "column": 16,
+  "end_column": 41,
+  "text": "https://api.example.se/v2",
+  "kind": "url"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 5,
+  "column": 55,
+  "end_column": 59,
+  "text": "JSON",
+  "kind": "product"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 5,
+  "column": 80,
+  "end_column": 85,
+  "text": "UTF-8",
+  "kind": "acronym"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 9,
+  "column": 25,
+  "end_column": 40,
+  "text": "`Authorization`",
+  "kind": "identifier"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 9,
+  "column": 102,
+  "end_column": 108,
+  "text": "60 min",
+  "kind": "unit"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 9,
+  "column": 158,
+  "end_column": 161,
+  "text": "401",
+  "kind": "number"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 12,
+  "column": 1,
+  "end_column": 40,
+  "text": "GET /v2/tider?datum=2026-10-03 HTTP/1.1",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 13,
+  "column": 1,
+  "end_column": 21,
+  "text": "Host: api.example.se",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 14,
+  "column": 1,
+  "end_column": 46,
+  "text": "Authorization: Bearer eyJhbGciOiJSUzI1NiJ9...",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 17,
+  "column": 75,
+  "end_column": 83,
+  "text": "HttpOnly",
+  "kind": "product"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 23,
+  "column": 1,
+  "end_column": 16,
+  "text": "`GET /v2/tider`",
+  "kind": "code"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 23,
+  "column": 78,
+  "end_column": 85,
+  "text": "`datum`",
+  "kind": "identifier"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 23,
+  "column": 119,
+  "end_column": 131,
+  "text": "`ÅÅÅÅ-MM-DD`",
+  "kind": "code"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 26,
+  "column": 1,
+  "end_column": 2,
+  "text": "{",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 27,
+  "column": 3,
+  "end_column": 13,
+  "text": "\"tider\": [",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 28,
+  "column": 5,
+  "end_column": 73,
+  "text": "{ \"id\": \"a1f3\", \"start\": \"2026-10-03T09:00:00+02:00\", \"langd\": 30 },",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 29,
+  "column": 5,
+  "end_column": 72,
+  "text": "{ \"id\": \"a1f4\", \"start\": \"2026-10-03T09:30:00+02:00\", \"langd\": 30 }",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 30,
+  "column": 3,
+  "end_column": 4,
+  "text": "]",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 31,
+  "column": 1,
+  "end_column": 2,
+  "text": "}",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 34,
+  "column": 8,
+  "end_column": 15,
+  "text": "`langd`",
+  "kind": "identifier"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 34,
+  "column": 73,
+  "end_column": 80,
+  "text": "`tider`",
+  "kind": "identifier"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 34,
+  "column": 100,
+  "end_column": 106,
+  "text": "`null`",
+  "kind": "code"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 38,
+  "column": 1,
+  "end_column": 21,
+  "text": "`POST /v2/bokningar`",
+  "kind": "code"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 42,
+  "column": 3,
+  "end_column": 11,
+  "text": "`tid_id`",
+  "kind": "identifier"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 43,
+  "column": 3,
+  "end_column": 17,
+  "text": "`personnummer`",
+  "kind": "identifier"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 44,
+  "column": 3,
+  "end_column": 12,
+  "text": "`telefon`",
+  "kind": "identifier"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 44,
+  "column": 70,
+  "end_column": 75,
+  "text": "t.ex.",
+  "kind": "abbrev"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 44,
+  "column": 76,
+  "end_column": 92,
+  "text": "+46 70 123 45 67",
+  "kind": "number"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 45,
+  "column": 3,
+  "end_column": 15,
+  "text": "`meddelande`",
+  "kind": "identifier"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 45,
+  "column": 42,
+  "end_column": 58,
+  "text": "högst 500 tecken",
+  "kind": "unit"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 47,
+  "column": 33,
+  "end_column": 36,
+  "text": "201",
+  "kind": "number"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 47,
+  "column": 122,
+  "end_column": 125,
+  "text": "409",
+  "kind": "number"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 51,
+  "column": 1,
+  "end_column": 28,
+  "text": "`DELETE /v2/bokningar/{id}`",
+  "kind": "code"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 51,
+  "column": 76,
+  "end_column": 80,
+  "text": "24 h",
+  "kind": "unit"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 55,
+  "column": 38,
+  "end_column": 43,
+  "text": "`kod`",
+  "kind": "identifier"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 55,
+  "column": 48,
+  "end_column": 60,
+  "text": "`meddelande`",
+  "kind": "identifier"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 57,
+  "column": 3,
+  "end_column": 6,
+  "text": "400",
+  "kind": "number"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 57,
+  "column": 31,
+  "end_column": 36,
+  "text": "t.ex.",
+  "kind": "abbrev"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 58,
+  "column": 3,
+  "end_column": 6,
+  "text": "401",
+  "kind": "number"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 59,
+  "column": 3,
+  "end_column": 6,
+  "text": "404",
+  "kind": "number"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 60,
+  "column": 3,
+  "end_column": 6,
+  "text": "429",
+  "kind": "number"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 60,
+  "column": 37,
+  "end_column": 56,
+  "text": "100 anrop per minut",
+  "kind": "unit"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 64,
+  "column": 60,
+  "end_column": 70,
+  "text": "12 månader",
+  "kind": "unit"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 64,
+  "column": 145,
+  "end_column": 158,
+  "text": "`Deprecation`",
+  "kind": "identifier"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 3,
+  "column": 11,
+  "end_column": 19,
+  "text": "1.9.2026",
+  "kind": "unit"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 3,
+  "column": 65,
+  "end_column": 67,
+  "text": "EU",
+  "kind": "acronym"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 3,
+  "column": 102,
+  "end_column": 106,
+  "text": "GDPR",
+  "kind": "acronym"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 7,
+  "column": 1,
+  "end_column": 29,
+  "text": "Norra Savolax välfärdsområde",
+  "kind": "name"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 8,
+  "column": 1,
+  "end_column": 20,
+  "text": "Puijonlaaksovägen 2",
+  "kind": "name"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 9,
+  "column": 10,
+  "end_column": 21,
+  "text": "017 173 311",
+  "kind": "number"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 13,
+  "column": 26,
+  "end_column": 46,
+  "text": "dataskydd@example.fi",
+  "kind": "url"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 13,
+  "column": 84,
+  "end_column": 96,
+  "text": "fem vardagar",
+  "kind": "unit"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 17,
+  "column": 262,
+  "end_column": 265,
+  "text": "SMS",
+  "kind": "acronym"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 25,
+  "column": 89,
+  "end_column": 94,
+  "text": "12 år",
+  "kind": "unit"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 26,
+  "column": 66,
+  "end_column": 71,
+  "text": "12 år",
+  "kind": "unit"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 27,
+  "column": 33,
+  "end_column": 42,
+  "text": "IP-adress",
+  "kind": "acronym"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 27,
+  "column": 45,
+  "end_column": 49,
+  "text": "5 år",
+  "kind": "unit"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 28,
+  "column": 23,
+  "end_column": 27,
+  "text": "2 år",
+  "kind": "unit"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 30,
+  "column": 46,
+  "end_column": 51,
+  "text": "bl.a.",
+  "kind": "abbrev"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 34,
+  "column": 49,
+  "end_column": 99,
+  "text": "Myndigheten för digitalisering och befolkningsdata",
+  "kind": "name"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 34,
+  "column": 110,
+  "end_column": 126,
+  "text": "Kanta-tjänsterna",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 38,
+  "column": 26,
+  "end_column": 29,
+  "text": "FPA",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 38,
+  "column": 66,
+  "end_column": 69,
+  "text": "THL",
+  "kind": "name"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 38,
+  "column": 128,
+  "end_column": 130,
+  "text": "EU",
+  "kind": "acronym"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 38,
+  "column": 137,
+  "end_column": 140,
+  "text": "EES",
+  "kind": "acronym"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 44,
+  "column": 24,
+  "end_column": 46,
+  "text": "behörighetshanteringen",
+  "kind": "compound"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 44,
+  "column": 193,
+  "end_column": 196,
+  "text": "TLS",
+  "kind": "acronym"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 44,
+  "column": 218,
+  "end_column": 225,
+  "text": "AES-256",
+  "kind": "acronym"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 57,
+  "column": 23,
+  "end_column": 45,
+  "text": "Dataombudsmannens byrå",
+  "kind": "name"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 59,
+  "column": 66,
+  "end_column": 105,
+  "text": "https://example.fi/dataskydd/blanketter",
+  "kind": "url"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 59,
+  "column": 129,
+  "end_column": 137,
+  "text": "en månad",
+  "kind": "unit"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 59,
+  "column": 169,
+  "end_column": 180,
+  "text": "två månader",
+  "kind": "unit"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 3,
+  "column": 31,
+  "end_column": 38,
+  "text": "Grafana",
+  "kind": "product"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 3,
+  "column": 46,
+  "end_column": 59,
+  "text": "`app_up == 0`",
+  "kind": "identifier"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 7,
+  "column": 22,
+  "end_column": 30,
+  "text": "Opsgenie",
+  "kind": "product"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 8,
+  "column": 27,
+  "end_column": 52,
+  "text": "`kubectl get pods -n app`",
+  "kind": "code"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 9,
+  "column": 37,
+  "end_column": 65,
+  "text": "https://lb.example.se/status",
+  "kind": "url"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 12,
+  "column": 1,
+  "end_column": 24,
+  "text": "kubectl get pods -n app",
+  "kind": "code_block"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 13,
+  "column": 1,
+  "end_column": 57,
+  "text": "kubectl logs -n app deploy/app --since=10m | tail -n 200",
+  "kind": "code_block"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 14,
+  "column": 1,
+  "end_column": 57,
+  "text": "kubectl describe pod -n app -l app=app | grep -A5 Events",
+  "kind": "code_block"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 17,
+  "column": 18,
+  "end_column": 36,
+  "text": "`CrashLoopBackOff`",
+  "kind": "code"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 17,
+  "column": 54,
+  "end_column": 79,
+  "text": "3. Applikationen kraschar",
+  "kind": "ordinal"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 17,
+  "column": 91,
+  "end_column": 100,
+  "text": "`Running`",
+  "kind": "code"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 17,
+  "column": 140,
+  "end_column": 163,
+  "text": "2. Applikationen hänger",
+  "kind": "ordinal"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 24,
+  "column": 1,
+  "end_column": 61,
+  "text": "SELECT count(*), state FROM pg_stat_activity GROUP BY state;",
+  "kind": "code_block"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 27,
+  "column": 12,
+  "end_column": 14,
+  "text": "50",
+  "kind": "number"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 27,
+  "column": 39,
+  "end_column": 60,
+  "text": "`idle in transaction`",
+  "kind": "code"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 27,
+  "column": 72,
+  "end_column": 81,
+  "text": "pgBouncer",
+  "kind": "product"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 29,
+  "column": 28,
+  "end_column": 37,
+  "text": "pgBouncer",
+  "kind": "product"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 29,
+  "column": 54,
+  "end_column": 66,
+  "text": "2–3 sekunder",
+  "kind": "unit"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 35,
+  "column": 20,
+  "end_column": 31,
+  "text": "`OOMKilled`",
+  "kind": "code"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 35,
+  "column": 80,
+  "end_column": 85,
+  "text": "4 GiB",
+  "kind": "unit"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 37,
+  "column": 29,
+  "end_column": 60,
+  "text": "`x509: certificate has expired`",
+  "kind": "identifier"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 37,
+  "column": 86,
+  "end_column": 98,
+  "text": "cert-manager",
+  "kind": "product"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 39,
+  "column": 20,
+  "end_column": 60,
+  "text": "`kubectl rollout undo deploy/app -n app`",
+  "kind": "code"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 39,
+  "column": 82,
+  "end_column": 84,
+  "text": "ca",
+  "kind": "abbrev"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 39,
+  "column": 85,
+  "end_column": 89,
+  "text": "90 s",
+  "kind": "unit"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 43,
+  "column": 31,
+  "end_column": 46,
+  "text": "två arbetsdagar",
+  "kind": "unit"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 43,
+  "column": 63,
+  "end_column": 95,
+  "text": "`docs/mallar/incidentrapport.md`",
+  "kind": "code"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 45,
+  "column": 29,
+  "end_column": 39,
+  "text": "30 minuter",
+  "kind": "unit"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 45,
+  "column": 95,
+  "end_column": 111,
+  "text": "Region Stockholm",
+  "kind": "name"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 47,
+  "column": 19,
+  "end_column": 49,
+  "text": "`kubectl delete namespace app`",
+  "kind": "code"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 47,
+  "column": 64,
+  "end_column": 101,
+  "text": "\"hur mycket det än kliar i fingrarna\"",
+  "kind": "colloquial"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 7,
+  "column": 106,
+  "end_column": 115,
+  "text": "ISO 27001",
+  "kind": "acronym"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 7,
+  "column": 120,
+  "end_column": 125,
+  "text": "MSB:s",
+  "kind": "name"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 11,
+  "column": 29,
+  "end_column": 38,
+  "text": "14 tecken",
+  "kind": "unit"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 11,
+  "column": 78,
+  "end_column": 83,
+  "text": "t.ex.",
+  "kind": "abbrev"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 11,
+  "column": 177,
+  "end_column": 186,
+  "text": "Bitwarden",
+  "kind": "product"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 13,
+  "column": 76,
+  "end_column": 89,
+  "text": "Authenticator",
+  "kind": "product"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 15,
+  "column": 57,
+  "end_column": 59,
+  "text": "IT",
+  "kind": "acronym"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 15,
+  "column": 71,
+  "end_column": 73,
+  "text": "IT",
+  "kind": "acronym"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 19,
+  "column": 29,
+  "end_column": 38,
+  "text": "BitLocker",
+  "kind": "product"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 19,
+  "column": 45,
+  "end_column": 54,
+  "text": "FileVault",
+  "kind": "product"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 19,
+  "column": 105,
+  "end_column": 110,
+  "text": "Win+L",
+  "kind": "code"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 19,
+  "column": 117,
+  "end_column": 127,
+  "text": "Ctrl+Cmd+Q",
+  "kind": "code"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 21,
+  "column": 90,
+  "end_column": 96,
+  "text": "`Gast`",
+  "kind": "identifier"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 21,
+  "column": 98,
+  "end_column": 101,
+  "text": "USB",
+  "kind": "acronym"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 21,
+  "column": 149,
+  "end_column": 151,
+  "text": "IT",
+  "kind": "acronym"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 25,
+  "column": 120,
+  "end_column": 139,
+  "text": "Rapportera nätfiske",
+  "kind": "code"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 25,
+  "column": 142,
+  "end_column": 149,
+  "text": "Outlook",
+  "kind": "product"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 29,
+  "column": 20,
+  "end_column": 56,
+  "text": "\"ditt konto stängs i dag om du inte\"",
+  "kind": "colloquial"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 34,
+  "column": 61,
+  "end_column": 73,
+  "text": "Säker e-post",
+  "kind": "product"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 34,
+  "column": 80,
+  "end_column": 84,
+  "text": "1177",
+  "kind": "name"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 38,
+  "column": 195,
+  "end_column": 217,
+  "text": "behörighetshanteringen",
+  "kind": "compound"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 40,
+  "column": 15,
+  "end_column": 27,
+  "text": "Google Drive",
+  "kind": "product"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 40,
+  "column": 29,
+  "end_column": 36,
+  "text": "Dropbox",
+  "kind": "product"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 40,
+  "column": 37,
+  "end_column": 42,
+  "text": "m.fl.",
+  "kind": "abbrev"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 40,
+  "column": 88,
+  "end_column": 90,
+  "text": "IT",
+  "kind": "acronym"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 44,
+  "column": 49,
+  "end_column": 68,
+  "text": "sakerhet@example.se",
+  "kind": "url"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 44,
+  "column": 75,
+  "end_column": 83,
+  "text": "tfn 1911",
+  "kind": "number"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 44,
+  "column": 99,
+  "end_column": 104,
+  "text": "bl.a.",
+  "kind": "abbrev"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 46,
+  "column": 44,
+  "end_column": 72,
+  "text": "Integritetsskyddsmyndigheten",
+  "kind": "name"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 46,
+  "column": 78,
+  "end_column": 87,
+  "text": "72 timmar",
+  "kind": "unit"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 7,
+  "column": 30,
+  "end_column": 35,
+  "text": "Kanta",
+  "kind": "product"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 7,
+  "column": 61,
+  "end_column": 67,
+  "text": "Ubuntu",
+  "kind": "product"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 7,
+  "column": 159,
+  "end_column": 164,
+  "text": "8 GiB",
+  "kind": "unit"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 13,
+  "column": 3,
+  "end_column": 13,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 14,
+  "column": 3,
+  "end_column": 9,
+  "text": "Docker",
+  "kind": "product"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 14,
+  "column": 14,
+  "end_column": 28,
+  "text": "Docker Compose",
+  "kind": "product"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 15,
+  "column": 3,
+  "end_column": 10,
+  "text": "OpenSSL",
+  "kind": "product"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 17,
+  "column": 80,
+  "end_column": 109,
+  "text": "`systemctl status postgresql`",
+  "kind": "code"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 19,
+  "column": 63,
+  "end_column": 79,
+  "text": "`/var/lib/proxy`",
+  "kind": "code"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 19,
+  "column": 160,
+  "end_column": 176,
+  "text": "4. Inställningar",
+  "kind": "ordinal"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 23,
+  "column": 27,
+  "end_column": 78,
+  "text": "https://example.se/nedladdningar/proxy-2.3.1.tar.gz",
+  "kind": "url"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 25,
+  "column": 8,
+  "end_column": 38,
+  "text": "`./installera.sh --produktion`",
+  "kind": "code"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 28,
+  "column": 1,
+  "end_column": 61,
+  "text": "curl -LO https://example.se/nedladdningar/proxy-2.3.1.tar.gz",
+  "kind": "code_block"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 29,
+  "column": 1,
+  "end_column": 27,
+  "text": "tar xzf proxy-2.3.1.tar.gz",
+  "kind": "code_block"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 30,
+  "column": 1,
+  "end_column": 47,
+  "text": "cd proxy-2.3.1 && ./installera.sh --produktion",
+  "kind": "code_block"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 33,
+  "column": 133,
+  "end_column": 152,
+  "text": "`PROXY_DB_PASSWORD`",
+  "kind": "identifier"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 35,
+  "column": 77,
+  "end_column": 101,
+  "text": "`journalctl -u proxy -f`",
+  "kind": "code"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 39,
+  "column": 24,
+  "end_column": 28,
+  "text": "TOML",
+  "kind": "product"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 43,
+  "column": 3,
+  "end_column": 16,
+  "text": "`listen_port`",
+  "kind": "identifier"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 43,
+  "column": 59,
+  "end_column": 63,
+  "text": "8443",
+  "kind": "number"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 44,
+  "column": 3,
+  "end_column": 11,
+  "text": "`db_url`",
+  "kind": "identifier"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 45,
+  "column": 3,
+  "end_column": 14,
+  "text": "`log_level`",
+  "kind": "identifier"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 45,
+  "column": 44,
+  "end_column": 51,
+  "text": "`debug`",
+  "kind": "code"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 45,
+  "column": 53,
+  "end_column": 59,
+  "text": "`info`",
+  "kind": "code"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 45,
+  "column": 61,
+  "end_column": 67,
+  "text": "`warn`",
+  "kind": "code"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 51,
+  "column": 7,
+  "end_column": 35,
+  "text": "https://localhost:8443/halsa",
+  "kind": "url"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 51,
+  "column": 67,
+  "end_column": 84,
+  "text": "`{\"status\":\"ok\"}`",
+  "kind": "code"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 53,
+  "column": 72,
+  "end_column": 98,
+  "text": "https://support.example.se",
+  "kind": "url"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 53,
+  "column": 136,
+  "end_column": 144,
+  "text": "kl. 8–16",
+  "kind": "unit"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 3,
+  "column": 36,
+  "end_column": 48,
+  "text": "kl. 13–14.30",
+  "kind": "unit"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 4,
+  "column": 8,
+  "end_column": 21,
+  "text": "Sinebrychoffs",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 4,
+  "column": 32,
+  "end_column": 42,
+  "text": "4 våningen",
+  "kind": "ordinal"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 5,
+  "column": 13,
+  "end_column": 25,
+  "text": "Tove Jansson",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 5,
+  "column": 35,
+  "end_column": 46,
+  "text": "Bo Carpelan",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 5,
+  "column": 48,
+  "end_column": 59,
+  "text": "Kjell Westö",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 5,
+  "column": 61,
+  "end_column": 71,
+  "text": "Eino Leino",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 13,
+  "column": 1,
+  "end_column": 9,
+  "text": "Carpelan",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 13,
+  "column": 46,
+  "end_column": 50,
+  "text": "82 %",
+  "kind": "unit"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 13,
+  "column": 213,
+  "end_column": 217,
+  "text": "Jira",
+  "kind": "product"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 15,
+  "column": 1,
+  "end_column": 6,
+  "text": "Westö",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 17,
+  "column": 3,
+  "end_column": 114,
+  "text": "\"Painike 'Peruuta' on käännetty muotoon 'Avbryt', mikä on oikein, mutta 'Keskeytä' on käännetty myös 'Avbryt'.\"",
+  "kind": "foreign"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 19,
+  "column": 78,
+  "end_column": 112,
+  "text": "Institutet för de inhemska språken",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 19,
+  "column": 150,
+  "end_column": 160,
+  "text": "två veckor",
+  "kind": "unit"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 23,
+  "column": 168,
+  "end_column": 185,
+  "text": "`Accept-Language`",
+  "kind": "identifier"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 26,
+  "column": 1,
+  "end_column": 81,
+  "text": "const lang = user.profile.language ?? negotiate(req.headers[\"accept-language\"]);",
+  "kind": "code_block"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 27,
+  "column": 1,
+  "end_column": 41,
+  "text": "res.setHeader(\"Content-Language\", lang);",
+  "kind": "code_block"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 30,
+  "column": 1,
+  "end_column": 8,
+  "text": "Jansson",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 30,
+  "column": 69,
+  "end_column": 119,
+  "text": "Myndigheten för digitalisering och befolkningsdata",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 34,
+  "column": 1,
+  "end_column": 6,
+  "text": "Westö",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 34,
+  "column": 32,
+  "end_column": 48,
+  "text": "Region Stockholm",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 34,
+  "column": 99,
+  "end_column": 103,
+  "text": "1177",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 34,
+  "column": 148,
+  "end_column": 153,
+  "text": "Kanta",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 36,
+  "column": 26,
+  "end_column": 28,
+  "text": "EU",
+  "kind": "acronym"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 36,
+  "column": 31,
+  "end_column": 39,
+  "text": "Interreg",
+  "kind": "product"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 36,
+  "column": 85,
+  "end_column": 93,
+  "text": "en månad",
+  "kind": "unit"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 40,
+  "column": 3,
+  "end_column": 8,
+  "text": "Leino",
+  "kind": "name"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 43,
+  "column": 29,
+  "end_column": 38,
+  "text": "kl. 14.25",
+  "kind": "unit"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 43,
+  "column": 84,
+  "end_column": 93,
+  "text": "tre dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 45,
+  "column": 1,
+  "end_column": 162,
+  "text": "Yhteenveto suomeksi: käyttöliittymän käännöksestä on valmiina 82 %, kieliasiantuntija tarkastaa termit ennen julkaisua, ja seuraava kokous pidetään 7. lokakuuta.",
+  "kind": "foreign"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 7,
+  "column": 49,
+  "end_column": 53,
+  "text": "dvs.",
+  "kind": "abbrev"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 7,
+  "column": 54,
+  "end_column": 63,
+  "text": "koloskopi",
+  "kind": "compound"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 7,
+  "column": 156,
+  "end_column": 169,
+  "text": "20–45 minuter",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 7,
+  "column": 182,
+  "end_column": 197,
+  "text": "hälsocentralens",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 15,
+  "column": 47,
+  "end_column": 51,
+  "text": "osv.",
+  "kind": "abbrev"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 15,
+  "column": 64,
+  "end_column": 69,
+  "text": "t.ex.",
+  "kind": "abbrev"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 19,
+  "column": 27,
+  "end_column": 33,
+  "text": "kl. 10",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 19,
+  "column": 107,
+  "end_column": 113,
+  "text": "kl. 17",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 19,
+  "column": 135,
+  "end_column": 144,
+  "text": "två liter",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 19,
+  "column": 169,
+  "end_column": 179,
+  "text": "två timmar",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 21,
+  "column": 37,
+  "end_column": 42,
+  "text": "t.ex.",
+  "kind": "abbrev"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 21,
+  "column": 43,
+  "end_column": 50,
+  "text": "Marevan",
+  "kind": "product"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 21,
+  "column": 52,
+  "end_column": 59,
+  "text": "Eliquis",
+  "kind": "product"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 21,
+  "column": 71,
+  "end_column": 83,
+  "text": "sjukskötaren",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 21,
+  "column": 84,
+  "end_column": 92,
+  "text": "en vecka",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 25,
+  "column": 35,
+  "end_column": 43,
+  "text": "4 timmar",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 33,
+  "column": 53,
+  "end_column": 62,
+  "text": "24 timmar",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 35,
+  "column": 37,
+  "end_column": 39,
+  "text": "ca",
+  "kind": "abbrev"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 35,
+  "column": 40,
+  "end_column": 50,
+  "text": "tre veckor",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 35,
+  "column": 71,
+  "end_column": 87,
+  "text": "Mina Kanta-sidor",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 41,
+  "column": 46,
+  "end_column": 56,
+  "text": "3 våningen",
+  "kind": "ordinal"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 42,
+  "column": 10,
+  "end_column": 22,
+  "text": "09 471 12345",
+  "kind": "number"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 42,
+  "column": 33,
+  "end_column": 41,
+  "text": "kl. 8–15",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 43,
+  "column": 53,
+  "end_column": 59,
+  "text": "Fimeas",
+  "kind": "name"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 43,
+  "column": 75,
+  "end_column": 91,
+  "text": "MD Sirkka Turkka",
+  "kind": "name"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 9,
+  "column": 85,
+  "end_column": 93,
+  "text": "Exchange",
+  "kind": "product"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 9,
+  "column": 111,
+  "end_column": 121,
+  "text": "30.11.2026",
+  "kind": "unit"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 13,
+  "column": 66,
+  "end_column": 79,
+  "text": "Microsoft 365",
+  "kind": "product"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 13,
+  "column": 181,
+  "end_column": 185,
+  "text": "5 år",
+  "kind": "unit"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 15,
+  "column": 19,
+  "end_column": 24,
+  "text": "t.ex.",
+  "kind": "abbrev"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 15,
+  "column": 25,
+  "end_column": 47,
+  "text": "registratur@example.fi",
+  "kind": "url"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 19,
+  "column": 15,
+  "end_column": 38,
+  "text": "Microsoft Authenticator",
+  "kind": "product"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 19,
+  "column": 88,
+  "end_column": 128,
+  "text": "https://intra.example.fi/anvisningar/mfa",
+  "kind": "url"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 23,
+  "column": 72,
+  "end_column": 74,
+  "text": "IT",
+  "kind": "acronym"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 29,
+  "column": 3,
+  "end_column": 9,
+  "text": "24.10.",
+  "kind": "unit"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 30,
+  "column": 3,
+  "end_column": 8,
+  "text": "1.11.",
+  "kind": "unit"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 30,
+  "column": 51,
+  "end_column": 57,
+  "text": "kl. 18",
+  "kind": "unit"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 31,
+  "column": 3,
+  "end_column": 8,
+  "text": "2.11.",
+  "kind": "unit"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 31,
+  "column": 25,
+  "end_column": 27,
+  "text": "IT",
+  "kind": "acronym"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 31,
+  "column": 44,
+  "end_column": 52,
+  "text": "kl. 7–17",
+  "kind": "unit"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 32,
+  "column": 3,
+  "end_column": 9,
+  "text": "30.11.",
+  "kind": "unit"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 34,
+  "column": 48,
+  "end_column": 50,
+  "text": "ca",
+  "kind": "abbrev"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 34,
+  "column": 51,
+  "end_column": 61,
+  "text": "två timmar",
+  "kind": "unit"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 38,
+  "column": 34,
+  "end_column": 39,
+  "text": "Teams",
+  "kind": "product"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 38,
+  "column": 66,
+  "end_column": 71,
+  "text": "kl. 9",
+  "kind": "unit"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 42,
+  "column": 3,
+  "end_column": 249,
+  "text": "We are moving to a new email and calendar system on 1 November. Install Microsoft Authenticator before 24 October and empty your junk folder; deleted items will not be migrated. Training sessions in English are held on Tuesdays at 10:00 in Teams.",
+  "kind": "foreign"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 46,
+  "column": 10,
+  "end_column": 12,
+  "text": "IT",
+  "kind": "acronym"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 46,
+  "column": 21,
+  "end_column": 29,
+  "text": "tfn 1234",
+  "kind": "number"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 46,
+  "column": 31,
+  "end_column": 49,
+  "text": "it-stod@example.fi",
+  "kind": "url"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 46,
+  "column": 83,
+  "end_column": 93,
+  "text": "1 våningen",
+  "kind": "ordinal"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 46,
+  "column": 139,
+  "end_column": 168,
+  "text": "https://intra.example.fi/m365",
+  "kind": "url"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 46,
+  "column": 176,
+  "end_column": 182,
+  "text": "råddar",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 7,
+  "column": 15,
+  "end_column": 26,
+  "text": "Elin Wägner",
+  "kind": "name"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 13,
+  "column": 145,
+  "end_column": 168,
+  "text": "primärvårdsmottagningar",
+  "kind": "compound"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 27,
+  "column": 1,
+  "end_column": 13,
+  "text": "flowchart TD",
+  "kind": "code_block"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 28,
+  "column": 5,
+  "end_column": 47,
+  "text": "A[Patienten identifierar sig] --> B{Akut?}",
+  "kind": "code_block"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 29,
+  "column": 5,
+  "end_column": 42,
+  "text": "B -- ja --> C[Hänvisning till akuten]",
+  "kind": "code_block"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 30,
+  "column": 5,
+  "end_column": 40,
+  "text": "B -- nej --> D[Vårdbehovsbedömning]",
+  "kind": "code_block"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 31,
+  "column": 5,
+  "end_column": 37,
+  "text": "D --> E[Sökning av lediga tider]",
+  "kind": "code_block"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 32,
+  "column": 5,
+  "end_column": 37,
+  "text": "E --> F[Bokning och bekräftelse]",
+  "kind": "code_block"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 37,
+  "column": 32,
+  "end_column": 38,
+  "text": "BankID",
+  "kind": "name"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 41,
+  "column": 41,
+  "end_column": 51,
+  "text": "10 minuter",
+  "kind": "unit"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 41,
+  "column": 156,
+  "end_column": 165,
+  "text": "24 timmar",
+  "kind": "unit"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 43,
+  "column": 162,
+  "end_column": 178,
+  "text": "Socialstyrelsens",
+  "kind": "name"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 47,
+  "column": 29,
+  "end_column": 39,
+  "text": "sex veckor",
+  "kind": "unit"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 49,
+  "column": 58,
+  "end_column": 65,
+  "text": "3 dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 53,
+  "column": 27,
+  "end_column": 31,
+  "text": "1177",
+  "kind": "name"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 53,
+  "column": 40,
+  "end_column": 43,
+  "text": "SMS",
+  "kind": "acronym"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 53,
+  "column": 64,
+  "end_column": 73,
+  "text": "48 timmar",
+  "kind": "unit"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 57,
+  "column": 51,
+  "end_column": 61,
+  "text": "10 minuter",
+  "kind": "unit"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 57,
+  "column": 67,
+  "end_column": 71,
+  "text": "95 %",
+  "kind": "unit"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 58,
+  "column": 36,
+  "end_column": 39,
+  "text": "4 %",
+  "kind": "unit"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 58,
+  "column": 68,
+  "end_column": 73,
+  "text": "6,2 %",
+  "kind": "unit"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 59,
+  "column": 25,
+  "end_column": 28,
+  "text": "NPS",
+  "kind": "acronym"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 65,
+  "column": 90,
+  "end_column": 95,
+  "text": "Excel",
+  "kind": "product"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 65,
+  "column": 107,
+  "end_column": 139,
+  "text": "`\\\\server\\bokningar\\reserv.xlsx`",
+  "kind": "code"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 65,
+  "column": 177,
+  "end_column": 185,
+  "text": "ett dygn",
+  "kind": "unit"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 3,
+  "column": 1,
+  "end_column": 29,
+  "text": "Norra Savolax välfärdsområde",
+  "kind": "name"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 7,
+  "column": 60,
+  "end_column": 76,
+  "text": "Kanta-tjänsterna",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 7,
+  "column": 135,
+  "end_column": 143,
+  "text": "HL7 FHIR",
+  "kind": "acronym"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 7,
+  "column": 157,
+  "end_column": 159,
+  "text": "Go",
+  "kind": "product"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 7,
+  "column": 164,
+  "end_column": 174,
+  "text": "TypeScript",
+  "kind": "product"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 7,
+  "column": 218,
+  "end_column": 228,
+  "text": "Kubernetes",
+  "kind": "product"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 12,
+  "column": 8,
+  "end_column": 10,
+  "text": "ca",
+  "kind": "abbrev"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 12,
+  "column": 20,
+  "end_column": 34,
+  "text": "varannan månad",
+  "kind": "unit"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 13,
+  "column": 17,
+  "end_column": 37,
+  "text": "hälsovårdspersonalen",
+  "kind": "compound"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 17,
+  "column": 9,
+  "end_column": 16,
+  "text": "tre års",
+  "kind": "unit"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 18,
+  "column": 17,
+  "end_column": 21,
+  "text": "REST",
+  "kind": "acronym"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 18,
+  "column": 27,
+  "end_column": 31,
+  "text": "gRPC",
+  "kind": "acronym"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 18,
+  "column": 48,
+  "end_column": 58,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 22,
+  "column": 46,
+  "end_column": 49,
+  "text": "HL7",
+  "kind": "acronym"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 22,
+  "column": 62,
+  "end_column": 67,
+  "text": "Kafka",
+  "kind": "product"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 26,
+  "column": 58,
+  "end_column": 74,
+  "text": "3 dagar i veckan",
+  "kind": "unit"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 26,
+  "column": 97,
+  "end_column": 103,
+  "text": "ePassi",
+  "kind": "product"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 26,
+  "column": 136,
+  "end_column": 149,
+  "text": "4 800–5 600 €",
+  "kind": "unit"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 26,
+  "column": 206,
+  "end_column": 210,
+  "text": "AKTA",
+  "kind": "acronym"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 26,
+  "column": 214,
+  "end_column": 222,
+  "text": "38 dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 28,
+  "column": 33,
+  "end_column": 36,
+  "text": "sju",
+  "kind": "unit"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 28,
+  "column": 97,
+  "end_column": 103,
+  "text": "GitHub",
+  "kind": "product"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 28,
+  "column": 105,
+  "end_column": 111,
+  "text": "Linear",
+  "kind": "product"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 28,
+  "column": 116,
+  "end_column": 121,
+  "text": "Slack",
+  "kind": "product"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 32,
+  "column": 43,
+  "end_column": 53,
+  "text": "31.10.2026",
+  "kind": "unit"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 32,
+  "column": 58,
+  "end_column": 92,
+  "text": "https://rekry.example.fi/jobb/4711",
+  "kind": "url"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 32,
+  "column": 131,
+  "end_column": 137,
+  "text": "GitHub",
+  "kind": "product"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 34,
+  "column": 109,
+  "end_column": 113,
+  "text": "48 §",
+  "kind": "ordinal"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 36,
+  "column": 34,
+  "end_column": 46,
+  "text": "Kirsi Kunnas",
+  "kind": "name"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 36,
+  "column": 48,
+  "end_column": 64,
+  "text": "tfn 044 718 1234",
+  "kind": "number"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 36,
+  "column": 89,
+  "end_column": 98,
+  "text": "kl. 13–15",
+  "kind": "unit"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 36,
+  "column": 120,
+  "end_column": 135,
+  "text": "välfärdsområdet",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 36,
+  "column": 142,
+  "end_column": 153,
+  "text": "arbetsdryga",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 38,
+  "column": 1,
+  "end_column": 140,
+  "text": "We also welcome applications in English; fluent Swedish and Finnish are however required for this position because of the clinical context.",
+  "kind": "foreign"
+ },
+ {
+  "file": "testplan.md",
+  "line": 15,
+  "column": 3,
+  "end_column": 6,
+  "text": "dev",
+  "kind": "code"
+ },
+ {
+  "file": "testplan.md",
+  "line": 15,
+  "column": 37,
+  "end_column": 67,
+  "text": "https://dev.bokning.example.se",
+  "kind": "url"
+ },
+ {
+  "file": "testplan.md",
+  "line": 16,
+  "column": 3,
+  "end_column": 7,
+  "text": "test",
+  "kind": "code"
+ },
+ {
+  "file": "testplan.md",
+  "line": 16,
+  "column": 44,
+  "end_column": 75,
+  "text": "https://test.bokning.example.se",
+  "kind": "url"
+ },
+ {
+  "file": "testplan.md",
+  "line": 17,
+  "column": 3,
+  "end_column": 10,
+  "text": "staging",
+  "kind": "code"
+ },
+ {
+  "file": "testplan.md",
+  "line": 17,
+  "column": 54,
+  "end_column": 88,
+  "text": "https://staging.bokning.example.se",
+  "kind": "url"
+ },
+ {
+  "file": "testplan.md",
+  "line": 19,
+  "column": 8,
+  "end_column": 15,
+  "text": "staging",
+  "kind": "code"
+ },
+ {
+  "file": "testplan.md",
+  "line": 19,
+  "column": 84,
+  "end_column": 90,
+  "text": "kl. 03",
+  "kind": "unit"
+ },
+ {
+  "file": "testplan.md",
+  "line": 19,
+  "column": 139,
+  "end_column": 154,
+  "text": "`19010101-1234`",
+  "kind": "identifier"
+ },
+ {
+  "file": "testplan.md",
+  "line": 25,
+  "column": 38,
+  "end_column": 40,
+  "text": "Go",
+  "kind": "product"
+ },
+ {
+  "file": "testplan.md",
+  "line": 25,
+  "column": 43,
+  "end_column": 52,
+  "text": "`testing`",
+  "kind": "code"
+ },
+ {
+  "file": "testplan.md",
+  "line": 25,
+  "column": 63,
+  "end_column": 69,
+  "text": "Vitest",
+  "kind": "product"
+ },
+ {
+  "file": "testplan.md",
+  "line": 25,
+  "column": 95,
+  "end_column": 109,
+  "text": "GitHub Actions",
+  "kind": "product"
+ },
+ {
+  "file": "testplan.md",
+  "line": 25,
+  "column": 131,
+  "end_column": 135,
+  "text": "80 %",
+  "kind": "unit"
+ },
+ {
+  "file": "testplan.md",
+  "line": 28,
+  "column": 1,
+  "end_column": 38,
+  "text": "go test ./... -coverprofile=cover.out",
+  "kind": "code_block"
+ },
+ {
+  "file": "testplan.md",
+  "line": 29,
+  "column": 1,
+  "end_column": 42,
+  "text": "go tool cover -func=cover.out | tail -n 1",
+  "kind": "code_block"
+ },
+ {
+  "file": "testplan.md",
+  "line": 34,
+  "column": 31,
+  "end_column": 45,
+  "text": "Testcontainers",
+  "kind": "product"
+ },
+ {
+  "file": "testplan.md",
+  "line": 34,
+  "column": 60,
+  "end_column": 70,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "testplan.md",
+  "line": 34,
+  "column": 75,
+  "end_column": 83,
+  "text": "RabbitMQ",
+  "kind": "product"
+ },
+ {
+  "file": "testplan.md",
+  "line": 34,
+  "column": 135,
+  "end_column": 151,
+  "text": "högst 10 minuter",
+  "kind": "unit"
+ },
+ {
+  "file": "testplan.md",
+  "line": 38,
+  "column": 56,
+  "end_column": 59,
+  "text": "tre",
+  "kind": "unit"
+ },
+ {
+  "file": "testplan.md",
+  "line": 38,
+  "column": 94,
+  "end_column": 102,
+  "text": "TestRail",
+  "kind": "product"
+ },
+ {
+  "file": "testplan.md",
+  "line": 38,
+  "column": 224,
+  "end_column": 228,
+  "text": "Jira",
+  "kind": "product"
+ },
+ {
+  "file": "testplan.md",
+  "line": 42,
+  "column": 23,
+  "end_column": 25,
+  "text": "k6",
+  "kind": "product"
+ },
+ {
+  "file": "testplan.md",
+  "line": 42,
+  "column": 76,
+  "end_column": 99,
+  "text": "300 samtidiga användare",
+  "kind": "unit"
+ },
+ {
+  "file": "testplan.md",
+  "line": 42,
+  "column": 102,
+  "end_column": 112,
+  "text": "15 minuter",
+  "kind": "unit"
+ },
+ {
+  "file": "testplan.md",
+  "line": 42,
+  "column": 134,
+  "end_column": 138,
+  "text": "95 %",
+  "kind": "unit"
+ },
+ {
+  "file": "testplan.md",
+  "line": 42,
+  "column": 164,
+  "end_column": 176,
+  "text": "under 500 ms",
+  "kind": "unit"
+ },
+ {
+  "file": "testplan.md",
+  "line": 42,
+  "column": 213,
+  "end_column": 218,
+  "text": "0,1 %",
+  "kind": "unit"
+ },
+ {
+  "file": "testplan.md",
+  "line": 44,
+  "column": 15,
+  "end_column": 22,
+  "text": "staging",
+  "kind": "code"
+ },
+ {
+  "file": "testplan.md",
+  "line": 44,
+  "column": 33,
+  "end_column": 37,
+  "text": "test",
+  "kind": "code"
+ },
+ {
+  "file": "testplan.md",
+  "line": 44,
+  "column": 90,
+  "end_column": 97,
+  "text": "Grafana",
+  "kind": "product"
+ },
+ {
+  "file": "testplan.md",
+  "line": 48,
+  "column": 58,
+  "end_column": 68,
+  "text": "två veckor",
+  "kind": "unit"
+ },
+ {
+  "file": "testplan.md",
+  "line": 48,
+  "column": 94,
+  "end_column": 103,
+  "text": "OWASP ZAP",
+  "kind": "product"
+ },
+ {
+  "file": "testplan.md",
+  "line": 50,
+  "column": 42,
+  "end_column": 52,
+  "text": "Dependabot",
+  "kind": "product"
+ },
+ {
+  "file": "testplan.md",
+  "line": 50,
+  "column": 57,
+  "end_column": 62,
+  "text": "Trivy",
+  "kind": "product"
+ },
+ {
+  "file": "testplan.md",
+  "line": 50,
+  "column": 104,
+  "end_column": 112,
+  "text": "30 dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "testplan.md",
+  "line": 54,
+  "column": 1,
+  "end_column": 5,
+  "text": "WCAG",
+  "kind": "acronym"
+ },
+ {
+  "file": "testplan.md",
+  "line": 54,
+  "column": 42,
+  "end_column": 45,
+  "text": "axe",
+  "kind": "product"
+ },
+ {
+  "file": "testplan.md",
+  "line": 54,
+  "column": 67,
+  "end_column": 71,
+  "text": "NVDA",
+  "kind": "product"
+ },
+ {
+  "file": "testplan.md",
+  "line": 54,
+  "column": 73,
+  "end_column": 82,
+  "text": "VoiceOver",
+  "kind": "product"
+ },
+ {
+  "file": "testplan.md",
+  "line": 54,
+  "column": 85,
+  "end_column": 88,
+  "text": "Två",
+  "kind": "unit"
+ },
+ {
+  "file": "testplan.md",
+  "line": 54,
+  "column": 115,
+  "end_column": 138,
+  "text": "Synskadades Riksförbund",
+  "kind": "name"
+ },
+ {
+  "file": "testplan.md",
+  "line": 61,
+  "column": 23,
+  "end_column": 34,
+  "text": "Sara Lidman",
+  "kind": "name"
+ },
+ {
+  "file": "testplan.md",
+  "line": 61,
+  "column": 37,
+  "end_column": 42,
+  "text": "17.10",
+  "kind": "unit"
+ },
+ {
+  "file": "testplan.md",
+  "line": 62,
+  "column": 21,
+  "end_column": 34,
+  "text": "Stig Dagerman",
+  "kind": "name"
+ },
+ {
+  "file": "testplan.md",
+  "line": 62,
+  "column": 37,
+  "end_column": 42,
+  "text": "20.10",
+  "kind": "unit"
+ },
+ {
+  "file": "testplan.md",
+  "line": 63,
+  "column": 41,
+  "end_column": 46,
+  "text": "24.10",
+  "kind": "unit"
+ },
+ {
+  "file": "testplan.md",
+  "line": 64,
+  "column": 33,
+  "end_column": 38,
+  "text": "27.10",
+  "kind": "unit"
+ },
+ {
+  "file": "testplan.md",
+  "line": 66,
+  "column": 30,
+  "end_column": 39,
+  "text": "tre dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 3,
+  "column": 40,
+  "end_column": 59,
+  "text": "https://minhalsa.fi",
+  "kind": "url"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 3,
+  "column": 75,
+  "end_column": 83,
+  "text": "MinHälsa",
+  "kind": "product"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 3,
+  "column": 108,
+  "end_column": 116,
+  "text": "2.3.2026",
+  "kind": "unit"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 7,
+  "column": 47,
+  "end_column": 51,
+  "text": "WCAG",
+  "kind": "acronym"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 11,
+  "column": 31,
+  "end_column": 34,
+  "text": "PDF",
+  "kind": "acronym"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 11,
+  "column": 108,
+  "end_column": 112,
+  "text": "HTML",
+  "kind": "acronym"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 11,
+  "column": 137,
+  "end_column": 141,
+  "text": "WCAG",
+  "kind": "acronym"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 12,
+  "column": 52,
+  "end_column": 57,
+  "text": "4,5:1",
+  "kind": "unit"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 12,
+  "column": 105,
+  "end_column": 109,
+  "text": "WCAG",
+  "kind": "acronym"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 13,
+  "column": 120,
+  "end_column": 124,
+  "text": "WCAG",
+  "kind": "acronym"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 14,
+  "column": 83,
+  "end_column": 87,
+  "text": "WCAG",
+  "kind": "acronym"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 22,
+  "column": 117,
+  "end_column": 144,
+  "text": "https://minhalsa.fi/respons",
+  "kind": "url"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 22,
+  "column": 167,
+  "end_column": 193,
+  "text": "tillganglighet@minhalsa.fi",
+  "kind": "url"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 22,
+  "column": 210,
+  "end_column": 218,
+  "text": "14 dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 24,
+  "column": 59,
+  "end_column": 103,
+  "text": "Transport- och kommunikationsverket Traficom",
+  "kind": "name"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 24,
+  "column": 108,
+  "end_column": 117,
+  "text": "Traficoms",
+  "kind": "name"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 26,
+  "column": 1,
+  "end_column": 45,
+  "text": "Transport- och kommunikationsverket Traficom",
+  "kind": "name"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 28,
+  "column": 1,
+  "end_column": 27,
+  "text": "tillganglighet@traficom.fi",
+  "kind": "url"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 29,
+  "column": 1,
+  "end_column": 21,
+  "text": "telefon 029 534 5000",
+  "kind": "number"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 33,
+  "column": 1,
+  "end_column": 268,
+  "text": "Tämä seloste koskee verkkopalvelua minhalsa.fi ja MinHälsa-mobiilisovellusta. Palvelu täyttää WCAG 2.1 -kriteeristön AA-tason vaatimukset osittain. Vanhat PDF-muotoiset potilasohjeet eivät ole koneluettavia, ja ne muunnetaan HTML-muotoon vuoden 2026 loppuun mennessä.",
+  "kind": "foreign"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 35,
+  "column": 1,
+  "end_column": 197,
+  "text": "Jos huomaat puutteita saavutettavuudessa, voit antaa palautetta lomakkeella osoitteessa minhalsa.fi/respons tai sähköpostitse osoitteeseen tillganglighet@minhalsa.fi. Vastaamme 14 päivän kuluessa.",
+  "kind": "foreign"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 39,
+  "column": 155,
+  "end_column": 163,
+  "text": "axe-core",
+  "kind": "product"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 41,
+  "column": 180,
+  "end_column": 199,
+  "text": "Synskadades förbund",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 41,
+  "column": 204,
+  "end_column": 241,
+  "text": "Förbundet Finlands Svenska Synskadade",
+  "kind": "name"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 41,
+  "column": 275,
+  "end_column": 280,
+  "text": "talko",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 41,
+  "column": 320,
+  "end_column": 331,
+  "text": "inbesparing",
+  "kind": "fi_sv"
+ }
+]

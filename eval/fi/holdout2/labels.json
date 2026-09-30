@@ -1,0 +1,680 @@
+[
+ {
+  "file": "infuusiopumppu-kayttoohje.md",
+  "line": 3,
+  "column": 92,
+  "end_column": 96,
+  "text": "joka",
+  "category": "confusion",
+  "correction": "jota",
+  "real_word": true
+ },
+ {
+  "file": "infuusiopumppu-kayttoohje.md",
+  "line": 3,
+  "column": 135,
+  "end_column": 149,
+  "text": "vastuu henkilö",
+  "category": "compound_split",
+  "correction": "vastuuhenkilö"
+ },
+ {
+  "file": "infuusiopumppu-kayttoohje.md",
+  "line": 3,
+  "column": 161,
+  "end_column": 173,
+  "text": "laitevastava",
+  "category": "double_letter",
+  "correction": "laitevastaava"
+ },
+ {
+  "file": "infuusiopumppu-kayttoohje.md",
+  "line": 9,
+  "column": 16,
+  "end_column": 28,
+  "text": "annos nopeus",
+  "category": "compound_split",
+  "correction": "annosnopeus"
+ },
+ {
+  "file": "infuusiopumppu-kayttoohje.md",
+  "line": 14,
+  "column": 70,
+  "end_column": 75,
+  "text": "käyta",
+  "category": "typo",
+  "correction": "käytä"
+ },
+ {
+  "file": "infuusiopumppu-kayttoohje.md",
+  "line": 15,
+  "column": 13,
+  "end_column": 22,
+  "text": "näyttöltä",
+  "category": "double_letter",
+  "correction": "näytöltä"
+ },
+ {
+  "file": "infuusiopumppu-kayttoohje.md",
+  "line": 29,
+  "column": 18,
+  "end_column": 25,
+  "text": "kuitatä",
+  "category": "inflection",
+  "correction": "kuitata"
+ },
+ {
+  "file": "infuusiopumppu-kayttoohje.md",
+  "line": 29,
+  "column": 47,
+  "end_column": 51,
+  "text": "vain",
+  "category": "confusion",
+  "correction": "vaan",
+  "real_word": true
+ },
+ {
+  "file": "infuusiopumppu-kayttoohje.md",
+  "line": 33,
+  "column": 148,
+  "end_column": 168,
+  "text": "lääkintä tekniikassa",
+  "category": "compound_split",
+  "correction": "lääkintätekniikassa"
+ },
+ {
+  "file": "infuusiopumppu-kayttoohje.md",
+  "line": 33,
+  "column": 178,
+  "end_column": 188,
+  "text": "määräaikan",
+  "category": "inflection",
+  "correction": "määräajan"
+ },
+ {
+  "file": "infuusiopumppu-kayttoohje.md",
+  "line": 37,
+  "column": 17,
+  "end_column": 26,
+  "text": "Elokuussa",
+  "category": "capitalization",
+  "correction": "elokuussa"
+ },
+ {
+  "file": "koulutuspaivan-ohjelma.md",
+  "line": 17,
+  "column": 24,
+  "end_column": 35,
+  "text": "kustanusten",
+  "category": "double_letter",
+  "correction": "kustannusten"
+ },
+ {
+  "file": "koulutuspaivan-ohjelma.md",
+  "line": 22,
+  "column": 90,
+  "end_column": 97,
+  "text": "pidetän",
+  "category": "double_letter",
+  "correction": "pidetään"
+ },
+ {
+  "file": "koulutuspaivan-ohjelma.md",
+  "line": 22,
+  "column": 108,
+  "end_column": 119,
+  "text": "kalvo sarja",
+  "category": "compound_split",
+  "correction": "kalvosarja"
+ },
+ {
+  "file": "koulutuspaivan-ohjelma.md",
+  "line": 34,
+  "column": 13,
+  "end_column": 27,
+  "text": "ilmottaudutaan",
+  "category": "typo",
+  "correction": "ilmoittaudutaan"
+ },
+ {
+  "file": "koulutuspaivan-ohjelma.md",
+  "line": 34,
+  "column": 150,
+  "end_column": 165,
+  "text": "ei kehittäjille",
+  "category": "compound_split",
+  "correction": "ei-kehittäjille"
+ },
+ {
+  "file": "koulutuspaivan-ohjelma.md",
+  "line": 40,
+  "column": 20,
+  "end_column": 28,
+  "text": "sisältyy",
+  "category": "confusion",
+  "correction": "sisältyvät",
+  "real_word": true
+ },
+ {
+  "file": "koulutuspaivan-ohjelma.md",
+  "line": 42,
+  "column": 111,
+  "end_column": 122,
+  "text": "Joulukuussa",
+  "category": "capitalization",
+  "correction": "joulukuussa"
+ },
+ {
+  "file": "koulutuspaivan-ohjelma.md",
+  "line": 43,
+  "column": 3,
+  "end_column": 22,
+  "text": "Pysäköinti paikkoja",
+  "category": "compound_split",
+  "correction": "Pysäköintipaikkoja"
+ },
+ {
+  "file": "koulutuspaivan-ohjelma.md",
+  "line": 43,
+  "column": 54,
+  "end_column": 61,
+  "text": "julkisa",
+  "category": "typo",
+  "correction": "julkisia"
+ },
+ {
+  "file": "kyberharjoitus-raportti.md",
+  "line": 11,
+  "column": 64,
+  "end_column": 70,
+  "text": "reakoi",
+  "category": "typo",
+  "correction": "reagoi"
+ },
+ {
+  "file": "kyberharjoitus-raportti.md",
+  "line": 13,
+  "column": 189,
+  "end_column": 202,
+  "text": "Palautus aika",
+  "category": "compound_split",
+  "correction": "Palautusaika"
+ },
+ {
+  "file": "kyberharjoitus-raportti.md",
+  "line": 15,
+  "column": 84,
+  "end_column": 96,
+  "text": "ymmärrettavä",
+  "category": "inflection",
+  "correction": "ymmärrettävä"
+ },
+ {
+  "file": "kyberharjoitus-raportti.md",
+  "line": 25,
+  "column": 14,
+  "end_column": 23,
+  "text": "aikaleimt",
+  "category": "typo",
+  "correction": "aikaleimat"
+ },
+ {
+  "file": "kyberharjoitus-raportti.md",
+  "line": 26,
+  "column": 24,
+  "end_column": 37,
+  "text": "palautus ohje",
+  "category": "compound_split",
+  "correction": "palautusohje"
+ },
+ {
+  "file": "kyberharjoitus-raportti.md",
+  "line": 28,
+  "column": 33,
+  "end_column": 41,
+  "text": "Lokakuun",
+  "category": "capitalization",
+  "correction": "lokakuun"
+ },
+ {
+  "file": "kyberharjoitus-raportti.md",
+  "line": 33,
+  "column": 43,
+  "end_column": 62,
+  "text": "neljännesvuosittäin",
+  "category": "inflection",
+  "correction": "neljännesvuosittain"
+ },
+ {
+  "file": "kyberharjoitus-raportti.md",
+  "line": 34,
+  "column": 30,
+  "end_column": 34,
+  "text": "eikä",
+  "category": "confusion",
+  "correction": "eivätkä",
+  "real_word": true
+ },
+ {
+  "file": "kyberharjoitus-raportti.md",
+  "line": 35,
+  "column": 48,
+  "end_column": 57,
+  "text": "ja siihen",
+  "category": "punctuation",
+  "correction": ", ja siihen"
+ },
+ {
+  "file": "mediatiedote.md",
+  "line": 5,
+  "column": 37,
+  "end_column": 49,
+  "text": "Marraskuussa",
+  "category": "capitalization",
+  "correction": "marraskuussa"
+ },
+ {
+  "file": "mediatiedote.md",
+  "line": 5,
+  "column": 120,
+  "end_column": 125,
+  "text": "ohaja",
+  "category": "typo",
+  "correction": "ohjaa"
+ },
+ {
+  "file": "mediatiedote.md",
+  "line": 7,
+  "column": 84,
+  "end_column": 96,
+  "text": "itse hoitoon",
+  "category": "compound_split",
+  "correction": "itsehoitoon"
+ },
+ {
+  "file": "mediatiedote.md",
+  "line": 9,
+  "column": 33,
+  "end_column": 37,
+  "text": "vain",
+  "category": "confusion",
+  "correction": "vaan",
+  "real_word": true
+ },
+ {
+  "file": "mediatiedote.md",
+  "line": 11,
+  "column": 139,
+  "end_column": 145,
+  "text": "käyteä",
+  "category": "typo",
+  "correction": "käytetä"
+ },
+ {
+  "file": "mediatiedote.md",
+  "line": 19,
+  "column": 27,
+  "end_column": 47,
+  "text": "tiedotus tilaisuuden",
+  "category": "compound_split",
+  "correction": "tiedotustilaisuuden"
+ },
+ {
+  "file": "mediatiedote.md",
+  "line": 19,
+  "column": 57,
+  "end_column": 66,
+  "text": "Tiistaina",
+  "category": "capitalization",
+  "correction": "tiistaina"
+ },
+ {
+  "file": "mediatiedote.md",
+  "line": 19,
+  "column": 117,
+  "end_column": 127,
+  "text": "striimatan",
+  "category": "double_letter",
+  "correction": "striimataan"
+ },
+ {
+  "file": "mediatiedote.md",
+  "line": 26,
+  "column": 99,
+  "end_column": 105,
+  "text": "kunhan",
+  "category": "punctuation",
+  "correction": ", kunhan"
+ },
+ {
+  "file": "palvelutasosopimus.md",
+  "line": 3,
+  "column": 24,
+  "end_column": 37,
+  "text": "palvelu tason",
+  "category": "compound_split",
+  "correction": "palvelutason"
+ },
+ {
+  "file": "palvelutasosopimus.md",
+  "line": 9,
+  "column": 33,
+  "end_column": 39,
+  "text": "vähenä",
+  "category": "double_letter",
+  "correction": "vähennä"
+ },
+ {
+  "file": "palvelutasosopimus.md",
+  "line": 24,
+  "column": 12,
+  "end_column": 21,
+  "text": "ylläpitaa",
+  "category": "inflection",
+  "correction": "ylläpitää"
+ },
+ {
+  "file": "palvelutasosopimus.md",
+  "line": 24,
+  "column": 233,
+  "end_column": 237,
+  "text": "vaan",
+  "category": "confusion",
+  "correction": "mutta",
+  "real_word": true
+ },
+ {
+  "file": "palvelutasosopimus.md",
+  "line": 30,
+  "column": 47,
+  "end_column": 53,
+  "text": "joiden",
+  "category": "punctuation",
+  "correction": ", joiden"
+ },
+ {
+  "file": "palvelutasosopimus.md",
+  "line": 30,
+  "column": 163,
+  "end_column": 175,
+  "text": "toimituksesa",
+  "category": "typo",
+  "correction": "toimituksesta"
+ },
+ {
+  "file": "palvelutasosopimus.md",
+  "line": 34,
+  "column": 22,
+  "end_column": 39,
+  "text": "kuukausi raportin",
+  "category": "compound_split",
+  "correction": "kuukausiraportin"
+ },
+ {
+  "file": "palvelutasosopimus.md",
+  "line": 34,
+  "column": 131,
+  "end_column": 141,
+  "text": "hyvitykest",
+  "category": "typo",
+  "correction": "hyvitykset"
+ },
+ {
+  "file": "palvelutasosopimus.md",
+  "line": 36,
+  "column": 18,
+  "end_column": 28,
+  "text": "noudateaan",
+  "category": "typo",
+  "correction": "noudatetaan"
+ },
+ {
+  "file": "palvelutasosopimus.md",
+  "line": 36,
+  "column": 82,
+  "end_column": 99,
+  "text": "Englanninkielinen",
+  "category": "capitalization",
+  "correction": "englanninkielinen"
+ },
+ {
+  "file": "perehdytysopas.md",
+  "line": 11,
+  "column": 6,
+  "end_column": 16,
+  "text": "kannetavan",
+  "category": "double_letter",
+  "correction": "kannettavan"
+ },
+ {
+  "file": "perehdytysopas.md",
+  "line": 13,
+  "column": 78,
+  "end_column": 82,
+  "text": "niin",
+  "category": "punctuation",
+  "correction": ", niin"
+ },
+ {
+  "file": "perehdytysopas.md",
+  "line": 23,
+  "column": 45,
+  "end_column": 56,
+  "text": "jälkiarvota",
+  "category": "typo",
+  "correction": "jälkiarviota"
+ },
+ {
+  "file": "perehdytysopas.md",
+  "line": 25,
+  "column": 42,
+  "end_column": 46,
+  "text": "Sitä",
+  "category": "confusion",
+  "correction": "Siitä",
+  "real_word": true
+ },
+ {
+  "file": "perehdytysopas.md",
+  "line": 26,
+  "column": 14,
+  "end_column": 22,
+  "text": "Torstain",
+  "category": "capitalization",
+  "correction": "torstain"
+ },
+ {
+  "file": "perehdytysopas.md",
+  "line": 28,
+  "column": 62,
+  "end_column": 71,
+  "text": "kommentoi",
+  "category": "confusion",
+  "correction": "kommentoivat",
+  "real_word": true
+ },
+ {
+  "file": "perehdytysopas.md",
+  "line": 34,
+  "column": 65,
+  "end_column": 79,
+  "text": "muuttuja nimet",
+  "category": "compound_split",
+  "correction": "muuttujanimet"
+ },
+ {
+  "file": "perehdytysopas.md",
+  "line": 35,
+  "column": 15,
+  "end_column": 27,
+  "text": "säilytettään",
+  "category": "double_letter",
+  "correction": "säilytetään"
+ },
+ {
+  "file": "perehdytysopas.md",
+  "line": 37,
+  "column": 8,
+  "end_column": 20,
+  "text": "periaatteenä",
+  "category": "inflection",
+  "correction": "periaatteena"
+ },
+ {
+  "file": "perehdytysopas.md",
+  "line": 48,
+  "column": 103,
+  "end_column": 111,
+  "text": "rohkesti",
+  "category": "typo",
+  "correction": "rohkeasti"
+ },
+ {
+  "file": "tietomallikuvaus.md",
+  "line": 3,
+  "column": 51,
+  "end_column": 64,
+  "text": "tieto kohteet",
+  "category": "compound_split",
+  "correction": "tietokohteet"
+ },
+ {
+  "file": "tietomallikuvaus.md",
+  "line": 28,
+  "column": 20,
+  "end_column": 30,
+  "text": "tallenetta",
+  "category": "typo",
+  "correction": "tallenneta"
+ },
+ {
+  "file": "tietomallikuvaus.md",
+  "line": 28,
+  "column": 57,
+  "end_column": 70,
+  "text": "yhteys tiedot",
+  "category": "compound_split",
+  "correction": "yhteystiedot"
+ },
+ {
+  "file": "tietomallikuvaus.md",
+  "line": 39,
+  "column": 45,
+  "end_column": 49,
+  "text": "sitä",
+  "category": "confusion",
+  "correction": "siitä",
+  "real_word": true
+ },
+ {
+  "file": "tietomallikuvaus.md",
+  "line": 45,
+  "column": 1,
+  "end_column": 15,
+  "text": "Vieras avaimet",
+  "category": "compound_split",
+  "correction": "Vierasavaimet"
+ },
+ {
+  "file": "tietomallikuvaus.md",
+  "line": 45,
+  "column": 110,
+  "end_column": 128,
+  "text": "pseudonymisoimallä",
+  "category": "inflection",
+  "correction": "pseudonymisoimalla"
+ },
+ {
+  "file": "tietomallikuvaus.md",
+  "line": 51,
+  "column": 44,
+  "end_column": 48,
+  "text": "vain",
+  "category": "confusion",
+  "correction": "vaan",
+  "real_word": true
+ },
+ {
+  "file": "tietomallikuvaus.md",
+  "line": 55,
+  "column": 112,
+  "end_column": 120,
+  "text": "testatan",
+  "category": "double_letter",
+  "correction": "testataan"
+ },
+ {
+  "file": "ukk-verkkosivu.md",
+  "line": 10,
+  "column": 28,
+  "end_column": 41,
+  "text": "pankki tunnus",
+  "category": "compound_split",
+  "correction": "pankkitunnus"
+ },
+ {
+  "file": "ukk-verkkosivu.md",
+  "line": 10,
+  "column": 143,
+  "end_column": 154,
+  "text": "epäonnitsuu",
+  "category": "typo",
+  "correction": "epäonnistuu"
+ },
+ {
+  "file": "ukk-verkkosivu.md",
+  "line": 13,
+  "column": 126,
+  "end_column": 130,
+  "text": "vain",
+  "category": "confusion",
+  "correction": "vaan",
+  "real_word": true
+ },
+ {
+  "file": "ukk-verkkosivu.md",
+  "line": 21,
+  "column": 96,
+  "end_column": 106,
+  "text": "veloitetan",
+  "category": "double_letter",
+  "correction": "veloitetaan"
+ },
+ {
+  "file": "ukk-verkkosivu.md",
+  "line": 24,
+  "column": 38,
+  "end_column": 43,
+  "text": "varta",
+  "category": "typo",
+  "correction": "varata"
+ },
+ {
+  "file": "ukk-verkkosivu.md",
+  "line": 24,
+  "column": 127,
+  "end_column": 144,
+  "text": "Puolesta asiointi",
+  "category": "compound_split",
+  "correction": "Puolesta-asiointi"
+ },
+ {
+  "file": "ukk-verkkosivu.md",
+  "line": 29,
+  "column": 10,
+  "end_column": 15,
+  "text": "näkyy",
+  "category": "confusion",
+  "correction": "näkyvät",
+  "real_word": true
+ },
+ {
+  "file": "ukk-verkkosivu.md",
+  "line": 45,
+  "column": 83,
+  "end_column": 90,
+  "text": "Arkisin",
+  "category": "capitalization",
+  "correction": "arkisin"
+ }
+]

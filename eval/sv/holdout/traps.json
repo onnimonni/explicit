@@ -1,0 +1,1058 @@
+[
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 5,
+  "column": 13,
+  "end_column": 28,
+  "text": "Edith Södergran",
+  "kind": "name"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 9,
+  "column": 212,
+  "end_column": 215,
+  "text": "412",
+  "kind": "number"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 11,
+  "column": 33,
+  "end_column": 38,
+  "text": "IVO:s",
+  "kind": "name"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 15,
+  "column": 62,
+  "end_column": 66,
+  "text": "48 h",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 18,
+  "column": 32,
+  "end_column": 42,
+  "text": "Kubernetes",
+  "kind": "product"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 18,
+  "column": 59,
+  "end_column": 65,
+  "text": "VMware",
+  "kind": "product"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 24,
+  "column": 3,
+  "end_column": 11,
+  "text": "RabbitMQ",
+  "kind": "product"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 25,
+  "column": 3,
+  "end_column": 15,
+  "text": "Apache Kafka",
+  "kind": "product"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 25,
+  "column": 62,
+  "end_column": 71,
+  "text": "ZooKeeper",
+  "kind": "product"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 25,
+  "column": 78,
+  "end_column": 83,
+  "text": "KRaft",
+  "kind": "product"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 26,
+  "column": 3,
+  "end_column": 17,
+  "text": "NATS JetStream",
+  "kind": "product"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 29,
+  "column": 42,
+  "end_column": 53,
+  "text": "två veckors",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 29,
+  "column": 84,
+  "end_column": 98,
+  "text": "GitHub Actions",
+  "kind": "product"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 29,
+  "column": 122,
+  "end_column": 146,
+  "text": "`docs/adr/002/resultat/`",
+  "kind": "code"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 33,
+  "column": 13,
+  "end_column": 21,
+  "text": "RabbitMQ",
+  "kind": "product"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 33,
+  "column": 26,
+  "end_column": 32,
+  "text": "quorum",
+  "kind": "product"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 33,
+  "column": 92,
+  "end_column": 97,
+  "text": "Kafka",
+  "kind": "product"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 33,
+  "column": 122,
+  "end_column": 130,
+  "text": "RabbitMQ",
+  "kind": "product"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 33,
+  "column": 167,
+  "end_column": 169,
+  "text": "ca",
+  "kind": "abbrev"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 33,
+  "column": 170,
+  "end_column": 197,
+  "text": "2 000 meddelanden per timme",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-002-meddelandeko.md",
+  "line": 40,
+  "column": 11,
+  "end_column": 19,
+  "text": "RabbitMQ",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 11,
+  "column": 27,
+  "end_column": 38,
+  "text": "under 12 år",
+  "kind": "unit"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 12,
+  "column": 3,
+  "end_column": 6,
+  "text": "PDF",
+  "kind": "acronym"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 14,
+  "column": 12,
+  "end_column": 19,
+  "text": "Android",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 18,
+  "column": 47,
+  "end_column": 57,
+  "text": "15 minuter",
+  "kind": "unit"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 19,
+  "column": 57,
+  "end_column": 62,
+  "text": "20 MB",
+  "kind": "unit"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 24,
+  "column": 22,
+  "end_column": 29,
+  "text": "Android",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 24,
+  "column": 74,
+  "end_column": 76,
+  "text": "50",
+  "kind": "number"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 24,
+  "column": 86,
+  "end_column": 93,
+  "text": "MH-1187",
+  "kind": "identifier"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 33,
+  "column": 3,
+  "end_column": 6,
+  "text": "iOS",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 33,
+  "column": 86,
+  "end_column": 89,
+  "text": "PIN",
+  "kind": "acronym"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 41,
+  "column": 3,
+  "end_column": 9,
+  "text": "OkHttp",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 41,
+  "column": 31,
+  "end_column": 44,
+  "text": "CVE-2026-2231",
+  "kind": "identifier"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 43,
+  "column": 39,
+  "end_column": 49,
+  "text": "15 minuter",
+  "kind": "unit"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 43,
+  "column": 64,
+  "end_column": 73,
+  "text": "24 timmar",
+  "kind": "unit"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 50,
+  "column": 36,
+  "end_column": 46,
+  "text": "12 månader",
+  "kind": "unit"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 51,
+  "column": 3,
+  "end_column": 14,
+  "text": "Apple Watch",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 55,
+  "column": 19,
+  "end_column": 22,
+  "text": "iOS",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 55,
+  "column": 32,
+  "end_column": 39,
+  "text": "Android",
+  "kind": "product"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 62,
+  "column": 17,
+  "end_column": 61,
+  "text": "https://github.com/example/minhalsa/releases",
+  "kind": "url"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 62,
+  "column": 88,
+  "end_column": 107,
+  "text": "support@minhalsa.fi",
+  "kind": "url"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 62,
+  "column": 118,
+  "end_column": 133,
+  "text": "Skicka feedback",
+  "kind": "code"
+ },
+ {
+  "file": "andringslogg-app.md",
+  "line": 62,
+  "column": 162,
+  "end_column": 168,
+  "text": "talkat",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "kundmeddelande.md",
+  "line": 7,
+  "column": 67,
+  "end_column": 82,
+  "text": "hälsostationers",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "kundmeddelande.md",
+  "line": 7,
+  "column": 154,
+  "end_column": 165,
+  "text": "017 173 000",
+  "kind": "number"
+ },
+ {
+  "file": "kundmeddelande.md",
+  "line": 11,
+  "column": 55,
+  "end_column": 65,
+  "text": "30.11.2026",
+  "kind": "unit"
+ },
+ {
+  "file": "kundmeddelande.md",
+  "line": 11,
+  "column": 190,
+  "end_column": 201,
+  "text": "sjukskötare",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "kundmeddelande.md",
+  "line": 11,
+  "column": 260,
+  "end_column": 268,
+  "text": "kl. 8–16",
+  "kind": "unit"
+ },
+ {
+  "file": "kundmeddelande.md",
+  "line": 13,
+  "column": 44,
+  "end_column": 51,
+  "text": "116 117",
+  "kind": "number"
+ },
+ {
+  "file": "kundmeddelande.md",
+  "line": 13,
+  "column": 73,
+  "end_column": 76,
+  "text": "112",
+  "kind": "number"
+ },
+ {
+  "file": "kundmeddelande.md",
+  "line": 17,
+  "column": 150,
+  "end_column": 160,
+  "text": "14 minuter",
+  "kind": "unit"
+ },
+ {
+  "file": "kundmeddelande.md",
+  "line": 17,
+  "column": 166,
+  "end_column": 178,
+  "text": "fyra minuter",
+  "kind": "unit"
+ },
+ {
+  "file": "kundmeddelande.md",
+  "line": 21,
+  "column": 110,
+  "end_column": 118,
+  "text": "kl. 9–15",
+  "kind": "unit"
+ },
+ {
+  "file": "kundmeddelande.md",
+  "line": 23,
+  "column": 1,
+  "end_column": 189,
+  "text": "Terveysasemien puhelinpalvelu saa yhteisen numeron 017 173 000 1. marraskuuta alkaen. Jos linjat ovat varattuja, voitte jättää soittopyynnön. Ruotsinkielistä palvelua saa koko aukioloajan.",
+  "kind": "foreign"
+ },
+ {
+  "file": "kundmeddelande.md",
+  "line": 25,
+  "column": 1,
+  "end_column": 203,
+  "text": "From 1 November, all health centre phone services will be reached through one number, 017 173 000. If the lines are busy, you can leave a call-back request. Service in English is available from 9 to 15.",
+  "kind": "foreign"
+ },
+ {
+  "file": "kundmeddelande.md",
+  "line": 29,
+  "column": 57,
+  "end_column": 65,
+  "text": "MinHälsa",
+  "kind": "product"
+ },
+ {
+  "file": "kundmeddelande.md",
+  "line": 29,
+  "column": 75,
+  "end_column": 94,
+  "text": "https://minhalsa.fi",
+  "kind": "url"
+ },
+ {
+  "file": "kundmeddelande.md",
+  "line": 29,
+  "column": 157,
+  "end_column": 161,
+  "text": "58 %",
+  "kind": "unit"
+ },
+ {
+  "file": "kundmeddelande.md",
+  "line": 31,
+  "column": 51,
+  "end_column": 83,
+  "text": "https://example.fi/telefontjanst",
+  "kind": "url"
+ },
+ {
+  "file": "kundmeddelande.md",
+  "line": 31,
+  "column": 170,
+  "end_column": 176,
+  "text": "råddar",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 3,
+  "column": 6,
+  "end_column": 27,
+  "text": "29.9.2026 kl. 9–10.30",
+  "kind": "unit"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 4,
+  "column": 13,
+  "end_column": 26,
+  "text": "Kerstin Ekman",
+  "kind": "name"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 4,
+  "column": 36,
+  "end_column": 52,
+  "text": "Per Olov Enquist",
+  "kind": "name"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 4,
+  "column": 54,
+  "end_column": 69,
+  "text": "Sara Stridsberg",
+  "kind": "name"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 4,
+  "column": 71,
+  "end_column": 86,
+  "text": "Torgny Lindgren",
+  "kind": "name"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 5,
+  "column": 14,
+  "end_column": 27,
+  "text": "Jonas Gardell",
+  "kind": "name"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 9,
+  "column": 1,
+  "end_column": 8,
+  "text": "Enquist",
+  "kind": "name"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 11,
+  "column": 1,
+  "end_column": 11,
+  "text": "Stridsberg",
+  "kind": "name"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 11,
+  "column": 57,
+  "end_column": 64,
+  "text": "Enquist",
+  "kind": "name"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 13,
+  "column": 17,
+  "end_column": 22,
+  "text": "27.10",
+  "kind": "unit"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 17,
+  "column": 24,
+  "end_column": 28,
+  "text": "94 %",
+  "kind": "unit"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 17,
+  "column": 97,
+  "end_column": 102,
+  "text": "Ekman",
+  "kind": "name"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 17,
+  "column": 137,
+  "end_column": 139,
+  "text": "IT",
+  "kind": "acronym"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 19,
+  "column": 50,
+  "end_column": 58,
+  "text": "Lindgren",
+  "kind": "name"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 19,
+  "column": 85,
+  "end_column": 90,
+  "text": "15.10",
+  "kind": "unit"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 26,
+  "column": 13,
+  "end_column": 17,
+  "text": "1177",
+  "kind": "name"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 26,
+  "column": 68,
+  "end_column": 74,
+  "text": "Ineras",
+  "kind": "name"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 31,
+  "column": 3,
+  "end_column": 13,
+  "text": "Stridsberg",
+  "kind": "name"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 31,
+  "column": 119,
+  "end_column": 126,
+  "text": "Enquist",
+  "kind": "name"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 32,
+  "column": 14,
+  "end_column": 29,
+  "text": "3.11.2026 kl. 9",
+  "kind": "unit"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 34,
+  "column": 29,
+  "end_column": 38,
+  "text": "kl. 10.20",
+  "kind": "unit"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 34,
+  "column": 80,
+  "end_column": 89,
+  "text": "tre dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "motesanteckningar.md",
+  "line": 34,
+  "column": 114,
+  "end_column": 124,
+  "text": "Confluence",
+  "kind": "product"
+ },
+ {
+  "file": "patientinfo-lakemedel.md",
+  "line": 9,
+  "column": 75,
+  "end_column": 84,
+  "text": "12 timmar",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinfo-lakemedel.md",
+  "line": 15,
+  "column": 23,
+  "end_column": 42,
+  "text": "två gånger om dagen",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinfo-lakemedel.md",
+  "line": 15,
+  "column": 111,
+  "end_column": 122,
+  "text": "135/85 mmHg",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinfo-lakemedel.md",
+  "line": 15,
+  "column": 175,
+  "end_column": 189,
+  "text": "hälsocentralen",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "patientinfo-lakemedel.md",
+  "line": 17,
+  "column": 15,
+  "end_column": 25,
+  "text": "2–4 veckor",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinfo-lakemedel.md",
+  "line": 17,
+  "column": 167,
+  "end_column": 183,
+  "text": "Mina Kanta-sidor",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "patientinfo-lakemedel.md",
+  "line": 21,
+  "column": 100,
+  "end_column": 114,
+  "text": "ett par veckor",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinfo-lakemedel.md",
+  "line": 25,
+  "column": 68,
+  "end_column": 74,
+  "text": "jouren",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "patientinfo-lakemedel.md",
+  "line": 30,
+  "column": 166,
+  "end_column": 172,
+  "text": "Burana",
+  "kind": "product"
+ },
+ {
+  "file": "patientinfo-lakemedel.md",
+  "line": 34,
+  "column": 59,
+  "end_column": 65,
+  "text": "5 gram",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinfo-lakemedel.md",
+  "line": 34,
+  "column": 172,
+  "end_column": 182,
+  "text": "30 minuter",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinfo-lakemedel.md",
+  "line": 36,
+  "column": 19,
+  "end_column": 37,
+  "text": "Malms hälsostation",
+  "kind": "fi_sv"
+ },
+ {
+  "file": "patientinfo-lakemedel.md",
+  "line": 36,
+  "column": 39,
+  "end_column": 49,
+  "text": "2 våningen",
+  "kind": "ordinal"
+ },
+ {
+  "file": "patientinfo-lakemedel.md",
+  "line": 36,
+  "column": 59,
+  "end_column": 71,
+  "text": "09 310 12345",
+  "kind": "number"
+ },
+ {
+  "file": "patientinfo-lakemedel.md",
+  "line": 36,
+  "column": 81,
+  "end_column": 89,
+  "text": "kl. 8–16",
+  "kind": "unit"
+ },
+ {
+  "file": "patientinfo-lakemedel.md",
+  "line": 36,
+  "column": 121,
+  "end_column": 137,
+  "text": "ML Kaarlo Sarkia",
+  "kind": "name"
+ },
+ {
+  "file": "patientinfo-lakemedel.md",
+  "line": 36,
+  "column": 169,
+  "end_column": 189,
+  "text": "God medicinsk praxis",
+  "kind": "name"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 13,
+  "column": 3,
+  "end_column": 13,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 13,
+  "column": 15,
+  "end_column": 18,
+  "text": "WAL",
+  "kind": "acronym"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 13,
+  "column": 46,
+  "end_column": 52,
+  "text": "kl. 01",
+  "kind": "unit"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 13,
+  "column": 55,
+  "end_column": 63,
+  "text": "35 dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 13,
+  "column": 66,
+  "end_column": 83,
+  "text": "`s3://backup/pg/`",
+  "kind": "code"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 14,
+  "column": 18,
+  "end_column": 27,
+  "text": "4:e timme",
+  "kind": "unit"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 14,
+  "column": 30,
+  "end_column": 38,
+  "text": "90 dagar",
+  "kind": "unit"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 14,
+  "column": 41,
+  "end_column": 61,
+  "text": "`s3://backup/filer/`",
+  "kind": "code"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 15,
+  "column": 16,
+  "end_column": 21,
+  "text": "Vault",
+  "kind": "product"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 15,
+  "column": 36,
+  "end_column": 40,
+  "text": "1 år",
+  "kind": "unit"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 17,
+  "column": 31,
+  "end_column": 38,
+  "text": "AES-256",
+  "kind": "acronym"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 17,
+  "column": 69,
+  "end_column": 74,
+  "text": "Vault",
+  "kind": "product"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 17,
+  "column": 81,
+  "end_column": 103,
+  "text": "`secret/backup/nyckel`",
+  "kind": "identifier"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 21,
+  "column": 22,
+  "end_column": 33,
+  "text": "#incidenter",
+  "kind": "identifier"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 23,
+  "column": 28,
+  "end_column": 38,
+  "text": "pgBackRest",
+  "kind": "product"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 26,
+  "column": 1,
+  "end_column": 39,
+  "text": "pgbackrest --stanza=prod --type=time \\",
+  "kind": "code_block"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 27,
+  "column": 3,
+  "end_column": 68,
+  "text": "--target=\"2026-09-18 09:05:00+02\" --target-action=promote restore",
+  "kind": "code_block"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 28,
+  "column": 1,
+  "end_column": 27,
+  "text": "systemctl start postgresql",
+  "kind": "code_block"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 31,
+  "column": 70,
+  "end_column": 106,
+  "text": "`SELECT max(skapad) FROM bokningar;`",
+  "kind": "code"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 32,
+  "column": 49,
+  "end_column": 59,
+  "text": "15 minuter",
+  "kind": "unit"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 34,
+  "column": 32,
+  "end_column": 39,
+  "text": "200 GiB",
+  "kind": "unit"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 34,
+  "column": 44,
+  "end_column": 46,
+  "text": "ca",
+  "kind": "abbrev"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 34,
+  "column": 47,
+  "end_column": 57,
+  "text": "40 minuter",
+  "kind": "unit"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 34,
+  "column": 123,
+  "end_column": 126,
+  "text": "WAL",
+  "kind": "acronym"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 38,
+  "column": 79,
+  "end_column": 81,
+  "text": "S3",
+  "kind": "product"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 41,
+  "column": 1,
+  "end_column": 82,
+  "text": "aws s3api list-object-versions --bucket backup --prefix filer/patientanvisningar/",
+  "kind": "code_block"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 42,
+  "column": 1,
+  "end_column": 84,
+  "text": "aws s3api get-object --bucket backup --key filer/patientanvisningar/anvisning.pdf \\",
+  "kind": "code_block"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 43,
+  "column": 3,
+  "end_column": 39,
+  "text": "--version-id <version> anvisning.pdf",
+  "kind": "code_block"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 50,
+  "column": 34,
+  "end_column": 41,
+  "text": "staging",
+  "kind": "code"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 50,
+  "column": 106,
+  "end_column": 116,
+  "text": "Confluence",
+  "kind": "product"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 50,
+  "column": 158,
+  "end_column": 168,
+  "text": "52 minuter",
+  "kind": "unit"
+ },
+ {
+  "file": "runbook-backup.md",
+  "line": 52,
+  "column": 49,
+  "end_column": 54,
+  "text": "SEV-2",
+  "kind": "acronym"
+ }
+]

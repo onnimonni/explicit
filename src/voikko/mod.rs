@@ -53,6 +53,11 @@ pub struct Reading {
     /// Base form of the (last part of the) word: `pitää` for `pidän`, `se` for `sitä`;
     /// `None` for derivations.
     pub base: Option<String>,
+    /// Participle kind: `present_active`, `past_active`, `past_passive`, `agent`, ...
+    pub participle: Option<&'static str>,
+    /// Base form through derivations: the verb of a participle (`keskustella` for
+    /// `keskustelleet`).
+    pub lemma: Option<String>,
     /// Starts with a capital letter (a name).
     pub proper: bool,
 }
@@ -283,6 +288,8 @@ impl Voikko {
                 number: a.number,
                 parts: a.structure.iter().filter(|&&ch| ch == '=').count(),
                 base: a.base,
+                participle: a.participle,
+                lemma: a.lemma,
                 proper: a.structure.iter().find(|ch| !matches!(ch, '=' | '-')) == Some(&'i'),
             })
             .collect()

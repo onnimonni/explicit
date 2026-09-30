@@ -1,0 +1,1562 @@
+[
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 7,
+  "column": 18,
+  "end_column": 27,
+  "text": "22.9.2026",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 11,
+  "column": 1,
+  "end_column": 17,
+  "text": "Terveydenhuollon",
+  "kind": "compound"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 11,
+  "column": 98,
+  "end_column": 106,
+  "text": "Valviran",
+  "kind": "name"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 11,
+  "column": 110,
+  "end_column": 115,
+  "text": "Kelan",
+  "kind": "name"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 11,
+  "column": 135,
+  "end_column": 140,
+  "text": "Kanta",
+  "kind": "name"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 13,
+  "column": 52,
+  "end_column": 55,
+  "text": "DVV",
+  "kind": "acronym"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 13,
+  "column": 74,
+  "end_column": 82,
+  "text": "Suomi.fi",
+  "kind": "name"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 13,
+  "column": 98,
+  "end_column": 103,
+  "text": "FIDO2",
+  "kind": "acronym"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 13,
+  "column": 132,
+  "end_column": 145,
+  "text": "Otto Manninen",
+  "kind": "name"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 13,
+  "column": 149,
+  "end_column": 159,
+  "text": "Aale Tynni",
+  "kind": "name"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 19,
+  "column": 91,
+  "end_column": 93,
+  "text": "n.",
+  "kind": "abbrev"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 19,
+  "column": 94,
+  "end_column": 98,
+  "text": "30 %",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 19,
+  "column": 203,
+  "end_column": 208,
+  "text": "macOS",
+  "kind": "product"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 21,
+  "column": 5,
+  "end_column": 13,
+  "text": "Suomi.fi",
+  "kind": "name"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 23,
+  "column": 112,
+  "end_column": 120,
+  "text": "Terhikki",
+  "kind": "name"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 23,
+  "column": 156,
+  "end_column": 170,
+  "text": "20–40 sekuntia",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 25,
+  "column": 5,
+  "end_column": 10,
+  "text": "FIDO2",
+  "kind": "acronym"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 31,
+  "column": 50,
+  "end_column": 55,
+  "text": "FIDO2",
+  "kind": "acronym"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 34,
+  "column": 50,
+  "end_column": 58,
+  "text": "15 000 €",
+  "kind": "unit"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 35,
+  "column": 20,
+  "end_column": 25,
+  "text": "FIDO2",
+  "kind": "acronym"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 35,
+  "column": 66,
+  "end_column": 71,
+  "text": "Kanta",
+  "kind": "name"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 37,
+  "column": 1,
+  "end_column": 9,
+  "text": "Suomi.fi",
+  "kind": "name"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 43,
+  "column": 31,
+  "end_column": 41,
+  "text": "Terhikistä",
+  "kind": "name"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 44,
+  "column": 91,
+  "end_column": 105,
+  "text": "31. tammikuuta",
+  "kind": "ordinal"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 13,
+  "column": 3,
+  "end_column": 13,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 13,
+  "column": 15,
+  "end_column": 18,
+  "text": "WAL",
+  "kind": "acronym"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 13,
+  "column": 47,
+  "end_column": 53,
+  "text": "klo 01",
+  "kind": "unit"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 13,
+  "column": 56,
+  "end_column": 65,
+  "text": "35 päivää",
+  "kind": "unit"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 13,
+  "column": 68,
+  "end_column": 86,
+  "text": "`s3://varmuus/pg/`",
+  "kind": "code"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 14,
+  "column": 21,
+  "end_column": 24,
+  "text": "4 h",
+  "kind": "unit"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 14,
+  "column": 34,
+  "end_column": 43,
+  "text": "90 päivää",
+  "kind": "unit"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 14,
+  "column": 46,
+  "end_column": 71,
+  "text": "`s3://varmuus/tiedostot/`",
+  "kind": "code"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 15,
+  "column": 16,
+  "end_column": 21,
+  "text": "Vault",
+  "kind": "product"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 15,
+  "column": 38,
+  "end_column": 45,
+  "text": "1 vuosi",
+  "kind": "unit"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 15,
+  "column": 65,
+  "end_column": 68,
+  "text": "ks.",
+  "kind": "abbrev"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 17,
+  "column": 26,
+  "end_column": 33,
+  "text": "AES-256",
+  "kind": "acronym"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 17,
+  "column": 54,
+  "end_column": 63,
+  "text": "Vaultissa",
+  "kind": "product"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 17,
+  "column": 72,
+  "end_column": 94,
+  "text": "`secret/varmuus/avain`",
+  "kind": "identifier"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 21,
+  "column": 22,
+  "end_column": 30,
+  "text": "#hairiot",
+  "kind": "identifier"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 23,
+  "column": 17,
+  "end_column": 31,
+  "text": "pgBackRestillä",
+  "kind": "product"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 26,
+  "column": 1,
+  "end_column": 43,
+  "text": "pgbackrest --stanza=tuotanto --type=time \\",
+  "kind": "code_block"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 27,
+  "column": 3,
+  "end_column": 68,
+  "text": "--target=\"2026-09-18 09:05:00+03\" --target-action=promote restore",
+  "kind": "code_block"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 28,
+  "column": 1,
+  "end_column": 27,
+  "text": "systemctl start postgresql",
+  "kind": "code_block"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 31,
+  "column": 66,
+  "end_column": 101,
+  "text": "`SELECT max(luotu) FROM varaukset;`",
+  "kind": "code"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 32,
+  "column": 43,
+  "end_column": 55,
+  "text": "15 minuuttia",
+  "kind": "unit"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 34,
+  "column": 10,
+  "end_column": 17,
+  "text": "200 GiB",
+  "kind": "unit"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 34,
+  "column": 36,
+  "end_column": 38,
+  "text": "n.",
+  "kind": "abbrev"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 34,
+  "column": 39,
+  "end_column": 51,
+  "text": "40 minuuttia",
+  "kind": "unit"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 34,
+  "column": 104,
+  "end_column": 107,
+  "text": "WAL",
+  "kind": "acronym"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 38,
+  "column": 79,
+  "end_column": 81,
+  "text": "S3",
+  "kind": "product"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 41,
+  "column": 1,
+  "end_column": 82,
+  "text": "aws s3api list-object-versions --bucket varmuus --prefix tiedostot/potilasohjeet/",
+  "kind": "code_block"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 42,
+  "column": 1,
+  "end_column": 79,
+  "text": "aws s3api get-object --bucket varmuus --key tiedostot/potilasohjeet/ohje.pdf \\",
+  "kind": "code_block"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 43,
+  "column": 3,
+  "end_column": 33,
+  "text": "--version-id <versio> ohje.pdf",
+  "kind": "code_block"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 50,
+  "column": 44,
+  "end_column": 51,
+  "text": "staging",
+  "kind": "code"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 50,
+  "column": 138,
+  "end_column": 150,
+  "text": "Confluenceen",
+  "kind": "product"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 50,
+  "column": 197,
+  "end_column": 209,
+  "text": "52 minuuttia",
+  "kind": "unit"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 52,
+  "column": 47,
+  "end_column": 52,
+  "text": "SEV-2",
+  "kind": "acronym"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 3,
+  "column": 73,
+  "end_column": 77,
+  "text": "HTTP",
+  "kind": "product"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 7,
+  "column": 33,
+  "end_column": 53,
+  "text": "`POST /v2/webhookit`",
+  "kind": "code"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 10,
+  "column": 1,
+  "end_column": 2,
+  "text": "{",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 11,
+  "column": 3,
+  "end_column": 55,
+  "text": "\"osoite\": \"https://asiakas.example.fi/hooks/varaus\",",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 12,
+  "column": 3,
+  "end_column": 71,
+  "text": "\"tapahtumat\": [\"varaus.luotu\", \"varaus.peruttu\", \"varaus.siirretty\"]",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 13,
+  "column": 1,
+  "end_column": 2,
+  "text": "}",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 18,
+  "column": 21,
+  "end_column": 26,
+  "text": "HTTPS",
+  "kind": "product"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 18,
+  "column": 183,
+  "end_column": 186,
+  "text": "200",
+  "kind": "number"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 18,
+  "column": 187,
+  "end_column": 197,
+  "text": "5 sekunnin",
+  "kind": "unit"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 22,
+  "column": 34,
+  "end_column": 54,
+  "text": "`X-Varaus-Tapahtuma`",
+  "kind": "identifier"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 22,
+  "column": 56,
+  "end_column": 76,
+  "text": "`X-Varaus-Aikaleima`",
+  "kind": "identifier"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 22,
+  "column": 80,
+  "end_column": 104,
+  "text": "`X-Varaus-Allekirjoitus`",
+  "kind": "identifier"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 22,
+  "column": 123,
+  "end_column": 134,
+  "text": "HMAC-SHA256",
+  "kind": "acronym"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 25,
+  "column": 1,
+  "end_column": 47,
+  "text": "mac := hmac.New(sha256.New, []byte(salaisuus))",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 26,
+  "column": 1,
+  "end_column": 51,
+  "text": "mac.Write([]byte(aikaleima + \".\" + string(runko)))",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 27,
+  "column": 1,
+  "end_column": 45,
+  "text": "odotettu := hex.EncodeToString(mac.Sum(nil))",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 28,
+  "column": 1,
+  "end_column": 58,
+  "text": "if !hmac.Equal([]byte(odotettu), []byte(allekirjoitus)) {",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 29,
+  "column": 5,
+  "end_column": 52,
+  "text": "return errors.New(\"virheellinen allekirjoitus\")",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 30,
+  "column": 1,
+  "end_column": 2,
+  "text": "}",
+  "kind": "code_block"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 33,
+  "column": 36,
+  "end_column": 47,
+  "text": "5 minuuttia",
+  "kind": "unit"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 37,
+  "column": 64,
+  "end_column": 77,
+  "text": "10 sekunnissa",
+  "kind": "unit"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 37,
+  "column": 122,
+  "end_column": 127,
+  "text": "1 min",
+  "kind": "unit"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 37,
+  "column": 129,
+  "end_column": 134,
+  "text": "5 min",
+  "kind": "unit"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 37,
+  "column": 136,
+  "end_column": 142,
+  "text": "30 min",
+  "kind": "unit"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 37,
+  "column": 144,
+  "end_column": 147,
+  "text": "2 h",
+  "kind": "unit"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 37,
+  "column": 151,
+  "end_column": 155,
+  "text": "12 h",
+  "kind": "unit"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 39,
+  "column": 109,
+  "end_column": 113,
+  "text": "`id`",
+  "kind": "identifier"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 45,
+  "column": 3,
+  "end_column": 17,
+  "text": "`varaus.luotu`",
+  "kind": "code"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 46,
+  "column": 3,
+  "end_column": 19,
+  "text": "`varaus.peruttu`",
+  "kind": "code"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 47,
+  "column": 3,
+  "end_column": 21,
+  "text": "`varaus.siirretty`",
+  "kind": "code"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 48,
+  "column": 3,
+  "end_column": 18,
+  "text": "`aika.vapautui`",
+  "kind": "code"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 50,
+  "column": 48,
+  "end_column": 72,
+  "text": "`GET /v2/varaukset/{id}`",
+  "kind": "code"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 50,
+  "column": 98,
+  "end_column": 105,
+  "text": "OpenAPI",
+  "kind": "product"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 50,
+  "column": 130,
+  "end_column": 168,
+  "text": "https://api.example.fi/v2/openapi.json",
+  "kind": "url"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 7,
+  "column": 7,
+  "end_column": 28,
+  "text": "29.9.2026 klo 9–10.30",
+  "kind": "unit"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 8,
+  "column": 8,
+  "end_column": 19,
+  "text": "Minna Canth",
+  "kind": "name"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 8,
+  "column": 27,
+  "end_column": 37,
+  "text": "Juhani Aho",
+  "kind": "name"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 8,
+  "column": 39,
+  "end_column": 51,
+  "text": "Maria Jotuni",
+  "kind": "name"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 8,
+  "column": 53,
+  "end_column": 65,
+  "text": "Volter Kilpi",
+  "kind": "name"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 9,
+  "column": 9,
+  "end_column": 22,
+  "text": "Joel Lehtonen",
+  "kind": "name"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 13,
+  "column": 1,
+  "end_column": 4,
+  "text": "Aho",
+  "kind": "name"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 15,
+  "column": 1,
+  "end_column": 7,
+  "text": "Jotuni",
+  "kind": "name"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 15,
+  "column": 60,
+  "end_column": 63,
+  "text": "Aho",
+  "kind": "name"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 17,
+  "column": 18,
+  "end_column": 24,
+  "text": "27.10.",
+  "kind": "unit"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 21,
+  "column": 35,
+  "end_column": 39,
+  "text": "94 %",
+  "kind": "unit"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 21,
+  "column": 89,
+  "end_column": 92,
+  "text": "ks.",
+  "kind": "abbrev"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 21,
+  "column": 103,
+  "end_column": 108,
+  "text": "Canth",
+  "kind": "name"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 23,
+  "column": 65,
+  "end_column": 70,
+  "text": "Kilpi",
+  "kind": "name"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 23,
+  "column": 93,
+  "end_column": 99,
+  "text": "15.10.",
+  "kind": "unit"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 30,
+  "column": 3,
+  "end_column": 8,
+  "text": "Kanta",
+  "kind": "name"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 30,
+  "column": 71,
+  "end_column": 76,
+  "text": "Kelan",
+  "kind": "name"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 35,
+  "column": 3,
+  "end_column": 9,
+  "text": "Jotuni",
+  "kind": "name"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 35,
+  "column": 96,
+  "end_column": 99,
+  "text": "Aho",
+  "kind": "name"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 36,
+  "column": 19,
+  "end_column": 34,
+  "text": "3.11.2026 klo 9",
+  "kind": "unit"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 38,
+  "column": 32,
+  "end_column": 41,
+  "text": "klo 10.20",
+  "kind": "unit"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 38,
+  "column": 77,
+  "end_column": 90,
+  "text": "kolmen päivän",
+  "kind": "unit"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 38,
+  "column": 130,
+  "end_column": 143,
+  "text": "Confluencessa",
+  "kind": "product"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 11,
+  "column": 30,
+  "end_column": 44,
+  "text": "alle 12 vuotta",
+  "kind": "unit"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 12,
+  "column": 3,
+  "end_column": 6,
+  "text": "PDF",
+  "kind": "acronym"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 14,
+  "column": 8,
+  "end_column": 15,
+  "text": "Android",
+  "kind": "product"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 18,
+  "column": 41,
+  "end_column": 54,
+  "text": "15 minuuttiin",
+  "kind": "unit"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 19,
+  "column": 45,
+  "end_column": 50,
+  "text": "20 MB",
+  "kind": "unit"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 24,
+  "column": 18,
+  "end_column": 25,
+  "text": "Android",
+  "kind": "product"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 24,
+  "column": 87,
+  "end_column": 89,
+  "text": "50",
+  "kind": "number"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 24,
+  "column": 102,
+  "end_column": 110,
+  "text": "OMA-1187",
+  "kind": "identifier"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 33,
+  "column": 3,
+  "end_column": 6,
+  "text": "iOS",
+  "kind": "product"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 33,
+  "column": 86,
+  "end_column": 89,
+  "text": "PIN",
+  "kind": "acronym"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 41,
+  "column": 14,
+  "end_column": 20,
+  "text": "OkHttp",
+  "kind": "product"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 41,
+  "column": 35,
+  "end_column": 48,
+  "text": "CVE-2026-2231",
+  "kind": "identifier"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 43,
+  "column": 38,
+  "end_column": 50,
+  "text": "15 minuuttia",
+  "kind": "unit"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 43,
+  "column": 59,
+  "end_column": 68,
+  "text": "24 tunnin",
+  "kind": "unit"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 50,
+  "column": 32,
+  "end_column": 44,
+  "text": "12 kuukauden",
+  "kind": "unit"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 51,
+  "column": 3,
+  "end_column": 14,
+  "text": "Apple Watch",
+  "kind": "product"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 55,
+  "column": 23,
+  "end_column": 26,
+  "text": "iOS",
+  "kind": "product"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 55,
+  "column": 36,
+  "end_column": 43,
+  "text": "Android",
+  "kind": "product"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 62,
+  "column": 17,
+  "end_column": 63,
+  "text": "https://github.com/example/omaterveys/releases",
+  "kind": "url"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 62,
+  "column": 106,
+  "end_column": 124,
+  "text": "tuki@omaterveys.fi",
+  "kind": "url"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 62,
+  "column": 141,
+  "end_column": 155,
+  "text": "Lähetä palaute",
+  "kind": "code"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 7,
+  "column": 153,
+  "end_column": 164,
+  "text": "OmaKannassa",
+  "kind": "product"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 11,
+  "column": 3,
+  "end_column": 10,
+  "text": "Panadol",
+  "kind": "product"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 11,
+  "column": 17,
+  "end_column": 34,
+  "text": "3 kertaa päivässä",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 11,
+  "column": 46,
+  "end_column": 49,
+  "text": "4 g",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 12,
+  "column": 3,
+  "end_column": 9,
+  "text": "Burana",
+  "kind": "product"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 12,
+  "column": 19,
+  "end_column": 38,
+  "text": "2–3 kertaa päivässä",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 12,
+  "column": 62,
+  "end_column": 71,
+  "text": "10 päivää",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 13,
+  "column": 3,
+  "end_column": 10,
+  "text": "Oxynorm",
+  "kind": "product"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 15,
+  "column": 107,
+  "end_column": 116,
+  "text": "Movicolia",
+  "kind": "product"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 19,
+  "column": 273,
+  "end_column": 286,
+  "text": "kolmen viikon",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 21,
+  "column": 97,
+  "end_column": 102,
+  "text": "38 °C",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 25,
+  "column": 78,
+  "end_column": 89,
+  "text": "2–4 viikkoa",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 25,
+  "column": 175,
+  "end_column": 192,
+  "text": "kolmesti päivässä",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 27,
+  "column": 91,
+  "end_column": 101,
+  "text": "4–6 viikon",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 27,
+  "column": 155,
+  "end_column": 168,
+  "text": "kuusi viikkoa",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 31,
+  "column": 10,
+  "end_column": 17,
+  "text": "Klexane",
+  "kind": "product"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 31,
+  "column": 58,
+  "end_column": 67,
+  "text": "28 päivän",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 31,
+  "column": 143,
+  "end_column": 176,
+  "text": "https://example.fi/ohjeet/klexane",
+  "kind": "url"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 37,
+  "column": 19,
+  "end_column": 29,
+  "text": "6–8 viikon",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 37,
+  "column": 97,
+  "end_column": 107,
+  "text": "OmaKantaan",
+  "kind": "product"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 39,
+  "column": 29,
+  "end_column": 38,
+  "text": "8 viikkoa",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 39,
+  "column": 117,
+  "end_column": 122,
+  "text": "Kelan",
+  "kind": "name"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 39,
+  "column": 166,
+  "end_column": 182,
+  "text": "kahden kuukauden",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 41,
+  "column": 26,
+  "end_column": 35,
+  "text": "5. kerros",
+  "kind": "ordinal"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 41,
+  "column": 45,
+  "end_column": 57,
+  "text": "09 471 87654",
+  "kind": "number"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 41,
+  "column": 66,
+  "end_column": 74,
+  "text": "klo 8–15",
+  "kind": "unit"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 41,
+  "column": 104,
+  "end_column": 111,
+  "text": "116 117",
+  "kind": "number"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 7,
+  "column": 141,
+  "end_column": 152,
+  "text": "017 173 000",
+  "kind": "number"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 11,
+  "column": 59,
+  "end_column": 69,
+  "text": "30.11.2026",
+  "kind": "unit"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 11,
+  "column": 259,
+  "end_column": 267,
+  "text": "klo 8–16",
+  "kind": "unit"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 13,
+  "column": 44,
+  "end_column": 51,
+  "text": "116 117",
+  "kind": "number"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 13,
+  "column": 71,
+  "end_column": 74,
+  "text": "112",
+  "kind": "number"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 17,
+  "column": 139,
+  "end_column": 152,
+  "text": "14 minuutista",
+  "kind": "unit"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 17,
+  "column": 153,
+  "end_column": 171,
+  "text": "neljään minuuttiin",
+  "kind": "unit"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 21,
+  "column": 139,
+  "end_column": 147,
+  "text": "klo 9–15",
+  "kind": "unit"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 23,
+  "column": 1,
+  "end_column": 213,
+  "text": "Vårdcentralernas telefontjänst får ett gemensamt nummer, 017 173 000, från och med den 1 november. Om linjerna är upptagna kan ni lämna en begäran om återuppringning. Service på svenska ges under hela öppettiden.",
+  "kind": "foreign"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 25,
+  "column": 1,
+  "end_column": 203,
+  "text": "From 1 November, all health centre phone services will be reached through one number, 017 173 000. If the lines are busy, you can leave a call-back request. Service in English is available from 9 to 15.",
+  "kind": "foreign"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 29,
+  "column": 49,
+  "end_column": 59,
+  "text": "OmaTerveys",
+  "kind": "product"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 29,
+  "column": 90,
+  "end_column": 111,
+  "text": "https://omaterveys.fi",
+  "kind": "url"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 29,
+  "column": 186,
+  "end_column": 190,
+  "text": "58 %",
+  "kind": "unit"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 31,
+  "column": 48,
+  "end_column": 81,
+  "text": "https://example.fi/puhelinpalvelu",
+  "kind": "url"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 5,
+  "column": 123,
+  "end_column": 130,
+  "text": "Findata",
+  "kind": "name"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 9,
+  "column": 231,
+  "end_column": 244,
+  "text": "kahden viikon",
+  "kind": "unit"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 17,
+  "column": 88,
+  "end_column": 93,
+  "text": "esim.",
+  "kind": "abbrev"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 20,
+  "column": 1,
+  "end_column": 18,
+  "text": "SELECT pseudo_id,",
+  "kind": "code_block"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 21,
+  "column": 8,
+  "end_column": 45,
+  "text": "floor(ika / 5) * 5      AS ikaluokka,",
+  "kind": "code_block"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 22,
+  "column": 8,
+  "end_column": 40,
+  "text": "left(postinumero, 2)    AS alue,",
+  "kind": "code_block"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 23,
+  "column": 8,
+  "end_column": 23,
+  "text": "diagnoosi_icd10",
+  "kind": "code_block"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 24,
+  "column": 1,
+  "end_column": 26,
+  "text": "FROM   tutkimus_2026_014;",
+  "kind": "code_block"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 29,
+  "column": 91,
+  "end_column": 98,
+  "text": "Kapseli",
+  "kind": "product"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 29,
+  "column": 202,
+  "end_column": 208,
+  "text": "viiden",
+  "kind": "unit"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 31,
+  "column": 76,
+  "end_column": 88,
+  "text": "viisi vuotta",
+  "kind": "unit"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 31,
+  "column": 174,
+  "end_column": 183,
+  "text": "12 vuotta",
+  "kind": "unit"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 37,
+  "column": 37,
+  "end_column": 46,
+  "text": "24 tunnin",
+  "kind": "unit"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 37,
+  "column": 69,
+  "end_column": 90,
+  "text": "tietosuoja@example.fi",
+  "kind": "url"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 41,
+  "column": 95,
+  "end_column": 118,
+  "text": "Tietosuojavaltuutetulle",
+  "kind": "name"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 45,
+  "column": 19,
+  "end_column": 38,
+  "text": "tutkimus@example.fi",
+  "kind": "url"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 45,
+  "column": 40,
+  "end_column": 56,
+  "text": "puh. 017 173 400",
+  "kind": "number"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 45,
+  "column": 66,
+  "end_column": 74,
+  "text": "klo 9–15",
+  "kind": "unit"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 45,
+  "column": 96,
+  "end_column": 117,
+  "text": "tietosuoja@example.fi",
+  "kind": "url"
+ }
+]

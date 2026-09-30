@@ -1,0 +1,3026 @@
+[
+ {
+  "file": "code/firmware.rs",
+  "line": 4,
+  "column": 49,
+  "end_column": 54,
+  "text": "CRC32",
+  "kind": "acronym"
+ },
+ {
+  "file": "code/firmware.rs",
+  "line": 11,
+  "column": 30,
+  "end_column": 36,
+  "text": "`K2FW`",
+  "kind": "identifier"
+ },
+ {
+  "file": "code/firmware.rs",
+  "line": 11,
+  "column": 40,
+  "end_column": 45,
+  "text": "ASCII",
+  "kind": "acronym"
+ },
+ {
+  "file": "code/firmware.rs",
+  "line": 13,
+  "column": 40,
+  "end_column": 45,
+  "text": "240kB",
+  "kind": "unit"
+ },
+ {
+  "file": "code/firmware.rs",
+  "line": 48,
+  "column": 74,
+  "end_column": 78,
+  "text": "40ms",
+  "kind": "unit"
+ },
+ {
+  "file": "code/firmware.rs",
+  "line": 51,
+  "column": 74,
+  "end_column": 82,
+  "text": "`unsafe`",
+  "kind": "code"
+ },
+ {
+  "file": "code/firmware.rs",
+  "line": 75,
+  "column": 4,
+  "end_column": 7,
+  "text": "1kB",
+  "kind": "unit"
+ },
+ {
+  "file": "code/firmware.rs",
+  "line": 75,
+  "column": 46,
+  "end_column": 50,
+  "text": "LoRa",
+  "kind": "product"
+ },
+ {
+  "file": "code/pipeline.py",
+  "line": 4,
+  "column": 14,
+  "end_column": 24,
+  "text": "idempotent",
+  "kind": "term"
+ },
+ {
+  "file": "code/pipeline.py",
+  "line": 5,
+  "column": 79,
+  "end_column": 81,
+  "text": "2%",
+  "kind": "unit"
+ },
+ {
+  "file": "code/pipeline.py",
+  "line": 16,
+  "column": 63,
+  "end_column": 73,
+  "text": "30 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "code/pipeline.py",
+  "line": 43,
+  "column": 27,
+  "end_column": 32,
+  "text": "180GB",
+  "kind": "unit"
+ },
+ {
+  "file": "code/pipeline.py",
+  "line": 83,
+  "column": 7,
+  "end_column": 10,
+  "text": "ISO",
+  "kind": "acronym"
+ },
+ {
+  "file": "code/sdk.ts",
+  "line": 4,
+  "column": 27,
+  "end_column": 36,
+  "text": "IndexedDB",
+  "kind": "product"
+ },
+ {
+  "file": "code/sdk.ts",
+  "line": 4,
+  "column": 63,
+  "end_column": 65,
+  "text": "50",
+  "kind": "unit"
+ },
+ {
+  "file": "code/sdk.ts",
+  "line": 5,
+  "column": 4,
+  "end_column": 7,
+  "text": "30s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 5,
+  "column": 11,
+  "end_column": 23,
+  "text": "Maja Wiklund",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 5,
+  "column": 25,
+  "end_column": 39,
+  "text": "Ilkka Saarinen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 9,
+  "column": 26,
+  "end_column": 35,
+  "text": "scheduler",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 9,
+  "column": 40,
+  "end_column": 42,
+  "text": "60",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 10,
+  "column": 1,
+  "end_column": 9,
+  "text": "RabbitMQ",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 10,
+  "column": 70,
+  "end_column": 81,
+  "text": "split-brain",
+  "kind": "term"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 11,
+  "column": 45,
+  "end_column": 51,
+  "text": "Erlang",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 12,
+  "column": 47,
+  "end_column": 58,
+  "text": "2,000 msg/s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 12,
+  "column": 65,
+  "end_column": 68,
+  "text": "4kB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 18,
+  "column": 4,
+  "end_column": 9,
+  "text": "Kafka",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 20,
+  "column": 4,
+  "end_column": 18,
+  "text": "NATS JetStream",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 20,
+  "column": 27,
+  "end_column": 29,
+  "text": "Go",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 20,
+  "column": 38,
+  "end_column": 42,
+  "text": "Raft",
+  "kind": "term"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 25,
+  "column": 60,
+  "end_column": 77,
+  "text": "`WorkQueuePolicy`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 26,
+  "column": 1,
+  "end_column": 4,
+  "text": "30s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 31,
+  "column": 19,
+  "end_column": 23,
+  "text": "AMQP",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 37,
+  "column": 56,
+  "end_column": 68,
+  "text": "`created_at`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 39,
+  "column": 47,
+  "end_column": 49,
+  "text": "UI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 39,
+  "column": 53,
+  "end_column": 63,
+  "text": "Prometheus",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 44,
+  "column": 51,
+  "end_column": 54,
+  "text": "gp3",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 45,
+  "column": 3,
+  "end_column": 13,
+  "text": "6,000 IOPS",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 45,
+  "column": 48,
+  "end_column": 51,
+  "text": "10x",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 47,
+  "column": 24,
+  "end_column": 29,
+  "text": "Diego",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 48,
+  "column": 24,
+  "end_column": 30,
+  "text": "Elixir",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 53,
+  "column": 1,
+  "end_column": 4,
+  "text": "SQS",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 54,
+  "column": 31,
+  "end_column": 34,
+  "text": "p99",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 54,
+  "column": 55,
+  "end_column": 60,
+  "text": "120ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 54,
+  "column": 68,
+  "end_column": 71,
+  "text": "4ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-007-message-queue.md",
+  "line": 55,
+  "column": 40,
+  "end_column": 86,
+  "text": "Also, nobody wanted another IAM policy review.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 5,
+  "column": 3,
+  "end_column": 9,
+  "text": "Kotlin",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 5,
+  "column": 35,
+  "end_column": 42,
+  "text": "Android",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 5,
+  "column": 47,
+  "end_column": 50,
+  "text": "iOS",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 6,
+  "column": 54,
+  "end_column": 61,
+  "text": "2027-06",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 7,
+  "column": 80,
+  "end_column": 82,
+  "text": "50",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 8,
+  "column": 3,
+  "end_column": 6,
+  "text": "30s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 9,
+  "column": 7,
+  "end_column": 24,
+  "text": "`Consent.limited`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 13,
+  "column": 20,
+  "end_column": 23,
+  "text": "iOS",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 13,
+  "column": 24,
+  "end_column": 28,
+  "text": "17.4",
+  "kind": "version"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 14,
+  "column": 30,
+  "end_column": 37,
+  "text": "`-ObjC`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 18,
+  "column": 26,
+  "end_column": 31,
+  "text": "1.1MB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 18,
+  "column": 35,
+  "end_column": 42,
+  "text": "Android",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 18,
+  "column": 67,
+  "end_column": 75,
+  "text": "protobuf",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 19,
+  "column": 3,
+  "end_column": 15,
+  "text": "`identify()`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 19,
+  "column": 51,
+  "end_column": 59,
+  "text": "`init()`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 23,
+  "column": 56,
+  "end_column": 66,
+  "text": "30 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 24,
+  "column": 47,
+  "end_column": 56,
+  "text": "5 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 25,
+  "column": 16,
+  "end_column": 23,
+  "text": "Android",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 29,
+  "column": 24,
+  "end_column": 36,
+  "text": "`ScreenView`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 29,
+  "column": 62,
+  "end_column": 75,
+  "text": "`screen_veiw`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 34,
+  "column": 9,
+  "end_column": 18,
+  "text": "`flush()`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 35,
+  "column": 7,
+  "end_column": 10,
+  "text": "SDK",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 35,
+  "column": 24,
+  "end_column": 37,
+  "text": "`Retry-After`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 40,
+  "column": 3,
+  "end_column": 9,
+  "text": "Gradle",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 40,
+  "column": 10,
+  "end_column": 13,
+  "text": "8.7",
+  "kind": "version"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 40,
+  "column": 37,
+  "end_column": 40,
+  "text": "API",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-mobile-sdk.md",
+  "line": 40,
+  "column": 56,
+  "end_column": 58,
+  "text": "24",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 3,
+  "column": 44,
+  "end_column": 58,
+  "text": "Raspberry Pi 4",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 3,
+  "column": 66,
+  "end_column": 71,
+  "text": "Linux",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 4,
+  "column": 7,
+  "end_column": 13,
+  "text": "Zigbee",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 4,
+  "column": 15,
+  "end_column": 21,
+  "text": "Z-Wave",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 4,
+  "column": 23,
+  "end_column": 29,
+  "text": "Matter",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 4,
+  "column": 34,
+  "end_column": 38,
+  "text": "MQTT",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 5,
+  "column": 17,
+  "end_column": 21,
+  "text": "YAML",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 5,
+  "column": 31,
+  "end_column": 33,
+  "text": "UI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 26,
+  "column": 25,
+  "end_column": 31,
+  "text": "ConBee",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 26,
+  "column": 35,
+  "end_column": 45,
+  "text": "SkyConnect",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 26,
+  "column": 55,
+  "end_column": 67,
+  "text": "/dev/ttyUSB0",
+  "kind": "path"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 27,
+  "column": 43,
+  "end_column": 55,
+  "text": "`radio.port`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 31,
+  "column": 25,
+  "end_column": 27,
+  "text": "UI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 31,
+  "column": 36,
+  "end_column": 62,
+  "text": "`hearth pair --timeout 60`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 35,
+  "column": 68,
+  "end_column": 74,
+  "text": "Zigbee",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 42,
+  "column": 3,
+  "end_column": 12,
+  "text": "`trigger`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 42,
+  "column": 15,
+  "end_column": 48,
+  "text": "state change, time, or MQTT topic",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 43,
+  "column": 3,
+  "end_column": 14,
+  "text": "`condition`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 43,
+  "column": 17,
+  "end_column": 58,
+  "text": "optional; all listed conditions must hold",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 44,
+  "column": 3,
+  "end_column": 11,
+  "text": "`action`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 44,
+  "column": 14,
+  "end_column": 27,
+  "text": "one or a list",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 45,
+  "column": 3,
+  "end_column": 13,
+  "text": "`cooldown`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 45,
+  "column": 16,
+  "end_column": 55,
+  "text": "minimum time between runs, default `0s`",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 54,
+  "column": 1,
+  "end_column": 10,
+  "text": "Tailscale",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 54,
+  "column": 14,
+  "end_column": 23,
+  "text": "WireGuard",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 55,
+  "column": 1,
+  "end_column": 3,
+  "text": "UI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 59,
+  "column": 3,
+  "end_column": 80,
+  "text": "Zigbee and 2.4GHz Wi-Fi share a band; keep the stick on a USB extension cable",
+  "kind": "list"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 60,
+  "column": 3,
+  "end_column": 48,
+  "text": "SD cards wear out; log to tmpfs or use an SSD",
+  "kind": "list"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 61,
+  "column": 3,
+  "end_column": 32,
+  "text": "Pi 3 works but the UI is slow",
+  "kind": "list"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 65,
+  "column": 10,
+  "end_column": 37,
+  "text": "https://talk.hearth.example",
+  "kind": "url"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 66,
+  "column": 25,
+  "end_column": 39,
+  "text": "Linnéa Åkesson",
+  "kind": "name"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 66,
+  "column": 44,
+  "end_column": 59,
+  "text": "Juhani Kettunen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/README-hearth.md",
+  "line": 67,
+  "column": 1,
+  "end_column": 32,
+  "text": "Be nice, it is a hobby project.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 3,
+  "column": 51,
+  "end_column": 54,
+  "text": "PNG",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 3,
+  "column": 56,
+  "end_column": 60,
+  "text": "JPEG",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 3,
+  "column": 62,
+  "end_column": 66,
+  "text": "WebP",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 3,
+  "column": 68,
+  "end_column": 72,
+  "text": "AVIF",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 4,
+  "column": 5,
+  "end_column": 9,
+  "text": "HEIC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 4,
+  "column": 36,
+  "end_column": 39,
+  "text": "SVG",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 4,
+  "column": 74,
+  "end_column": 85,
+  "text": "ImageMagick",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 5,
+  "column": 20,
+  "end_column": 23,
+  "text": "6MB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 13,
+  "column": 23,
+  "end_column": 28,
+  "text": "Linux",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 13,
+  "column": 40,
+  "end_column": 47,
+  "text": "Windows",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 14,
+  "column": 13,
+  "end_column": 17,
+  "text": "HEIC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 14,
+  "column": 36,
+  "end_column": 45,
+  "text": "Microsoft",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 14,
+  "column": 46,
+  "end_column": 50,
+  "text": "HEVC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 24,
+  "column": 37,
+  "end_column": 46,
+  "text": "`--force`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 29,
+  "column": 3,
+  "end_column": 14,
+  "text": "`--quality`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 29,
+  "column": 17,
+  "end_column": 19,
+  "text": "80",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 29,
+  "column": 22,
+  "end_column": 41,
+  "text": "Lossy encoders only",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 30,
+  "column": 3,
+  "end_column": 13,
+  "text": "`--resize`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 30,
+  "column": 16,
+  "end_column": 20,
+  "text": "none",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 30,
+  "column": 23,
+  "end_column": 42,
+  "text": "`WxH`, `Wx` or `xH`",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 31,
+  "column": 3,
+  "end_column": 14,
+  "text": "`--threads`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 31,
+  "column": 17,
+  "end_column": 26,
+  "text": "CPU count",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 31,
+  "column": 29,
+  "end_column": 41,
+  "text": "0 means auto",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 32,
+  "column": 3,
+  "end_column": 12,
+  "text": "`--strip`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 32,
+  "column": 15,
+  "end_column": 18,
+  "text": "off",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 32,
+  "column": 21,
+  "end_column": 38,
+  "text": "Drop EXIF and ICC",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 36,
+  "column": 10,
+  "end_column": 13,
+  "text": "ICC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 37,
+  "column": 1,
+  "end_column": 5,
+  "text": "sRGB",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 38,
+  "column": 41,
+  "end_column": 50,
+  "text": "`--strip`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 39,
+  "column": 29,
+  "end_column": 30,
+  "text": "3",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 39,
+  "column": 34,
+  "end_column": 38,
+  "text": "10kB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 43,
+  "column": 3,
+  "end_column": 7,
+  "text": "24MP",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 43,
+  "column": 8,
+  "end_column": 12,
+  "text": "JPEG",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 43,
+  "column": 16,
+  "end_column": 20,
+  "text": "AVIF",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 43,
+  "column": 33,
+  "end_column": 37,
+  "text": "1.4s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 46,
+  "column": 17,
+  "end_column": 23,
+  "text": "20,000",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 50,
+  "column": 3,
+  "end_column": 26,
+  "text": "No animated WebP or GIF",
+  "kind": "list"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 51,
+  "column": 3,
+  "end_column": 49,
+  "text": "SVG rasterization ignores external stylesheets",
+  "kind": "list"
+ },
+ {
+  "file": "docs/README-imgconv.md",
+  "line": 52,
+  "column": 3,
+  "end_column": 67,
+  "text": "CMYK JPEGs are converted to RGB, which may shift colors slightly",
+  "kind": "list"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 3,
+  "column": 82,
+  "end_column": 85,
+  "text": "AST",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 4,
+  "column": 65,
+  "end_column": 69,
+  "text": "Rust",
+  "kind": "product"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 5,
+  "column": 1,
+  "end_column": 9,
+  "text": "`cdylib`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 5,
+  "column": 15,
+  "end_column": 18,
+  "text": "ABI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 28,
+  "column": 12,
+  "end_column": 35,
+  "text": "`cargo build --release`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 28,
+  "column": 46,
+  "end_column": 61,
+  "text": "`lints.plugins`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 28,
+  "column": 65,
+  "end_column": 76,
+  "text": "tinycc.toml",
+  "kind": "path"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 29,
+  "column": 11,
+  "end_column": 14,
+  "text": ".so",
+  "kind": "path"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 29,
+  "column": 18,
+  "end_column": 24,
+  "text": ".dylib",
+  "kind": "path"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 29,
+  "column": 50,
+  "end_column": 53,
+  "text": "ABI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 30,
+  "column": 43,
+  "end_column": 56,
+  "text": "`tinycc_lint`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 34,
+  "column": 1,
+  "end_column": 8,
+  "text": "`visit`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 35,
+  "column": 1,
+  "end_column": 11,
+  "text": "`enter_fn`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 35,
+  "column": 16,
+  "end_column": 26,
+  "text": "`leave_fn`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 38,
+  "column": 8,
+  "end_column": 12,
+  "text": "400k",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 38,
+  "column": 18,
+  "end_column": 24,
+  "text": "kernel",
+  "kind": "product"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 43,
+  "column": 1,
+  "end_column": 13,
+  "text": "`tinycc fix`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 43,
+  "column": 31,
+  "end_column": 52,
+  "text": "`Applicability::Safe`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 45,
+  "column": 1,
+  "end_column": 20,
+  "text": "`unused variable x`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 49,
+  "column": 36,
+  "end_column": 47,
+  "text": "tinycc.toml",
+  "kind": "path"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 49,
+  "column": 53,
+  "end_column": 57,
+  "text": "TOML",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 55,
+  "column": 1,
+  "end_column": 41,
+  "text": "`tinycc_lint::test::check(source, lint)`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 56,
+  "column": 43,
+  "end_column": 48,
+  "text": "insta",
+  "kind": "product"
+ },
+ {
+  "file": "docs/compiler-plugin.md",
+  "line": 63,
+  "column": 35,
+  "end_column": 91,
+  "text": "We tried prebuilt in 0.4 and regretted it within a week.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 3,
+  "column": 29,
+  "end_column": 36,
+  "text": "LoRaWAN",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 3,
+  "column": 50,
+  "end_column": 57,
+  "text": "STM32L4",
+  "kind": "product"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 3,
+  "column": 62,
+  "end_column": 67,
+  "text": "512kB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 4,
+  "column": 37,
+  "end_column": 45,
+  "text": "200 byte",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 4,
+  "column": 64,
+  "end_column": 67,
+  "text": "USB",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 9,
+  "column": 3,
+  "end_column": 64,
+  "text": "Battery above 40%; the bootloader refuses to flash below that",
+  "kind": "list"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 10,
+  "column": 3,
+  "end_column": 64,
+  "text": "Firmware image signed with the production key (`k2-prod.pem`)",
+  "kind": "list"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 11,
+  "column": 3,
+  "end_column": 59,
+  "text": "Node not in deep sleep; press the button once to wake it",
+  "kind": "list"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 13,
+  "column": 39,
+  "end_column": 44,
+  "text": "CRC32",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 15,
+  "column": 16,
+  "end_column": 21,
+  "text": "there",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 19,
+  "column": 48,
+  "end_column": 98,
+  "text": "`k2ctl fw push --group orchard-north k2-2.7.1.bin`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 20,
+  "column": 80,
+  "end_column": 83,
+  "text": "95%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 21,
+  "column": 26,
+  "end_column": 36,
+  "text": "40 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 26,
+  "column": 42,
+  "end_column": 49,
+  "text": "2 hours",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 28,
+  "column": 47,
+  "end_column": 50,
+  "text": "USB",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 32,
+  "column": 43,
+  "end_column": 45,
+  "text": "3s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 32,
+  "column": 56,
+  "end_column": 59,
+  "text": "LED",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 43,
+  "column": 63,
+  "end_column": 66,
+  "text": "USB",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 44,
+  "column": 26,
+  "end_column": 29,
+  "text": "ROM",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 50,
+  "column": 3,
+  "end_column": 8,
+  "text": "2.7.x",
+  "kind": "version"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 50,
+  "column": 11,
+  "end_column": 15,
+  "text": "1.9+",
+  "kind": "version"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 50,
+  "column": 18,
+  "end_column": 25,
+  "text": "Current",
+  "kind": "table"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 51,
+  "column": 3,
+  "end_column": 8,
+  "text": "2.6.x",
+  "kind": "version"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 51,
+  "column": 11,
+  "end_column": 15,
+  "text": "1.8+",
+  "kind": "version"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 51,
+  "column": 18,
+  "end_column": 46,
+  "text": "Security fixes until 2027-01",
+  "kind": "table"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 52,
+  "column": 3,
+  "end_column": 8,
+  "text": "2.5.x",
+  "kind": "version"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 52,
+  "column": 11,
+  "end_column": 14,
+  "text": "any",
+  "kind": "table"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 52,
+  "column": 17,
+  "end_column": 28,
+  "text": "End of life",
+  "kind": "table"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 59,
+  "column": 11,
+  "end_column": 25,
+  "text": "Eero Lindqvist",
+  "kind": "name"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 59,
+  "column": 43,
+  "end_column": 55,
+  "text": "Maja Wiklund",
+  "kind": "name"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 60,
+  "column": 1,
+  "end_column": 5,
+  "text": "Oulu",
+  "kind": "name"
+ },
+ {
+  "file": "docs/firmware-update-guide.md",
+  "line": 60,
+  "column": 7,
+  "end_column": 20,
+  "text": "Aino Rantanen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 3,
+  "column": 29,
+  "end_column": 31,
+  "text": "Go",
+  "kind": "product"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 3,
+  "column": 75,
+  "end_column": 84,
+  "text": "allocator",
+  "kind": "product"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 4,
+  "column": 17,
+  "end_column": 28,
+  "text": "c7g.2xlarge",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 5,
+  "column": 1,
+  "end_column": 3,
+  "text": "64",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 5,
+  "column": 24,
+  "end_column": 34,
+  "text": "25 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 5,
+  "column": 48,
+  "end_column": 52,
+  "text": "30Hz",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 9,
+  "column": 21,
+  "end_column": 24,
+  "text": "15%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 9,
+  "column": 74,
+  "end_column": 76,
+  "text": "8%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 10,
+  "column": 45,
+  "end_column": 54,
+  "text": "3 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 12,
+  "column": 36,
+  "end_column": 43,
+  "text": "Grafana",
+  "kind": "product"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 12,
+  "column": 60,
+  "end_column": 69,
+  "text": "Frankfurt",
+  "kind": "name"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 13,
+  "column": 1,
+  "end_column": 10,
+  "text": "Stockholm",
+  "kind": "name"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 14,
+  "column": 16,
+  "end_column": 20,
+  "text": "20ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 14,
+  "column": 24,
+  "end_column": 28,
+  "text": "45ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 20,
+  "column": 38,
+  "end_column": 48,
+  "text": "40 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 23,
+  "column": 23,
+  "end_column": 32,
+  "text": "`E_PROTO`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 24,
+  "column": 1,
+  "end_column": 4,
+  "text": "90%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 30,
+  "column": 2,
+  "end_column": 5,
+  "text": "two",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 35,
+  "column": 45,
+  "end_column": 48,
+  "text": "NLB",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 36,
+  "column": 19,
+  "end_column": 23,
+  "text": "28Hz",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 38,
+  "column": 3,
+  "end_column": 24,
+  "text": "`#matchmaking-oncall`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 42,
+  "column": 22,
+  "end_column": 23,
+  "text": "2",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 42,
+  "column": 27,
+  "end_column": 30,
+  "text": "8MB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 42,
+  "column": 41,
+  "end_column": 43,
+  "text": "S3",
+  "kind": "product"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 42,
+  "column": 50,
+  "end_column": 86,
+  "text": "`replays/<region>/<date>/<match_id>`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 43,
+  "column": 21,
+  "end_column": 28,
+  "text": "14 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 44,
+  "column": 1,
+  "end_column": 5,
+  "text": "Loki",
+  "kind": "product"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 44,
+  "column": 15,
+  "end_column": 25,
+  "text": "`match_id`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 45,
+  "column": 16,
+  "end_column": 33,
+  "text": "`LOG_LEVEL=debug`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 49,
+  "column": 22,
+  "end_column": 35,
+  "text": "Aino Rantanen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 49,
+  "column": 47,
+  "end_column": 59,
+  "text": "Diego Ortega",
+  "kind": "name"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 50,
+  "column": 1,
+  "end_column": 13,
+  "text": "Maja Wiklund",
+  "kind": "name"
+ },
+ {
+  "file": "docs/game-server-ops.md",
+  "line": 50,
+  "column": 49,
+  "end_column": 66,
+  "text": "`#player-reports`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 3,
+  "column": 20,
+  "end_column": 34,
+  "text": "db/migrations/",
+  "kind": "path"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 5,
+  "column": 1,
+  "end_column": 11,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 5,
+  "column": 12,
+  "end_column": 15,
+  "text": "15+",
+  "kind": "version"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 5,
+  "column": 20,
+  "end_column": 24,
+  "text": "sqlx",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 10,
+  "column": 45,
+  "end_column": 51,
+  "text": "10,000",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 14,
+  "column": 51,
+  "end_column": 53,
+  "text": "14",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 15,
+  "column": 1,
+  "end_column": 11,
+  "text": "`legacy_*`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 19,
+  "column": 1,
+  "end_column": 29,
+  "text": "`ALTER TABLE ... ADD COLUMN`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 19,
+  "column": 71,
+  "end_column": 73,
+  "text": "11",
+  "kind": "version"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 20,
+  "column": 1,
+  "end_column": 11,
+  "text": "`NOT NULL`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 21,
+  "column": 1,
+  "end_column": 19,
+  "text": "`ACCESS EXCLUSIVE`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 21,
+  "column": 36,
+  "end_column": 47,
+  "text": "`NOT VALID`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 21,
+  "column": 60,
+  "end_column": 70,
+  "text": "`VALIDATE`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 22,
+  "column": 43,
+  "end_column": 67,
+  "text": "`SHARE UPDATE EXCLUSIVE`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 24,
+  "column": 20,
+  "end_column": 47,
+  "text": "`CREATE INDEX CONCURRENTLY`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 25,
+  "column": 25,
+  "end_column": 49,
+  "text": "`-- sqlx:no-transaction`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 28,
+  "column": 5,
+  "end_column": 26,
+  "text": "`lock_timeout = '5s'`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 40,
+  "column": 1,
+  "end_column": 27,
+  "text": "`ALTER TYPE ... ADD VALUE`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 40,
+  "column": 63,
+  "end_column": 65,
+  "text": "12",
+  "kind": "version"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 41,
+  "column": 74,
+  "end_column": 80,
+  "text": "`text`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 42,
+  "column": 8,
+  "end_column": 15,
+  "text": "`CHECK`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 47,
+  "column": 3,
+  "end_column": 21,
+  "text": "`lock_timeout` set",
+  "kind": "list"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 48,
+  "column": 3,
+  "end_column": 54,
+  "text": "No `ACCESS EXCLUSIVE` lock on a table above 1M rows",
+  "kind": "list"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 49,
+  "column": 3,
+  "end_column": 33,
+  "text": "Backfill batched and resumable",
+  "kind": "list"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 50,
+  "column": 3,
+  "end_column": 52,
+  "text": "Contract migration written, dated, and reversible",
+  "kind": "list"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 51,
+  "column": 3,
+  "end_column": 85,
+  "text": "Tested against a copy of production with `pg_dump --schema-only` plus sampled data",
+  "kind": "list"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 54,
+  "column": 38,
+  "end_column": 42,
+  "text": "2024",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-schema-migrations.md",
+  "line": 54,
+  "column": 49,
+  "end_column": 59,
+  "text": "40 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 4,
+  "column": 63,
+  "end_column": 70,
+  "text": "Tampere",
+  "kind": "name"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 10,
+  "column": 3,
+  "end_column": 9,
+  "text": "Coding",
+  "kind": "table"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 10,
+  "column": 12,
+  "end_column": 18,
+  "text": "60 min",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 10,
+  "column": 21,
+  "end_column": 69,
+  "text": "Small realistic task in the candidate's language",
+  "kind": "table"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 11,
+  "column": 3,
+  "end_column": 9,
+  "text": "Design",
+  "kind": "table"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 11,
+  "column": 12,
+  "end_column": 18,
+  "text": "60 min",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 11,
+  "column": 21,
+  "end_column": 53,
+  "text": "One system, pushed on trade-offs",
+  "kind": "table"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 12,
+  "column": 3,
+  "end_column": 12,
+  "text": "Debugging",
+  "kind": "table"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 12,
+  "column": 15,
+  "end_column": 21,
+  "text": "45 min",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 12,
+  "column": 24,
+  "end_column": 56,
+  "text": "A real past incident, anonymized",
+  "kind": "table"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 13,
+  "column": 3,
+  "end_column": 9,
+  "text": "Values",
+  "kind": "table"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 13,
+  "column": 12,
+  "end_column": 18,
+  "text": "45 min",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 13,
+  "column": 21,
+  "end_column": 46,
+  "text": "How they work with others",
+  "kind": "table"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 24,
+  "column": 49,
+  "end_column": 51,
+  "text": "AI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 30,
+  "column": 128,
+  "end_column": 131,
+  "text": "10x",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 31,
+  "column": 23,
+  "end_column": 30,
+  "text": "primary",
+  "kind": "term"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 50,
+  "column": 36,
+  "end_column": 44,
+  "text": "48 hours",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 51,
+  "column": 1,
+  "end_column": 85,
+  "text": "If the panel splits two and two, we hire nobody and fix the loop, not the candidate.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 55,
+  "column": 19,
+  "end_column": 27,
+  "text": "Helsinki",
+  "kind": "name"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 55,
+  "column": 29,
+  "end_column": 36,
+  "text": "Tampere",
+  "kind": "name"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 55,
+  "column": 41,
+  "end_column": 50,
+  "text": "Stockholm",
+  "kind": "name"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 55,
+  "column": 59,
+  "end_column": 73,
+  "text": "Sofia Lindgren",
+  "kind": "name"
+ },
+ {
+  "file": "docs/interview-loop.md",
+  "line": 56,
+  "column": 20,
+  "end_column": 34,
+  "text": "Ilkka Saarinen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 3,
+  "column": 12,
+  "end_column": 26,
+  "text": "Eero Lindqvist",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 3,
+  "column": 28,
+  "end_column": 42,
+  "text": "Sofia Lindgren",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 3,
+  "column": 44,
+  "end_column": 56,
+  "text": "Diego Ortega",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 3,
+  "column": 58,
+  "end_column": 71,
+  "text": "Aino Rantanen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 4,
+  "column": 9,
+  "end_column": 21,
+  "text": "Maja Wiklund",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 8,
+  "column": 4,
+  "end_column": 30,
+  "text": "JetStream migration status",
+  "kind": "list"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 9,
+  "column": 4,
+  "end_column": 17,
+  "text": "Storage costs",
+  "kind": "list"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 10,
+  "column": 4,
+  "end_column": 23,
+  "text": "Summer on-call rota",
+  "kind": "list"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 11,
+  "column": 4,
+  "end_column": 40,
+  "text": "Open source release of the allocator",
+  "kind": "list"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 15,
+  "column": 40,
+  "end_column": 41,
+  "text": "3",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 15,
+  "column": 45,
+  "end_column": 46,
+  "text": "7",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 16,
+  "column": 1,
+  "end_column": 6,
+  "text": "Diego",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 16,
+  "column": 53,
+  "end_column": 58,
+  "text": "Sofia",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 17,
+  "column": 35,
+  "end_column": 43,
+  "text": "Thursday",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 20,
+  "column": 9,
+  "end_column": 14,
+  "text": "Diego",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 20,
+  "column": 32,
+  "end_column": 33,
+  "text": "4",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 20,
+  "column": 37,
+  "end_column": 38,
+  "text": "6",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 20,
+  "column": 42,
+  "end_column": 52,
+  "text": "2026-06-11",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 20,
+  "column": 60,
+  "end_column": 61,
+  "text": "7",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 20,
+  "column": 65,
+  "end_column": 75,
+  "text": "2026-06-13",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 24,
+  "column": 21,
+  "end_column": 25,
+  "text": "$11k",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 24,
+  "column": 41,
+  "end_column": 44,
+  "text": "30%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 25,
+  "column": 56,
+  "end_column": 60,
+  "text": "Eero",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 26,
+  "column": 1,
+  "end_column": 8,
+  "text": "90 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 26,
+  "column": 34,
+  "end_column": 38,
+  "text": "Aino",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 29,
+  "column": 32,
+  "end_column": 36,
+  "text": "Aino",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 34,
+  "column": 20,
+  "end_column": 25,
+  "text": "Sofia",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 34,
+  "column": 64,
+  "end_column": 68,
+  "text": "Eero",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 36,
+  "column": 65,
+  "end_column": 69,
+  "text": "Aino",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 41,
+  "column": 19,
+  "end_column": 22,
+  "text": "MIT",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 43,
+  "column": 3,
+  "end_column": 36,
+  "text": "Remove the hard-coded region list",
+  "kind": "list"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 44,
+  "column": 3,
+  "end_column": 53,
+  "text": "Scrub commit history of the two internal hostnames",
+  "kind": "list"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 45,
+  "column": 3,
+  "end_column": 44,
+  "text": "Write a README that a stranger can follow",
+  "kind": "list"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 47,
+  "column": 1,
+  "end_column": 6,
+  "text": "Diego",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 47,
+  "column": 36,
+  "end_column": 41,
+  "text": "Sofia",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 48,
+  "column": 24,
+  "end_column": 41,
+  "text": "`match-allocator`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 48,
+  "column": 61,
+  "end_column": 76,
+  "text": "`example-games`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 52,
+  "column": 3,
+  "end_column": 91,
+  "text": "Someone please fix the meeting room display, it has shown the same calendar since April.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 53,
+  "column": 3,
+  "end_column": 7,
+  "text": "Maja",
+  "kind": "name"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 53,
+  "column": 48,
+  "end_column": 54,
+  "text": "Erlang",
+  "kind": "product"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 56,
+  "column": 12,
+  "end_column": 22,
+  "text": "2026-06-16",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/meeting-notes-2026-06-09.md",
+  "line": 56,
+  "column": 44,
+  "end_column": 48,
+  "text": "Aino",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 4,
+  "column": 42,
+  "end_column": 49,
+  "text": "Airflow",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 4,
+  "column": 60,
+  "end_column": 68,
+  "text": "BigQuery",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 5,
+  "column": 21,
+  "end_column": 29,
+  "text": "400 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 5,
+  "column": 33,
+  "end_column": 47,
+  "text": "`raw.events_*`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 10,
+  "column": 47,
+  "end_column": 52,
+  "text": "180GB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 10,
+  "column": 59,
+  "end_column": 65,
+  "text": "90 day",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 11,
+  "column": 9,
+  "end_column": 12,
+  "text": "$80",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 12,
+  "column": 24,
+  "end_column": 31,
+  "text": "30 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 20,
+  "column": 1,
+  "end_column": 18,
+  "text": "`--reset-dagruns`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 21,
+  "column": 54,
+  "end_column": 57,
+  "text": "DAG",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 22,
+  "column": 1,
+  "end_column": 2,
+  "text": "8",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 22,
+  "column": 36,
+  "end_column": 46,
+  "text": "`backfill`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 24,
+  "column": 7,
+  "end_column": 21,
+  "text": "`#data-alerts`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 24,
+  "column": 55,
+  "end_column": 64,
+  "text": "10 minute",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 29,
+  "column": 1,
+  "end_column": 17,
+  "text": "`marts.sessions`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 29,
+  "column": 22,
+  "end_column": 37,
+  "text": "`marts.revenue`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 29,
+  "column": 53,
+  "end_column": 67,
+  "text": "`events_daily`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 30,
+  "column": 45,
+  "end_column": 48,
+  "text": "DAG",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 31,
+  "column": 1,
+  "end_column": 11,
+  "text": "`backfill`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 44,
+  "column": 29,
+  "end_column": 31,
+  "text": "2%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 49,
+  "column": 16,
+  "end_column": 30,
+  "text": "`raw.events_*`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 50,
+  "column": 1,
+  "end_column": 8,
+  "text": "Pub/Sub",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 51,
+  "column": 26,
+  "end_column": 77,
+  "text": "Yes, even the \"quick check\" ones. Especially those.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 55,
+  "column": 11,
+  "end_column": 25,
+  "text": "Ilkka Saarinen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 55,
+  "column": 34,
+  "end_column": 48,
+  "text": "Sofia Lindgren",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-pipeline-backfill.md",
+  "line": 55,
+  "column": 71,
+  "end_column": 83,
+  "text": "`#data-cost`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 3,
+  "column": 13,
+  "end_column": 17,
+  "text": "GHSA",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 4,
+  "column": 17,
+  "end_column": 21,
+  "text": "CVSS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 4,
+  "column": 22,
+  "end_column": 25,
+  "text": "7.5",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 5,
+  "column": 11,
+  "end_column": 15,
+  "text": "tplr",
+  "kind": "product"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 5,
+  "column": 16,
+  "end_column": 21,
+  "text": "0.9.0",
+  "kind": "version"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 5,
+  "column": 30,
+  "end_column": 35,
+  "text": "1.3.2",
+  "kind": "version"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 6,
+  "column": 11,
+  "end_column": 16,
+  "text": "1.3.3",
+  "kind": "version"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 6,
+  "column": 18,
+  "end_column": 23,
+  "text": "1.2.8",
+  "kind": "version"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 10,
+  "column": 5,
+  "end_column": 20,
+  "text": "`{% include %}`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 11,
+  "column": 1,
+  "end_column": 5,
+  "text": "`..`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 12,
+  "column": 43,
+  "end_column": 54,
+  "text": "/etc/passwd",
+  "kind": "path"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 12,
+  "column": 58,
+  "end_column": 62,
+  "text": ".env",
+  "kind": "path"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 25,
+  "column": 3,
+  "end_column": 13,
+  "text": "2026-02-03",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 25,
+  "column": 16,
+  "end_column": 31,
+  "text": "Report received",
+  "kind": "table"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 25,
+  "column": 37,
+  "end_column": 50,
+  "text": "Vesa Heikkilä",
+  "kind": "name"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 26,
+  "column": 3,
+  "end_column": 13,
+  "text": "2026-02-04",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 26,
+  "column": 16,
+  "end_column": 38,
+  "text": "Confirmed; fix drafted",
+  "kind": "table"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 27,
+  "column": 3,
+  "end_column": 13,
+  "text": "2026-02-10",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 27,
+  "column": 16,
+  "end_column": 61,
+  "text": "Releases published; advisory embargoed 7 days",
+  "kind": "table"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 28,
+  "column": 3,
+  "end_column": 13,
+  "text": "2026-02-17",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 28,
+  "column": 16,
+  "end_column": 22,
+  "text": "Public",
+  "kind": "table"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 32,
+  "column": 32,
+  "end_column": 52,
+  "text": "`Path::components()`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 32,
+  "column": 61,
+  "end_column": 72,
+  "text": "`ParentDir`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 38,
+  "column": 28,
+  "end_column": 53,
+  "text": "`Loader::sandboxed(true)`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 38,
+  "column": 71,
+  "end_column": 74,
+  "text": "0.9",
+  "kind": "version"
+ },
+ {
+  "file": "docs/security-advisory-2026-02.md",
+  "line": 43,
+  "column": 11,
+  "end_column": 24,
+  "text": "Vesa Heikkilä",
+  "kind": "name"
+ }
+]

@@ -1,0 +1,1757 @@
+[
+ {
+  "file": "code/csvsplit.rs",
+  "line": 4,
+  "column": 48,
+  "end_column": 51,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 5,
+  "column": 5,
+  "end_column": 9,
+  "text": "then",
+  "category": "then_than",
+  "correction": "than"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 12,
+  "column": 65,
+  "end_column": 70,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 13,
+  "column": 15,
+  "end_column": 21,
+  "text": "An row",
+  "category": "a_an",
+  "correction": "A row"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 13,
+  "column": 22,
+  "end_column": 27,
+  "text": "who's",
+  "category": "homophone",
+  "correction": "whose"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 14,
+  "column": 5,
+  "end_column": 7,
+  "text": "go",
+  "category": "agreement",
+  "correction": "goes"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 28,
+  "column": 42,
+  "end_column": 48,
+  "text": "You're",
+  "category": "your_youre",
+  "correction": "Your"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 28,
+  "column": 65,
+  "end_column": 70,
+  "text": "break",
+  "category": "agreement",
+  "correction": "breaks"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 29,
+  "column": 72,
+  "end_column": 75,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 52,
+  "column": 41,
+  "end_column": 98,
+  "text": "Do not add quote handling here,, it belongs in one place.",
+  "category": "punctuation",
+  "correction": "Do not add quote handling here; it belongs in one place."
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 66,
+  "column": 31,
+  "end_column": 35,
+  "text": "fall",
+  "category": "agreement",
+  "correction": "falls"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 66,
+  "column": 42,
+  "end_column": 49,
+  "text": "a empty",
+  "category": "a_an",
+  "correction": "an empty"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 72,
+  "column": 8,
+  "end_column": 18,
+  "text": "anonymised",
+  "category": "british",
+  "correction": "anonymized"
+ },
+ {
+  "file": "code/units.py",
+  "line": 4,
+  "column": 20,
+  "end_column": 28,
+  "text": "an mixed",
+  "category": "a_an",
+  "correction": "a mixed"
+ },
+ {
+  "file": "code/units.py",
+  "line": 5,
+  "column": 1,
+  "end_column": 5,
+  "text": "it's",
+  "category": "its_its",
+  "correction": "its"
+ },
+ {
+  "file": "code/units.py",
+  "line": 5,
+  "column": 36,
+  "end_column": 45,
+  "text": "normalise",
+  "category": "agreement",
+  "correction": "normalizes"
+ },
+ {
+  "file": "code/units.py",
+  "line": 6,
+  "column": 38,
+  "end_column": 49,
+  "text": "rather then",
+  "category": "then_than",
+  "correction": "rather than"
+ },
+ {
+  "file": "code/units.py",
+  "line": 14,
+  "column": 15,
+  "end_column": 80,
+  "text": "Drum temperatures top out around 260 °C, bean temperatures lower.",
+  "category": "punctuation",
+  "correction": "Drum temperatures top out around 260 °C; bean temperatures lower."
+ },
+ {
+  "file": "code/units.py",
+  "line": 29,
+  "column": 15,
+  "end_column": 22,
+  "text": "weather",
+  "category": "homophone",
+  "correction": "whether"
+ },
+ {
+  "file": "code/units.py",
+  "line": 31,
+  "column": 65,
+  "end_column": 68,
+  "text": "win",
+  "category": "agreement",
+  "correction": "wins"
+ },
+ {
+  "file": "code/units.py",
+  "line": 32,
+  "column": 52,
+  "end_column": 57,
+  "text": "who's",
+  "category": "homophone",
+  "correction": "whose"
+ },
+ {
+  "file": "code/units.py",
+  "line": 33,
+  "column": 63,
+  "end_column": 79,
+  "text": "Same in reverse.",
+  "category": "fragment",
+  "correction": "The same applies in reverse."
+ },
+ {
+  "file": "code/units.py",
+  "line": 41,
+  "column": 53,
+  "end_column": 56,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "code/units.py",
+  "line": 42,
+  "column": 25,
+  "end_column": 30,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "code/units.py",
+  "line": 52,
+  "column": 48,
+  "end_column": 53,
+  "text": "Their",
+  "category": "their_there",
+  "correction": "There"
+ },
+ {
+  "file": "code/units.py",
+  "line": 53,
+  "column": 51,
+  "end_column": 57,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "code/units.py",
+  "line": 67,
+  "column": 41,
+  "end_column": 52,
+  "text": "rather then",
+  "category": "then_than",
+  "correction": "rather than"
+ },
+ {
+  "file": "code/units.py",
+  "line": 68,
+  "column": 21,
+  "end_column": 25,
+  "text": "draw",
+  "category": "agreement",
+  "correction": "draws"
+ },
+ {
+  "file": "code/units.py",
+  "line": 69,
+  "column": 7,
+  "end_column": 13,
+  "text": "An 30s",
+  "category": "a_an",
+  "correction": "A 30s"
+ },
+ {
+  "file": "code/units.py",
+  "line": 82,
+  "column": 44,
+  "end_column": 49,
+  "text": "there",
+  "category": "their_there",
+  "correction": "they're"
+ },
+ {
+  "file": "code/units.py",
+  "line": 83,
+  "column": 32,
+  "end_column": 35,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "code/units.py",
+  "line": 84,
+  "column": 27,
+  "end_column": 35,
+  "text": "truncted",
+  "category": "spelling",
+  "correction": "truncated"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 10,
+  "column": 29,
+  "end_column": 32,
+  "text": "Its",
+  "category": "its_its",
+  "correction": "It's"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 12,
+  "column": 1,
+  "end_column": 5,
+  "text": "need",
+  "category": "agreement",
+  "correction": "needs"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 18,
+  "column": 21,
+  "end_column": 25,
+  "text": "it's",
+  "category": "its_its",
+  "correction": "its"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 22,
+  "column": 18,
+  "end_column": 22,
+  "text": "take",
+  "category": "agreement",
+  "correction": "takes"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 23,
+  "column": 29,
+  "end_column": 36,
+  "text": "require",
+  "category": "agreement",
+  "correction": "requires"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 24,
+  "column": 14,
+  "end_column": 18,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 25,
+  "column": 39,
+  "end_column": 44,
+  "text": "Their",
+  "category": "their_there",
+  "correction": "They're"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 26,
+  "column": 44,
+  "end_column": 49,
+  "text": "there",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 27,
+  "column": 53,
+  "end_column": 92,
+  "text": "Accepted, given the analyst time saved.",
+  "category": "fragment",
+  "correction": "This is accepted, given the analyst time saved."
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 35,
+  "column": 9,
+  "end_column": 14,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 35,
+  "column": 52,
+  "end_column": 96,
+  "text": "Reads would be fine, writes are the problem.",
+  "category": "punctuation",
+  "correction": "Reads would be fine; writes are the problem."
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 37,
+  "column": 41,
+  "end_column": 50,
+  "text": "A analyst",
+  "category": "a_an",
+  "correction": "An analyst"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 37,
+  "column": 51,
+  "end_column": 56,
+  "text": "who's",
+  "category": "homophone",
+  "correction": "whose"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 38,
+  "column": 52,
+  "end_column": 58,
+  "text": "You're",
+  "category": "your_youre",
+  "correction": "Your"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 45,
+  "column": 1,
+  "end_column": 7,
+  "text": "effect",
+  "category": "homophone",
+  "correction": "affect"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 45,
+  "column": 24,
+  "end_column": 27,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 46,
+  "column": 1,
+  "end_column": 8,
+  "text": "accross",
+  "category": "spelling_1edit",
+  "correction": "across"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 46,
+  "column": 31,
+  "end_column": 37,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 8,
+  "column": 71,
+  "end_column": 79,
+  "text": "A 8-page",
+  "category": "a_an",
+  "correction": "An 8-page"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 10,
+  "column": 41,
+  "end_column": 46,
+  "text": "Their",
+  "category": "their_there",
+  "correction": "There"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 11,
+  "column": 23,
+  "end_column": 26,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 12,
+  "column": 27,
+  "end_column": 33,
+  "text": "reject",
+  "category": "agreement",
+  "correction": "rejects"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 18,
+  "column": 27,
+  "end_column": 31,
+  "text": "it's",
+  "category": "its_its",
+  "correction": "its"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 19,
+  "column": 34,
+  "end_column": 150,
+  "text": "It is now rejected with a clear error, such files come from one broken export plugin and are never printable anyway.",
+  "category": "punctuation",
+  "correction": "It is now rejected with a clear error; such files come from one broken export plugin and are never printable anyway."
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 20,
+  "column": 37,
+  "end_column": 43,
+  "text": "looses",
+  "category": "homophone",
+  "correction": "loses"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 25,
+  "column": 29,
+  "end_column": 40,
+  "text": "rather then",
+  "category": "then_than",
+  "correction": "rather than"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 26,
+  "column": 35,
+  "end_column": 41,
+  "text": "You're",
+  "category": "your_youre",
+  "correction": "Your"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 31,
+  "column": 3,
+  "end_column": 10,
+  "text": "requeud",
+  "category": "spelling",
+  "correction": "requeued"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 31,
+  "column": 26,
+  "end_column": 39,
+  "text": "Long overdue.",
+  "category": "fragment",
+  "correction": "This was long overdue."
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 32,
+  "column": 42,
+  "end_column": 47,
+  "text": "who's",
+  "category": "homophone",
+  "correction": "whose"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 33,
+  "column": 21,
+  "end_column": 25,
+  "text": "then",
+  "category": "then_than",
+  "correction": "than"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 39,
+  "column": 3,
+  "end_column": 6,
+  "text": "Its",
+  "category": "its_its",
+  "correction": "It's"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 39,
+  "column": 40,
+  "end_column": 45,
+  "text": "there",
+  "category": "their_there",
+  "correction": "they're"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 40,
+  "column": 28,
+  "end_column": 39,
+  "text": "an separate",
+  "category": "a_an",
+  "correction": "a separate"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 46,
+  "column": 37,
+  "end_column": 42,
+  "text": "who's",
+  "category": "homophone",
+  "correction": "whose"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 46,
+  "column": 54,
+  "end_column": 56,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 14,
+  "column": 40,
+  "end_column": 43,
+  "text": "Its",
+  "category": "its_its",
+  "correction": "It's"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 22,
+  "column": 55,
+  "end_column": 57,
+  "text": "is",
+  "category": "agreement",
+  "correction": "are"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 23,
+  "column": 24,
+  "end_column": 29,
+  "text": "who's",
+  "category": "homophone",
+  "correction": "whose"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 24,
+  "column": 5,
+  "end_column": 9,
+  "text": "it's",
+  "category": "its_its",
+  "correction": "its"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 26,
+  "column": 63,
+  "end_column": 69,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 27,
+  "column": 60,
+  "end_column": 70,
+  "text": "A 8-second",
+  "category": "a_an",
+  "correction": "An 8-second"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 28,
+  "column": 57,
+  "end_column": 60,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 39,
+  "column": 14,
+  "end_column": 20,
+  "text": "smooth",
+  "category": "agreement",
+  "correction": "smooths"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 40,
+  "column": 1,
+  "end_column": 7,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 40,
+  "column": 61,
+  "end_column": 111,
+  "text": "Do not go below 10s, the curve becomes unreadable.",
+  "category": "punctuation",
+  "correction": "Do not go below 10s; the curve becomes unreadable."
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 45,
+  "column": 23,
+  "end_column": 28,
+  "text": "there",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 45,
+  "column": 39,
+  "end_column": 46,
+  "text": "expects",
+  "category": "agreement",
+  "correction": "expect"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 46,
+  "column": 22,
+  "end_column": 27,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 46,
+  "column": 46,
+  "end_column": 57,
+  "text": "An one-line",
+  "category": "a_an",
+  "correction": "A one-line"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 55,
+  "column": 1,
+  "end_column": 6,
+  "text": "Their",
+  "category": "their_there",
+  "correction": "There"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 55,
+  "column": 49,
+  "end_column": 79,
+  "text": "Too flaky near a 20 kW burner.",
+  "category": "fragment",
+  "correction": "It is too flaky near a 20 kW burner."
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 61,
+  "column": 61,
+  "end_column": 65,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 10,
+  "column": 49,
+  "end_column": 54,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 15,
+  "column": 1,
+  "end_column": 11,
+  "text": "An holding",
+  "category": "a_an",
+  "correction": "A holding"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 15,
+  "column": 19,
+  "end_column": 25,
+  "text": "update",
+  "category": "agreement",
+  "correction": "updates"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 16,
+  "column": 6,
+  "end_column": 11,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 25,
+  "column": 81,
+  "end_column": 86,
+  "text": "who's",
+  "category": "homophone",
+  "correction": "whose"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 26,
+  "column": 25,
+  "end_column": 30,
+  "text": "there",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 26,
+  "column": 47,
+  "end_column": 110,
+  "text": "Popularity is not a ranking signal, the catalog is not a store.",
+  "category": "punctuation",
+  "correction": "Popularity is not a ranking signal; the catalog is not a store."
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 30,
+  "column": 65,
+  "end_column": 69,
+  "text": "come",
+  "category": "agreement",
+  "correction": "comes"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 32,
+  "column": 33,
+  "end_column": 38,
+  "text": "Their",
+  "category": "their_there",
+  "correction": "There"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 32,
+  "column": 60,
+  "end_column": 64,
+  "text": "it's",
+  "category": "its_its",
+  "correction": "its"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 38,
+  "column": 52,
+  "end_column": 85,
+  "text": "A cheap A/B test with real users.",
+  "category": "fragment",
+  "correction": "This is a cheap A/B test with real users."
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 39,
+  "column": 18,
+  "end_column": 25,
+  "text": "perform",
+  "category": "agreement",
+  "correction": "performs"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 39,
+  "column": 53,
+  "end_column": 57,
+  "text": "then",
+  "category": "then_than",
+  "correction": "than"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 39,
+  "column": 67,
+  "end_column": 70,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 44,
+  "column": 76,
+  "end_column": 80,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 45,
+  "column": 3,
+  "end_column": 11,
+  "text": "a outage",
+  "category": "a_an",
+  "correction": "an outage"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 46,
+  "column": 58,
+  "end_column": 64,
+  "text": "You're",
+  "category": "your_youre",
+  "correction": "Your"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 48,
+  "column": 3,
+  "end_column": 14,
+  "text": "Catalogeres",
+  "category": "spelling",
+  "correction": "Catalogers"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 53,
+  "column": 36,
+  "end_column": 39,
+  "text": "Its",
+  "category": "its_its",
+  "correction": "It's"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 55,
+  "column": 4,
+  "end_column": 11,
+  "text": "Weather",
+  "category": "homophone",
+  "correction": "Whether"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 6,
+  "column": 1,
+  "end_column": 4,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 6,
+  "column": 41,
+  "end_column": 47,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 12,
+  "column": 1,
+  "end_column": 6,
+  "text": "flash",
+  "category": "agreement",
+  "correction": "flashes"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 12,
+  "column": 48,
+  "end_column": 116,
+  "text": "Do not remove the card during the update, it takes about 40 seconds.",
+  "category": "punctuation",
+  "correction": "Do not remove the card during the update; it takes about 40 seconds."
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 13,
+  "column": 51,
+  "end_column": 56,
+  "text": "their",
+  "category": "their_there",
+  "correction": "there"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 19,
+  "column": 12,
+  "end_column": 19,
+  "text": "An card",
+  "category": "a_an",
+  "correction": "A card"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 20,
+  "column": 16,
+  "end_column": 19,
+  "text": "use",
+  "category": "agreement",
+  "correction": "uses"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 20,
+  "column": 38,
+  "end_column": 43,
+  "text": "Their",
+  "category": "their_there",
+  "correction": "There"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 20,
+  "column": 52,
+  "end_column": 65,
+  "text": "a 8-character",
+  "category": "a_an",
+  "correction": "an 8-character"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 26,
+  "column": 21,
+  "end_column": 27,
+  "text": "an USB",
+  "category": "a_an",
+  "correction": "a USB"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 32,
+  "column": 1,
+  "end_column": 4,
+  "text": "Its",
+  "category": "its_its",
+  "correction": "It's"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 33,
+  "column": 24,
+  "end_column": 26,
+  "text": "do",
+  "category": "agreement",
+  "correction": "does"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 34,
+  "column": 15,
+  "end_column": 22,
+  "text": "weather",
+  "category": "homophone",
+  "correction": "whether"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 38,
+  "column": 37,
+  "end_column": 42,
+  "text": "their",
+  "category": "their_there",
+  "correction": "they're"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 40,
+  "column": 54,
+  "end_column": 60,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 41,
+  "column": 41,
+  "end_column": 45,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 45,
+  "column": 35,
+  "end_column": 39,
+  "text": "were",
+  "category": "agreement",
+  "correction": "was"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 47,
+  "column": 28,
+  "end_column": 32,
+  "text": "then",
+  "category": "then_than",
+  "correction": "than"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 47,
+  "column": 66,
+  "end_column": 91,
+  "text": "Cheap parts, all of them.",
+  "category": "fragment",
+  "correction": "They are cheap parts, all of them."
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 51,
+  "column": 56,
+  "end_column": 59,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 52,
+  "column": 5,
+  "end_column": 12,
+  "text": "weather",
+  "category": "homophone",
+  "correction": "whether"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 53,
+  "column": 9,
+  "end_column": 17,
+  "text": "frimware",
+  "category": "spelling",
+  "correction": "firmware"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 5,
+  "column": 62,
+  "end_column": 67,
+  "text": "there",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 16,
+  "column": 15,
+  "end_column": 19,
+  "text": "hold",
+  "category": "agreement",
+  "correction": "holds"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 16,
+  "column": 65,
+  "end_column": 69,
+  "text": "goes",
+  "category": "agreement",
+  "correction": "go"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 17,
+  "column": 26,
+  "end_column": 31,
+  "text": "who's",
+  "category": "homophone",
+  "correction": "whose"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 17,
+  "column": 50,
+  "end_column": 53,
+  "text": "Its",
+  "category": "its_its",
+  "correction": "It's"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 18,
+  "column": 15,
+  "end_column": 21,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 22,
+  "column": 51,
+  "end_column": 58,
+  "text": "An slot",
+  "category": "a_an",
+  "correction": "A slot"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 23,
+  "column": 33,
+  "end_column": 38,
+  "text": "reach",
+  "category": "agreement",
+  "correction": "reaches"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 24,
+  "column": 50,
+  "end_column": 61,
+  "text": "rather then",
+  "category": "then_than",
+  "correction": "rather than"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 25,
+  "column": 1,
+  "end_column": 98,
+  "text": "Do not cache slot availability for more than 60 seconds, popular exhibitions sell out in minutes.",
+  "category": "punctuation",
+  "correction": "Do not cache slot availability for more than 60 seconds; popular exhibitions sell out in minutes."
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 30,
+  "column": 35,
+  "end_column": 38,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 31,
+  "column": 1,
+  "end_column": 5,
+  "text": "it's",
+  "category": "its_its",
+  "correction": "its"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 32,
+  "column": 1,
+  "end_column": 8,
+  "text": "they're",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 37,
+  "column": 37,
+  "end_column": 53,
+  "text": "Same rule as v2.",
+  "category": "fragment",
+  "correction": "This is the same rule as in v2."
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 38,
+  "column": 49,
+  "end_column": 55,
+  "text": "An 429",
+  "category": "a_an",
+  "correction": "A 429"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 39,
+  "column": 39,
+  "end_column": 43,
+  "text": "then",
+  "category": "then_than",
+  "correction": "than"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 39,
+  "column": 50,
+  "end_column": 63,
+  "text": "with same key",
+  "category": "missing_extra_word",
+  "correction": "with the same key"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 44,
+  "column": 52,
+  "end_column": 58,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 45,
+  "column": 35,
+  "end_column": 40,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 46,
+  "column": 1,
+  "end_column": 6,
+  "text": "rarly",
+  "category": "spelling",
+  "correction": "rarely"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 52,
+  "column": 29,
+  "end_column": 34,
+  "text": "There",
+  "category": "their_there",
+  "correction": "Their"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 53,
+  "column": 27,
+  "end_column": 38,
+  "text": "an deadline",
+  "category": "a_an",
+  "correction": "a deadline"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 16,
+  "column": 41,
+  "end_column": 48,
+  "text": "contain",
+  "category": "agreement",
+  "correction": "contains"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 16,
+  "column": 58,
+  "end_column": 63,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 17,
+  "column": 32,
+  "end_column": 35,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 18,
+  "column": 23,
+  "end_column": 26,
+  "text": "run",
+  "category": "agreement",
+  "correction": "runs"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 23,
+  "column": 60,
+  "end_column": 67,
+  "text": "An user",
+  "category": "a_an",
+  "correction": "A user"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 23,
+  "column": 68,
+  "end_column": 73,
+  "text": "who's",
+  "category": "homophone",
+  "correction": "whose"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 24,
+  "column": 28,
+  "end_column": 33,
+  "text": "there",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 25,
+  "column": 1,
+  "end_column": 81,
+  "text": "Do not tie features to consent, that is a dark pattern and legal will reject it.",
+  "category": "punctuation",
+  "correction": "Do not tie features to consent; that is a dark pattern and legal will reject it."
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 30,
+  "column": 55,
+  "end_column": 59,
+  "text": "take",
+  "category": "agreement",
+  "correction": "takes"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 32,
+  "column": 1,
+  "end_column": 4,
+  "text": "Its",
+  "category": "its_its",
+  "correction": "It's"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 32,
+  "column": 39,
+  "end_column": 44,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 33,
+  "column": 16,
+  "end_column": 22,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 38,
+  "column": 14,
+  "end_column": 19,
+  "text": "there",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 38,
+  "column": 51,
+  "end_column": 62,
+  "text": "rather then",
+  "category": "then_than",
+  "correction": "rather than"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 39,
+  "column": 23,
+  "end_column": 60,
+  "text": "Simpler to explain, simpler to audit.",
+  "category": "fragment",
+  "correction": "It is simpler to explain and simpler to audit."
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 43,
+  "column": 44,
+  "end_column": 51,
+  "text": "they're",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 44,
+  "column": 62,
+  "end_column": 68,
+  "text": "You're",
+  "category": "your_youre",
+  "correction": "Your"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 45,
+  "column": 9,
+  "end_column": 12,
+  "text": "get",
+  "category": "agreement",
+  "correction": "gets"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 50,
+  "column": 30,
+  "end_column": 35,
+  "text": "loged",
+  "category": "spelling",
+  "correction": "logged"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 51,
+  "column": 52,
+  "end_column": 59,
+  "text": "weather",
+  "category": "homophone",
+  "correction": "whether"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 52,
+  "column": 17,
+  "end_column": 27,
+  "text": "An request",
+  "category": "a_an",
+  "correction": "A request"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 5,
+  "column": 36,
+  "end_column": 41,
+  "text": "there",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 9,
+  "column": 39,
+  "end_column": 49,
+  "text": "An healthy",
+  "category": "a_an",
+  "correction": "A healthy"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 10,
+  "column": 59,
+  "end_column": 65,
+  "text": "double",
+  "category": "agreement",
+  "correction": "doubles"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 16,
+  "column": 31,
+  "end_column": 34,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 16,
+  "column": 63,
+  "end_column": 68,
+  "text": "who's",
+  "category": "homophone",
+  "correction": "whose"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 17,
+  "column": 34,
+  "end_column": 125,
+  "text": "Do not flag manually before that, the route optimizer handles it better than a human guess.",
+  "category": "punctuation",
+  "correction": "Do not flag manually before that; the route optimizer handles it better than a human guess."
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 21,
+  "column": 33,
+  "end_column": 37,
+  "text": "drop",
+  "category": "agreement",
+  "correction": "drops"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 21,
+  "column": 56,
+  "end_column": 60,
+  "text": "it's",
+  "category": "its_its",
+  "correction": "its"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 22,
+  "column": 51,
+  "end_column": 54,
+  "text": "use",
+  "category": "agreement",
+  "correction": "uses"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 23,
+  "column": 1,
+  "end_column": 4,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 24,
+  "column": 16,
+  "end_column": 20,
+  "text": "then",
+  "category": "then_than",
+  "correction": "than"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 24,
+  "column": 35,
+  "end_column": 41,
+  "text": "adjsut",
+  "category": "spelling_1edit",
+  "correction": "adjust"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 28,
+  "column": 42,
+  "end_column": 45,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 29,
+  "column": 11,
+  "end_column": 16,
+  "text": "who's",
+  "category": "homophone",
+  "correction": "whose"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 29,
+  "column": 43,
+  "end_column": 48,
+  "text": "there",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 30,
+  "column": 16,
+  "end_column": 22,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 31,
+  "column": 10,
+  "end_column": 34,
+  "text": "Usually within the hour.",
+  "category": "fragment",
+  "correction": "It usually goes out within the hour."
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 37,
+  "column": 11,
+  "end_column": 16,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 37,
+  "column": 33,
+  "end_column": 42,
+  "text": "A invalid",
+  "category": "a_an",
+  "correction": "An invalid"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 43,
+  "column": 1,
+  "end_column": 8,
+  "text": "excepts",
+  "category": "homophone",
+  "correction": "accepts"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 44,
+  "column": 54,
+  "end_column": 61,
+  "text": "weather",
+  "category": "homophone",
+  "correction": "whether"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 45,
+  "column": 67,
+  "end_column": 72,
+  "text": "their",
+  "category": "their_there",
+  "correction": "they're"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 46,
+  "column": 20,
+  "end_column": 24,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 51,
+  "column": 59,
+  "end_column": 65,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 53,
+  "column": 24,
+  "end_column": 31,
+  "text": "contain",
+  "category": "agreement",
+  "correction": "contains"
+ }
+]

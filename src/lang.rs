@@ -184,6 +184,53 @@ fn english_known(w: &str) -> bool {
     crate::rules::words::words().contains(w)
 }
 
+/// `w` or its American spelling is an English word: `programme`, `colour`, `centre`,
+/// `organisation`, `analyse`, `licence`, `travelled`.
+fn english_word(w: &str) -> bool {
+    if english_known(w) || english_known(&w.to_lowercase()) {
+        return true;
+    }
+    let l = w.to_lowercase();
+    if !l.is_ascii() || l.len() < 5 {
+        return false;
+    }
+    let swaps: &[(&str, &str)] = &[
+        ("programme", "program"),
+        ("our", "or"),
+        ("tre", "ter"),
+        ("tres", "ters"),
+        ("isation", "ization"),
+        ("isations", "izations"),
+        ("ise", "ize"),
+        ("ised", "ized"),
+        ("ises", "izes"),
+        ("ising", "izing"),
+        ("yse", "yze"),
+        ("ysed", "yzed"),
+        ("ence", "ense"),
+        ("ogue", "og"),
+        ("lled", "led"),
+        ("lling", "ling"),
+        ("ours", "ors"),
+        ("oured", "ored"),
+    ];
+    swaps.iter().any(|(gb, us)| {
+        l.strip_suffix(gb)
+            .is_some_and(|stem| english_known(&format!("{stem}{us}")))
+    }) || l.contains("our") && english_known(&l.replacen("our", "or", 1))
+        || l.contains("programme") && english_known(&l.replacen("programme", "program", 1))
+}
+
+/// English function words beyond [`STOPWORDS`] that no Finnish or Swedish word spells:
+/// evidence for a short English sentence (`Please ask your manager.`).
+const ENGLISH_FUNCTION_WORDS: &[&str] = &[
+    "please", "our", "all", "do", "does", "did", "should", "would", "could", "must", "every",
+    "each", "there", "here", "how", "what", "who", "why", "where", "about", "after", "before",
+    "because", "them", "he", "she", "his", "her", "us", "any", "some", "no", "only", "just",
+    "also", "then", "more", "most", "such", "other", "my", "me", "him", "via", "per", "may",
+    "might", "shall", "so", "out", "up", "over", "under", "through", "without", "within",
+];
+
 /// At least `min_words` words, under 5% English stopwords and at least one in `ascii_div`
 /// words with non-ASCII letters.
 pub fn looks_foreign(text: &str, min_words: usize, ascii_div: usize) -> bool {
@@ -545,21 +592,34 @@ pub fn foreign_stretches(
 /// English text inside a Finnish or Swedish file: at least `min_words` words (single letters
 /// and acronyms aside), 80% known to English, one in eight an English stopword, and nothing
 /// Finnish or Swedish about it.
+///
+/// A short sentence (up to eight words) also counts with another English function word
+/// (`Please ask your manager.`) or, of three words or more, with every word English
+/// (`Programme updates arrive weekly.`). British spellings count as English.
 pub fn looks_english(text: &str, min_words: usize) -> bool {
-    let (mut n, mut stop, mut known) = (0, 0, 0);
+    let (mut n, mut stop, mut function, mut known) = (0, 0, 0, 0);
     for w in words(text).filter(|w| !neutral(w)) {
         n += 1;
         if w.is_ascii() && is_stopword(w) {
             stop += 1;
             known += 1;
-        } else if english_known(w) && !is_nordic_function_word(w) {
+        } else if english_word(w) && !is_nordic_function_word(w) {
             known += 1;
+            function +=
+                usize::from(w.is_ascii() && ENGLISH_FUNCTION_WORDS.iter().any(|f| eq_lower(w, f)));
         }
     }
+    // One sentence: `Contact support via email. Kiitos.` is two.
+    let one_sentence = !text
+        .trim_end()
+        .trim_end_matches(['.', '!', '?'])
+        .contains(['.', '!', '?', '\n']);
+    let short = one_sentence && (min_words.max(3)..=8).contains(&n);
+    let evidence = stop * 8 >= n || short && (function > 0 && known * 5 >= n * 4 || known == n);
     n >= min_words.max(1)
         && known * 5 >= n * 4
-        && stop * 8 >= n
-        && !words(text).any(|w| nordic_letters_or_ending(w) && !english_known(w))
+        && evidence
+        && !words(text).any(|w| nordic_letters_or_ending(w) && !english_word(w))
 }
 
 /// Runs of English words inside a Finnish or Swedish phrase, between commas (`..., että the
@@ -592,9 +652,7 @@ fn english_runs(text: &str) -> Vec<Range<usize>> {
             continue;
         }
         let stop = w.is_ascii() && is_stopword(w);
-        let english = w.is_ascii()
-            && !is_nordic_function_word(w)
-            && (stop || english_known(w) || english_known(&w.to_lowercase()));
+        let english = w.is_ascii() && !is_nordic_function_word(w) && (stop || english_word(w));
         if !english {
             flush(&mut run, &mut out);
             continue;
@@ -757,6 +815,37 @@ mod tests {
             "the deployment pipeline is broken again"
         );
         assert!(english_runs("Palvelu on auki ja sauna on lämmin.").is_empty());
+    }
+
+    /// Short English sentences and British spellings inside Finnish text are English; Finnish
+    /// sentences made of words English also has are not.
+    #[test]
+    fn short_english_sentences() {
+        for en in [
+            "Programme updates arrive weekly.",
+            "Please ask your manager.",
+            "Ask questions early.",
+            "The organisation behind the programme is based in Helsinki.",
+            "Our colour scheme follows the brand guidelines.",
+            "If you have questions, ask the programme manager.",
+        ] {
+            assert!(looks_english(en, 3), "{en}");
+        }
+        for fi in [
+            "Tarkista aikataulu huolellisesti.",
+            "Data on tallessa.",
+            "Auto on pihalla.",
+            "Se on hyvä.",
+            "Kiitos.",
+            "Lue ohje ennen asennusta.",
+            "Sauna on lämmin ja kala on tuore.",
+            "Ota yhteyttä ylläpitoon.",
+            "Contact support via email. Kiitos.",
+        ] {
+            assert!(!looks_english(fi, 3), "{fi}");
+        }
+        assert!(english_word("programme") && english_word("centre") && english_word("colours"));
+        assert!(!english_word("aikataulu"));
     }
 
     #[test]

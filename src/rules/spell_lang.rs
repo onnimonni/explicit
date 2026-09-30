@@ -390,7 +390,10 @@ pub fn word_ok(sp: &dyn LangSpeller, code: &str, word: &str, next: Option<char>)
         return english_word(sp, word)
             || (code == "fi"
                 && (finnish_inflection(sp, word, &|_| false) || finnish_extra(sp, word)))
-            || (code == "sv" && (swedish_extra(sp, word) || swedish_compound(sp, word)));
+            || (code == "sv"
+                && (swedish_extra(sp, word)
+                    || swedish_compound(sp, word)
+                    || SV_MISSING.contains(&lower.as_str())));
     }
     let parts: Vec<&str> = word.split('-').filter(|p| !p.is_empty()).collect();
     let Some((last, lead)) = parts.split_last() else {
@@ -855,6 +858,9 @@ pub fn swedish_led(sp: &dyn LangSpeller, word: &str, head_ok: &dyn Fn(&str) -> b
 /// fails the first test, `säkerhetskopa` the last).
 fn swedish_compound(sp: &dyn LangSpeller, word: &str) -> bool {
     const PROBES: &[&str] = &["system", "tjänst"];
+    // Prefixes that begin compounds with verbs and action nouns (`för|registrering`,
+    // `om|planering`), which the dictionary flags do not always allow.
+    const PREFIXES: &[&str] = &["om", "åter", "sam", "för", "under", "över", "efter"];
     let lower = word.to_lowercase();
     let chars: Vec<char> = lower.chars().collect();
     if chars.len() < 7
@@ -874,14 +880,20 @@ fn swedish_compound(sp: &dyn LangSpeller, word: &str) -> bool {
                         .iter()
                         .any(|t| t.eq_ignore_ascii_case(head)))
     };
-    let split = (3..=chars.len() - 2).find(|&i| {
+    let split = (2..=chars.len() - 2).find(|&i| {
         let (head, rest) = (text(&chars[..i]), text(&chars[i..]));
-        let rest_ok = if rest.chars().count() == 2 {
+        let n = rest.chars().count();
+        if PREFIXES.contains(&head.as_str()) {
+            return n >= 5 && sp.check(&rest);
+        }
+        let rest_ok = if n == 2 {
             sp.check(&rest) && sp.check(&format!("{rest}n"))
         } else {
-            sp.check(&rest)
+            sp.check(&rest) || swedish_head_form(sp, &rest)
         };
-        rest_ok && (PROBES.iter().any(|p| sp.check(&format!("{head}{p}"))) || foreign(&head))
+        i >= 3
+            && rest_ok
+            && (PROBES.iter().any(|p| sp.check(&format!("{head}{p}"))) || foreign(&head))
     });
     let Some(i) = split else {
         return false;
@@ -892,6 +904,24 @@ fn swedish_compound(sp: &dyn LangSpeller, word: &str) -> bool {
         return false;
     }
     let foreign_head = foreign(&head);
+    // An agent noun whose compound verb the dictionary knows (`lastbalanserare`:
+    // `lastbalansera`).
+    if !sp.check(&rest)
+        && swedish_head_form(sp, &rest)
+        && rest
+            .find("erar")
+            .is_some_and(|j| sp.check(&format!("{head}{}a", &rest[..j + 2])))
+    {
+        return true;
+    }
+    // A first part that is a word or prefix of its own: a suggestion changing only it is
+    // another compound (`kort|vyn`, `kart|vyn`; `för|registrering`, `dör|registrering`).
+    let head_word =
+        PREFIXES.contains(&head.as_str()) || head.chars().count() >= 4 && sp.check(&head);
+    // A linking `s` absorbed into the next part (`månad|syn` for `månads|vyn`).
+    let bare_head = head
+        .strip_suffix('s')
+        .filter(|h| h.chars().count() >= 3 && sp.check(h));
     // A suggestion one edit away is the word meant, unless it is another compound of the same
     // first part (`start|syn` for `startvyn`) or glues a scrap in at the seam (`kalender|e|vyns`),
     // or it only changes an English first part (`pull|förfrågan`, not `full|förfrågan`).
@@ -906,10 +936,6 @@ fn swedish_compound(sp: &dyn LangSpeller, word: &str) -> bool {
         {
             return false;
         }
-        let Some(tail) = s.strip_prefix(&head) else {
-            return true;
-        };
-        let seam = c.len() == chars.len() + 1 && tail.ends_with(&rest);
         let doubled = c.len().abs_diff(chars.len()) == 1 && {
             let (long, short) = if c.len() > chars.len() {
                 (&c, &chars)
@@ -920,8 +946,51 @@ fn swedish_compound(sp: &dyn LangSpeller, word: &str) -> bool {
                 long[j] == long[j - 1] && long[..j] == short[..j] && long[j + 1..] == short[j..]
             })
         };
-        doubled || !(seam || tail.chars().count() >= 3 && sp.check(tail))
+        if doubled {
+            return true;
+        }
+        if head_word && s.ends_with(&rest) && c.len() == chars.len() {
+            return false;
+        }
+        if c.len() + 1 == chars.len()
+            && bare_head.is_some_and(|h| {
+                s.strip_prefix(h)
+                    .is_some_and(|t| t.chars().count() >= 3 && sp.check(t))
+            })
+        {
+            return false;
+        }
+        let Some(tail) = s.strip_prefix(&head) else {
+            return true;
+        };
+        let seam = c.len() == chars.len() + 1 && tail.ends_with(&rest);
+        // Another form of the same last part (`sök|vy` for `sökvyn`).
+        let inflection = tail.chars().count() >= 2
+            && (rest.starts_with(tail) || tail.starts_with(rest.as_str()))
+            && (sp.check(tail) || sp.check(&format!("{tail}n")));
+        // After a prefix another word is the typo's target (`om|startas` for `omstratas`).
+        let other_word =
+            !PREFIXES.contains(&head.as_str()) && tail.chars().count() >= 3 && sp.check(tail);
+        !(seam || inflection || other_word)
     })
+}
+
+/// Inflections the bundled Swedish dictionary lacks.
+const SV_MISSING: &[&str] = &["begäranden", "begärandena", "begärandens"];
+
+/// A last part of a Swedish compound the dictionary lacks as a word: an agent noun of a verb
+/// in `-era` (`balanserare`, `balanseraren` from `balansera`), or the plural `begäranden`.
+fn swedish_head_form(sp: &dyn LangSpeller, rest: &str) -> bool {
+    if SV_MISSING.contains(&rest) {
+        return true;
+    }
+    ["are", "aren", "arna", "ares", "arens", "arnas"]
+        .iter()
+        .any(|e| {
+            rest.strip_suffix(e).is_some_and(|stem| {
+                stem.ends_with("er") && stem.chars().count() >= 5 && sp.check(&format!("{stem}a"))
+            })
+        })
 }
 
 /// Words of `chars`: letter and digit runs joined by `-`, `'`, `’`, `:` (`EU:n`) and `.`
@@ -1366,6 +1435,15 @@ mod tests {
             // no evidence of a typo.
             "pullförfrågan",
             "dockerbilden",
+            // Another form of the last part, a first part changed into another word or an
+            // absorbed linking `s` are no typo evidence; prefixes; agent nouns; `begäranden`.
+            "redigeringsvyn",
+            "månadsvyn",
+            "kortvyn",
+            "förregistrering",
+            "lastbalanseraren",
+            "ändringsbegäranden",
+            "begäranden",
         ] {
             assert!(word_ok(&*sp, "sv", w, None), "{w}");
         }
@@ -1377,6 +1455,14 @@ mod tests {
             "händelselog",
             "debiterras",
             "lungande",
+            "underhålet",
+            "omdirgering",
+            "säkerhetstset",
+            "åtkomstbegärean",
+            "överföringn",
+            "gränssen",
+            "omstratas",
+            "integrationsest",
         ] {
             assert!(!word_ok(&*sp, "sv", w, None), "{w}");
         }

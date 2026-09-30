@@ -1,0 +1,20 @@
+Round 2 judge run of scratchpad/explicit-voikko2. Scorer output: eval-*/{seeded,holdout,holdout2}.v2.score.txt. holdout2 = new, never seen by the engineer.
+
+lang | set      | P v1->v2     | R v1->v2     | F1 v1->v2    | holdout2 FP hand-judgement
+fi   | seeded   | 84.9 -> 93.1 | 81.7 -> 81.3 | 83.2 -> 86.8 |
+fi   | holdout  | 80.6 -> 86.4 | 74.0 -> 72.7 | 77.2 -> 79.0 |
+fi   | holdout2 | 66.2         | 63.5         | 64.8         | 24 FP = 6 true engine FPs (Dr., 2x CompoundSplit "kanyyli tukossa"/"arvio kestosta", unquoted English sentence "programme"/"ask", "iPadOS" at sentence start); 11 dictionary gaps (infuusio x4, Infuusiopumpun, okkluusio x2, repositorio x2, lukureplika, replika: medical/tech words); 7 mine (4 identifiers I left without backticks: uuid/sv/timestamptz; 2 "vaan" the engine flags correctly after an affirmative clause; 1 lower-case sentence start my trim produced). Excluding my 7: P 73%; treating med/tech gaps as acceptable: 89%.
+sv   | seeded   | 85.5 -> 92.5 | 70.7 -> 74.0 | 77.4 -> 82.2 |
+sv   | holdout  | 71.7 -> 87.2 | 53.2 -> 54.8 | 61.1 -> 67.3 |
+sv   | holdout2 | 69.1         | 62.3         | 65.5         | 17 FP = 6 true (DomDem on object "dem", CompoundSplit "bad kunderna", correct compounds responssamtal + Kubernetesklustret, "programme", "iPadOS" sentence start); 5 gaps (korrupterades, repositoriet x2, pullförfrågan x2); 6 mine (unbackticked identifiers). Excluding mine: P 78%.
+en   | seeded   | 81.5 (= round 1, = v5 baseline TP 216) | 70.8 | 75.8 | no change
+
+holdout2 recall by category: fi typo 14/15, inflection 7/7, double_letter 9/10, capitalization 6/8, compound_split 8/18 (stricter rule now misses half: "yhteys tiedot", "palvelu tason", "kuukausi raportin", "tiedotus tilaisuuden", "itse hoitoon", "Puolesta asiointi", "ei kehittäjille"), confusion 3/12, punctuation 0/4.
+                             sv typo 10/12, compound_link 5/5, double_consonant 2/2, sarskrivning 9/14 (missed "variabel namn", "salt värde", "läs repliken", "flödes larm", "Data basen"), capitalization 6/8 (Tisdagen, Finska missed), de_dem_gender 5/10 (DomDem catches dom + subject-dem; en/ett/den/det not attempted), verb_form 1/10.
+Traps that now pass: inflected products (Kubernetesin, Slackissä, Grafanassa, GitHubissa, PostgreSQL:ään, RabbitMQ:hun, Teamsissä, Jiraan, Nixillä, Dockerilla, Safarin, Androidin) 0 FP; Finnish names 1 FP ("Dr"); phrase traps (correct noun phrases that look like split compounds) 1 FP of 22; Swedish definite/tech compounds 3 FP of 42; fi_sv 0 FP; quoted English clauses 0 FP, but an unquoted English sentence at paragraph level still leaks (programme/ask).
+
+Mixed-language tests (eval-fi/mixed):
+- English doc, <span lang="fi">: correct Finnish span not flagged; Finnish typo in span ("ilmoitautuu") reported; split compound inside a span reported inconsistently (once as two spelling hits, once not at all).
+- <!-- explicit-lang sv --> block: correct Swedish not flagged, "patient uppgifterna" reported as SwedishCompoundSplit, English typo inside the block reported. Works.
+- English table cells holding Finnish/Swedish terms in an English doc are still flagged as English spelling (ajanvaraus, tidsbokning, vårdbehovsbedömning ...).
+- Finnish doc with English blockquote: Finnish typo, split compound, inflected products all correct; English clause checked as English ("recieves" caught) but with the en-US default, so "centre" and "acknowledgement" are flagged in a Finnish document. Same en-US default applies to plain English docs ("colour", "centre").

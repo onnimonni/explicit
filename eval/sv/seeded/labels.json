@@ -1,0 +1,1383 @@
+[
+ {
+  "file": "adr-001-databas.md",
+  "line": 10,
+  "column": 36,
+  "end_column": 53,
+  "text": "patient uppgifter",
+  "category": "sarskrivning",
+  "correction": "patientuppgifter"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 10,
+  "column": 231,
+  "end_column": 245,
+  "text": "licensädringen",
+  "category": "typo",
+  "correction": "licensändringen"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 12,
+  "column": 103,
+  "end_column": 116,
+  "text": "produktsägare",
+  "category": "compound_link",
+  "correction": "produktägare"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 12,
+  "column": 131,
+  "end_column": 139,
+  "text": "Tisdagen",
+  "category": "capitalization",
+  "correction": "tisdagen"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 18,
+  "column": 10,
+  "end_column": 27,
+  "text": "relations databas",
+  "category": "sarskrivning",
+  "correction": "relationsdatabas"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 18,
+  "column": 93,
+  "end_column": 102,
+  "text": "erfarnhet",
+  "category": "typo",
+  "correction": "erfarenhet"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 22,
+  "column": 190,
+  "end_column": 201,
+  "text": "omstädnligt",
+  "category": "typo",
+  "correction": "omständligt"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 26,
+  "column": 91,
+  "end_column": 101,
+  "text": "kompettens",
+  "category": "double_consonant",
+  "correction": "kompetens"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 33,
+  "column": 28,
+  "end_column": 37,
+  "text": "godkännar",
+  "category": "verb_form",
+  "correction": "godkänner"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 34,
+  "column": 23,
+  "end_column": 43,
+  "text": "nuvarande personalen",
+  "category": "de_dem_gender",
+  "correction": "nuvarande personal",
+  "real_word": true
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 36,
+  "column": 93,
+  "end_column": 102,
+  "text": "paralellt",
+  "category": "double_consonant",
+  "correction": "parallellt"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 43,
+  "column": 35,
+  "end_column": 41,
+  "text": "vilket",
+  "category": "de_dem_gender",
+  "correction": "vilken",
+  "real_word": true
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 43,
+  "column": 50,
+  "end_column": 58,
+  "text": "November",
+  "category": "capitalization",
+  "correction": "november"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 45,
+  "column": 104,
+  "end_column": 112,
+  "text": "utrededs",
+  "category": "typo",
+  "correction": "utreds"
+ },
+ {
+  "file": "adr-001-databas.md",
+  "line": 45,
+  "column": 137,
+  "end_column": 155,
+  "text": "provkörningrapport",
+  "category": "compound_link",
+  "correction": "provkörningsrapport"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 13,
+  "column": 25,
+  "end_column": 48,
+  "text": "behörighets hanteringen",
+  "category": "sarskrivning",
+  "correction": "behörighetshanteringen"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 19,
+  "column": 20,
+  "end_column": 30,
+  "text": "omdirgerar",
+  "category": "typo",
+  "correction": "omdirigerar"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 31,
+  "column": 52,
+  "end_column": 59,
+  "text": "innhöll",
+  "category": "typo",
+  "correction": "innehöll"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 32,
+  "column": 12,
+  "end_column": 24,
+  "text": "sök resultat",
+  "category": "sarskrivning",
+  "correction": "sökresultat"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 40,
+  "column": 58,
+  "end_column": 64,
+  "text": "skicka",
+  "category": "verb_form",
+  "correction": "skickas",
+  "real_word": true
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 45,
+  "column": 58,
+  "end_column": 65,
+  "text": "längere",
+  "category": "typo",
+  "correction": "längre"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 57,
+  "column": 20,
+  "end_column": 38,
+  "text": "åtkomst kontrollen",
+  "category": "sarskrivning",
+  "correction": "åtkomstkontrollen"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 57,
+  "column": 98,
+  "end_column": 109,
+  "text": "direktslänk",
+  "category": "compound_link",
+  "correction": "direktlänk"
+ },
+ {
+  "file": "andringslogg.md",
+  "line": 64,
+  "column": 64,
+  "end_column": 67,
+  "text": "ett",
+  "category": "de_dem_gender",
+  "correction": "en",
+  "real_word": true
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 9,
+  "column": 12,
+  "end_column": 20,
+  "text": "fyrsifrg",
+  "category": "typo",
+  "correction": "fyrsiffrig"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 9,
+  "column": 44,
+  "end_column": 69,
+  "text": "fingeravtrycks inloggning",
+  "category": "sarskrivning",
+  "correction": "fingeravtrycksinloggning"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 11,
+  "column": 100,
+  "end_column": 103,
+  "text": "dom",
+  "category": "de_dem_gender",
+  "correction": "dem",
+  "real_word": true
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 17,
+  "column": 145,
+  "end_column": 149,
+  "text": "visa",
+  "category": "verb_form",
+  "correction": "visas",
+  "real_word": true
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 19,
+  "column": 89,
+  "end_column": 99,
+  "text": "debiterras",
+  "category": "double_consonant",
+  "correction": "debiteras"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 23,
+  "column": 58,
+  "end_column": 78,
+  "text": "referens intervallet",
+  "category": "sarskrivning",
+  "correction": "referensintervallet"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 29,
+  "column": 114,
+  "end_column": 117,
+  "text": "vid",
+  "category": "capitalization",
+  "correction": "Vid"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 44,
+  "column": 10,
+  "end_column": 17,
+  "text": "krachar",
+  "category": "typo",
+  "correction": "kraschar"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 44,
+  "column": 86,
+  "end_column": 93,
+  "text": "fungera",
+  "category": "verb_form",
+  "correction": "fungerar",
+  "real_word": true
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 46,
+  "column": 4,
+  "end_column": 23,
+  "text": "inloggningproblemen",
+  "category": "compound_link",
+  "correction": "inloggningsproblemen"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 46,
+  "column": 44,
+  "end_column": 55,
+  "text": "felsrapport",
+  "category": "compound_link",
+  "correction": "felrapport"
+ },
+ {
+  "file": "anvandarguide-app.md",
+  "line": 48,
+  "column": 8,
+  "end_column": 21,
+  "text": "tillgänlighet",
+  "category": "typo",
+  "correction": "tillgänglighet"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 3,
+  "column": 82,
+  "end_column": 96,
+  "text": "tids bokningar",
+  "category": "sarskrivning",
+  "correction": "tidsbokningar"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 17,
+  "column": 71,
+  "end_column": 74,
+  "text": "ett",
+  "category": "de_dem_gender",
+  "correction": "en",
+  "real_word": true
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 23,
+  "column": 149,
+  "end_column": 156,
+  "text": "avvsias",
+  "category": "typo",
+  "correction": "avvisas"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 23,
+  "column": 198,
+  "end_column": 208,
+  "text": "logg filen",
+  "category": "sarskrivning",
+  "correction": "loggfilen"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 38,
+  "column": 80,
+  "end_column": 90,
+  "text": "patienetns",
+  "category": "typo",
+  "correction": "patientens"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 47,
+  "column": 82,
+  "end_column": 88,
+  "text": "hinnit",
+  "category": "verb_form",
+  "correction": "hunnit"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 51,
+  "column": 120,
+  "end_column": 126,
+  "text": "avisas",
+  "category": "double_consonant",
+  "correction": "avvisas"
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 51,
+  "column": 131,
+  "end_column": 134,
+  "text": "dem",
+  "category": "de_dem_gender",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "api-dokumentation.md",
+  "line": 55,
+  "column": 88,
+  "end_column": 105,
+  "text": "felsökningändamål",
+  "category": "compound_link",
+  "correction": "felsökningsändamål"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 3,
+  "column": 79,
+  "end_column": 100,
+  "text": "dataskydds förordning",
+  "category": "sarskrivning",
+  "correction": "dataskyddsförordning"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 9,
+  "column": 1,
+  "end_column": 9,
+  "text": "Tellefon",
+  "category": "double_consonant",
+  "correction": "Telefon"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 17,
+  "column": 71,
+  "end_column": 86,
+  "text": "vård relationen",
+  "category": "sarskrivning",
+  "correction": "vårdrelationen"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 17,
+  "column": 95,
+  "end_column": 105,
+  "text": "fakturerng",
+  "category": "typo",
+  "correction": "fakturering"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 17,
+  "column": 227,
+  "end_column": 234,
+  "text": "samtyke",
+  "category": "typo",
+  "correction": "samtycke"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 19,
+  "column": 66,
+  "end_column": 76,
+  "text": "profilerng",
+  "category": "typo",
+  "correction": "profilering"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 34,
+  "column": 201,
+  "end_column": 205,
+  "text": "gånd",
+  "category": "typo",
+  "correction": "gång"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 40,
+  "column": 77,
+  "end_column": 103,
+  "text": "personuppgiftbiträdesavtal",
+  "category": "compound_link",
+  "correction": "personuppgiftsbiträdesavtal"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 44,
+  "column": 55,
+  "end_column": 58,
+  "text": "dem",
+  "category": "de_dem_gender",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 44,
+  "column": 150,
+  "end_column": 164,
+  "text": "logg uppgifter",
+  "category": "sarskrivning",
+  "correction": "logguppgifter"
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 46,
+  "column": 16,
+  "end_column": 24,
+  "text": "utbildas",
+  "category": "verb_form",
+  "correction": "utbildats",
+  "real_word": true
+ },
+ {
+  "file": "dataskyddsbeskrivning.md",
+  "line": 59,
+  "column": 155,
+  "end_column": 164,
+  "text": "förlägnas",
+  "category": "typo",
+  "correction": "förlängas"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 3,
+  "column": 70,
+  "end_column": 83,
+  "text": "kund tjänsten",
+  "category": "sarskrivning",
+  "correction": "kundtjänsten"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 7,
+  "column": 68,
+  "end_column": 78,
+  "text": "undersköer",
+  "category": "typo",
+  "correction": "undersöker"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 17,
+  "column": 84,
+  "end_column": 87,
+  "text": "dem",
+  "category": "de_dem_gender",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 27,
+  "column": 87,
+  "end_column": 92,
+  "text": "bryta",
+  "category": "verb_form",
+  "correction": "bryter",
+  "real_word": true
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 29,
+  "column": 42,
+  "end_column": 45,
+  "text": "ett",
+  "category": "de_dem_gender",
+  "correction": "en",
+  "real_word": true
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 29,
+  "column": 109,
+  "end_column": 121,
+  "text": "rusnings tid",
+  "category": "sarskrivning",
+  "correction": "rusningstid"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 29,
+  "column": 127,
+  "end_column": 131,
+  "text": "unde",
+  "category": "typo",
+  "correction": "under"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 43,
+  "column": 165,
+  "end_column": 174,
+  "text": "åtgärdena",
+  "category": "typo",
+  "correction": "åtgärderna"
+ },
+ {
+  "file": "driftrunbook.md",
+  "line": 45,
+  "column": 55,
+  "end_column": 64,
+  "text": "Måndagens",
+  "category": "capitalization",
+  "correction": "måndagens"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 7,
+  "column": 126,
+  "end_column": 141,
+  "text": "rekomendationer",
+  "category": "double_consonant",
+  "correction": "rekommendationer"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 11,
+  "column": 66,
+  "end_column": 76,
+  "text": "lösen fras",
+  "category": "sarskrivning",
+  "correction": "lösenfras"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 11,
+  "column": 158,
+  "end_column": 176,
+  "text": "Lösenordhanteraren",
+  "category": "compound_link",
+  "correction": "Lösenordshanteraren"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 19,
+  "column": 89,
+  "end_column": 103,
+  "text": "arbets platsen",
+  "category": "sarskrivning",
+  "correction": "arbetsplatsen"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 21,
+  "column": 130,
+  "end_column": 133,
+  "text": "dem",
+  "category": "de_dem_gender",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 25,
+  "column": 189,
+  "end_column": 197,
+  "text": "angipare",
+  "category": "typo",
+  "correction": "angripare"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 32,
+  "column": 28,
+  "end_column": 40,
+  "text": "pressentkort",
+  "category": "double_consonant",
+  "correction": "presentkort"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 38,
+  "column": 69,
+  "end_column": 83,
+  "text": "sekretesbelagd",
+  "category": "double_consonant",
+  "correction": "sekretessbelagd"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 40,
+  "column": 66,
+  "end_column": 82,
+  "text": "arbetinformation",
+  "category": "compound_link",
+  "correction": "arbetsinformation"
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 40,
+  "column": 115,
+  "end_column": 122,
+  "text": "Godkänd",
+  "category": "de_dem_gender",
+  "correction": "Godkända",
+  "real_word": true
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 44,
+  "column": 203,
+  "end_column": 213,
+  "text": "straffades",
+  "category": "verb_form",
+  "correction": "straffas",
+  "real_word": true
+ },
+ {
+  "file": "informationssakerhetspolicy.md",
+  "line": 46,
+  "column": 89,
+  "end_column": 95,
+  "text": "därfär",
+  "category": "typo",
+  "correction": "därför"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 7,
+  "column": 108,
+  "end_column": 132,
+  "text": "administratörsrättighter",
+  "category": "typo",
+  "correction": "administratörsrättigheter"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 11,
+  "column": 26,
+  "end_column": 39,
+  "text": "program varor",
+  "category": "sarskrivning",
+  "correction": "programvaror"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 19,
+  "column": 52,
+  "end_column": 62,
+  "text": "katallogen",
+  "category": "double_consonant",
+  "correction": "katalogen"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 19,
+  "column": 95,
+  "end_column": 113,
+  "text": "konfigurations fil",
+  "category": "sarskrivning",
+  "correction": "konfigurationsfil"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 24,
+  "column": 14,
+  "end_column": 17,
+  "text": "den",
+  "category": "de_dem_gender",
+  "correction": "det",
+  "real_word": true
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 47,
+  "column": 90,
+  "end_column": 97,
+  "text": "därefer",
+  "category": "typo",
+  "correction": "därefter"
+ },
+ {
+  "file": "installationsguide.md",
+  "line": 51,
+  "column": 189,
+  "end_column": 193,
+  "text": "gådd",
+  "category": "verb_form",
+  "correction": "gått"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 13,
+  "column": 25,
+  "end_column": 44,
+  "text": "översättningarbetet",
+  "category": "compound_link",
+  "correction": "översättningsarbetet"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 13,
+  "column": 54,
+  "end_column": 75,
+  "text": "användar gränssnittet",
+  "category": "sarskrivning",
+  "correction": "användargränssnittet"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 13,
+  "column": 160,
+  "end_column": 174,
+  "text": "Svenskspråkiga",
+  "category": "capitalization",
+  "correction": "svenskspråkiga"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 15,
+  "column": 76,
+  "end_column": 84,
+  "text": "term fel",
+  "category": "sarskrivning",
+  "correction": "termfel"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 30,
+  "column": 44,
+  "end_column": 64,
+  "text": "modersmåls uppgiften",
+  "category": "sarskrivning",
+  "correction": "modersmålsuppgiften"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 30,
+  "column": 199,
+  "end_column": 206,
+  "text": "utreeds",
+  "category": "double_consonant",
+  "correction": "utreds"
+ },
+ {
+  "file": "motesprotokoll.md",
+  "line": 43,
+  "column": 116,
+  "end_column": 119,
+  "text": "den",
+  "category": "de_dem_gender",
+  "correction": "det",
+  "real_word": true
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 7,
+  "column": 116,
+  "end_column": 136,
+  "text": "endoskopi instrument",
+  "category": "sarskrivning",
+  "correction": "endoskopiinstrument"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 7,
+  "column": 138,
+  "end_column": 151,
+  "text": "Undersöknigen",
+  "category": "typo",
+  "correction": "Undersökningen"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 11,
+  "column": 172,
+  "end_column": 179,
+  "text": "göra om",
+  "category": "verb_form",
+  "correction": "göras om",
+  "real_word": true
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 15,
+  "column": 112,
+  "end_column": 120,
+  "text": "riklligt",
+  "category": "double_consonant",
+  "correction": "rikligt"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 21,
+  "column": 11,
+  "end_column": 27,
+  "text": "blod förtunnande",
+  "category": "sarskrivning",
+  "correction": "blodförtunnande"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 21,
+  "column": 128,
+  "end_column": 144,
+  "text": "diabtesmediciner",
+  "category": "typo",
+  "correction": "diabetesmediciner"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 25,
+  "column": 101,
+  "end_column": 107,
+  "text": "Vanlig",
+  "category": "de_dem_gender",
+  "correction": "Vanliga",
+  "real_word": true
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 29,
+  "column": 53,
+  "end_column": 61,
+  "text": "lungande",
+  "category": "typo",
+  "correction": "lugnande"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 33,
+  "column": 73,
+  "end_column": 86,
+  "text": "följe slagare",
+  "category": "sarskrivning",
+  "correction": "följeslagare"
+ },
+ {
+  "file": "patientinformation-koloskopi.md",
+  "line": 43,
+  "column": 26,
+  "end_column": 30,
+  "text": "Mars",
+  "category": "capitalization",
+  "correction": "mars"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 9,
+  "column": 13,
+  "end_column": 21,
+  "text": "November",
+  "category": "capitalization",
+  "correction": "november"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 9,
+  "column": 102,
+  "end_column": 106,
+  "text": "köra",
+  "category": "verb_form",
+  "correction": "körs",
+  "real_word": true
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 13,
+  "column": 22,
+  "end_column": 39,
+  "text": "kontakt uppgifter",
+  "category": "sarskrivning",
+  "correction": "kontaktuppgifter"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 21,
+  "column": 25,
+  "end_column": 44,
+  "text": "frånvaro meddelande",
+  "category": "sarskrivning",
+  "correction": "frånvaromeddelande"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 23,
+  "column": 12,
+  "end_column": 22,
+  "text": "försummmas",
+  "category": "double_consonant",
+  "correction": "försummas"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 32,
+  "column": 26,
+  "end_column": 32,
+  "text": "stägns",
+  "category": "typo",
+  "correction": "stängs"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 38,
+  "column": 11,
+  "end_column": 31,
+  "text": "distans utbildningar",
+  "category": "sarskrivning",
+  "correction": "distansutbildningar"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 38,
+  "column": 113,
+  "end_column": 127,
+  "text": "Engelskspråkig",
+  "category": "capitalization",
+  "correction": "engelskspråkig"
+ },
+ {
+  "file": "personalmeddelande.md",
+  "line": 38,
+  "column": 158,
+  "end_column": 161,
+  "text": "dem",
+  "category": "de_dem_gender",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 20,
+  "column": 29,
+  "end_column": 37,
+  "text": "Bedömmer",
+  "category": "verb_form",
+  "correction": "Bedömer"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 21,
+  "column": 3,
+  "end_column": 20,
+  "text": "Boknings systemet",
+  "category": "sarskrivning",
+  "correction": "Bokningssystemet"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 43,
+  "column": 30,
+  "end_column": 32,
+  "text": "en",
+  "category": "de_dem_gender",
+  "correction": "ett",
+  "real_word": true
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 43,
+  "column": 93,
+  "end_column": 101,
+  "text": "besöktid",
+  "category": "compound_link",
+  "correction": "besökstid"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 47,
+  "column": 95,
+  "end_column": 107,
+  "text": "vård central",
+  "category": "sarskrivning",
+  "correction": "vårdcentral"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 47,
+  "column": 129,
+  "end_column": 134,
+  "text": "vläja",
+  "category": "typo",
+  "correction": "välja"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 47,
+  "column": 144,
+  "end_column": 153,
+  "text": "motagning",
+  "category": "double_consonant",
+  "correction": "mottagning"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 49,
+  "column": 148,
+  "end_column": 157,
+  "text": "meddelats",
+  "category": "verb_form",
+  "correction": "meddelas",
+  "real_word": true
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 53,
+  "column": 114,
+  "end_column": 121,
+  "text": "samtyck",
+  "category": "typo",
+  "correction": "samtycke"
+ },
+ {
+  "file": "processbeskrivning-tidsbokning.md",
+  "line": 65,
+  "column": 257,
+  "end_column": 260,
+  "text": "dom",
+  "category": "de_dem_gender",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 3,
+  "column": 74,
+  "end_column": 93,
+  "text": "integrations teamet",
+  "category": "sarskrivning",
+  "correction": "integrationsteamet"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 3,
+  "column": 106,
+  "end_column": 116,
+  "text": "anstälning",
+  "category": "double_consonant",
+  "correction": "anställning"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 3,
+  "column": 165,
+  "end_column": 173,
+  "text": "December",
+  "category": "capitalization",
+  "correction": "december"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 7,
+  "column": 97,
+  "end_column": 120,
+  "text": "bilddiagnostikssystemen",
+  "category": "compound_link",
+  "correction": "bilddiagnostiksystemen"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 13,
+  "column": 42,
+  "end_column": 58,
+  "text": "kravspecifkation",
+  "category": "typo",
+  "correction": "kravspecifikation"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 17,
+  "column": 31,
+  "end_column": 49,
+  "text": "backend utveckling",
+  "category": "sarskrivning",
+  "correction": "backendutveckling"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 22,
+  "column": 150,
+  "end_column": 153,
+  "text": "sej",
+  "category": "typo",
+  "correction": "sig"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 28,
+  "column": 49,
+  "end_column": 54,
+  "text": "vilka",
+  "category": "de_dem_gender",
+  "correction": "av vilka",
+  "real_word": true
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 28,
+  "column": 123,
+  "end_column": 132,
+  "text": "kod basen",
+  "category": "sarskrivning",
+  "correction": "kodbasen"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 32,
+  "column": 20,
+  "end_column": 35,
+  "text": "meritförtekning",
+  "category": "typo",
+  "correction": "meritförteckning"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 34,
+  "column": 35,
+  "end_column": 40,
+  "text": "visar",
+  "category": "verb_form",
+  "correction": "visa",
+  "real_word": true
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 34,
+  "column": 49,
+  "end_column": 70,
+  "text": "straffregistersutdrag",
+  "category": "compound_link",
+  "correction": "straffregisterutdrag"
+ },
+ {
+  "file": "rekrytering.md",
+  "line": 34,
+  "column": 167,
+  "end_column": 172,
+  "text": "adnra",
+  "category": "typo",
+  "correction": "andra"
+ },
+ {
+  "file": "testplan.md",
+  "line": 16,
+  "column": 22,
+  "end_column": 41,
+  "text": "integrations tester",
+  "category": "sarskrivning",
+  "correction": "integrationstester"
+ },
+ {
+  "file": "testplan.md",
+  "line": 25,
+  "column": 119,
+  "end_column": 127,
+  "text": "gränssen",
+  "category": "double_consonant",
+  "correction": "gränsen"
+ },
+ {
+  "file": "testplan.md",
+  "line": 34,
+  "column": 109,
+  "end_column": 123,
+  "text": "pull-förfrågen",
+  "category": "typo",
+  "correction": "pull-förfrågan"
+ },
+ {
+  "file": "testplan.md",
+  "line": 38,
+  "column": 27,
+  "end_column": 39,
+  "text": "produktägare",
+  "category": "de_dem_gender",
+  "correction": "produktägaren",
+  "real_word": true
+ },
+ {
+  "file": "testplan.md",
+  "line": 38,
+  "column": 117,
+  "end_column": 137,
+  "text": "användarsberättelser",
+  "category": "compound_link",
+  "correction": "användarberättelser"
+ },
+ {
+  "file": "testplan.md",
+  "line": 42,
+  "column": 50,
+  "end_column": 66,
+  "text": "Måndagsmorgonens",
+  "category": "capitalization",
+  "correction": "måndagsmorgonens"
+ },
+ {
+  "file": "testplan.md",
+  "line": 42,
+  "column": 185,
+  "end_column": 196,
+  "text": "fel andelen",
+  "category": "sarskrivning",
+  "correction": "felandelen"
+ },
+ {
+  "file": "testplan.md",
+  "line": 44,
+  "column": 48,
+  "end_column": 61,
+  "text": "dimensionerat",
+  "category": "de_dem_gender",
+  "correction": "dimensionerad",
+  "real_word": true
+ },
+ {
+  "file": "testplan.md",
+  "line": 50,
+  "column": 70,
+  "end_column": 80,
+  "text": "sårbareter",
+  "category": "typo",
+  "correction": "sårbarheter"
+ },
+ {
+  "file": "testplan.md",
+  "line": 66,
+  "column": 40,
+  "end_column": 49,
+  "text": "beslutade",
+  "category": "verb_form",
+  "correction": "beslutar",
+  "real_word": true
+ },
+ {
+  "file": "testplan.md",
+  "line": 66,
+  "column": 87,
+  "end_column": 101,
+  "text": "Slut rapporten",
+  "category": "sarskrivning",
+  "correction": "Slutrapporten"
+ },
+ {
+  "file": "testplan.md",
+  "line": 66,
+  "column": 160,
+  "end_column": 174,
+  "text": "releasebesluet",
+  "category": "typo",
+  "correction": "releasebeslutet"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 7,
+  "column": 20,
+  "end_column": 26,
+  "text": "delvsi",
+  "category": "typo",
+  "correction": "delvis"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 7,
+  "column": 71,
+  "end_column": 80,
+  "text": "undantgen",
+  "category": "typo",
+  "correction": "undantagen"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 22,
+  "column": 71,
+  "end_column": 77,
+  "text": "åtgrda",
+  "category": "typo",
+  "correction": "åtgärda"
+ },
+ {
+  "file": "tillganglighetsutlatande.md",
+  "line": 39,
+  "column": 139,
+  "end_column": 153,
+  "text": "Automatstester",
+  "category": "compound_link",
+  "correction": "Automattester"
+ }
+]

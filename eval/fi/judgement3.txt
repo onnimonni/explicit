@@ -1,0 +1,35 @@
+Round 3 judge run of scratchpad/explicit-voikko3 (features voikko,swedish). Scorer output: eval-*/<set>.v3.score.txt. holdout3 = new, weighted to the round-3 grammar rules, with 67 (fi) / 61 (sv) grammar_ok traps of correct usage.
+
+lang set      P v2->v3      R v2->v3      F1 v2->v3
+fi  seeded    93.1 -> 95.0  81.3 -> 82.0  86.8 -> 88.0
+fi  holdout   86.4 -> 88.1  72.7 -> 75.3  79.0 -> 81.2
+fi  holdout2  66.2 -> 79.0  63.5 -> 66.2  64.8 -> 72.1
+fi  holdout3  87.5          43.4          58.0   (113 labels, 75 real-word)
+sv  seeded    92.5 -> 91.9  74.0 -> 75.3  82.2 -> 82.8
+sv  holdout   87.2 -> 87.2  54.8 -> 54.8  67.3 -> 67.3
+sv  holdout2  69.1 -> 70.8  62.3 -> 55.7  65.5 -> 62.4   (regression: 4 "dom" labels lost, see below)
+sv  holdout3  77.8          35.0          48.3   (80 labels, 69 real-word)
+en  seeded    81.8 / 70.8 / 75.9 (TP 216 unchanged since v5 baseline; FP 49 -> 48)
+
+holdout3 FP hand-judgement
+fi (7): 5 FinnishComma hits on my grammar_ok traps "X ennen kuin" / "samalla kun" -> the engine is right, Kielitoimisto requires the comma before a subordinate "ennen kuin"/"samalla kun" clause; my traps were wrong. 2 true FPs: FinnishAgreement "joka löytyy" (singular antecedent ADR after plural "Syyt"), FinnishCompoundSplit "poikkeama politiikasta". Adjusted P 96%.
+sv (8): 7 spelling hits on correct Swedish words (nödtjänster, inställningsvyn, Fillager, Läsfrågorna, omtestet = compounds; begäranden, repositoriet = dictionary gaps); 1 true rule FP: SwedishPresentTense on "Det ena gällde" ("ena" is not a verb). No grammar_ok trap of the new Swedish rules fired: 0 FP on 61 correct-usage traps.
+
+Per-new-rule precision (TP/FP summed over seeded+holdout+holdout2+holdout3) and holdout3 recall on the category it targets
+fi FinnishKuin          12/0  100%   kun_kuin 9/9
+fi FinnishRelative       8/0  100%   joka_jotka 8/23 (misses joka->mikä after a clause x8, plural/singular mismatch x6)
+fi FinnishAgreement      7/1   87%   agreement 2/17 (only nominative plural + 3sg caught; "ei saa"->"eivät saa", "kestää"->"kestävät", passive-for-plural all missed)
+fi FinnishVaanVain       9/2   81%   vaan_vain 6/11 (both FPs are round-2 cases where my text was wrong and the engine right; misses "vain" after a negated clause x5)
+fi FinnishComma         21/5   80%   punctuation 7/16 (all 5 FPs are my wrong traps; effectively 26/0; misses comma before a main clause after a subordinate one, "ja jos", "eikä")
+fi FinnishElative        0/0    -    sita_siita 0/15 -> the rule never fired on "kertoo sitä", "ilmoitetaan sitä", "huolehtii sitä", "Sitä syystä", "Sitä huolimatta"
+fi FinnishCompoundSplit 55/4   93%,  FinnishCapitalization 35/1 97%, FinnishSentenceStart 3/4 (2 of the 4 FPs are my trim artefacts; other 2 "iPadOS")
+sv SwedishArticleGender  9/0  100%   en_ett 6/15 (misses adjective-in-between "ett annan person", "en tillfälligt avbrott", and "ett incidentärende", "ett sessionsidentifierare")
+sv SwedishPresentTense   6/1   85%   present_tense 5/16 (passive -s forms "meddela"->"meddelas", "styra"->"styrs" all missed; "innehålla"->"innehöll" missed)
+sv SwedishAttInfinitive  2/0  100%   att_infinitive 2/8 ("att rapporterar", "att städar", "vill att ta", "att åtgärda" after borde missed)
+sv SwedishDeDem          1/0  100%   de_dem 4/15 (object "de"->"dem" x3 and subject "dem"->"de" x5 missed)
+sv SwedishDomDem         8/0  100%   but now subject-only: "dom" as object ("tillåter dom", "godkänt dom") and sentence-initial "Dom" are no longer caught -> -2 seeded, -4 holdout2 labels vs v2
+sv SwedishSupine         0/0    -    supine 0/12 -> never fired ("har lyckas", "har kontrollera", "har bokat"->"bokats", "borde väckt")
+sv SwedishAdjectiveGender 0/0   -    adj_agreement 0/3 -> never fired
+sv SwedishCompoundSplit 41/2  95%,  SwedishCapitalization 31/0 100%.
+
+Traps: inflected products 0 FP; names 1 ("Dr"); fi_sv 0; phrase 0; code-cell traps without backticks no longer flagged (table-cell language inheritance works); English quotes 0 FP, unquoted English sentence still 1 ("programme"/"ask").

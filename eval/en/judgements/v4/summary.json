@@ -1,0 +1,1465 @@
+{
+ "samples": {
+  "v4-random-harper": {
+   "all": {
+    "n": 40,
+    "T": 11,
+    "H": 17,
+    "J": 12,
+    "p_strict": 0.275,
+    "ci_strict": [
+     0.1610785343314309,
+     0.4283525083312458
+    ],
+    "p_excl_jargon": 0.39285714285714285,
+    "ci_excl_jargon": [
+     0.23565451827580033,
+     0.575912739650937
+    ]
+   },
+   "spelling": {
+    "n": 20,
+    "T": 5,
+    "H": 3,
+    "J": 12,
+    "p_strict": 0.25,
+    "ci_strict": [
+     0.11186005278940306,
+     0.4687050099580635
+    ],
+    "p_excl_jargon": 0.625,
+    "ci_excl_jargon": [
+     0.3057378545838018,
+     0.863158240538479
+    ]
+   },
+   "grammar": {
+    "n": 20,
+    "T": 6,
+    "H": 14,
+    "J": 0,
+    "p_strict": 0.3,
+    "ci_strict": [
+     0.14547527396899385,
+     0.5189767762289793
+    ],
+    "p_excl_jargon": 0.3,
+    "ci_excl_jargon": [
+     0.14547527396899385,
+     0.5189767762289793
+    ]
+   }
+  },
+  "v4-random-curated": {
+   "all": {
+    "n": 40,
+    "T": 18,
+    "H": 7,
+    "J": 15,
+    "p_strict": 0.45,
+    "ci_strict": [
+     0.30705075280944705,
+     0.6017117011155924
+    ],
+    "p_excl_jargon": 0.72,
+    "ci_excl_jargon": [
+     0.524230281034417,
+     0.8571632616261843
+    ]
+   },
+   "spelling": {
+    "n": 20,
+    "T": 4,
+    "H": 1,
+    "J": 15,
+    "p_strict": 0.2,
+    "ci_strict": [
+     0.08065635327119998,
+     0.4160217220257599
+    ],
+    "p_excl_jargon": 0.8,
+    "ci_excl_jargon": [
+     0.37552826411853885,
+     0.9637768390302125
+    ]
+   },
+   "grammar": {
+    "n": 20,
+    "T": 14,
+    "H": 6,
+    "J": 0,
+    "p_strict": 0.7,
+    "ci_strict": [
+     0.4810232237710205,
+     0.8545247260310062
+    ],
+    "p_excl_jargon": 0.7,
+    "ci_excl_jargon": [
+     0.4810232237710205,
+     0.8545247260310062
+    ]
+   }
+  },
+  "v4-random-spellbook": {
+   "all": {
+    "n": 40,
+    "T": 26,
+    "H": 3,
+    "J": 11,
+    "p_strict": 0.65,
+    "ci_strict": [
+     0.4950559699353738,
+     0.7786566682895085
+    ],
+    "p_excl_jargon": 0.896551724137931,
+    "ci_excl_jargon": [
+     0.7361455275293085,
+     0.9641857596186989
+    ]
+   },
+   "spelling": {
+    "n": 20,
+    "T": 7,
+    "H": 2,
+    "J": 11,
+    "p_strict": 0.35,
+    "ci_strict": [
+     0.1811895478679446,
+     0.5671494897805353
+    ],
+    "p_excl_jargon": 0.7777777777777778,
+    "ci_excl_jargon": [
+     0.4525833436728054,
+     0.9367762376877727
+    ]
+   },
+   "grammar": {
+    "n": 20,
+    "T": 19,
+    "H": 1,
+    "J": 0,
+    "p_strict": 0.95,
+    "ci_strict": [
+     0.7638641064874331,
+     0.9911187805671267
+    ],
+    "p_excl_jargon": 0.95,
+    "ci_excl_jargon": [
+     0.7638641064874331,
+     0.9911187805671267
+    ]
+   }
+  },
+  "v4-random-hybrid": {
+   "all": {
+    "n": 40,
+    "T": 20,
+    "H": 9,
+    "J": 11,
+    "p_strict": 0.5,
+    "ci_strict": [
+     0.35199278797099753,
+     0.6480072120290025
+    ],
+    "p_excl_jargon": 0.6896551724137931,
+    "ci_excl_jargon": [
+     0.5076952952728147,
+     0.8272457551023195
+    ]
+   },
+   "spelling": {
+    "n": 20,
+    "T": 4,
+    "H": 5,
+    "J": 11,
+    "p_strict": 0.2,
+    "ci_strict": [
+     0.08065635327119998,
+     0.4160217220257599
+    ],
+    "p_excl_jargon": 0.4444444444444444,
+    "ci_excl_jargon": [
+     0.188775429471914,
+     0.7333526542559703
+    ]
+   },
+   "grammar": {
+    "n": 20,
+    "T": 16,
+    "H": 4,
+    "J": 0,
+    "p_strict": 0.8,
+    "ci_strict": [
+     0.5839782779742402,
+     0.9193436467288001
+    ],
+    "p_excl_jargon": 0.8,
+    "ci_excl_jargon": [
+     0.5839782779742402,
+     0.9193436467288001
+    ]
+   }
+  },
+  "v4-new-rules-all-engines": {
+   "all": {
+    "n": 4,
+    "T": 4,
+    "H": 0,
+    "J": 0,
+    "p_strict": 1.0,
+    "ci_strict": [
+     0.5100999795960008,
+     1.0
+    ],
+    "p_excl_jargon": 1.0,
+    "ci_excl_jargon": [
+     0.5100999795960008,
+     1.0
+    ]
+   },
+   "spelling": {
+    "n": 0,
+    "T": 0,
+    "H": 0,
+    "J": 0,
+    "p_strict": null,
+    "ci_strict": [
+     null,
+     null
+    ],
+    "p_excl_jargon": null,
+    "ci_excl_jargon": [
+     null,
+     null
+    ]
+   },
+   "grammar": {
+    "n": 4,
+    "T": 4,
+    "H": 0,
+    "J": 0,
+    "p_strict": 1.0,
+    "ci_strict": [
+     0.5100999795960008,
+     1.0
+    ],
+    "p_excl_jargon": 1.0,
+    "ci_excl_jargon": [
+     0.5100999795960008,
+     1.0
+    ]
+   }
+  },
+  "v4-spellbook-only-vs-harper": {
+   "all": {
+    "n": 30,
+    "T": 9,
+    "H": 3,
+    "J": 18,
+    "p_strict": 0.3,
+    "ci_strict": [
+     0.16664562643958936,
+     0.47876121011660183
+    ],
+    "p_excl_jargon": 0.75,
+    "ci_excl_jargon": [
+     0.4676896608793401,
+     0.9110599603710388
+    ]
+   },
+   "spelling": {
+    "n": 28,
+    "T": 7,
+    "H": 3,
+    "J": 18,
+    "p_strict": 0.25,
+    "ci_strict": [
+     0.12676334942200781,
+     0.43356025240704604
+    ],
+    "p_excl_jargon": 0.7,
+    "ci_excl_jargon": [
+     0.3967732199795652,
+     0.892210712513788
+    ]
+   },
+   "grammar": {
+    "n": 2,
+    "T": 2,
+    "H": 0,
+    "J": 0,
+    "p_strict": 1.0,
+    "ci_strict": [
+     0.3423719528896193,
+     1.0
+    ],
+    "p_excl_jargon": 1.0,
+    "ci_excl_jargon": [
+     0.3423719528896193,
+     1.0
+    ]
+   }
+  },
+  "v4-curated-only-vs-spellbook": {
+   "all": {
+    "n": 30,
+    "T": 6,
+    "H": 14,
+    "J": 10,
+    "p_strict": 0.2,
+    "ci_strict": [
+     0.09504978102401236,
+     0.37306047381027446
+    ],
+    "p_excl_jargon": 0.3,
+    "ci_excl_jargon": [
+     0.14547527396899385,
+     0.5189767762289793
+    ]
+   },
+   "spelling": {
+    "n": 30,
+    "T": 6,
+    "H": 14,
+    "J": 10,
+    "p_strict": 0.2,
+    "ci_strict": [
+     0.09504978102401236,
+     0.37306047381027446
+    ],
+    "p_excl_jargon": 0.3,
+    "ci_excl_jargon": [
+     0.14547527396899385,
+     0.5189767762289793
+    ]
+   },
+   "grammar": {
+    "n": 0,
+    "T": 0,
+    "H": 0,
+    "J": 0,
+    "p_strict": null,
+    "ci_strict": [
+     null,
+     null
+    ],
+    "p_excl_jargon": null,
+    "ci_excl_jargon": [
+     null,
+     null
+    ]
+   }
+  },
+  "pooled-spellbook-speller": {
+   "spelling": {
+    "n": 40,
+    "T": 11,
+    "H": 7,
+    "J": 22,
+    "p_strict": 0.275,
+    "ci_strict": [
+     0.1610785343314309,
+     0.4283525083312458
+    ],
+    "p_excl_jargon": 0.6111111111111112,
+    "ci_excl_jargon": [
+     0.3861866858065617,
+     0.7969500807306884
+    ]
+   }
+  }
+ },
+ "clean_counts_v4": {
+  "harper-corpus": {
+   "spelling": 1416,
+   "grammar": 1344
+  },
+  "harper-rs": {
+   "spelling": 415,
+   "grammar": 325
+  },
+  "curated-corpus": {
+   "spelling": 1816,
+   "grammar": 33
+  },
+  "curated-rs": {
+   "spelling": 432,
+   "grammar": 23
+  },
+  "spellbook-corpus": {
+   "spelling": 1485,
+   "grammar": 24
+  },
+  "spellbook-rs": {
+   "spelling": 226,
+   "grammar": 15
+  },
+  "hybrid-corpus": {
+   "spelling": 1485,
+   "grammar": 32
+  },
+  "hybrid-rs": {
+   "spelling": 226,
+   "grammar": 17
+  }
+ },
+ "extrapolation": {
+  "harper": {
+   "corpus": {
+    "findings_per100k": 1017.0690722561245,
+    "tp_per100k": 279.0306889537455,
+    "fp_per100k_strict": 738.0383833023791,
+    "hard_fp_per100k": 424.9579906252763
+   },
+   "rs": {
+    "findings_per100k": 335.7973599067028,
+    "tp_per100k": 91.32326848814046,
+    "fp_per100k_strict": 244.47409141856235,
+    "hard_fp_per100k": 131.48281761211774
+   }
+  },
+  "curated": {
+   "corpus": {
+    "findings_per100k": 681.3625777541936,
+    "tp_per100k": 142.35281978715253,
+    "fp_per100k_strict": 539.0097579670412,
+    "hard_fp_per100k": 37.108281005866566
+   },
+   "rs": {
+    "findings_per100k": 206.4699983210132,
+    "tp_per100k": 46.51247214923924,
+    "fp_per100k_strict": 159.95752617177396,
+    "hard_fp_per100k": 12.932736158568957
+   }
+  },
+  "spellbook": {
+   "corpus": {
+    "findings_per100k": 556.0714601574246,
+    "tp_per100k": 158.88940479349077,
+    "fp_per100k_strict": 397.18205536393384,
+    "hard_fp_per100k": 96.20699566640131
+   },
+   "rs": {
+    "findings_per100k": 109.36103207772346,
+    "tp_per100k": 34.66880850928661,
+    "fp_per100k_strict": 74.69222356843686,
+    "hard_fp_per100k": 18.287342708432597
+   }
+  },
+  "hybrid": {
+   "corpus": {
+    "findings_per100k": 559.0194864538191,
+    "tp_per100k": 159.92121399722888,
+    "fp_per100k_strict": 399.09827245659034,
+    "hard_fp_per100k": 98.12321275905776
+   },
+   "rs": {
+    "findings_per100k": 110.26859250990374,
+    "tp_per100k": 34.37385136882802,
+    "fp_per100k_strict": 75.89474114107573,
+    "hard_fp_per100k": 19.489860281071465
+   }
+  }
+ },
+ "scores_v4": {
+  "harper-seeded": {
+   "precision": 0.6646153846153846,
+   "recall": 0.7081967213114754,
+   "f1": 0.6857142857142857,
+   "true_positives": 216,
+   "false_positives": 109,
+   "labels_hit": 216,
+   "labels": 305,
+   "fp_not_on_trap": 44,
+   "recall_by_category": {
+    "a_an": [
+     26,
+     26
+    ],
+    "agreement": [
+     0,
+     21
+    ],
+    "british": [
+     15,
+     16
+    ],
+    "capitalization": [
+     12,
+     21
+    ],
+    "fragment": [
+     1,
+     11
+    ],
+    "homophone": [
+     17,
+     26
+    ],
+    "its_its": [
+     20,
+     21
+    ],
+    "missing_extra_word": [
+     1,
+     16
+    ],
+    "punctuation": [
+     0,
+     16
+    ],
+    "repeated_word": [
+     20,
+     21
+    ],
+    "spelling": [
+     61,
+     62
+    ],
+    "their_there": [
+     15,
+     16
+    ],
+    "then_than": [
+     13,
+     16
+    ],
+    "your_youre": [
+     15,
+     16
+    ]
+   },
+   "fp_on_traps": {
+    "product": 32,
+    "name": 20,
+    "path": 3,
+    "term": 3,
+    "table": 2,
+    "unit": 2,
+    "acronym": 1,
+    "correct": 1,
+    "list": 1
+   }
+  },
+  "curated-seeded": {
+   "precision": 0.7026143790849673,
+   "recall": 0.7049180327868853,
+   "f1": 0.7037643207855974,
+   "true_positives": 215,
+   "false_positives": 91,
+   "labels_hit": 215,
+   "labels": 305,
+   "fp_not_on_trap": 30,
+   "recall_by_category": {
+    "a_an": [
+     26,
+     26
+    ],
+    "agreement": [
+     0,
+     21
+    ],
+    "british": [
+     16,
+     16
+    ],
+    "capitalization": [
+     10,
+     21
+    ],
+    "fragment": [
+     1,
+     11
+    ],
+    "homophone": [
+     17,
+     26
+    ],
+    "its_its": [
+     20,
+     21
+    ],
+    "missing_extra_word": [
+     1,
+     16
+    ],
+    "punctuation": [
+     0,
+     16
+    ],
+    "repeated_word": [
+     20,
+     21
+    ],
+    "spelling": [
+     61,
+     62
+    ],
+    "their_there": [
+     15,
+     16
+    ],
+    "then_than": [
+     13,
+     16
+    ],
+    "your_youre": [
+     15,
+     16
+    ]
+   },
+   "fp_on_traps": {
+    "product": 31,
+    "name": 20,
+    "path": 3,
+    "term": 3,
+    "table": 2,
+    "correct": 1,
+    "list": 1
+   }
+  },
+  "spellbook-seeded": {
+   "precision": 0.7728937728937729,
+   "recall": 0.6918032786885245,
+   "f1": 0.7301038062283736,
+   "true_positives": 211,
+   "false_positives": 62,
+   "labels_hit": 211,
+   "labels": 305,
+   "fp_not_on_trap": 7,
+   "recall_by_category": {
+    "a_an": [
+     26,
+     26
+    ],
+    "agreement": [
+     0,
+     21
+    ],
+    "british": [
+     16,
+     16
+    ],
+    "capitalization": [
+     10,
+     21
+    ],
+    "fragment": [
+     1,
+     11
+    ],
+    "homophone": [
+     17,
+     26
+    ],
+    "its_its": [
+     15,
+     21
+    ],
+    "missing_extra_word": [
+     1,
+     16
+    ],
+    "punctuation": [
+     0,
+     16
+    ],
+    "repeated_word": [
+     21,
+     21
+    ],
+    "spelling": [
+     61,
+     62
+    ],
+    "their_there": [
+     15,
+     16
+    ],
+    "then_than": [
+     13,
+     16
+    ],
+    "your_youre": [
+     15,
+     16
+    ]
+   },
+   "fp_on_traps": {
+    "product": 27,
+    "name": 20,
+    "path": 3,
+    "table": 2,
+    "correct": 1,
+    "list": 1,
+    "term": 1
+   }
+  },
+  "hybrid-seeded": {
+   "precision": 0.7741935483870968,
+   "recall": 0.7081967213114754,
+   "f1": 0.7397260273972602,
+   "true_positives": 216,
+   "false_positives": 63,
+   "labels_hit": 216,
+   "labels": 305,
+   "fp_not_on_trap": 8,
+   "recall_by_category": {
+    "a_an": [
+     26,
+     26
+    ],
+    "agreement": [
+     0,
+     21
+    ],
+    "british": [
+     16,
+     16
+    ],
+    "capitalization": [
+     10,
+     21
+    ],
+    "fragment": [
+     1,
+     11
+    ],
+    "homophone": [
+     17,
+     26
+    ],
+    "its_its": [
+     20,
+     21
+    ],
+    "missing_extra_word": [
+     1,
+     16
+    ],
+    "punctuation": [
+     0,
+     16
+    ],
+    "repeated_word": [
+     21,
+     21
+    ],
+    "spelling": [
+     61,
+     62
+    ],
+    "their_there": [
+     15,
+     16
+    ],
+    "then_than": [
+     13,
+     16
+    ],
+    "your_youre": [
+     15,
+     16
+    ]
+   },
+   "fp_on_traps": {
+    "product": 27,
+    "name": 20,
+    "path": 3,
+    "table": 2,
+    "correct": 1,
+    "list": 1,
+    "term": 1
+   }
+  },
+  "harper-holdout": {
+   "precision": 0.64375,
+   "recall": 0.515,
+   "f1": 0.5722222222222223,
+   "true_positives": 103,
+   "false_positives": 57,
+   "labels_hit": 103,
+   "labels": 200,
+   "fp_not_on_trap": 6,
+   "recall_by_category": {
+    "a_an": [
+     12,
+     14
+    ],
+    "agreement": [
+     0,
+     18
+    ],
+    "british": [
+     7,
+     7
+    ],
+    "capitalization": [
+     4,
+     9
+    ],
+    "fragment": [
+     0,
+     12
+    ],
+    "homophone": [
+     10,
+     24
+    ],
+    "its_its": [
+     9,
+     15
+    ],
+    "missing_extra_word": [
+     0,
+     6
+    ],
+    "punctuation": [
+     0,
+     15
+    ],
+    "repeated_word": [
+     7,
+     8
+    ],
+    "spelling": [
+     26,
+     26
+    ],
+    "their_there": [
+     11,
+     17
+    ],
+    "then_than": [
+     11,
+     18
+    ],
+    "your_youre": [
+     6,
+     11
+    ]
+   },
+   "fp_on_traps": {
+    "name": 38,
+    "list": 4,
+    "product": 4,
+    "unit": 3,
+    "acronym": 1,
+    "table": 1
+   }
+  },
+  "curated-holdout": {
+   "precision": 0.6530612244897959,
+   "recall": 0.48,
+   "f1": 0.553314121037464,
+   "true_positives": 96,
+   "false_positives": 51,
+   "labels_hit": 96,
+   "labels": 200,
+   "fp_not_on_trap": 5,
+   "recall_by_category": {
+    "a_an": [
+     12,
+     14
+    ],
+    "agreement": [
+     0,
+     18
+    ],
+    "british": [
+     7,
+     7
+    ],
+    "capitalization": [
+     3,
+     9
+    ],
+    "fragment": [
+     0,
+     12
+    ],
+    "homophone": [
+     8,
+     24
+    ],
+    "its_its": [
+     9,
+     15
+    ],
+    "missing_extra_word": [
+     0,
+     6
+    ],
+    "punctuation": [
+     0,
+     15
+    ],
+    "repeated_word": [
+     7,
+     8
+    ],
+    "spelling": [
+     26,
+     26
+    ],
+    "their_there": [
+     7,
+     17
+    ],
+    "then_than": [
+     11,
+     18
+    ],
+    "your_youre": [
+     6,
+     11
+    ]
+   },
+   "fp_on_traps": {
+    "name": 38,
+    "list": 4,
+    "product": 4
+   }
+  },
+  "spellbook-holdout": {
+   "precision": 0.6713286713286714,
+   "recall": 0.48,
+   "f1": 0.5597667638483965,
+   "true_positives": 96,
+   "false_positives": 47,
+   "labels_hit": 96,
+   "labels": 200,
+   "fp_not_on_trap": 2,
+   "recall_by_category": {
+    "a_an": [
+     12,
+     14
+    ],
+    "agreement": [
+     0,
+     18
+    ],
+    "british": [
+     7,
+     7
+    ],
+    "capitalization": [
+     2,
+     9
+    ],
+    "fragment": [
+     0,
+     12
+    ],
+    "homophone": [
+     8,
+     24
+    ],
+    "its_its": [
+     9,
+     15
+    ],
+    "missing_extra_word": [
+     0,
+     6
+    ],
+    "punctuation": [
+     0,
+     15
+    ],
+    "repeated_word": [
+     8,
+     8
+    ],
+    "spelling": [
+     26,
+     26
+    ],
+    "their_there": [
+     7,
+     17
+    ],
+    "then_than": [
+     11,
+     18
+    ],
+    "your_youre": [
+     6,
+     11
+    ]
+   },
+   "fp_on_traps": {
+    "name": 38,
+    "list": 4,
+    "product": 3
+   }
+  },
+  "hybrid-holdout": {
+   "precision": 0.6713286713286714,
+   "recall": 0.48,
+   "f1": 0.5597667638483965,
+   "true_positives": 96,
+   "false_positives": 47,
+   "labels_hit": 96,
+   "labels": 200,
+   "fp_not_on_trap": 2,
+   "recall_by_category": {
+    "a_an": [
+     12,
+     14
+    ],
+    "agreement": [
+     0,
+     18
+    ],
+    "british": [
+     7,
+     7
+    ],
+    "capitalization": [
+     2,
+     9
+    ],
+    "fragment": [
+     0,
+     12
+    ],
+    "homophone": [
+     8,
+     24
+    ],
+    "its_its": [
+     9,
+     15
+    ],
+    "missing_extra_word": [
+     0,
+     6
+    ],
+    "punctuation": [
+     0,
+     15
+    ],
+    "repeated_word": [
+     8,
+     8
+    ],
+    "spelling": [
+     26,
+     26
+    ],
+    "their_there": [
+     7,
+     17
+    ],
+    "then_than": [
+     11,
+     18
+    ],
+    "your_youre": [
+     6,
+     11
+    ]
+   },
+   "fp_on_traps": {
+    "name": 38,
+    "list": 4,
+    "product": 3
+   }
+  },
+  "harper-holdout2": {
+   "precision": 0.5394190871369294,
+   "recall": 0.5138339920948617,
+   "f1": 0.5263157894736842,
+   "true_positives": 130,
+   "false_positives": 111,
+   "labels_hit": 130,
+   "labels": 253,
+   "fp_not_on_trap": 28,
+   "recall_by_category": {
+    "a_an": [
+     13,
+     14
+    ],
+    "agreement": [
+     0,
+     22
+    ],
+    "british": [
+     6,
+     6
+    ],
+    "capitalization": [
+     3,
+     4
+    ],
+    "fragment": [
+     0,
+     12
+    ],
+    "homophone": [
+     23,
+     51
+    ],
+    "its_its": [
+     12,
+     21
+    ],
+    "missing_extra_word": [
+     0,
+     4
+    ],
+    "punctuation": [
+     4,
+     16
+    ],
+    "spelling": [
+     16,
+     16
+    ],
+    "spelling_1edit": [
+     15,
+     15
+    ],
+    "their_there": [
+     10,
+     20
+    ],
+    "then_than": [
+     16,
+     31
+    ],
+    "your_youre": [
+     12,
+     21
+    ]
+   },
+   "fp_on_traps": {
+    "name": 30,
+    "scope": 14,
+    "crate": 13,
+    "product": 12,
+    "doubledl": 4,
+    "derived": 3,
+    "acronym": 2,
+    "informal": 1,
+    "path": 1,
+    "table": 1,
+    "term": 1,
+    "unit": 1
+   }
+  },
+  "curated-holdout2": {
+   "precision": 0.5960591133004927,
+   "recall": 0.4782608695652174,
+   "f1": 0.5307017543859649,
+   "true_positives": 121,
+   "false_positives": 82,
+   "labels_hit": 121,
+   "labels": 253,
+   "fp_not_on_trap": 20,
+   "recall_by_category": {
+    "a_an": [
+     13,
+     14
+    ],
+    "agreement": [
+     0,
+     22
+    ],
+    "british": [
+     6,
+     6
+    ],
+    "capitalization": [
+     3,
+     4
+    ],
+    "fragment": [
+     0,
+     12
+    ],
+    "homophone": [
+     20,
+     51
+    ],
+    "its_its": [
+     12,
+     21
+    ],
+    "missing_extra_word": [
+     0,
+     4
+    ],
+    "punctuation": [
+     3,
+     16
+    ],
+    "spelling": [
+     16,
+     16
+    ],
+    "spelling_1edit": [
+     15,
+     15
+    ],
+    "their_there": [
+     5,
+     20
+    ],
+    "then_than": [
+     16,
+     31
+    ],
+    "your_youre": [
+     12,
+     21
+    ]
+   },
+   "fp_on_traps": {
+    "name": 30,
+    "crate": 12,
+    "product": 10,
+    "doubledl": 4,
+    "derived": 3,
+    "acronym": 1,
+    "table": 1,
+    "term": 1
+   }
+  },
+  "spellbook-holdout2": {
+   "precision": 0.6514285714285715,
+   "recall": 0.4505928853754941,
+   "f1": 0.5327102803738317,
+   "true_positives": 114,
+   "false_positives": 61,
+   "labels_hit": 114,
+   "labels": 253,
+   "fp_not_on_trap": 14,
+   "recall_by_category": {
+    "a_an": [
+     13,
+     14
+    ],
+    "agreement": [
+     0,
+     22
+    ],
+    "british": [
+     6,
+     6
+    ],
+    "capitalization": [
+     3,
+     4
+    ],
+    "fragment": [
+     0,
+     12
+    ],
+    "homophone": [
+     20,
+     51
+    ],
+    "its_its": [
+     12,
+     21
+    ],
+    "missing_extra_word": [
+     0,
+     4
+    ],
+    "punctuation": [
+     2,
+     16
+    ],
+    "spelling": [
+     16,
+     16
+    ],
+    "spelling_1edit": [
+     15,
+     15
+    ],
+    "their_there": [
+     5,
+     20
+    ],
+    "then_than": [
+     14,
+     31
+    ],
+    "your_youre": [
+     8,
+     21
+    ]
+   },
+   "fp_on_traps": {
+    "name": 26,
+    "crate": 12,
+    "product": 7,
+    "acronym": 1,
+    "table": 1
+   }
+  },
+  "hybrid-holdout2": {
+   "precision": 0.6514285714285715,
+   "recall": 0.4505928853754941,
+   "f1": 0.5327102803738317,
+   "true_positives": 114,
+   "false_positives": 61,
+   "labels_hit": 114,
+   "labels": 253,
+   "fp_not_on_trap": 14,
+   "recall_by_category": {
+    "a_an": [
+     13,
+     14
+    ],
+    "agreement": [
+     0,
+     22
+    ],
+    "british": [
+     6,
+     6
+    ],
+    "capitalization": [
+     3,
+     4
+    ],
+    "fragment": [
+     0,
+     12
+    ],
+    "homophone": [
+     20,
+     51
+    ],
+    "its_its": [
+     12,
+     21
+    ],
+    "missing_extra_word": [
+     0,
+     4
+    ],
+    "punctuation": [
+     2,
+     16
+    ],
+    "spelling": [
+     16,
+     16
+    ],
+    "spelling_1edit": [
+     15,
+     15
+    ],
+    "their_there": [
+     5,
+     20
+    ],
+    "then_than": [
+     14,
+     31
+    ],
+    "your_youre": [
+     8,
+     21
+    ]
+   },
+   "fp_on_traps": {
+    "name": 26,
+    "crate": 12,
+    "product": 7,
+    "acronym": 1,
+    "table": 1
+   }
+  }
+ },
+ "scores_v3": {
+  "harper-seeded": {
+   "precision": 0.6035502958579881,
+   "recall": 0.6688524590163935,
+   "f1": 0.6345256609642301
+  },
+  "harper-holdout": {
+   "precision": 0.6,
+   "recall": 0.48,
+   "f1": 0.5333333333333332
+  },
+  "curated-seeded": {
+   "precision": 0.6352201257861635,
+   "recall": 0.6622950819672131,
+   "f1": 0.6484751203852328
+  },
+  "curated-holdout": {
+   "precision": 0.6,
+   "recall": 0.435,
+   "f1": 0.5043478260869566
+  },
+  "spellbook-seeded": {
+   "precision": 0.631578947368421,
+   "recall": 0.6295081967213115,
+   "f1": 0.6305418719211824
+  },
+  "spellbook-holdout": {
+   "precision": 0.5915492957746479,
+   "recall": 0.42,
+   "f1": 0.49122807017543857
+  },
+  "hybrid-seeded": {
+   "precision": 0.6435331230283912,
+   "recall": 0.6688524590163935,
+   "f1": 0.6559485530546624
+  },
+  "hybrid-holdout": {
+   "precision": 0.6027397260273972,
+   "recall": 0.44,
+   "f1": 0.508670520231214
+  }
+ },
+ "timing_debug_build": {
+  "harper-corpus": {
+   "real_s": 7.11,
+   "cpu_s": 51.489999999999995,
+   "rss_mb": 3628.630016
+  },
+  "harper-rs": {
+   "real_s": 5.16,
+   "cpu_s": 24.490000000000002,
+   "rss_mb": 2138.587136
+  },
+  "curated-corpus": {
+   "real_s": 2.94,
+   "cpu_s": 22.35,
+   "rss_mb": 591.593472
+  },
+  "curated-rs": {
+   "real_s": 2.5,
+   "cpu_s": 11.260000000000002,
+   "rss_mb": 500.842496
+  },
+  "spellbook-corpus": {
+   "real_s": 1.5,
+   "cpu_s": 10.11,
+   "rss_mb": 276.48
+  },
+  "spellbook-rs": {
+   "real_s": 0.96,
+   "cpu_s": 4.68,
+   "rss_mb": 260.079616
+  },
+  "hybrid-corpus": {
+   "real_s": 2.38,
+   "cpu_s": 17.54,
+   "rss_mb": 455.344128
+  },
+  "hybrid-rs": {
+   "real_s": 2.36,
+   "cpu_s": 9.36,
+   "rss_mb": 439.517184
+  }
+ }
+}

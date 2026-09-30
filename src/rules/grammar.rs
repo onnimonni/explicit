@@ -357,6 +357,7 @@ const FRAGMENT_RULES: &[&str] = &[
     "LongSentences",
     "NounVerbConfusion",
     "PronounVerbAgreement",
+    "SubjectVerbAgreement",
     "PronounAre",
     "PronounInflectionBe",
     "ModalBeAdjective",

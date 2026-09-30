@@ -18,7 +18,10 @@
       files = "\\.(md|rs|toml|nix|sh)$";
       pass_filenames = true;
       # Fixtures contain deliberate mistakes for the end-to-end test.
-      excludes = [ "^tests/fixtures/" ];
+      excludes = [
+        "^tests/fixtures/"
+        "^eval/"
+      ];
     };
   };
 

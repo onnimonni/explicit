@@ -1,0 +1,16 @@
+Judge run of scratchpad/explicit-voikko (2026-09-30) on eval-fi and eval-sv. Full per-set output: eval-*/seeded.score.txt, eval-*/holdout.score.txt.
+
+lang | set     | labels | P     | R     | F1    | FP breakdown (hand-judged)
+fi   | seeded  | 300    | 84.9  | 81.7  | 83.2  | 44 FP: 15 product, 3 name, 1 foreign, 6 FinnishCompoundSplit rule = 25 true FP; 13 dictionary gaps (Klusterointi, pseudonymisoi-, Juurisyyanalyysi, antikoagulantit, kuvantamisjärjestelmiin, lokitus, skripti, mentorointi, Mentorini, podit, kolonoskopiaan); 4 intentional quoted forms (glossary); 1 real error I introduced (trim left lowercase sentence start) -> engine right
+fi   | holdout | 77     | 80.6  | 74.0  | 77.2  | 14 FP: 7 true (Valviran, Oxynorm, #hairiot, "centre" in English quote, takaisinsoitto-palvelu, 2 CompoundSplit rule hits); 6 dictionary gaps (välimuistituksen, webhookin, idempotentisti, toisiolain, pseudonymisoidaan, pseudotunnisteella); 1 my error (same trim artefact)
+sv   | seeded  | 150    | 85.5  | 70.7  | 77.4  | 18 FP: 5 product, 4 name (Westö x3, Sinebrychoffs), 5 correct compounds not in dict (redigeringsvyn, befolkningsdatasystemet, lastbalanseraren, brådskandegraden, Kalendervyns), 2 valid inflections (begäranden, jourhavandes), 2 SwedishCompoundSplit rule ("mötes protokoll" genitive, "flyttas sist")
+sv   | holdout | 62     | 71.7  | 53.2  | 61.1  | 13 FP: 6 SwedishCompoundSplit rule (dubbel dos, glas vatten, Äldre versioner, mottagande system, veckors provperiod, Malms hälsostation), 3 correct compounds (meddelandekö, Startvyn, Fillager), 1 name (Ineras), 1 foreign (centre), 2 dictionary gaps (Klustring, versionerade)
+en   | seeded  | 305    | 81.5  | 70.8  | 75.8  | control: identical 216 TP to spellbook v5 baseline, FP 57 -> 49; corpus 401 files ok, 2.6 s
+
+Seeded numbers reproduce the engineer's exactly. Holdout drop (fi -6 F1, sv -16 F1) is consistent with no leakage; no reference to holdout/ exists outside eval-*/.
+Language detection without front matter works: files with no `lang:` have the same per-file recall as files with it (fi 107/123, sv 45/66 vs overall).
+fi_sv traps (21: hälsocentral, sjukskötare, FPA, Kanta-tjänsterna, välfärdsområde, rådda, talko, inbesparing, arbetsdryg ...): 0 spelling FPs; only "Malms hälsostation" hit by the split rule. Good.
+Traps that leak: product names inflected with Finnish case endings (Jiraan, nginxistä, Vitestillä, Patroni, App Storesta, commit*), Finnish proper names (Fimea, Valviran, Haahti, Simonsuuri), Swedish names with ö (Westö), English passages inside fi/sv files ("centre").
+
+Recall by category, holdout: fi typo 7/9, inflection 10/11, double_letter 11/11, compound_joined 7/7, compound_split 10/14, loan 4/5, capitalization 4/7, punctuation 1/3, confusion 3/10 (real-word 3/11).
+                            sv typo 12/14, compound_link 5/6, double_consonant 4/6, sarskrivning 10/14, capitalization 2/6 (Finska, Engelska, Vardagar missed), verb_form 0/8, de_dem_gender 0/8 (real-word 0/17).

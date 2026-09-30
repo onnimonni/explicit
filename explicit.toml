@@ -1,7 +1,7 @@
 # explicit's own configuration (dogfooding).
 
 [general]
-exclude = ["tests/fixtures/**"]
+exclude = ["tests/fixtures/**", "eval/**"]
 
 [rules]
 "grammar/OkToOkay" = "off"
@@ -12,7 +12,7 @@ exclude = ["tests/fixtures/**"]
 accept = [
   "aislop", "terrastruct", "scannerless", "Scannerless", "jison", "retext", "Flesch", "Kincaid",
   "Aho", "Corasick", "cmark", "autofix", "lexically", "Tunables", "unescaped", "Intraword",
-  "incl", "Ableist", "wordlists", "heavykenny", "merman", "textlint", "lookaround", "explicitignore", "Prenominal", "elatives", "Andersson",
+  "incl", "Ableist", "wordlists", "heavykenny", "merman", "textlint", "lookaround", "explicitignore", "Prenominal", "elatives", "Andersson", "necessive",
   "Voikko", "libvoikko", "subtag", "Damerau", "särskrivning", "msgid", "msgids", "msgstr",
   "msgstrs", "printf", "Telia", "illative",
 ]

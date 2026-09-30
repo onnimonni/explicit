@@ -1,0 +1,568 @@
+[
+ {
+  "file": "datamodell.md",
+  "line": 7,
+  "column": 64,
+  "end_column": 83,
+  "text": "informations objekt",
+  "category": "sarskrivning",
+  "correction": "informationsobjekt"
+ },
+ {
+  "file": "datamodell.md",
+  "line": 28,
+  "column": 57,
+  "end_column": 67,
+  "text": "salt värde",
+  "category": "sarskrivning",
+  "correction": "saltvärde"
+ },
+ {
+  "file": "datamodell.md",
+  "line": 32,
+  "column": 139,
+  "end_column": 142,
+  "text": "Dom",
+  "category": "de_dem_gender",
+  "correction": "De",
+  "real_word": true
+ },
+ {
+  "file": "datamodell.md",
+  "line": 32,
+  "column": 167,
+  "end_column": 170,
+  "text": "slå",
+  "category": "verb_form",
+  "correction": "slår",
+  "real_word": true
+ },
+ {
+  "file": "datamodell.md",
+  "line": 36,
+  "column": 21,
+  "end_column": 24,
+  "text": "dem",
+  "category": "de_dem_gender",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "datamodell.md",
+  "line": 36,
+  "column": 140,
+  "end_column": 149,
+  "text": "förhindas",
+  "category": "typo",
+  "correction": "förhindras"
+ },
+ {
+  "file": "datamodell.md",
+  "line": 43,
+  "column": 46,
+  "end_column": 54,
+  "text": "lagrades",
+  "category": "verb_form",
+  "correction": "lagras",
+  "real_word": true
+ },
+ {
+  "file": "datamodell.md",
+  "line": 49,
+  "column": 115,
+  "end_column": 128,
+  "text": "pseudonymsera",
+  "category": "typo",
+  "correction": "pseudonymisera"
+ },
+ {
+  "file": "datamodell.md",
+  "line": 55,
+  "column": 24,
+  "end_column": 36,
+  "text": "läs repliken",
+  "category": "sarskrivning",
+  "correction": "läsrepliken"
+ },
+ {
+  "file": "datamodell.md",
+  "line": 61,
+  "column": 189,
+  "end_column": 196,
+  "text": "Svenska",
+  "category": "capitalization",
+  "correction": "svenska"
+ },
+ {
+  "file": "datamodell.md",
+  "line": 61,
+  "column": 214,
+  "end_column": 220,
+  "text": "vilkte",
+  "category": "typo",
+  "correction": "vilket"
+ },
+ {
+  "file": "datamodell.md",
+  "line": 61,
+  "column": 242,
+  "end_column": 258,
+  "text": "teamsmedlemmarna",
+  "category": "compound_link",
+  "correction": "teammedlemmarna"
+ },
+ {
+  "file": "incidentrapport.md",
+  "line": 13,
+  "column": 1,
+  "end_column": 9,
+  "text": "Tisdagen",
+  "category": "capitalization",
+  "correction": "tisdagen"
+ },
+ {
+  "file": "incidentrapport.md",
+  "line": 13,
+  "column": 259,
+  "end_column": 269,
+  "text": "logg filer",
+  "category": "sarskrivning",
+  "correction": "loggfiler"
+ },
+ {
+  "file": "incidentrapport.md",
+  "line": 20,
+  "column": 43,
+  "end_column": 51,
+  "text": "bedömmer",
+  "category": "verb_form",
+  "correction": "bedömer"
+ },
+ {
+  "file": "incidentrapport.md",
+  "line": 25,
+  "column": 23,
+  "end_column": 32,
+  "text": "återstäld",
+  "category": "double_consonant",
+  "correction": "återställd"
+ },
+ {
+  "file": "incidentrapport.md",
+  "line": 29,
+  "column": 62,
+  "end_column": 71,
+  "text": "förblivit",
+  "category": "verb_form",
+  "correction": "förblev"
+ },
+ {
+  "file": "incidentrapport.md",
+  "line": 31,
+  "column": 91,
+  "end_column": 94,
+  "text": "Dom",
+  "category": "de_dem_gender",
+  "correction": "De",
+  "real_word": true
+ },
+ {
+  "file": "incidentrapport.md",
+  "line": 37,
+  "column": 21,
+  "end_column": 23,
+  "text": "en",
+  "category": "de_dem_gender",
+  "correction": "ett",
+  "real_word": true
+ },
+ {
+  "file": "incidentrapport.md",
+  "line": 52,
+  "column": 30,
+  "end_column": 47,
+  "text": "release pipelinen",
+  "category": "sarskrivning",
+  "correction": "releasepipelinen"
+ },
+ {
+  "file": "incidentrapport.md",
+  "line": 54,
+  "column": 7,
+  "end_column": 26,
+  "text": "Repetionsutbildning",
+  "category": "typo",
+  "correction": "Repetitionsutbildning"
+ },
+ {
+  "file": "incidentrapport.md",
+  "line": 56,
+  "column": 73,
+  "end_column": 82,
+  "text": "förhinrar",
+  "category": "typo",
+  "correction": "förhindrar"
+ },
+ {
+  "file": "incidentrapport.md",
+  "line": 56,
+  "column": 168,
+  "end_column": 186,
+  "text": "kapacitetrapporten",
+  "category": "compound_link",
+  "correction": "kapacitetsrapporten"
+ },
+ {
+  "file": "incidentrapport.md",
+  "line": 60,
+  "column": 177,
+  "end_column": 185,
+  "text": "Engelska",
+  "category": "capitalization",
+  "correction": "engelska"
+ },
+ {
+  "file": "infusionspump-anvisning.md",
+  "line": 7,
+  "column": 170,
+  "end_column": 181,
+  "text": "flödes larm",
+  "category": "sarskrivning",
+  "correction": "flödeslarm"
+ },
+ {
+  "file": "infusionspump-anvisning.md",
+  "line": 9,
+  "column": 124,
+  "end_column": 138,
+  "text": "dokumenterades",
+  "category": "verb_form",
+  "correction": "dokumenteras",
+  "real_word": true
+ },
+ {
+  "file": "infusionspump-anvisning.md",
+  "line": 15,
+  "column": 19,
+  "end_column": 25,
+  "text": "skämen",
+  "category": "typo",
+  "correction": "skärmen"
+ },
+ {
+  "file": "infusionspump-anvisning.md",
+  "line": 16,
+  "column": 21,
+  "end_column": 37,
+  "text": "Det gröna lampan",
+  "category": "de_dem_gender",
+  "correction": "Den gröna lampan",
+  "real_word": true
+ },
+ {
+  "file": "infusionspump-anvisning.md",
+  "line": 18,
+  "column": 76,
+  "end_column": 85,
+  "text": "omedlbart",
+  "category": "typo",
+  "correction": "omedelbart"
+ },
+ {
+  "file": "infusionspump-anvisning.md",
+  "line": 29,
+  "column": 64,
+  "end_column": 79,
+  "text": "ocklusions larm",
+  "category": "sarskrivning",
+  "correction": "ocklusionslarm"
+ },
+ {
+  "file": "infusionspump-anvisning.md",
+  "line": 29,
+  "column": 107,
+  "end_column": 119,
+  "text": "flyttats sig",
+  "category": "verb_form",
+  "correction": "flyttat sig"
+ },
+ {
+  "file": "infusionspump-anvisning.md",
+  "line": 37,
+  "column": 28,
+  "end_column": 35,
+  "text": "Augusti",
+  "category": "capitalization",
+  "correction": "augusti"
+ },
+ {
+  "file": "introduktionsguide.md",
+  "line": 11,
+  "column": 188,
+  "end_column": 196,
+  "text": "Måndagar",
+  "category": "capitalization",
+  "correction": "måndagar"
+ },
+ {
+  "file": "introduktionsguide.md",
+  "line": 23,
+  "column": 51,
+  "end_column": 71,
+  "text": "incident rapporterna",
+  "category": "sarskrivning",
+  "correction": "incidentrapporterna"
+ },
+ {
+  "file": "introduktionsguide.md",
+  "line": 26,
+  "column": 23,
+  "end_column": 36,
+  "text": "planeringmöte",
+  "category": "compound_link",
+  "correction": "planeringsmöte"
+ },
+ {
+  "file": "introduktionsguide.md",
+  "line": 28,
+  "column": 132,
+  "end_column": 135,
+  "text": "den",
+  "category": "de_dem_gender",
+  "correction": "dess",
+  "real_word": true
+ },
+ {
+  "file": "introduktionsguide.md",
+  "line": 34,
+  "column": 66,
+  "end_column": 79,
+  "text": "variabel namn",
+  "category": "sarskrivning",
+  "correction": "variabelnamn"
+ },
+ {
+  "file": "introduktionsguide.md",
+  "line": 34,
+  "column": 83,
+  "end_column": 91,
+  "text": "Engelska",
+  "category": "capitalization",
+  "correction": "engelska"
+ },
+ {
+  "file": "introduktionsguide.md",
+  "line": 45,
+  "column": 3,
+  "end_column": 13,
+  "text": "Data basen",
+  "category": "sarskrivning",
+  "correction": "Databasen"
+ },
+ {
+  "file": "introduktionsguide.md",
+  "line": 48,
+  "column": 63,
+  "end_column": 69,
+  "text": "modgit",
+  "category": "typo",
+  "correction": "modigt"
+ },
+ {
+  "file": "introduktionsguide.md",
+  "line": 48,
+  "column": 134,
+  "end_column": 140,
+  "text": "strulr",
+  "category": "typo",
+  "correction": "strular"
+ },
+ {
+  "file": "introduktionsguide.md",
+  "line": 48,
+  "column": 142,
+  "end_column": 145,
+  "text": "Dom",
+  "category": "de_dem_gender",
+  "correction": "De",
+  "real_word": true
+ },
+ {
+  "file": "introduktionsguide.md",
+  "line": 48,
+  "column": 160,
+  "end_column": 170,
+  "text": "besvarades",
+  "category": "verb_form",
+  "correction": "besvaras",
+  "real_word": true
+ },
+ {
+  "file": "servicenivaavtal.md",
+  "line": 3,
+  "column": 28,
+  "end_column": 41,
+  "text": "service nivån",
+  "category": "sarskrivning",
+  "correction": "servicenivån"
+ },
+ {
+  "file": "servicenivaavtal.md",
+  "line": 9,
+  "column": 62,
+  "end_column": 65,
+  "text": "dom",
+  "category": "de_dem_gender",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "servicenivaavtal.md",
+  "line": 20,
+  "column": 40,
+  "end_column": 49,
+  "text": "kreditera",
+  "category": "verb_form",
+  "correction": "krediterar",
+  "real_word": true
+ },
+ {
+  "file": "servicenivaavtal.md",
+  "line": 26,
+  "column": 37,
+  "end_column": 58,
+  "text": "säkerhetsupdateringar",
+  "category": "double_consonant",
+  "correction": "säkerhetsuppdateringar"
+ },
+ {
+  "file": "servicenivaavtal.md",
+  "line": 30,
+  "column": 22,
+  "end_column": 36,
+  "text": "kontakt person",
+  "category": "sarskrivning",
+  "correction": "kontaktperson"
+ },
+ {
+  "file": "servicenivaavtal.md",
+  "line": 30,
+  "column": 210,
+  "end_column": 214,
+  "text": "anse",
+  "category": "verb_form",
+  "correction": "anses",
+  "real_word": true
+ },
+ {
+  "file": "servicenivaavtal.md",
+  "line": 34,
+  "column": 129,
+  "end_column": 141,
+  "text": "kreditringar",
+  "category": "typo",
+  "correction": "krediteringar"
+ },
+ {
+  "file": "servicenivaavtal.md",
+  "line": 36,
+  "column": 72,
+  "end_column": 75,
+  "text": "det",
+  "category": "de_dem_gender",
+  "correction": "den",
+  "real_word": true
+ },
+ {
+  "file": "servicenivaavtal.md",
+  "line": 36,
+  "column": 249,
+  "end_column": 267,
+  "text": "avtalförvaltningen",
+  "category": "compound_link",
+  "correction": "avtalsförvaltningen"
+ },
+ {
+  "file": "vanliga-fragor.md",
+  "line": 6,
+  "column": 38,
+  "end_column": 48,
+  "text": "bank koder",
+  "category": "sarskrivning",
+  "correction": "bankkoder"
+ },
+ {
+  "file": "vanliga-fragor.md",
+  "line": 9,
+  "column": 170,
+  "end_column": 177,
+  "text": "använda",
+  "category": "verb_form",
+  "correction": "använder",
+  "real_word": true
+ },
+ {
+  "file": "vanliga-fragor.md",
+  "line": 14,
+  "column": 123,
+  "end_column": 131,
+  "text": "Måndagar",
+  "category": "capitalization",
+  "correction": "måndagar"
+ },
+ {
+  "file": "vanliga-fragor.md",
+  "line": 20,
+  "column": 127,
+  "end_column": 144,
+  "text": "Ombuds funktionen",
+  "category": "sarskrivning",
+  "correction": "Ombudsfunktionen"
+ },
+ {
+  "file": "vanliga-fragor.md",
+  "line": 25,
+  "column": 47,
+  "end_column": 50,
+  "text": "dom",
+  "category": "de_dem_gender",
+  "correction": "dem",
+  "real_word": true
+ },
+ {
+  "file": "vanliga-fragor.md",
+  "line": 33,
+  "column": 59,
+  "end_column": 65,
+  "text": "stöjds",
+  "category": "typo",
+  "correction": "stöds"
+ },
+ {
+  "file": "vanliga-fragor.md",
+  "line": 39,
+  "column": 77,
+  "end_column": 83,
+  "text": "Finska",
+  "category": "capitalization",
+  "correction": "finska"
+ },
+ {
+  "file": "vanliga-fragor.md",
+  "line": 41,
+  "column": 146,
+  "end_column": 157,
+  "text": "uppdaterdes",
+  "category": "typo",
+  "correction": "uppdaterades"
+ },
+ {
+  "file": "vanliga-fragor.md",
+  "line": 41,
+  "column": 178,
+  "end_column": 192,
+  "text": "innehållteamet",
+  "category": "compound_link",
+  "correction": "innehållsteamet"
+ }
+]

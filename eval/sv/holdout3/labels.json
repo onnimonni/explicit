@@ -1,0 +1,791 @@
+[
+ {
+  "file": "anvandarvillkor.md",
+  "line": 7,
+  "column": 123,
+  "end_column": 125,
+  "text": "de",
+  "category": "de_dem",
+  "correction": "dem",
+  "real_word": true
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 13,
+  "column": 72,
+  "end_column": 79,
+  "text": "meddela",
+  "category": "present_tense",
+  "correction": "meddelas",
+  "real_word": true
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 17,
+  "column": 106,
+  "end_column": 122,
+  "text": "ett annan person",
+  "category": "en_ett",
+  "correction": "en annan person",
+  "real_word": true
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 19,
+  "column": 214,
+  "end_column": 217,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 23,
+  "column": 83,
+  "end_column": 95,
+  "text": "kontrollerar",
+  "category": "att_infinitive",
+  "correction": "kontrollera",
+  "real_word": true
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 25,
+  "column": 100,
+  "end_column": 104,
+  "text": "gett",
+  "category": "supine",
+  "correction": "har gett",
+  "real_word": true
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 29,
+  "column": 58,
+  "end_column": 80,
+  "text": "en tillfälligt avbrott",
+  "category": "en_ett",
+  "correction": "ett tillfälligt avbrott",
+  "real_word": true
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 29,
+  "column": 156,
+  "end_column": 159,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 31,
+  "column": 52,
+  "end_column": 67,
+  "text": "ett yrkesperson",
+  "category": "en_ett",
+  "correction": "en yrkesperson",
+  "real_word": true
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 31,
+  "column": 133,
+  "end_column": 143,
+  "text": "kommentera",
+  "category": "supine",
+  "correction": "kommenterat",
+  "real_word": true
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 35,
+  "column": 184,
+  "end_column": 194,
+  "text": "fortsätter",
+  "category": "att_infinitive",
+  "correction": "fortsätta",
+  "real_word": true
+ },
+ {
+  "file": "anvandarvillkor.md",
+  "line": 37,
+  "column": 109,
+  "end_column": 113,
+  "text": "leda",
+  "category": "present_tense",
+  "correction": "leder",
+  "real_word": true
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 3,
+  "column": 134,
+  "end_column": 152,
+  "text": "ett lättare modell",
+  "category": "en_ett",
+  "correction": "en lättare modell",
+  "real_word": true
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 9,
+  "column": 43,
+  "end_column": 50,
+  "text": "otestat",
+  "category": "adj_agreement",
+  "correction": "otestad",
+  "real_word": true
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 12,
+  "column": 61,
+  "end_column": 68,
+  "text": "besluta",
+  "category": "present_tense",
+  "correction": "beslutas",
+  "real_word": true
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 23,
+  "column": 85,
+  "end_column": 90,
+  "text": "komma",
+  "category": "present_tense",
+  "correction": "kommer",
+  "real_word": true
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 23,
+  "column": 152,
+  "end_column": 155,
+  "text": "Dem",
+  "category": "de_dem",
+  "correction": "De",
+  "real_word": true
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 27,
+  "column": 62,
+  "end_column": 68,
+  "text": "lyckas",
+  "category": "supine",
+  "correction": "lyckats",
+  "real_word": true
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 29,
+  "column": 51,
+  "end_column": 60,
+  "text": "genomföra",
+  "category": "present_tense",
+  "correction": "genomförs",
+  "real_word": true
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 29,
+  "column": 98,
+  "end_column": 109,
+  "text": "ett rapport",
+  "category": "en_ett",
+  "correction": "en rapport",
+  "real_word": true
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 31,
+  "column": 123,
+  "end_column": 140,
+  "text": "det anonymiserade",
+  "category": "en_ett",
+  "correction": "den anonymiserade",
+  "real_word": true
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 35,
+  "column": 42,
+  "end_column": 63,
+  "text": "en säkerhets incident",
+  "category": "sarskrivning",
+  "correction": "en säkerhetsincident"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 35,
+  "column": 168,
+  "end_column": 177,
+  "text": "ett brist",
+  "category": "en_ett",
+  "correction": "en brist",
+  "real_word": true
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 35,
+  "column": 221,
+  "end_column": 232,
+  "text": "vill att ta",
+  "category": "att_infinitive",
+  "correction": "vill ta",
+  "real_word": true
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 37,
+  "column": 20,
+  "end_column": 27,
+  "text": "Januari",
+  "category": "capitalization",
+  "correction": "januari"
+ },
+ {
+  "file": "backuppolicy.md",
+  "line": 37,
+  "column": 184,
+  "end_column": 190,
+  "text": "Finska",
+  "category": "capitalization",
+  "correction": "finska"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 7,
+  "column": 102,
+  "end_column": 107,
+  "text": "kunna",
+  "category": "present_tense",
+  "correction": "kunde",
+  "real_word": true
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 7,
+  "column": 192,
+  "end_column": 197,
+  "text": "väckt",
+  "category": "supine",
+  "correction": "ha väckt",
+  "real_word": true
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 11,
+  "column": 143,
+  "end_column": 152,
+  "text": "innehålla",
+  "category": "present_tense",
+  "correction": "innehöll",
+  "real_word": true
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 11,
+  "column": 178,
+  "end_column": 181,
+  "text": "Dem",
+  "category": "de_dem",
+  "correction": "De",
+  "real_word": true
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 13,
+  "column": 263,
+  "end_column": 270,
+  "text": "trimmat",
+  "category": "supine",
+  "correction": "trimmats",
+  "real_word": true
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 15,
+  "column": 80,
+  "end_column": 86,
+  "text": "vilken",
+  "category": "en_ett",
+  "correction": "vilket",
+  "real_word": true
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 15,
+  "column": 135,
+  "end_column": 144,
+  "text": "förbereda",
+  "category": "supine",
+  "correction": "förberett",
+  "real_word": true
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 19,
+  "column": 232,
+  "end_column": 237,
+  "text": "vända",
+  "category": "present_tense",
+  "correction": "vände",
+  "real_word": true
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 25,
+  "column": 211,
+  "end_column": 214,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 29,
+  "column": 22,
+  "end_column": 32,
+  "text": "att städar",
+  "category": "att_infinitive",
+  "correction": "att städa",
+  "real_word": true
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 30,
+  "column": 45,
+  "end_column": 48,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 33,
+  "column": 270,
+  "end_column": 274,
+  "text": "Mars",
+  "category": "capitalization",
+  "correction": "mars"
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 33,
+  "column": 285,
+  "end_column": 301,
+  "text": "ett presentation",
+  "category": "en_ett",
+  "correction": "en presentation",
+  "real_word": true
+ },
+ {
+  "file": "blogg-migrering.md",
+  "line": 33,
+  "column": 347,
+  "end_column": 357,
+  "text": "att hållas",
+  "category": "att_infinitive",
+  "correction": "hållas",
+  "real_word": true
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 11,
+  "column": 63,
+  "end_column": 65,
+  "text": "de",
+  "category": "de_dem",
+  "correction": "den",
+  "real_word": true
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 13,
+  "column": 77,
+  "end_column": 82,
+  "text": "styra",
+  "category": "present_tense",
+  "correction": "styrs",
+  "real_word": true
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 17,
+  "column": 66,
+  "end_column": 76,
+  "text": "en gammalt",
+  "category": "en_ett",
+  "correction": "en gammal",
+  "real_word": true
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 19,
+  "column": 186,
+  "end_column": 188,
+  "text": "de",
+  "category": "de_dem",
+  "correction": "dem",
+  "real_word": true
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 23,
+  "column": 75,
+  "end_column": 80,
+  "text": "bokat",
+  "category": "supine",
+  "correction": "bokats",
+  "real_word": true
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 23,
+  "column": 86,
+  "end_column": 95,
+  "text": "Torsdagen",
+  "category": "capitalization",
+  "correction": "torsdagen"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 25,
+  "column": 90,
+  "end_column": 105,
+  "text": "ett kreditering",
+  "category": "en_ett",
+  "correction": "en kreditering",
+  "real_word": true
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 25,
+  "column": 216,
+  "end_column": 219,
+  "text": "Dem",
+  "category": "de_dem",
+  "correction": "De",
+  "real_word": true
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 29,
+  "column": 106,
+  "end_column": 113,
+  "text": "Svenska",
+  "category": "capitalization",
+  "correction": "svenska"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 29,
+  "column": 127,
+  "end_column": 135,
+  "text": "November",
+  "category": "capitalization",
+  "correction": "november"
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 31,
+  "column": 84,
+  "end_column": 93,
+  "text": "översätta",
+  "category": "present_tense",
+  "correction": "översätts",
+  "real_word": true
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 35,
+  "column": 164,
+  "end_column": 172,
+  "text": "kopierad",
+  "category": "adj_agreement",
+  "correction": "kopierat",
+  "real_word": true
+ },
+ {
+  "file": "kundsvar.md",
+  "line": 37,
+  "column": 212,
+  "end_column": 227,
+  "text": "att rapporterar",
+  "category": "att_infinitive",
+  "correction": "rapportera",
+  "real_word": true
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 8,
+  "column": 172,
+  "end_column": 178,
+  "text": "Fredag",
+  "category": "capitalization",
+  "correction": "fredag"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 10,
+  "column": 146,
+  "end_column": 148,
+  "text": "ta",
+  "category": "present_tense",
+  "correction": "tas",
+  "real_word": true
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 10,
+  "column": 211,
+  "end_column": 214,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 14,
+  "column": 79,
+  "end_column": 104,
+  "text": "ett sessionsidentifierare",
+  "category": "en_ett",
+  "correction": "en sessionsidentifierare",
+  "real_word": true
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 14,
+  "column": 165,
+  "end_column": 173,
+  "text": "avslöjat",
+  "category": "supine",
+  "correction": "avslöjade",
+  "real_word": true
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 16,
+  "column": 53,
+  "end_column": 64,
+  "text": "kontrollera",
+  "category": "supine",
+  "correction": "kontrollerat",
+  "real_word": true
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 16,
+  "column": 127,
+  "end_column": 134,
+  "text": "Oktober",
+  "category": "capitalization",
+  "correction": "oktober"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 20,
+  "column": 179,
+  "end_column": 187,
+  "text": "motsätta",
+  "category": "present_tense",
+  "correction": "motsätter",
+  "real_word": true
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 22,
+  "column": 93,
+  "end_column": 95,
+  "text": "de",
+  "category": "de_dem",
+  "correction": "dem",
+  "real_word": true
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 22,
+  "column": 107,
+  "end_column": 114,
+  "text": "meddela",
+  "category": "present_tense",
+  "correction": "meddelas",
+  "real_word": true
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 26,
+  "column": 138,
+  "end_column": 141,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 28,
+  "column": 140,
+  "end_column": 151,
+  "text": "att åtgärda",
+  "category": "att_infinitive",
+  "correction": "åtgärda",
+  "real_word": true
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 32,
+  "column": 33,
+  "end_column": 41,
+  "text": "November",
+  "category": "capitalization",
+  "correction": "november"
+ },
+ {
+  "file": "motesprotokoll-sakerhet.md",
+  "line": 35,
+  "column": 41,
+  "end_column": 46,
+  "text": "skrev",
+  "category": "supine",
+  "correction": "skrevs",
+  "real_word": true
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 11,
+  "column": 134,
+  "end_column": 140,
+  "text": "skicka",
+  "category": "present_tense",
+  "correction": "skickar",
+  "real_word": true
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 11,
+  "column": 196,
+  "end_column": 209,
+  "text": "ett personlig",
+  "category": "en_ett",
+  "correction": "en personlig",
+  "real_word": true
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 13,
+  "column": 34,
+  "end_column": 43,
+  "text": "överlämna",
+  "category": "present_tense",
+  "correction": "överlämnas",
+  "real_word": true
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 13,
+  "column": 148,
+  "end_column": 165,
+  "text": "en incidentärende",
+  "category": "en_ett",
+  "correction": "ett incidentärende",
+  "real_word": true
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 20,
+  "column": 9,
+  "end_column": 21,
+  "text": "Ett funktion",
+  "category": "en_ett",
+  "correction": "En funktion",
+  "real_word": true
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 24,
+  "column": 201,
+  "end_column": 209,
+  "text": "arbetsam",
+  "category": "adj_agreement",
+  "correction": "arbetsamt",
+  "real_word": true
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 30,
+  "column": 170,
+  "end_column": 183,
+  "text": "att bekräftar",
+  "category": "att_infinitive",
+  "correction": "att bekräfta",
+  "real_word": true
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 32,
+  "column": 29,
+  "end_column": 39,
+  "text": "uppdaterat",
+  "category": "supine",
+  "correction": "uppdaterats",
+  "real_word": true
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 32,
+  "column": 63,
+  "end_column": 72,
+  "text": "Måndagens",
+  "category": "capitalization",
+  "correction": "måndagens"
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 32,
+  "column": 130,
+  "end_column": 133,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 36,
+  "column": 218,
+  "end_column": 221,
+  "text": "dem",
+  "category": "de_dem",
+  "correction": "de",
+  "real_word": true
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 38,
+  "column": 213,
+  "end_column": 218,
+  "text": "märka",
+  "category": "supine",
+  "correction": "märkt",
+  "real_word": true
+ },
+ {
+  "file": "supportprocess.md",
+  "line": 40,
+  "column": 55,
+  "end_column": 63,
+  "text": "godkänna",
+  "category": "present_tense",
+  "correction": "godkänns",
+  "real_word": true
+ }
+]

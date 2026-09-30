@@ -27,6 +27,9 @@ pub struct Analysis {
     pub vapaa_jalkiosa: bool,
     /// Base form of the last word part (`[Xp]...[X]`); `None` for a derivation (`[Xj]`).
     pub base: Option<String>,
+    /// Base form of the last word part even through a derivation: the verb of a participle
+    /// (`keskustella` for `keskustelleet`).
+    pub lemma: Option<String>,
 }
 
 /// Character at `i`, NUL past the end (the C code reads NUL-terminated strings).
@@ -557,6 +560,13 @@ fn parse_base(o: &[char]) -> Option<String> {
     if (0..rest.len()).any(|i| starts(rest, i, "[Xj]")) {
         return None;
     }
+    parse_lemma(o)
+}
+
+/// The last `[Xp]...[X]` base form, derivations included.
+fn parse_lemma(o: &[char]) -> Option<String> {
+    let start = (0..o.len()).rev().find(|&i| starts(o, i, "[Xp]"))? + 4;
+    let len = (start..o.len()).find(|&i| starts(o, i, "[X]"))? - start;
     Some(
         o[start..start + len]
             .iter()
@@ -623,6 +633,7 @@ pub fn analyze(t: &Transducer, c: &mut Configuration, word: &[char]) -> Vec<Anal
         fix_structure(&mut structure, &o);
         a.structure = structure;
         a.base = parse_base(&o);
+        a.lemma = parse_lemma(&o);
         if a.participle == Some("past_passive") {
             a.class = Some("laatusana");
         }

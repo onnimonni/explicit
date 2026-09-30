@@ -1,0 +1,10306 @@
+[
+ {
+  "file": "docs/ADR-001-database-choice.md",
+  "line": 5,
+  "column": 11,
+  "end_column": 23,
+  "text": "Väinö Mäkelä",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-001-database-choice.md",
+  "line": 5,
+  "column": 25,
+  "end_column": 36,
+  "text": "Åsa Sjöberg",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-001-database-choice.md",
+  "line": 9,
+  "column": 60,
+  "end_column": 68,
+  "text": "DynamoDB",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-001-database-choice.md",
+  "line": 11,
+  "column": 30,
+  "end_column": 33,
+  "text": "GSI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-001-database-choice.md",
+  "line": 12,
+  "column": 30,
+  "end_column": 34,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/ADR-001-database-choice.md",
+  "line": 15,
+  "column": 11,
+  "end_column": 21,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-001-database-choice.md",
+  "line": 15,
+  "column": 25,
+  "end_column": 28,
+  "text": "RDS",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-001-database-choice.md",
+  "line": 15,
+  "column": 44,
+  "end_column": 55,
+  "text": "CockroachDB",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-001-database-choice.md",
+  "line": 19,
+  "column": 47,
+  "end_column": 49,
+  "text": "16",
+  "kind": "version"
+ },
+ {
+  "file": "docs/ADR-001-database-choice.md",
+  "line": 20,
+  "column": 30,
+  "end_column": 37,
+  "text": "affects",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/ADR-001-database-choice.md",
+  "line": 21,
+  "column": 15,
+  "end_column": 20,
+  "text": "their",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/ADR-001-database-choice.md",
+  "line": 27,
+  "column": 3,
+  "end_column": 34,
+  "text": "Ad hoc reporting with plain SQL",
+  "kind": "list"
+ },
+ {
+  "file": "docs/ADR-001-database-choice.md",
+  "line": 28,
+  "column": 3,
+  "end_column": 44,
+  "text": "Transactions across orders and line items",
+  "kind": "list"
+ },
+ {
+  "file": "docs/ADR-001-database-choice.md",
+  "line": 29,
+  "column": 3,
+  "end_column": 45,
+  "text": "A tooling ecosystem the team already knows",
+  "kind": "list"
+ },
+ {
+  "file": "docs/ADR-001-database-choice.md",
+  "line": 35,
+  "column": 24,
+  "end_column": 27,
+  "text": "60s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-001-database-choice.md",
+  "line": 35,
+  "column": 33,
+  "end_column": 41,
+  "text": "Multi-AZ",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-002-event-sourcing.md",
+  "line": 12,
+  "column": 42,
+  "end_column": 45,
+  "text": "2TB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-002-event-sourcing.md",
+  "line": 26,
+  "column": 18,
+  "end_column": 22,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/ADR-002-event-sourcing.md",
+  "line": 27,
+  "column": 56,
+  "end_column": 60,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/ADR-002-event-sourcing.md",
+  "line": 30,
+  "column": 9,
+  "end_column": 14,
+  "text": "a key",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/ADR-002-event-sourcing.md",
+  "line": 32,
+  "column": 48,
+  "end_column": 58,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-002-event-sourcing.md",
+  "line": 32,
+  "column": 59,
+  "end_column": 74,
+  "text": "temporal tables",
+  "kind": "term"
+ },
+ {
+  "file": "docs/ADR-002-event-sourcing.md",
+  "line": 38,
+  "column": 57,
+  "end_column": 64,
+  "text": "90 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-002-event-sourcing.md",
+  "line": 43,
+  "column": 1,
+  "end_column": 15,
+  "text": "Mikko Järvinen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-002-event-sourcing.md",
+  "line": 43,
+  "column": 54,
+  "end_column": 58,
+  "text": "it's",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 8,
+  "column": 53,
+  "end_column": 55,
+  "text": "CI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 9,
+  "column": 78,
+  "end_column": 83,
+  "text": "tokio",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 10,
+  "column": 28,
+  "end_column": 38,
+  "text": "middleware",
+  "kind": "term"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 11,
+  "column": 83,
+  "end_column": 94,
+  "text": "acme-common",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 16,
+  "column": 72,
+  "end_column": 79,
+  "text": "backend",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 17,
+  "column": 1,
+  "end_column": 6,
+  "text": "Cargo",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 17,
+  "column": 44,
+  "end_column": 57,
+  "text": "`git subtree`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 18,
+  "column": 1,
+  "end_column": 4,
+  "text": "its",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 18,
+  "column": 9,
+  "end_column": 19,
+  "text": "Dockerfile",
+  "kind": "path"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 22,
+  "column": 55,
+  "end_column": 67,
+  "text": "cargo-hakari",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 24,
+  "column": 7,
+  "end_column": 26,
+  "text": "rust-toolchain.toml",
+  "kind": "path"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 24,
+  "column": 32,
+  "end_column": 43,
+  "text": "clippy.toml",
+  "kind": "path"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 24,
+  "column": 49,
+  "end_column": 58,
+  "text": "deny.toml",
+  "kind": "path"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 25,
+  "column": 54,
+  "end_column": 59,
+  "text": "1.2GB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 26,
+  "column": 3,
+  "end_column": 6,
+  "text": "3GB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 26,
+  "column": 25,
+  "end_column": 38,
+  "text": "Partial clone",
+  "kind": "term"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 26,
+  "column": 43,
+  "end_column": 58,
+  "text": "sparse checkout",
+  "kind": "term"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 29,
+  "column": 7,
+  "end_column": 17,
+  "text": "CODEOWNERS",
+  "kind": "path"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 33,
+  "column": 20,
+  "end_column": 30,
+  "text": "Cargo.lock",
+  "kind": "path"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 34,
+  "column": 7,
+  "end_column": 12,
+  "text": "Cargo",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 34,
+  "column": 35,
+  "end_column": 78,
+  "text": "and the rest are a two-minute fix, honestly",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 36,
+  "column": 47,
+  "end_column": 54,
+  "text": "sccache",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-003-monorepo.md",
+  "line": 37,
+  "column": 36,
+  "end_column": 40,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 8,
+  "column": 56,
+  "end_column": 60,
+  "text": "TOTP",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 8,
+  "column": 65,
+  "end_column": 69,
+  "text": "SAML",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 9,
+  "column": 63,
+  "end_column": 74,
+  "text": "maintainers",
+  "kind": "term"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 11,
+  "column": 1,
+  "end_column": 5,
+  "text": "SAML",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 16,
+  "column": 76,
+  "end_column": 81,
+  "text": "Auth0",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 17,
+  "column": 1,
+  "end_column": 9,
+  "text": "Keycloak",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 18,
+  "column": 1,
+  "end_column": 8,
+  "text": "Cognito",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 18,
+  "column": 17,
+  "end_column": 24,
+  "text": "Cognito",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 18,
+  "column": 27,
+  "end_column": 31,
+  "text": "SAML",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 28,
+  "column": 24,
+  "end_column": 34,
+  "text": "$400/month",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 28,
+  "column": 55,
+  "end_column": 67,
+  "text": "$2,100/month",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 29,
+  "column": 53,
+  "end_column": 57,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 34,
+  "column": 47,
+  "end_column": 53,
+  "text": "bcrypt",
+  "kind": "term"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 35,
+  "column": 10,
+  "end_column": 18,
+  "text": "`/login`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 35,
+  "column": 23,
+  "end_column": 32,
+  "text": "`/logout`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 35,
+  "column": 55,
+  "end_column": 65,
+  "text": "`/session`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 36,
+  "column": 9,
+  "end_column": 13,
+  "text": "SAML",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 36,
+  "column": 39,
+  "end_column": 53,
+  "text": "Sanna Korhonen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 43,
+  "column": 62,
+  "end_column": 82,
+  "text": "Probably not, gross.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/ADR-004-auth-provider.md",
+  "line": 44,
+  "column": 3,
+  "end_column": 47,
+  "text": "Rate limits on the provider's management API",
+  "kind": "list"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 3,
+  "column": 52,
+  "end_column": 68,
+  "text": "Keep a Changelog",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 4,
+  "column": 6,
+  "end_column": 25,
+  "text": "semantic versioning",
+  "kind": "term"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 10,
+  "column": 3,
+  "end_column": 63,
+  "text": "`--dump-config` flag that prints the effective configuration",
+  "kind": "list"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 11,
+  "column": 3,
+  "end_column": 49,
+  "text": "Prometheus histogram for upstream connect time",
+  "kind": "list"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 15,
+  "column": 15,
+  "end_column": 29,
+  "text": "`read_timeout`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 15,
+  "column": 40,
+  "end_column": 43,
+  "text": "60s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 15,
+  "column": 47,
+  "end_column": 50,
+  "text": "30s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 22,
+  "column": 23,
+  "end_column": 31,
+  "text": "48 bytes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 23,
+  "column": 33,
+  "end_column": 35,
+  "text": "GB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 24,
+  "column": 3,
+  "end_column": 16,
+  "text": "`Retry-After`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 24,
+  "column": 65,
+  "end_column": 68,
+  "text": "RFC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 30,
+  "column": 45,
+  "end_column": 58,
+  "text": "`traceparent`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 32,
+  "column": 3,
+  "end_column": 8,
+  "text": "Linux",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 32,
+  "column": 9,
+  "end_column": 14,
+  "text": "ARM64",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 36,
+  "column": 3,
+  "end_column": 10,
+  "text": "OpenSSL",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 36,
+  "column": 23,
+  "end_column": 29,
+  "text": "rustls",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 37,
+  "column": 43,
+  "end_column": 47,
+  "text": "22MB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 42,
+  "column": 18,
+  "end_column": 28,
+  "text": "`[legacy]`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 42,
+  "column": 69,
+  "end_column": 74,
+  "text": "2.1.0",
+  "kind": "version"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 48,
+  "column": 26,
+  "end_column": 31,
+  "text": "macOS",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 48,
+  "column": 33,
+  "end_column": 41,
+  "text": "`kqueue`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 50,
+  "column": 3,
+  "end_column": 9,
+  "text": "HTTP/2",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 50,
+  "column": 10,
+  "end_column": 18,
+  "text": "`GOAWAY`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 58,
+  "column": 3,
+  "end_column": 20,
+  "text": "`X-Forwarded-For`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 58,
+  "column": 47,
+  "end_column": 50,
+  "text": "CVE",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-gateway.md",
+  "line": 59,
+  "column": 10,
+  "end_column": 12,
+  "text": "IP",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 7,
+  "column": 3,
+  "end_column": 30,
+  "text": "`Ledger.close_period(date)`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 8,
+  "column": 3,
+  "end_column": 19,
+  "text": "`Account.parent`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 12,
+  "column": 3,
+  "end_column": 20,
+  "text": "`trial_balance()`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 14,
+  "column": 3,
+  "end_column": 7,
+  "text": "JSON",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 14,
+  "column": 21,
+  "end_column": 30,
+  "text": "`Decimal`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 14,
+  "column": 51,
+  "end_column": 55,
+  "text": "PyPy",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 18,
+  "column": 16,
+  "end_column": 27,
+  "text": "`balance()`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 19,
+  "column": 3,
+  "end_column": 8,
+  "text": "800ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 19,
+  "column": 12,
+  "end_column": 16,
+  "text": "40ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 20,
+  "column": 9,
+  "end_column": 17,
+  "text": "`post()`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 24,
+  "column": 22,
+  "end_column": 26,
+  "text": "3.13",
+  "kind": "version"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 25,
+  "column": 3,
+  "end_column": 9,
+  "text": "a lock",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 25,
+  "column": 17,
+  "end_column": 25,
+  "text": "`post()`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 25,
+  "column": 31,
+  "end_column": 54,
+  "text": "`sys._is_gil_enabled()`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 26,
+  "column": 3,
+  "end_column": 10,
+  "text": "`False`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 26,
+  "column": 22,
+  "end_column": 25,
+  "text": "its",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 27,
+  "column": 18,
+  "end_column": 22,
+  "text": "3.10",
+  "kind": "version"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 31,
+  "column": 23,
+  "end_column": 40,
+  "text": "`UnbalancedError`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 32,
+  "column": 27,
+  "end_column": 66,
+  "text": "Embarrassing for an accounting library.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 36,
+  "column": 3,
+  "end_column": 5,
+  "text": "uv",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-pyledger.md",
+  "line": 37,
+  "column": 3,
+  "end_column": 18,
+  "text": "`Ledger.load()`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 5,
+  "column": 9,
+  "end_column": 29,
+  "text": "`acme.events.list()`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 6,
+  "column": 9,
+  "end_column": 13,
+  "text": "Deno",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 6,
+  "column": 34,
+  "end_column": 37,
+  "text": "Bun",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 6,
+  "column": 38,
+  "end_column": 41,
+  "text": "1.2",
+  "kind": "version"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 7,
+  "column": 7,
+  "end_column": 16,
+  "text": "`retries`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 7,
+  "column": 46,
+  "end_column": 51,
+  "text": "`max`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 7,
+  "column": 56,
+  "end_column": 67,
+  "text": "`baseDelay`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 13,
+  "column": 9,
+  "end_column": 27,
+  "text": "`AcmeError.status`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 13,
+  "column": 34,
+  "end_column": 45,
+  "text": "`undefined`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 13,
+  "column": 76,
+  "end_column": 79,
+  "text": "`0`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 14,
+  "column": 22,
+  "end_column": 27,
+  "text": "fetch",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 15,
+  "column": 11,
+  "end_column": 27,
+  "text": "`Invoice.due_at`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 15,
+  "column": 43,
+  "end_column": 51,
+  "text": "`string`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 15,
+  "column": 55,
+  "end_column": 70,
+  "text": "`string | null`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 17,
+  "column": 28,
+  "end_column": 34,
+  "text": "`null`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 22,
+  "column": 7,
+  "end_column": 10,
+  "text": "ESM",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 22,
+  "column": 35,
+  "end_column": 48,
+  "text": "`node:crypto`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 23,
+  "column": 21,
+  "end_column": 24,
+  "text": "3kB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 23,
+  "column": 29,
+  "end_column": 47,
+  "text": "Cloudflare Workers",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 24,
+  "column": 36,
+  "end_column": 40,
+  "text": "300s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 24,
+  "column": 63,
+  "end_column": 66,
+  "text": "60s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 28,
+  "column": 11,
+  "end_column": 13,
+  "text": "16",
+  "kind": "version"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 29,
+  "column": 24,
+  "end_column": 34,
+  "text": "`Customer`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 33,
+  "column": 21,
+  "end_column": 34,
+  "text": "`Retry-After`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 33,
+  "column": 38,
+  "end_column": 43,
+  "text": "`503`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 33,
+  "column": 57,
+  "end_column": 62,
+  "text": "`429`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 34,
+  "column": 40,
+  "end_column": 46,
+  "text": "lodash",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 34,
+  "column": 48,
+  "end_column": 78,
+  "text": "Nobody knows how it got there.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 38,
+  "column": 7,
+  "end_column": 32,
+  "text": "`acme.customers.search()`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-sdk.md",
+  "line": 40,
+  "column": 7,
+  "end_column": 19,
+  "text": "`retries: 0`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 3,
+  "column": 67,
+  "end_column": 71,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 15,
+  "column": 1,
+  "end_column": 7,
+  "text": "devenv",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 15,
+  "column": 28,
+  "end_column": 32,
+  "text": "Rust",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 15,
+  "column": 44,
+  "end_column": 48,
+  "text": "just",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 16,
+  "column": 17,
+  "end_column": 20,
+  "text": "Nix",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 16,
+  "column": 22,
+  "end_column": 41,
+  "text": "rust-toolchain.toml",
+  "kind": "path"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 16,
+  "column": 48,
+  "end_column": 54,
+  "text": "rustup",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 17,
+  "column": 5,
+  "end_column": 28,
+  "text": ".pre-commit-config.yaml",
+  "kind": "path"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 21,
+  "column": 22,
+  "end_column": 30,
+  "text": "300 line",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 21,
+  "column": 59,
+  "end_column": 68,
+  "text": "3000 line",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 24,
+  "column": 22,
+  "end_column": 27,
+  "text": "there",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 31,
+  "column": 1,
+  "end_column": 8,
+  "text": "rustfmt",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 31,
+  "column": 13,
+  "end_column": 19,
+  "text": "clippy",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 31,
+  "column": 48,
+  "end_column": 58,
+  "text": "`#[allow]`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 32,
+  "column": 46,
+  "end_column": 56,
+  "text": "`unwrap()`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 37,
+  "column": 1,
+  "end_column": 46,
+  "text": "`failed to bind 0.0.0.0:8080: address in use`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 42,
+  "column": 1,
+  "end_column": 7,
+  "text": "tests/",
+  "kind": "path"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 42,
+  "column": 38,
+  "end_column": 53,
+  "text": "ephemeral ports",
+  "kind": "term"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 42,
+  "column": 71,
+  "end_column": 74,
+  "text": "20s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 43,
+  "column": 30,
+  "end_column": 48,
+  "text": "`cargo test --lib`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 46,
+  "column": 21,
+  "end_column": 25,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 55,
+  "column": 30,
+  "end_column": 69,
+  "text": "Disagree with the code, not the person.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 56,
+  "column": 1,
+  "end_column": 67,
+  "text": "If that sounds like a poster in an office kitchen, well, it works.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 60,
+  "column": 1,
+  "end_column": 12,
+  "text": "Onni Hakala",
+  "kind": "name"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 60,
+  "column": 14,
+  "end_column": 30,
+  "text": "Linnea Bergström",
+  "kind": "name"
+ },
+ {
+  "file": "docs/CONTRIBUTING.md",
+  "line": 60,
+  "column": 35,
+  "end_column": 50,
+  "text": "Tuomas Heikkilä",
+  "kind": "name"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 9,
+  "column": 3,
+  "end_column": 6,
+  "text": "JWT",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 9,
+  "column": 11,
+  "end_column": 15,
+  "text": "OIDC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 10,
+  "column": 40,
+  "end_column": 44,
+  "text": "10ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 11,
+  "column": 29,
+  "end_column": 33,
+  "text": "JSON",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 12,
+  "column": 36,
+  "end_column": 55,
+  "text": "exponential backoff",
+  "kind": "term"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 13,
+  "column": 17,
+  "end_column": 29,
+  "text": "gateway.toml",
+  "kind": "path"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 17,
+  "column": 34,
+  "end_column": 77,
+  "text": "https://github.com/example/gateway/releases",
+  "kind": "url"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 18,
+  "column": 19,
+  "end_column": 26,
+  "text": "`$PATH`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 18,
+  "column": 40,
+  "end_column": 48,
+  "text": "a config",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 25,
+  "column": 15,
+  "end_column": 46,
+  "text": "`gateway --config gateway.toml`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 26,
+  "column": 1,
+  "end_column": 5,
+  "text": "it's",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 26,
+  "column": 14,
+  "end_column": 41,
+  "text": "`listening on 0.0.0.0:8080`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 27,
+  "column": 1,
+  "end_column": 25,
+  "text": "`address already in use`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 37,
+  "column": 3,
+  "end_column": 11,
+  "text": "`listen`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 37,
+  "column": 14,
+  "end_column": 28,
+  "text": "`0.0.0.0:8080`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 37,
+  "column": 31,
+  "end_column": 43,
+  "text": "Bind address",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 38,
+  "column": 3,
+  "end_column": 17,
+  "text": "`read_timeout`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 38,
+  "column": 20,
+  "end_column": 23,
+  "text": "30s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 38,
+  "column": 26,
+  "end_column": 37,
+  "text": "Per request",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 39,
+  "column": 3,
+  "end_column": 13,
+  "text": "`max_body`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 39,
+  "column": 16,
+  "end_column": 20,
+  "text": "4MiB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 39,
+  "column": 23,
+  "end_column": 44,
+  "text": "Larger bodies get 413",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 46,
+  "column": 13,
+  "end_column": 22,
+  "text": "c6i.large",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 47,
+  "column": 1,
+  "end_column": 4,
+  "text": "p99",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 47,
+  "column": 19,
+  "end_column": 22,
+  "text": "2ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 48,
+  "column": 26,
+  "end_column": 28,
+  "text": "6x",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 53,
+  "column": 1,
+  "end_column": 4,
+  "text": "MIT",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-api-gateway.md",
+  "line": 53,
+  "column": 10,
+  "end_column": 17,
+  "text": "LICENSE",
+  "kind": "path"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 4,
+  "column": 1,
+  "end_column": 7,
+  "text": "GitHub",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 4,
+  "column": 28,
+  "end_column": 32,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 5,
+  "column": 1,
+  "end_column": 11,
+  "text": "Cargo.toml",
+  "kind": "path"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 5,
+  "column": 13,
+  "end_column": 25,
+  "text": "package.json",
+  "kind": "path"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 5,
+  "column": 29,
+  "end_column": 43,
+  "text": "pyproject.toml",
+  "kind": "path"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 13,
+  "column": 23,
+  "end_column": 28,
+  "text": "Linux",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 13,
+  "column": 40,
+  "end_column": 47,
+  "text": "Windows",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 14,
+  "column": 13,
+  "end_column": 18,
+  "text": "macOS",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 14,
+  "column": 36,
+  "end_column": 44,
+  "text": "Homebrew",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 14,
+  "column": 46,
+  "end_column": 67,
+  "text": "`brew install shipit`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 25,
+  "column": 8,
+  "end_column": 19,
+  "text": "`--dry-run`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 29,
+  "column": 34,
+  "end_column": 38,
+  "text": "it's",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 35,
+  "column": 3,
+  "end_column": 17,
+  "text": "`SHIPIT_TOKEN`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 35,
+  "column": 20,
+  "end_column": 42,
+  "text": "Token used for uploads",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 36,
+  "column": 3,
+  "end_column": 16,
+  "text": "`SHIPIT_DIST`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 36,
+  "column": 19,
+  "end_column": 52,
+  "text": "Output directory, default `dist/`",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 37,
+  "column": 3,
+  "end_column": 13,
+  "text": "`NO_COLOR`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 37,
+  "column": 16,
+  "end_column": 38,
+  "text": "Disable colored output",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 39,
+  "column": 21,
+  "end_column": 38,
+  "text": "`contents: write`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 40,
+  "column": 47,
+  "end_column": 49,
+  "text": "CI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 41,
+  "column": 21,
+  "end_column": 35,
+  "text": "`GITHUB_TOKEN`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 45,
+  "column": 13,
+  "end_column": 23,
+  "text": "goreleaser",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 46,
+  "column": 1,
+  "end_column": 7,
+  "text": "Docker",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 51,
+  "column": 55,
+  "end_column": 73,
+  "text": "`shipit --version`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-cli-tool.md",
+  "line": 52,
+  "column": 39,
+  "end_column": 99,
+  "text": "Yeah, we know the error messages are terse; patches welcome.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 23,
+  "column": 70,
+  "end_column": 76,
+  "text": "`post`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 24,
+  "column": 1,
+  "end_column": 18,
+  "text": "`UnbalancedError`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 24,
+  "column": 55,
+  "end_column": 64,
+  "text": "`Decimal`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 28,
+  "column": 1,
+  "end_column": 27,
+  "text": "`ledger.balance(\"Assets\")`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 28,
+  "column": 53,
+  "end_column": 61,
+  "text": "`Assets`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 32,
+  "column": 1,
+  "end_column": 25,
+  "text": "`ledger.trial_balance()`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 32,
+  "column": 44,
+  "end_column": 70,
+  "text": "`(account, debit, credit)`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 34,
+  "column": 1,
+  "end_column": 16,
+  "text": "`datetime.date`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 34,
+  "column": 26,
+  "end_column": 31,
+  "text": "there",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 39,
+  "column": 44,
+  "end_column": 48,
+  "text": "JSON",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 48,
+  "column": 20,
+  "end_column": 26,
+  "text": "a lock",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 52,
+  "column": 1,
+  "end_column": 8,
+  "text": "CPython",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 52,
+  "column": 9,
+  "end_column": 13,
+  "text": "3.11",
+  "kind": "version"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 52,
+  "column": 15,
+  "end_column": 19,
+  "text": "3.12",
+  "kind": "version"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 52,
+  "column": 21,
+  "end_column": 25,
+  "text": "3.13",
+  "kind": "version"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 52,
+  "column": 30,
+  "end_column": 34,
+  "text": "PyPy",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 52,
+  "column": 35,
+  "end_column": 38,
+  "text": "7.3",
+  "kind": "version"
+ },
+ {
+  "file": "docs/README-python-lib.md",
+  "line": 52,
+  "column": 42,
+  "end_column": 47,
+  "text": "Linux",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 5,
+  "column": 22,
+  "end_column": 26,
+  "text": "MPSC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 5,
+  "column": 37,
+  "end_column": 41,
+  "text": "Rust",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 5,
+  "column": 43,
+  "end_column": 51,
+  "text": "`no_std`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 11,
+  "column": 17,
+  "end_column": 26,
+  "text": "`T: Send`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 12,
+  "column": 52,
+  "end_column": 59,
+  "text": "a power",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 25,
+  "column": 16,
+  "end_column": 28,
+  "text": "`Err(value)`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 26,
+  "column": 22,
+  "end_column": 27,
+  "text": "`pop`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 26,
+  "column": 36,
+  "end_column": 42,
+  "text": "`None`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 30,
+  "column": 31,
+  "end_column": 53,
+  "text": "`fetch_add(1, AcqRel)`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 32,
+  "column": 1,
+  "end_column": 10,
+  "text": "`Acquire`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 32,
+  "column": 12,
+  "end_column": 22,
+  "text": "Idempotent",
+  "kind": "term"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 33,
+  "column": 13,
+  "end_column": 16,
+  "text": "CAS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 34,
+  "column": 64,
+  "end_column": 67,
+  "text": "ABA",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 38,
+  "column": 23,
+  "end_column": 32,
+  "text": "crossbeam",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 40,
+  "column": 3,
+  "end_column": 23,
+  "text": "push/pop, 1 producer",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 40,
+  "column": 26,
+  "end_column": 29,
+  "text": "9ns",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 40,
+  "column": 32,
+  "end_column": 36,
+  "text": "12ns",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 41,
+  "column": 3,
+  "end_column": 24,
+  "text": "push/pop, 8 producers",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 41,
+  "column": 27,
+  "end_column": 31,
+  "text": "41ns",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 41,
+  "column": 34,
+  "end_column": 38,
+  "text": "38ns",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 43,
+  "column": 16,
+  "end_column": 29,
+  "text": "Ryzen 7 5800X",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 43,
+  "column": 31,
+  "end_column": 43,
+  "text": "rustc 1.85.0",
+  "kind": "version"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 43,
+  "column": 45,
+  "end_column": 56,
+  "text": "`--release`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 48,
+  "column": 1,
+  "end_column": 5,
+  "text": "1.70",
+  "kind": "version"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 48,
+  "column": 19,
+  "end_column": 23,
+  "text": "MSRV",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 52,
+  "column": 16,
+  "end_column": 24,
+  "text": "`unsafe`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 53,
+  "column": 1,
+  "end_column": 5,
+  "text": "Miri",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-rust-crate.md",
+  "line": 53,
+  "column": 14,
+  "end_column": 16,
+  "text": "CI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 3,
+  "column": 41,
+  "end_column": 44,
+  "text": "API",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 4,
+  "column": 1,
+  "end_column": 8,
+  "text": "Node.js",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 4,
+  "column": 9,
+  "end_column": 12,
+  "text": "18+",
+  "kind": "version"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 4,
+  "column": 14,
+  "end_column": 17,
+  "text": "Bun",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 4,
+  "column": 19,
+  "end_column": 23,
+  "text": "Deno",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 21,
+  "column": 1,
+  "end_column": 8,
+  "text": "OpenAPI",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 25,
+  "column": 23,
+  "end_column": 34,
+  "text": "`AcmeError`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 25,
+  "column": 45,
+  "end_column": 53,
+  "text": "`status`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 26,
+  "column": 1,
+  "end_column": 7,
+  "text": "`code`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 28,
+  "column": 1,
+  "end_column": 17,
+  "text": "`{ retries: 0 }`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 29,
+  "column": 1,
+  "end_column": 4,
+  "text": "30s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 31,
+  "column": 43,
+  "end_column": 60,
+  "text": "`code: \"network\"`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 32,
+  "column": 37,
+  "end_column": 41,
+  "text": "HTTP",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 36,
+  "column": 23,
+  "end_column": 34,
+  "text": "an iterator",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 44,
+  "column": 1,
+  "end_column": 5,
+  "text": "It's",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 48,
+  "column": 1,
+  "end_column": 51,
+  "text": "`acme.webhooks.verify(payload, signature, secret)`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 48,
+  "column": 63,
+  "end_column": 67,
+  "text": "HMAC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 49,
+  "column": 58,
+  "end_column": 63,
+  "text": "their",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 55,
+  "column": 6,
+  "end_column": 10,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 55,
+  "column": 48,
+  "end_column": 51,
+  "text": "9kB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-ts-sdk.md",
+  "line": 60,
+  "column": 34,
+  "end_column": 50,
+  "text": "sdk@acme.example",
+  "kind": "url"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 7,
+  "column": 3,
+  "end_column": 8,
+  "text": "2.4.x",
+  "kind": "version"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 7,
+  "column": 11,
+  "end_column": 14,
+  "text": "yes",
+  "kind": "table"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 8,
+  "column": 3,
+  "end_column": 8,
+  "text": "2.3.x",
+  "kind": "version"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 8,
+  "column": 11,
+  "end_column": 30,
+  "text": "security fixes only",
+  "kind": "table"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 9,
+  "column": 3,
+  "end_column": 8,
+  "text": "< 2.3",
+  "kind": "version"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 9,
+  "column": 11,
+  "end_column": 13,
+  "text": "no",
+  "kind": "table"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 13,
+  "column": 7,
+  "end_column": 28,
+  "text": "security@acme.example",
+  "kind": "url"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 13,
+  "column": 34,
+  "end_column": 37,
+  "text": "PGP",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 13,
+  "column": 48,
+  "end_column": 88,
+  "text": "https://acme.example/.well-known/pgp.txt",
+  "kind": "url"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 16,
+  "column": 31,
+  "end_column": 46,
+  "text": "2 business days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 16,
+  "column": 76,
+  "end_column": 83,
+  "text": "30 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 23,
+  "column": 3,
+  "end_column": 42,
+  "text": "Authentication and authorization bypass",
+  "kind": "list"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 24,
+  "column": 3,
+  "end_column": 58,
+  "text": "Request smuggling or header injection through the proxy",
+  "kind": "list"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 25,
+  "column": 3,
+  "end_column": 50,
+  "text": "Memory safety issues reachable from the network",
+  "kind": "list"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 26,
+  "column": 3,
+  "end_column": 56,
+  "text": "Dependency vulnerabilities with a demonstrated impact",
+  "kind": "list"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 30,
+  "column": 3,
+  "end_column": 61,
+  "text": "Reports from automated scanners without a proof of concept",
+  "kind": "list"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 31,
+  "column": 3,
+  "end_column": 49,
+  "text": "Missing security headers on the marketing site",
+  "kind": "list"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 32,
+  "column": 3,
+  "end_column": 68,
+  "text": "Denial of service through resource exhaustion on a default config",
+  "kind": "list"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 39,
+  "column": 29,
+  "end_column": 36,
+  "text": "90 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 48,
+  "column": 21,
+  "end_column": 36,
+  "text": "an unprivileged",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 48,
+  "column": 63,
+  "end_column": 71,
+  "text": "contrib/",
+  "kind": "path"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 49,
+  "column": 29,
+  "end_column": 33,
+  "text": "mTLS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 49,
+  "column": 48,
+  "end_column": 59,
+  "text": "`127.0.0.1`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 50,
+  "column": 10,
+  "end_column": 13,
+  "text": "JWT",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 50,
+  "column": 42,
+  "end_column": 49,
+  "text": "90 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/SECURITY.md",
+  "line": 52,
+  "column": 70,
+  "end_column": 73,
+  "text": "its",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 16,
+  "column": 16,
+  "end_column": 28,
+  "text": "`request_id`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 17,
+  "column": 1,
+  "end_column": 55,
+  "text": "\"it failed yesterday around lunch\" is not a request id",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 23,
+  "column": 3,
+  "end_column": 6,
+  "text": "400",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 23,
+  "column": 9,
+  "end_column": 26,
+  "text": "Malformed request",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 23,
+  "column": 29,
+  "end_column": 31,
+  "text": "No",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 24,
+  "column": 3,
+  "end_column": 6,
+  "text": "401",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 24,
+  "column": 9,
+  "end_column": 33,
+  "text": "Missing or invalid token",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 24,
+  "column": 36,
+  "end_column": 38,
+  "text": "No",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 25,
+  "column": 3,
+  "end_column": 6,
+  "text": "403",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 25,
+  "column": 9,
+  "end_column": 31,
+  "text": "Token lacks permission",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 25,
+  "column": 34,
+  "end_column": 36,
+  "text": "No",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 26,
+  "column": 3,
+  "end_column": 6,
+  "text": "404",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 26,
+  "column": 9,
+  "end_column": 31,
+  "text": "Not found or not yours",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 26,
+  "column": 34,
+  "end_column": 36,
+  "text": "No",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 27,
+  "column": 3,
+  "end_column": 6,
+  "text": "409",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 27,
+  "column": 9,
+  "end_column": 27,
+  "text": "Conflict, see body",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 27,
+  "column": 30,
+  "end_column": 39,
+  "text": "Sometimes",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 28,
+  "column": 3,
+  "end_column": 6,
+  "text": "422",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 28,
+  "column": 9,
+  "end_column": 26,
+  "text": "Validation failed",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 28,
+  "column": 29,
+  "end_column": 31,
+  "text": "No",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 29,
+  "column": 3,
+  "end_column": 6,
+  "text": "429",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 29,
+  "column": 9,
+  "end_column": 21,
+  "text": "Rate limited",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 29,
+  "column": 24,
+  "end_column": 43,
+  "text": "After `Retry-After`",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 30,
+  "column": 3,
+  "end_column": 6,
+  "text": "5xx",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 30,
+  "column": 9,
+  "end_column": 18,
+  "text": "Our fault",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 30,
+  "column": 21,
+  "end_column": 38,
+  "text": "Yes, with backoff",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 34,
+  "column": 5,
+  "end_column": 11,
+  "text": "`code`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 34,
+  "column": 55,
+  "end_column": 64,
+  "text": "`message`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 39,
+  "column": 3,
+  "end_column": 20,
+  "text": "`invalid_request`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 39,
+  "column": 22,
+  "end_column": 62,
+  "text": "a field is missing or has the wrong type",
+  "kind": "list"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 40,
+  "column": 3,
+  "end_column": 25,
+  "text": "`idempotency_mismatch`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 40,
+  "column": 27,
+  "end_column": 51,
+  "text": "same key, different body",
+  "kind": "list"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 41,
+  "column": 3,
+  "end_column": 23,
+  "text": "`insufficient_funds`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 41,
+  "column": 25,
+  "end_column": 53,
+  "text": "the customer's card declined",
+  "kind": "list"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 42,
+  "column": 3,
+  "end_column": 20,
+  "text": "`resource_locked`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 42,
+  "column": 22,
+  "end_column": 63,
+  "text": "another request is modifying the resource",
+  "kind": "list"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 44,
+  "column": 1,
+  "end_column": 18,
+  "text": "`resource_locked`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 44,
+  "column": 51,
+  "end_column": 56,
+  "text": "100ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 46,
+  "column": 1,
+  "end_column": 5,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 50,
+  "column": 1,
+  "end_column": 6,
+  "text": "`422`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 50,
+  "column": 28,
+  "end_column": 36,
+  "text": "`errors`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 51,
+  "column": 38,
+  "end_column": 42,
+  "text": "JSON",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 52,
+  "column": 1,
+  "end_column": 20,
+  "text": "`/items/2/quantity`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 56,
+  "column": 7,
+  "end_column": 10,
+  "text": "5xx",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 56,
+  "column": 15,
+  "end_column": 18,
+  "text": "429",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 56,
+  "column": 24,
+  "end_column": 43,
+  "text": "exponential backoff",
+  "kind": "term"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 57,
+  "column": 1,
+  "end_column": 7,
+  "text": "`POST`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 57,
+  "column": 19,
+  "end_column": 36,
+  "text": "`Idempotency-Key`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 58,
+  "column": 22,
+  "end_column": 25,
+  "text": "SDK",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 61,
+  "column": 16,
+  "end_column": 19,
+  "text": "5xx",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-errors.md",
+  "line": 61,
+  "column": 49,
+  "end_column": 54,
+  "text": "There",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 3,
+  "column": 32,
+  "end_column": 38,
+  "text": "Stripe",
+  "kind": "product"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 3,
+  "column": 42,
+  "end_column": 47,
+  "text": "Adyen",
+  "kind": "product"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 4,
+  "column": 13,
+  "end_column": 16,
+  "text": "API",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 13,
+  "column": 5,
+  "end_column": 22,
+  "text": "`Idempotency-Key`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 15,
+  "column": 1,
+  "end_column": 6,
+  "text": "`422`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 15,
+  "column": 26,
+  "end_column": 34,
+  "text": "24 hours",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 36,
+  "column": 35,
+  "end_column": 41,
+  "text": "7 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 38,
+  "column": 14,
+  "end_column": 18,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 46,
+  "column": 44,
+  "end_column": 63,
+  "text": "`status: \"pending\"`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 47,
+  "column": 1,
+  "end_column": 19,
+  "text": "`refund.succeeded`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 47,
+  "column": 23,
+  "end_column": 38,
+  "text": "`refund.failed`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 48,
+  "column": 20,
+  "end_column": 35,
+  "text": "5 business days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 50,
+  "column": 52,
+  "end_column": 76,
+  "text": "`refund_exceeds_capture`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 51,
+  "column": 46,
+  "end_column": 51,
+  "text": "their",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 57,
+  "column": 3,
+  "end_column": 20,
+  "text": "`requires_action`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 57,
+  "column": 23,
+  "end_column": 44,
+  "text": "3DS or similar needed",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 58,
+  "column": 3,
+  "end_column": 15,
+  "text": "`authorized`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 58,
+  "column": 18,
+  "end_column": 42,
+  "text": "Funds held, not captured",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 59,
+  "column": 3,
+  "end_column": 13,
+  "text": "`captured`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 59,
+  "column": 16,
+  "end_column": 20,
+  "text": "Done",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 60,
+  "column": 3,
+  "end_column": 13,
+  "text": "`canceled`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 60,
+  "column": 16,
+  "end_column": 39,
+  "text": "Released before capture",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 62,
+  "column": 28,
+  "end_column": 38,
+  "text": "`canceled`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 63,
+  "column": 1,
+  "end_column": 9,
+  "text": "affected",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 67,
+  "column": 39,
+  "end_column": 60,
+  "text": "`4242 4242 4242 4242`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-payments.md",
+  "line": 68,
+  "column": 5,
+  "end_column": 26,
+  "text": "`4000 0000 0000 0002`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 3,
+  "column": 11,
+  "end_column": 38,
+  "text": "https://api.acme.example/v2",
+  "kind": "url"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 4,
+  "column": 5,
+  "end_column": 9,
+  "text": "JSON",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 4,
+  "column": 15,
+  "end_column": 62,
+  "text": "`Content-Type: application/json; charset=utf-8`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 14,
+  "column": 3,
+  "end_column": 10,
+  "text": "`email`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 14,
+  "column": 13,
+  "end_column": 19,
+  "text": "string",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 14,
+  "column": 22,
+  "end_column": 25,
+  "text": "yes",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 14,
+  "column": 28,
+  "end_column": 46,
+  "text": "Lowercased on save",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 15,
+  "column": 3,
+  "end_column": 9,
+  "text": "`name`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 15,
+  "column": 12,
+  "end_column": 18,
+  "text": "string",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 15,
+  "column": 21,
+  "end_column": 23,
+  "text": "no",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 15,
+  "column": 26,
+  "end_column": 39,
+  "text": "Max 200 chars",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 16,
+  "column": 3,
+  "end_column": 11,
+  "text": "`locale`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 16,
+  "column": 14,
+  "end_column": 20,
+  "text": "string",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 16,
+  "column": 23,
+  "end_column": 25,
+  "text": "no",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 16,
+  "column": 28,
+  "end_column": 51,
+  "text": "BCP 47, default `en-US`",
+  "kind": "table"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 19,
+  "column": 29,
+  "end_column": 43,
+  "text": "`409 Conflict`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 20,
+  "column": 5,
+  "end_column": 15,
+  "text": "`Location`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 37,
+  "column": 9,
+  "end_column": 14,
+  "text": "`404`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 46,
+  "column": 47,
+  "end_column": 53,
+  "text": "`null`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 47,
+  "column": 1,
+  "end_column": 8,
+  "text": "`email`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 49,
+  "column": 1,
+  "end_column": 8,
+  "text": "`email`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 49,
+  "column": 13,
+  "end_column": 28,
+  "text": "`pending_email`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 57,
+  "column": 22,
+  "end_column": 29,
+  "text": "30 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 57,
+  "column": 31,
+  "end_column": 35,
+  "text": "then",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 58,
+  "column": 22,
+  "end_column": 48,
+  "text": "`POST /users/{id}/restore`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 67,
+  "column": 24,
+  "end_column": 31,
+  "text": "`limit`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 67,
+  "column": 71,
+  "end_column": 83,
+  "text": "`created_at`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 68,
+  "column": 36,
+  "end_column": 44,
+  "text": "an exact",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 73,
+  "column": 1,
+  "end_column": 20,
+  "text": "600 requests/minute",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 73,
+  "column": 36,
+  "end_column": 49,
+  "text": "`Retry-After`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 74,
+  "column": 24,
+  "end_column": 34,
+  "text": "Import API",
+  "kind": "product"
+ },
+ {
+  "file": "docs/api-users.md",
+  "line": 74,
+  "column": 44,
+  "end_column": 48,
+  "text": "it's",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 3,
+  "column": 17,
+  "end_column": 21,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 4,
+  "column": 1,
+  "end_column": 6,
+  "text": "HTTPS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 4,
+  "column": 56,
+  "end_column": 62,
+  "text": "`POST`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 13,
+  "column": 25,
+  "end_column": 33,
+  "text": "`secret`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 14,
+  "column": 45,
+  "end_column": 73,
+  "text": "`POST /webhooks/{id}/rotate`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 19,
+  "column": 37,
+  "end_column": 47,
+  "text": "idempotent",
+  "kind": "term"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 19,
+  "column": 61,
+  "end_column": 71,
+  "text": "`event.id`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 21,
+  "column": 42,
+  "end_column": 44,
+  "text": "1m",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 21,
+  "column": 46,
+  "end_column": 48,
+  "text": "5m",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 21,
+  "column": 50,
+  "end_column": 53,
+  "text": "30m",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 21,
+  "column": 55,
+  "end_column": 57,
+  "text": "2h",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 21,
+  "column": 59,
+  "end_column": 61,
+  "text": "6h",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 22,
+  "column": 66,
+  "end_column": 70,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 23,
+  "column": 29,
+  "end_column": 34,
+  "text": "`2xx`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 23,
+  "column": 42,
+  "end_column": 45,
+  "text": "10s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 28,
+  "column": 23,
+  "end_column": 62,
+  "text": "`Acme-Signature: t=1712345678,v1=<hex>`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 29,
+  "column": 1,
+  "end_column": 38,
+  "text": "`HMAC-SHA256(secret, t + \".\" + body)`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 30,
+  "column": 59,
+  "end_column": 68,
+  "text": "5 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 45,
+  "column": 5,
+  "end_column": 11,
+  "text": "`data`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 46,
+  "column": 1,
+  "end_column": 6,
+  "text": "`GET`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 51,
+  "column": 40,
+  "end_column": 46,
+  "text": "7 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 52,
+  "column": 12,
+  "end_column": 20,
+  "text": "an email",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 52,
+  "column": 37,
+  "end_column": 65,
+  "text": "`POST /webhooks/{id}/enable`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 53,
+  "column": 27,
+  "end_column": 37,
+  "text": "Events API",
+  "kind": "product"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 57,
+  "column": 5,
+  "end_column": 10,
+  "text": "ngrok",
+  "kind": "product"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 57,
+  "column": 23,
+  "end_column": 26,
+  "text": "CLI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 57,
+  "column": 27,
+  "end_column": 68,
+  "text": "`acme listen --forward-to localhost:3000`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 58,
+  "column": 47,
+  "end_column": 56,
+  "text": "WebSocket",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/api-webhooks.md",
+  "line": 58,
+  "column": 58,
+  "end_column": 78,
+  "text": "No tunnels, no fuss.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 11,
+  "column": 3,
+  "end_column": 20,
+  "text": "`--config <path>`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 11,
+  "column": 23,
+  "end_column": 39,
+  "text": "`GATEWAY_CONFIG`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 11,
+  "column": 42,
+  "end_column": 79,
+  "text": "Config file, default `./gateway.toml`",
+  "kind": "table"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 12,
+  "column": 3,
+  "end_column": 24,
+  "text": "`--log-level <level>`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 12,
+  "column": 27,
+  "end_column": 40,
+  "text": "`GATEWAY_LOG`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 12,
+  "column": 43,
+  "end_column": 84,
+  "text": "`error`, `warn`, `info`, `debug`, `trace`",
+  "kind": "table"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 13,
+  "column": 3,
+  "end_column": 19,
+  "text": "`--admin <addr>`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 13,
+  "column": 22,
+  "end_column": 37,
+  "text": "`GATEWAY_ADMIN`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 13,
+  "column": 40,
+  "end_column": 76,
+  "text": "Admin port, default `127.0.0.1:9090`",
+  "kind": "table"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 14,
+  "column": 3,
+  "end_column": 16,
+  "text": "`-q, --quiet`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 14,
+  "column": 21,
+  "end_column": 34,
+  "text": "No access log",
+  "kind": "table"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 20,
+  "column": 75,
+  "end_column": 78,
+  "text": "`0`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 21,
+  "column": 1,
+  "end_column": 10,
+  "text": "`SIGTERM`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 21,
+  "column": 27,
+  "end_column": 30,
+  "text": "`2`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 21,
+  "column": 53,
+  "end_column": 56,
+  "text": "`1`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 22,
+  "column": 33,
+  "end_column": 58,
+  "text": "`server.shutdown_timeout`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 22,
+  "column": 60,
+  "end_column": 63,
+  "text": "30s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 26,
+  "column": 71,
+  "end_column": 74,
+  "text": "its",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 27,
+  "column": 11,
+  "end_column": 14,
+  "text": "`0`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 28,
+  "column": 1,
+  "end_column": 11,
+  "text": "`--strict`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 38,
+  "column": 54,
+  "end_column": 59,
+  "text": "`***`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 42,
+  "column": 33,
+  "end_column": 38,
+  "text": "their",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 42,
+  "column": 65,
+  "end_column": 73,
+  "text": "`--json`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 43,
+  "column": 58,
+  "end_column": 85,
+  "text": "sorry, terminals are narrow",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 47,
+  "column": 10,
+  "end_column": 13,
+  "text": "CPU",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 48,
+  "column": 1,
+  "end_column": 12,
+  "text": "gateway.svg",
+  "kind": "path"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 48,
+  "column": 27,
+  "end_column": 38,
+  "text": "`profiling`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 53,
+  "column": 29,
+  "end_column": 33,
+  "text": "bash",
+  "kind": "product"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 53,
+  "column": 35,
+  "end_column": 38,
+  "text": "zsh",
+  "kind": "product"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 53,
+  "column": 40,
+  "end_column": 44,
+  "text": "fish",
+  "kind": "product"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 57,
+  "column": 39,
+  "end_column": 47,
+  "text": "`--json`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 63,
+  "column": 3,
+  "end_column": 4,
+  "text": "0",
+  "kind": "table"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 63,
+  "column": 7,
+  "end_column": 14,
+  "text": "success",
+  "kind": "table"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 64,
+  "column": 3,
+  "end_column": 4,
+  "text": "1",
+  "kind": "table"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 64,
+  "column": 7,
+  "end_column": 20,
+  "text": "runtime error",
+  "kind": "table"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 65,
+  "column": 3,
+  "end_column": 4,
+  "text": "2",
+  "kind": "table"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 65,
+  "column": 7,
+  "end_column": 19,
+  "text": "config error",
+  "kind": "table"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 66,
+  "column": 3,
+  "end_column": 4,
+  "text": "3",
+  "kind": "table"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 66,
+  "column": 7,
+  "end_column": 38,
+  "text": "already running (pid file held)",
+  "kind": "table"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 70,
+  "column": 1,
+  "end_column": 9,
+  "text": "`SIGHUP`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 70,
+  "column": 30,
+  "end_column": 39,
+  "text": "`SIGTERM`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 70,
+  "column": 58,
+  "end_column": 67,
+  "text": "`SIGUSR1`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 71,
+  "column": 14,
+  "end_column": 24,
+  "text": "`log.file`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/cli-reference.md",
+  "line": 71,
+  "column": 33,
+  "end_column": 41,
+  "text": "`SIGINT`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 3,
+  "column": 9,
+  "end_column": 21,
+  "text": "Väinö Mäkelä",
+  "kind": "name"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 8,
+  "column": 58,
+  "end_column": 63,
+  "text": "`GET`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 9,
+  "column": 43,
+  "end_column": 46,
+  "text": "80%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 10,
+  "column": 17,
+  "end_column": 22,
+  "text": "2,000",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 14,
+  "column": 3,
+  "end_column": 40,
+  "text": "Caching anything but `GET` and `HEAD`",
+  "kind": "list"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 15,
+  "column": 3,
+  "end_column": 51,
+  "text": "A distributed cache; each instance keeps its own",
+  "kind": "list"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 16,
+  "column": 3,
+  "end_column": 20,
+  "text": "Replacing the CDN",
+  "kind": "list"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 20,
+  "column": 27,
+  "end_column": 30,
+  "text": "LRU",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 20,
+  "column": 67,
+  "end_column": 73,
+  "text": "`Vary`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 21,
+  "column": 50,
+  "end_column": 54,
+  "text": "1MiB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 22,
+  "column": 33,
+  "end_column": 50,
+  "text": "`cache.max_bytes`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 22,
+  "column": 60,
+  "end_column": 66,
+  "text": "256MiB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 24,
+  "column": 19,
+  "end_column": 22,
+  "text": "RFC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 24,
+  "column": 29,
+  "end_column": 54,
+  "text": "`Cache-Control: no-store`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 24,
+  "column": 59,
+  "end_column": 68,
+  "text": "`private`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 26,
+  "column": 1,
+  "end_column": 4,
+  "text": "10%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 26,
+  "column": 12,
+  "end_column": 27,
+  "text": "`Last-Modified`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 26,
+  "column": 43,
+  "end_column": 49,
+  "text": "1 hour",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 28,
+  "column": 36,
+  "end_column": 51,
+  "text": "`If-None-Match`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 28,
+  "column": 55,
+  "end_column": 60,
+  "text": "`304`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 34,
+  "column": 3,
+  "end_column": 15,
+  "text": "singleflight",
+  "kind": "term"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 34,
+  "column": 32,
+  "end_column": 34,
+  "text": "2s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 40,
+  "column": 1,
+  "end_column": 14,
+  "text": "`PURGE /path`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 40,
+  "column": 49,
+  "end_column": 59,
+  "text": "`PURGE /*`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 47,
+  "column": 3,
+  "end_column": 25,
+  "text": "`cache_requests_total`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 47,
+  "column": 28,
+  "end_column": 35,
+  "text": "counter",
+  "kind": "table"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 47,
+  "column": 38,
+  "end_column": 73,
+  "text": "`result` (hit, miss, bypass, stale)",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 48,
+  "column": 3,
+  "end_column": 16,
+  "text": "`cache_bytes`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 48,
+  "column": 19,
+  "end_column": 24,
+  "text": "gauge",
+  "kind": "table"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 48,
+  "column": 27,
+  "end_column": 31,
+  "text": "none",
+  "kind": "table"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 49,
+  "column": 3,
+  "end_column": 26,
+  "text": "`cache_evictions_total`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 49,
+  "column": 29,
+  "end_column": 36,
+  "text": "counter",
+  "kind": "table"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 49,
+  "column": 39,
+  "end_column": 69,
+  "text": "`reason` (lru, purge, expired)",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 53,
+  "column": 9,
+  "end_column": 21,
+  "text": "`Set-Cookie`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 54,
+  "column": 27,
+  "end_column": 39,
+  "text": "`Set-Cookie`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 54,
+  "column": 43,
+  "end_column": 58,
+  "text": "`Authorization`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 55,
+  "column": 1,
+  "end_column": 16,
+  "text": "`Cache-Control`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 55,
+  "column": 26,
+  "end_column": 45,
+  "text": "belt and suspenders",
+  "kind": "term"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 57,
+  "column": 72,
+  "end_column": 75,
+  "text": "10%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 58,
+  "column": 24,
+  "end_column": 37,
+  "text": "`cache_bytes`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-cache-layer.md",
+  "line": 62,
+  "column": 1,
+  "end_column": 8,
+  "text": "Varnish",
+  "kind": "product"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 4,
+  "column": 12,
+  "end_column": 23,
+  "text": "Åsa Sjöberg",
+  "kind": "name"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 4,
+  "column": 25,
+  "end_column": 40,
+  "text": "Tuomas Heikkilä",
+  "kind": "name"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 8,
+  "column": 53,
+  "end_column": 54,
+  "text": "N",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 8,
+  "column": 78,
+  "end_column": 79,
+  "text": "N",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 16,
+  "column": 25,
+  "end_column": 30,
+  "text": "Redis",
+  "kind": "product"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 19,
+  "column": 17,
+  "end_column": 22,
+  "text": "100ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 19,
+  "column": 24,
+  "end_column": 45,
+  "text": "Eventually consistent",
+  "kind": "term"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 25,
+  "column": 23,
+  "end_column": 27,
+  "text": "GCRA",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 25,
+  "column": 49,
+  "end_column": 54,
+  "text": "100ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 26,
+  "column": 30,
+  "end_column": 35,
+  "text": "Redis",
+  "kind": "product"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 26,
+  "column": 67,
+  "end_column": 70,
+  "text": "its",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 29,
+  "column": 20,
+  "end_column": 25,
+  "text": "100ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 29,
+  "column": 68,
+  "end_column": 76,
+  "text": "1000 rps",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 30,
+  "column": 29,
+  "end_column": 33,
+  "text": "1000",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 38,
+  "column": 21,
+  "end_column": 42,
+  "text": "`rate_limit.max_keys`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 38,
+  "column": 52,
+  "end_column": 56,
+  "text": "100k",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 38,
+  "column": 63,
+  "end_column": 66,
+  "text": "LRU",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 39,
+  "column": 23,
+  "end_column": 26,
+  "text": "its",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 40,
+  "column": 57,
+  "end_column": 67,
+  "text": "10 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 41,
+  "column": 35,
+  "end_column": 40,
+  "text": "their",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 45,
+  "column": 12,
+  "end_column": 23,
+  "text": "MessagePack",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 45,
+  "column": 34,
+  "end_column": 64,
+  "text": "`[key_hash: u64, tokens: u32]`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 46,
+  "column": 6,
+  "end_column": 10,
+  "text": "xxh3",
+  "kind": "term"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 46,
+  "column": 43,
+  "end_column": 45,
+  "text": "IP",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 47,
+  "column": 38,
+  "end_column": 45,
+  "text": "64 bits",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 47,
+  "column": 58,
+  "end_column": 67,
+  "text": "a concern",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 52,
+  "column": 14,
+  "end_column": 40,
+  "text": "`rate_limit.shared = true`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 52,
+  "column": 60,
+  "end_column": 63,
+  "text": "2.5",
+  "kind": "version"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 52,
+  "column": 71,
+  "end_column": 74,
+  "text": "3.0",
+  "kind": "version"
+ },
+ {
+  "file": "docs/design-rate-limiter.md",
+  "line": 54,
+  "column": 42,
+  "end_column": 45,
+  "text": "7.2",
+  "kind": "version"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 5,
+  "column": 10,
+  "end_column": 16,
+  "text": "HTTP/2",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 5,
+  "column": 45,
+  "end_column": 51,
+  "text": "HTTP/3",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 6,
+  "column": 13,
+  "end_column": 17,
+  "text": "QUIC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 6,
+  "column": 53,
+  "end_column": 56,
+  "text": "its",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 6,
+  "column": 57,
+  "end_column": 60,
+  "text": "API",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 10,
+  "column": 6,
+  "end_column": 48,
+  "text": "`gateway --upstream http://localhost:9000`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 11,
+  "column": 46,
+  "end_column": 84,
+  "text": "Flags for every option would be silly.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 15,
+  "column": 46,
+  "end_column": 65,
+  "text": "`key = \"client_ip\"`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 16,
+  "column": 28,
+  "end_column": 30,
+  "text": "IP",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 16,
+  "column": 48,
+  "end_column": 65,
+  "text": "`X-Forwarded-For`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 17,
+  "column": 5,
+  "end_column": 29,
+  "text": "`server.trusted_proxies`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 17,
+  "column": 63,
+  "end_column": 71,
+  "text": "`client`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 19,
+  "column": 17,
+  "end_column": 21,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 24,
+  "column": 13,
+  "end_column": 17,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 24,
+  "column": 57,
+  "end_column": 61,
+  "text": "JWKS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 25,
+  "column": 1,
+  "end_column": 11,
+  "text": "10 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 25,
+  "column": 42,
+  "end_column": 47,
+  "text": "`kid`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 25,
+  "column": 73,
+  "end_column": 77,
+  "text": "JWKS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 26,
+  "column": 47,
+  "end_column": 51,
+  "text": "then",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 30,
+  "column": 16,
+  "end_column": 23,
+  "text": "40k rps",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 30,
+  "column": 27,
+  "end_column": 37,
+  "text": "Yleisradio",
+  "kind": "name"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 35,
+  "column": 57,
+  "end_column": 60,
+  "text": "its",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 40,
+  "column": 11,
+  "end_column": 17,
+  "text": "rustls",
+  "kind": "product"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 40,
+  "column": 19,
+  "end_column": 23,
+  "text": "ACME",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 40,
+  "column": 45,
+  "end_column": 57,
+  "text": "cert-manager",
+  "kind": "product"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 40,
+  "column": 59,
+  "end_column": 66,
+  "text": "certbot",
+  "kind": "product"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 41,
+  "column": 48,
+  "end_column": 58,
+  "text": "`tls.cert`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 41,
+  "column": 63,
+  "end_column": 72,
+  "text": "`tls.key`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 47,
+  "column": 7,
+  "end_column": 31,
+  "text": "`websocket.idle_timeout`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 47,
+  "column": 41,
+  "end_column": 43,
+  "text": "5m",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/faq.md",
+  "line": 48,
+  "column": 14,
+  "end_column": 17,
+  "text": "its",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/glossary.md",
+  "line": 6,
+  "column": 46,
+  "end_column": 62,
+  "text": "`127.0.0.1:9090`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/glossary.md",
+  "line": 7,
+  "column": 58,
+  "end_column": 62,
+  "text": "it's",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/glossary.md",
+  "line": 9,
+  "column": 59,
+  "end_column": 63,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/glossary.md",
+  "line": 12,
+  "column": 30,
+  "end_column": 39,
+  "text": "ConfigMap",
+  "kind": "product"
+ },
+ {
+  "file": "docs/glossary.md",
+  "line": 16,
+  "column": 1,
+  "end_column": 26,
+  "text": "`server.shutdown_timeout`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/glossary.md",
+  "line": 22,
+  "column": 1,
+  "end_column": 6,
+  "text": "`PUT`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/glossary.md",
+  "line": 22,
+  "column": 11,
+  "end_column": 19,
+  "text": "`DELETE`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/glossary.md",
+  "line": 22,
+  "column": 25,
+  "end_column": 31,
+  "text": "`POST`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/glossary.md",
+  "line": 23,
+  "column": 1,
+  "end_column": 18,
+  "text": "`Idempotency-Key`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/glossary.md",
+  "line": 25,
+  "column": 11,
+  "end_column": 15,
+  "text": "JSON",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/glossary.md",
+  "line": 25,
+  "column": 67,
+  "end_column": 70,
+  "text": "its",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/glossary.md",
+  "line": 26,
+  "column": 21,
+  "end_column": 31,
+  "text": "10 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/glossary.md",
+  "line": 46,
+  "column": 73,
+  "end_column": 78,
+  "text": "a git",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/glossary.md",
+  "line": 48,
+  "column": 17,
+  "end_column": 22,
+  "text": "Tokio",
+  "kind": "product"
+ },
+ {
+  "file": "docs/glossary.md",
+  "line": 50,
+  "column": 67,
+  "end_column": 72,
+  "text": "there",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 3,
+  "column": 23,
+  "end_column": 27,
+  "text": "TOML",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 4,
+  "column": 1,
+  "end_column": 26,
+  "text": "`GATEWAY_<SECTION>_<KEY>`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 10,
+  "column": 3,
+  "end_column": 11,
+  "text": "`listen`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 10,
+  "column": 14,
+  "end_column": 20,
+  "text": "string",
+  "kind": "table"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 10,
+  "column": 23,
+  "end_column": 37,
+  "text": "`0.0.0.0:8080`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 10,
+  "column": 40,
+  "end_column": 55,
+  "text": "Address to bind",
+  "kind": "table"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 11,
+  "column": 3,
+  "end_column": 17,
+  "text": "`read_timeout`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 11,
+  "column": 20,
+  "end_column": 28,
+  "text": "duration",
+  "kind": "table"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 11,
+  "column": 31,
+  "end_column": 34,
+  "text": "30s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 11,
+  "column": 37,
+  "end_column": 57,
+  "text": "Header and body read",
+  "kind": "table"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 12,
+  "column": 3,
+  "end_column": 13,
+  "text": "`max_body`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 12,
+  "column": 16,
+  "end_column": 20,
+  "text": "size",
+  "kind": "table"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 12,
+  "column": 23,
+  "end_column": 27,
+  "text": "4MiB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 12,
+  "column": 30,
+  "end_column": 51,
+  "text": "Larger bodies get 413",
+  "kind": "table"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 13,
+  "column": 3,
+  "end_column": 12,
+  "text": "`workers`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 13,
+  "column": 15,
+  "end_column": 22,
+  "text": "integer",
+  "kind": "table"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 13,
+  "column": 25,
+  "end_column": 39,
+  "text": "number of CPUs",
+  "kind": "table"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 13,
+  "column": 42,
+  "end_column": 62,
+  "text": "Tokio worker threads",
+  "kind": "table"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 15,
+  "column": 18,
+  "end_column": 22,
+  "text": "10ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 15,
+  "column": 24,
+  "end_column": 26,
+  "text": "2s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 15,
+  "column": 28,
+  "end_column": 30,
+  "text": "5m",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 15,
+  "column": 35,
+  "end_column": 37,
+  "text": "1h",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 15,
+  "column": 52,
+  "end_column": 57,
+  "text": "512kB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 16,
+  "column": 1,
+  "end_column": 5,
+  "text": "4MiB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 20,
+  "column": 46,
+  "end_column": 52,
+  "text": "`path`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 20,
+  "column": 56,
+  "end_column": 62,
+  "text": "`host`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 20,
+  "column": 70,
+  "end_column": 80,
+  "text": "`upstream`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 31,
+  "column": 1,
+  "end_column": 15,
+  "text": "`strip_prefix`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 32,
+  "column": 1,
+  "end_column": 12,
+  "text": "`/v2/users`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 32,
+  "column": 40,
+  "end_column": 48,
+  "text": "`/users`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 40,
+  "column": 1,
+  "end_column": 6,
+  "text": "`key`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 40,
+  "column": 17,
+  "end_column": 28,
+  "text": "`client_ip`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 40,
+  "column": 30,
+  "end_column": 45,
+  "text": "`header:<name>`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 40,
+  "column": 49,
+  "end_column": 62,
+  "text": "`jwt:<claim>`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 53,
+  "column": 26,
+  "end_column": 36,
+  "text": "10 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 53,
+  "column": 52,
+  "end_column": 57,
+  "text": "`kid`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 54,
+  "column": 19,
+  "end_column": 24,
+  "text": "`exp`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 54,
+  "column": 26,
+  "end_column": 31,
+  "text": "`nbf`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 54,
+  "column": 36,
+  "end_column": 41,
+  "text": "`aud`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 54,
+  "column": 61,
+  "end_column": 66,
+  "text": "`iss`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 55,
+  "column": 1,
+  "end_column": 5,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 55,
+  "column": 18,
+  "end_column": 26,
+  "text": "`issuer`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 61,
+  "column": 3,
+  "end_column": 11,
+  "text": "`format`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 61,
+  "column": 14,
+  "end_column": 20,
+  "text": "`json`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 61,
+  "column": 23,
+  "end_column": 32,
+  "text": "or `text`",
+  "kind": "table"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 62,
+  "column": 3,
+  "end_column": 10,
+  "text": "`level`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 62,
+  "column": 13,
+  "end_column": 19,
+  "text": "`info`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 62,
+  "column": 22,
+  "end_column": 42,
+  "text": "`trace` is very loud",
+  "kind": "table"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 63,
+  "column": 3,
+  "end_column": 11,
+  "text": "`access`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 63,
+  "column": 14,
+  "end_column": 20,
+  "text": "`true`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 63,
+  "column": 23,
+  "end_column": 43,
+  "text": "one line per request",
+  "kind": "table"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 66,
+  "column": 1,
+  "end_column": 11,
+  "text": "`NO_COLOR`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 67,
+  "column": 20,
+  "end_column": 35,
+  "text": "`Authorization`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 67,
+  "column": 37,
+  "end_column": 45,
+  "text": "`Cookie`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 68,
+  "column": 1,
+  "end_column": 21,
+  "text": "`log.redact = false`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 73,
+  "column": 46,
+  "end_column": 53,
+  "text": "`error`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-configuration.md",
+  "line": 73,
+  "column": 82,
+  "end_column": 86,
+  "text": "It's",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 8,
+  "column": 6,
+  "end_column": 29,
+  "text": "contrib/gateway.service",
+  "kind": "path"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 8,
+  "column": 33,
+  "end_column": 53,
+  "text": "/etc/systemd/system/",
+  "kind": "path"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 9,
+  "column": 1,
+  "end_column": 23,
+  "text": "/usr/local/bin/gateway",
+  "kind": "path"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 9,
+  "column": 46,
+  "end_column": 55,
+  "text": "`gateway`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 10,
+  "column": 1,
+  "end_column": 23,
+  "text": "`ProtectSystem=strict`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 10,
+  "column": 28,
+  "end_column": 72,
+  "text": "`CapabilityBoundingSet=CAP_NET_BIND_SERVICE`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 18,
+  "column": 24,
+  "end_column": 50,
+  "text": "`systemctl reload gateway`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 18,
+  "column": 64,
+  "end_column": 72,
+  "text": "`SIGHUP`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 19,
+  "column": 49,
+  "end_column": 53,
+  "text": "then",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 20,
+  "column": 29,
+  "end_column": 45,
+  "text": "`KillMode=mixed`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 20,
+  "column": 53,
+  "end_column": 56,
+  "text": "30s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 28,
+  "column": 14,
+  "end_column": 24,
+  "text": "distroless",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 28,
+  "column": 35,
+  "end_column": 39,
+  "text": "12MB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 29,
+  "column": 1,
+  "end_column": 14,
+  "text": "`docker exec`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 31,
+  "column": 30,
+  "end_column": 39,
+  "text": "`inotify`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 32,
+  "column": 4,
+  "end_column": 18,
+  "text": "Docker Desktop",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 32,
+  "column": 45,
+  "end_column": 53,
+  "text": "`SIGHUP`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 36,
+  "column": 5,
+  "end_column": 9,
+  "text": "Helm",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 36,
+  "column": 25,
+  "end_column": 38,
+  "text": "deploy/chart/",
+  "kind": "path"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 46,
+  "column": 21,
+  "end_column": 31,
+  "text": "Deployment",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 46,
+  "column": 35,
+  "end_column": 42,
+  "text": "Service",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 46,
+  "column": 46,
+  "end_column": 55,
+  "text": "ConfigMap",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 47,
+  "column": 1,
+  "end_column": 20,
+  "text": "PodDisruptionBudget",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 48,
+  "column": 5,
+  "end_column": 14,
+  "text": "ConfigMap",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 48,
+  "column": 23,
+  "end_column": 36,
+  "text": "an annotation",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 50,
+  "column": 30,
+  "end_column": 34,
+  "text": "100m",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 50,
+  "column": 35,
+  "end_column": 38,
+  "text": "CPU",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 50,
+  "column": 43,
+  "end_column": 47,
+  "text": "64Mi",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 53,
+  "column": 14,
+  "end_column": 28,
+  "text": "`GET /healthz`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 53,
+  "column": 59,
+  "end_column": 64,
+  "text": "`503`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 60,
+  "column": 1,
+  "end_column": 23,
+  "text": "`gateway check-config`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-deployment.md",
+  "line": 60,
+  "column": 57,
+  "end_column": 60,
+  "text": "its",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 4,
+  "column": 1,
+  "end_column": 11,
+  "text": "10 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 8,
+  "column": 3,
+  "end_column": 8,
+  "text": "Linux",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 8,
+  "column": 12,
+  "end_column": 17,
+  "text": "macOS",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 8,
+  "column": 19,
+  "end_column": 26,
+  "text": "Windows",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 8,
+  "column": 39,
+  "end_column": 42,
+  "text": "WSL",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 9,
+  "column": 52,
+  "end_column": 81,
+  "text": "`python3 -m http.server 9000`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 10,
+  "column": 3,
+  "end_column": 7,
+  "text": "50MB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 10,
+  "column": 20,
+  "end_column": 24,
+  "text": "64MB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 10,
+  "column": 28,
+  "end_column": 31,
+  "text": "RAM",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 18,
+  "column": 58,
+  "end_column": 70,
+  "text": "~/.local/bin",
+  "kind": "path"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 20,
+  "column": 1,
+  "end_column": 74,
+  "text": "If you would rather read the script first, good instinct; it is 40 lines.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 24,
+  "column": 8,
+  "end_column": 20,
+  "text": "gateway.toml",
+  "kind": "path"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 35,
+  "column": 31,
+  "end_column": 39,
+  "text": "`Listen`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 35,
+  "column": 47,
+  "end_column": 55,
+  "text": "`listen`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 36,
+  "column": 33,
+  "end_column": 37,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 44,
+  "column": 6,
+  "end_column": 27,
+  "text": "http://127.0.0.1:8080",
+  "kind": "url"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 56,
+  "column": 19,
+  "end_column": 27,
+  "text": "`SIGHUP`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 57,
+  "column": 22,
+  "end_column": 27,
+  "text": "`429`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 57,
+  "column": 35,
+  "end_column": 48,
+  "text": "`Retry-After`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 61,
+  "column": 3,
+  "end_column": 43,
+  "text": "The configuration guide for every option",
+  "kind": "list"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 62,
+  "column": 3,
+  "end_column": 58,
+  "text": "The deployment guide for systemd, Docker and Kubernetes",
+  "kind": "list"
+ },
+ {
+  "file": "docs/guide-getting-started.md",
+  "line": 63,
+  "column": 3,
+  "end_column": 49,
+  "text": "The observability page for metrics and tracing",
+  "kind": "list"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 4,
+  "column": 7,
+  "end_column": 40,
+  "text": "`gateway migrate-config old.toml`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 11,
+  "column": 3,
+  "end_column": 12,
+  "text": "`[proxy]`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 11,
+  "column": 15,
+  "end_column": 25,
+  "text": "`[server]`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 11,
+  "column": 28,
+  "end_column": 35,
+  "text": "renamed",
+  "kind": "table"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 12,
+  "column": 3,
+  "end_column": 19,
+  "text": "`routes = [...]`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 12,
+  "column": 22,
+  "end_column": 33,
+  "text": "`[[route]]`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 12,
+  "column": 36,
+  "end_column": 51,
+  "text": "array of tables",
+  "kind": "table"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 13,
+  "column": 3,
+  "end_column": 12,
+  "text": "`timeout`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 13,
+  "column": 15,
+  "end_column": 29,
+  "text": "`read_timeout`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 13,
+  "column": 32,
+  "end_column": 56,
+  "text": "also see `write_timeout`",
+  "kind": "table"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 14,
+  "column": 3,
+  "end_column": 13,
+  "text": "`log_json`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 14,
+  "column": 16,
+  "end_column": 28,
+  "text": "`log.format`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 14,
+  "column": 31,
+  "end_column": 51,
+  "text": "`\"json\"` or `\"text\"`",
+  "kind": "table"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 24,
+  "column": 39,
+  "end_column": 52,
+  "text": "`headers.set`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 24,
+  "column": 57,
+  "end_column": 73,
+  "text": "`headers.remove`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 30,
+  "column": 28,
+  "end_column": 39,
+  "text": "`X-Real-IP`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 30,
+  "column": 45,
+  "end_column": 62,
+  "text": "`X-Forwarded-For`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 31,
+  "column": 1,
+  "end_column": 12,
+  "text": "`Forwarded`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 31,
+  "column": 25,
+  "end_column": 28,
+  "text": "RFC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 31,
+  "column": 55,
+  "end_column": 66,
+  "text": "`X-Real-IP`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 32,
+  "column": 1,
+  "end_column": 9,
+  "text": "an empty",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 33,
+  "column": 1,
+  "end_column": 3,
+  "text": "IP",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 33,
+  "column": 7,
+  "end_column": 12,
+  "text": "their",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 39,
+  "column": 48,
+  "end_column": 57,
+  "text": "they were",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 39,
+  "column": 72,
+  "end_column": 89,
+  "text": "`scope = \"route\"`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 40,
+  "column": 54,
+  "end_column": 72,
+  "text": "`scope = \"global\"`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 41,
+  "column": 21,
+  "end_column": 27,
+  "text": "`HEAD`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 41,
+  "column": 39,
+  "end_column": 44,
+  "text": "`GET`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 41,
+  "column": 68,
+  "end_column": 74,
+  "text": "`HEAD`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 42,
+  "column": 3,
+  "end_column": 26,
+  "text": "`health.method = \"GET\"`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 46,
+  "column": 12,
+  "end_column": 15,
+  "text": "its",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 48,
+  "column": 18,
+  "end_column": 21,
+  "text": "DNS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 52,
+  "column": 48,
+  "end_column": 64,
+  "text": "`migrate-config`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-migration-v2.md",
+  "line": 53,
+  "column": 1,
+  "end_column": 44,
+  "text": "We have seen most of the weird ones by now.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 3,
+  "column": 73,
+  "end_column": 79,
+  "text": "tests/",
+  "kind": "path"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 12,
+  "column": 19,
+  "end_column": 21,
+  "text": "5s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 12,
+  "column": 27,
+  "end_column": 35,
+  "text": "proptest",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 14,
+  "column": 1,
+  "end_column": 6,
+  "text": "insta",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 14,
+  "column": 28,
+  "end_column": 48,
+  "text": "`cargo insta review`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 24,
+  "column": 40,
+  "end_column": 59,
+  "text": "tests/common/mod.rs",
+  "kind": "path"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 27,
+  "column": 36,
+  "end_column": 38,
+  "text": "CI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 27,
+  "column": 43,
+  "end_column": 47,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 27,
+  "column": 59,
+  "end_column": 62,
+  "text": "DNS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 28,
+  "column": 18,
+  "end_column": 28,
+  "text": "`Resolver`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 32,
+  "column": 22,
+  "end_column": 25,
+  "text": "oha",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 32,
+  "column": 59,
+  "end_column": 69,
+  "text": "c6i.xlarge",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 33,
+  "column": 1,
+  "end_column": 11,
+  "text": "10 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 33,
+  "column": 22,
+  "end_column": 25,
+  "text": "p50",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 33,
+  "column": 27,
+  "end_column": 30,
+  "text": "p99",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 33,
+  "column": 35,
+  "end_column": 38,
+  "text": "RPS",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 33,
+  "column": 42,
+  "end_column": 57,
+  "text": "`#gateway-perf`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 34,
+  "column": 25,
+  "end_column": 27,
+  "text": "5%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 34,
+  "column": 31,
+  "end_column": 34,
+  "text": "p99",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 35,
+  "column": 14,
+  "end_column": 25,
+  "text": "`just load`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 36,
+  "column": 5,
+  "end_column": 7,
+  "text": "2x",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 40,
+  "column": 3,
+  "end_column": 60,
+  "text": "Every config option, at least once, including its default",
+  "kind": "list"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 41,
+  "column": 3,
+  "end_column": 60,
+  "text": "Every error path that a user can hit from the config file",
+  "kind": "list"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 42,
+  "column": 3,
+  "end_column": 49,
+  "text": "Header handling with mixed case and duplicates",
+  "kind": "list"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 43,
+  "column": 3,
+  "end_column": 38,
+  "text": "Reload while requests are in flight",
+  "kind": "list"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 52,
+  "column": 6,
+  "end_column": 37,
+  "text": "`#[ignore = \"flaky, see #NNN\"]`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 57,
+  "column": 1,
+  "end_column": 15,
+  "text": "cargo-llvm-cov",
+  "kind": "product"
+ },
+ {
+  "file": "docs/guide-testing.md",
+  "line": 58,
+  "column": 1,
+  "end_column": 64,
+  "text": "Coverage tells you what is not tested, not what is tested well.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 11,
+  "column": 3,
+  "end_column": 10,
+  "text": "`en-US`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 11,
+  "column": 13,
+  "end_column": 29,
+  "text": "English (source)",
+  "kind": "table"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 11,
+  "column": 32,
+  "end_column": 41,
+  "text": "docs team",
+  "kind": "table"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 12,
+  "column": 3,
+  "end_column": 7,
+  "text": "`fi`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 12,
+  "column": 10,
+  "end_column": 17,
+  "text": "Finnish",
+  "kind": "table"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 12,
+  "column": 20,
+  "end_column": 34,
+  "text": "Sanna Korhonen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 13,
+  "column": 3,
+  "end_column": 7,
+  "text": "`sv`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 13,
+  "column": 10,
+  "end_column": 17,
+  "text": "Swedish",
+  "kind": "table"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 13,
+  "column": 20,
+  "end_column": 36,
+  "text": "Ingrid Nordström",
+  "kind": "name"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 14,
+  "column": 3,
+  "end_column": 7,
+  "text": "`de`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 14,
+  "column": 10,
+  "end_column": 16,
+  "text": "German",
+  "kind": "table"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 14,
+  "column": 19,
+  "end_column": 25,
+  "text": "agency",
+  "kind": "table"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 16,
+  "column": 65,
+  "end_column": 80,
+  "text": "locales/<code>/",
+  "kind": "path"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 17,
+  "column": 9,
+  "end_column": 12,
+  "text": "ICU",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 22,
+  "column": 36,
+  "end_column": 48,
+  "text": "Väinö Mäkelä",
+  "kind": "name"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 22,
+  "column": 52,
+  "end_column": 63,
+  "text": "Åsa Sjöberg",
+  "kind": "name"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 22,
+  "column": 67,
+  "end_column": 78,
+  "text": "Hämeenlinna",
+  "kind": "name"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 23,
+  "column": 2,
+  "end_column": 11,
+  "text": "Jyväskylä",
+  "kind": "name"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 23,
+  "column": 15,
+  "end_column": 23,
+  "text": "Göteborg",
+  "kind": "name"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 23,
+  "column": 49,
+  "end_column": 59,
+  "text": "Gothenburg",
+  "kind": "name"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 24,
+  "column": 24,
+  "end_column": 32,
+  "text": "Göteborg",
+  "kind": "name"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 25,
+  "column": 2,
+  "end_column": 17,
+  "text": "Oy Esimerkki Ab",
+  "kind": "name"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 25,
+  "column": 24,
+  "end_column": 34,
+  "text": "Exempel AB",
+  "kind": "name"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 27,
+  "column": 57,
+  "end_column": 70,
+  "text": "explicit.toml",
+  "kind": "path"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 28,
+  "column": 13,
+  "end_column": 18,
+  "text": "there",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 32,
+  "column": 20,
+  "end_column": 23,
+  "text": "ISO",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 32,
+  "column": 36,
+  "end_column": 46,
+  "text": "2026-03-17",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 32,
+  "column": 52,
+  "end_column": 54,
+  "text": "SI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 32,
+  "column": 58,
+  "end_column": 61,
+  "text": "IEC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 33,
+  "column": 2,
+  "end_column": 6,
+  "text": "10ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 33,
+  "column": 8,
+  "end_column": 11,
+  "text": "4GB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 33,
+  "column": 13,
+  "end_column": 19,
+  "text": "256MiB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 34,
+  "column": 15,
+  "end_column": 24,
+  "text": "A Finnish",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 34,
+  "column": 40,
+  "end_column": 49,
+  "text": "17.3.2026",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 35,
+  "column": 1,
+  "end_column": 11,
+  "text": "2026-03-17",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 37,
+  "column": 77,
+  "end_column": 81,
+  "text": "1.5s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 38,
+  "column": 1,
+  "end_column": 8,
+  "text": "whether",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 43,
+  "column": 14,
+  "end_column": 19,
+  "text": "`502`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 43,
+  "column": 24,
+  "end_column": 29,
+  "text": "`503`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 43,
+  "column": 42,
+  "end_column": 59,
+  "text": "`Accept-Language`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 44,
+  "column": 10,
+  "end_column": 14,
+  "text": "It's",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 45,
+  "column": 1,
+  "end_column": 34,
+  "text": "`server.error_pages = \"./pages/\"`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 45,
+  "column": 54,
+  "end_column": 66,
+  "text": "`{{status}}`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 45,
+  "column": 68,
+  "end_column": 84,
+  "text": "`{{request_id}}`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 46,
+  "column": 5,
+  "end_column": 15,
+  "text": "`{{lang}}`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/localization.md",
+  "line": 56,
+  "column": 1,
+  "end_column": 74,
+  "text": "It is fine for \"click here\" and terrible for anything about certificates.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 4,
+  "column": 7,
+  "end_column": 9,
+  "text": "2%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 8,
+  "column": 1,
+  "end_column": 11,
+  "text": "Prometheus",
+  "kind": "product"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 8,
+  "column": 22,
+  "end_column": 36,
+  "text": "`GET /metrics`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 12,
+  "column": 3,
+  "end_column": 27,
+  "text": "`gateway_requests_total`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 12,
+  "column": 30,
+  "end_column": 37,
+  "text": "counter",
+  "kind": "table"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 12,
+  "column": 40,
+  "end_column": 70,
+  "text": "by route, method, status class",
+  "kind": "table"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 13,
+  "column": 3,
+  "end_column": 37,
+  "text": "`gateway_request_duration_seconds`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 13,
+  "column": 40,
+  "end_column": 49,
+  "text": "histogram",
+  "kind": "table"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 13,
+  "column": 52,
+  "end_column": 72,
+  "text": "end to end, by route",
+  "kind": "table"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 14,
+  "column": 3,
+  "end_column": 38,
+  "text": "`gateway_upstream_duration_seconds`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 14,
+  "column": 41,
+  "end_column": 50,
+  "text": "histogram",
+  "kind": "table"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 14,
+  "column": 53,
+  "end_column": 66,
+  "text": "upstream only",
+  "kind": "table"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 15,
+  "column": 3,
+  "end_column": 29,
+  "text": "`gateway_upstream_healthy`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 15,
+  "column": 32,
+  "end_column": 37,
+  "text": "gauge",
+  "kind": "table"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 15,
+  "column": 40,
+  "end_column": 66,
+  "text": "1 or 0 per upstream member",
+  "kind": "table"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 16,
+  "column": 3,
+  "end_column": 38,
+  "text": "`gateway_rate_limit_rejected_total`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 16,
+  "column": 41,
+  "end_column": 48,
+  "text": "counter",
+  "kind": "table"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 16,
+  "column": 51,
+  "end_column": 59,
+  "text": "by route",
+  "kind": "table"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 18,
+  "column": 33,
+  "end_column": 36,
+  "text": "1ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 18,
+  "column": 40,
+  "end_column": 43,
+  "text": "10s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 19,
+  "column": 19,
+  "end_column": 48,
+  "text": "you have bigger problems, but",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 19,
+  "column": 49,
+  "end_column": 66,
+  "text": "`metrics.buckets`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 20,
+  "column": 64,
+  "end_column": 66,
+  "text": "50",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 22,
+  "column": 1,
+  "end_column": 4,
+  "text": "4GB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 26,
+  "column": 20,
+  "end_column": 24,
+  "text": "OTLP",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 26,
+  "column": 25,
+  "end_column": 29,
+  "text": "gRPC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 27,
+  "column": 1,
+  "end_column": 30,
+  "text": "`OTEL_EXPORTER_OTLP_ENDPOINT`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 27,
+  "column": 57,
+  "end_column": 70,
+  "text": "`traceparent`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 28,
+  "column": 71,
+  "end_column": 92,
+  "text": "`tracing.sample_rate`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 29,
+  "column": 10,
+  "end_column": 12,
+  "text": "1%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 36,
+  "column": 5,
+  "end_column": 9,
+  "text": "JSON",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 42,
+  "column": 1,
+  "end_column": 13,
+  "text": "`request_id`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 42,
+  "column": 41,
+  "end_column": 55,
+  "text": "`X-Request-Id`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 44,
+  "column": 1,
+  "end_column": 22,
+  "text": "`log.format = \"text\"`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 46,
+  "column": 33,
+  "end_column": 39,
+  "text": "`warn`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 46,
+  "column": 43,
+  "end_column": 50,
+  "text": "`error`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 46,
+  "column": 65,
+  "end_column": 77,
+  "text": "`request_id`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 47,
+  "column": 38,
+  "end_column": 42,
+  "text": "Loki",
+  "kind": "product"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 47,
+  "column": 46,
+  "end_column": 56,
+  "text": "ClickHouse",
+  "kind": "product"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 51,
+  "column": 5,
+  "end_column": 12,
+  "text": "Grafana",
+  "kind": "product"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 51,
+  "column": 26,
+  "end_column": 42,
+  "text": "contrib/grafana/",
+  "kind": "path"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 51,
+  "column": 47,
+  "end_column": 50,
+  "text": "RED",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 56,
+  "column": 24,
+  "end_column": 43,
+  "text": "contrib/alerts.yaml",
+  "kind": "path"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 56,
+  "column": 84,
+  "end_column": 86,
+  "text": "2%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 57,
+  "column": 5,
+  "end_column": 14,
+  "text": "5 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 57,
+  "column": 47,
+  "end_column": 56,
+  "text": "2 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/observability.md",
+  "line": 58,
+  "column": 1,
+  "end_column": 5,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 3,
+  "column": 41,
+  "end_column": 45,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 9,
+  "column": 3,
+  "end_column": 64,
+  "text": "Laptop, accounts, `#platform` and `#platform-oncall` channels",
+  "kind": "list"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 10,
+  "column": 3,
+  "end_column": 80,
+  "text": "Clone the `backend` monorepo; a full clone is 1.2GB, use `--filter=blob:none`",
+  "kind": "list"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 11,
+  "column": 3,
+  "end_column": 48,
+  "text": "`devenv shell` and `cargo test` in `gateway/`",
+  "kind": "list"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 12,
+  "column": 17,
+  "end_column": 20,
+  "text": "ADR",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 12,
+  "column": 25,
+  "end_column": 34,
+  "text": "docs/adr/",
+  "kind": "path"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 17,
+  "column": 27,
+  "end_column": 45,
+  "text": "`good-first-issue`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 18,
+  "column": 4,
+  "end_column": 20,
+  "text": "Linnea Bergström",
+  "kind": "name"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 18,
+  "column": 40,
+  "end_column": 51,
+  "text": "an estimate",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 25,
+  "column": 28,
+  "end_column": 32,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 29,
+  "column": 40,
+  "end_column": 49,
+  "text": "`staging`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 30,
+  "column": 11,
+  "end_column": 20,
+  "text": "1Password",
+  "kind": "product"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 34,
+  "column": 16,
+  "end_column": 18,
+  "text": "CI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 36,
+  "column": 3,
+  "end_column": 10,
+  "text": "sccache",
+  "kind": "product"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 36,
+  "column": 55,
+  "end_column": 71,
+  "text": "`SCCACHE_BUCKET`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 37,
+  "column": 11,
+  "end_column": 17,
+  "text": "devenv",
+  "kind": "product"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 38,
+  "column": 18,
+  "end_column": 20,
+  "text": "PR",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 40,
+  "column": 30,
+  "end_column": 38,
+  "text": "Helsinki",
+  "kind": "name"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 40,
+  "column": 40,
+  "end_column": 48,
+  "text": "Göteborg",
+  "kind": "name"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 41,
+  "column": 3,
+  "end_column": 8,
+  "text": "10:00",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 41,
+  "column": 12,
+  "end_column": 17,
+  "text": "15:00",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 41,
+  "column": 18,
+  "end_column": 21,
+  "text": "CET",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 47,
+  "column": 3,
+  "end_column": 10,
+  "text": "gateway",
+  "kind": "table"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 47,
+  "column": 13,
+  "end_column": 53,
+  "text": "the edge proxy, this team's main product",
+  "kind": "table"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 48,
+  "column": 3,
+  "end_column": 13,
+  "text": "the bundle",
+  "kind": "table"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 48,
+  "column": 16,
+  "end_column": 69,
+  "text": "the trust bundle ConfigMap with our root certificates",
+  "kind": "table"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 49,
+  "column": 3,
+  "end_column": 7,
+  "text": "SEV1",
+  "kind": "table"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 49,
+  "column": 10,
+  "end_column": 32,
+  "text": "customer facing outage",
+  "kind": "table"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 50,
+  "column": 3,
+  "end_column": 13,
+  "text": "the laptop",
+  "kind": "table"
+ },
+ {
+  "file": "docs/onboarding.md",
+  "line": 50,
+  "column": 16,
+  "end_column": 50,
+  "text": "the offline CA machine in the safe",
+  "kind": "table"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 3,
+  "column": 13,
+  "end_column": 24,
+  "text": "WebAssembly",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 9,
+  "column": 27,
+  "end_column": 42,
+  "text": "`wasm32-wasip2`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 9,
+  "column": 71,
+  "end_column": 75,
+  "text": "Rust",
+  "kind": "product"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 10,
+  "column": 9,
+  "end_column": 15,
+  "text": "TinyGo",
+  "kind": "product"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 10,
+  "column": 18,
+  "end_column": 32,
+  "text": "AssemblyScript",
+  "kind": "product"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 35,
+  "column": 12,
+  "end_column": 58,
+  "text": "`cargo build --release --target wasm32-wasip2`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 35,
+  "column": 77,
+  "end_column": 82,
+  "text": ".wasm",
+  "kind": "path"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 49,
+  "column": 4,
+  "end_column": 8,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 49,
+  "column": 44,
+  "end_column": 48,
+  "text": "`kv`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 52,
+  "column": 1,
+  "end_column": 13,
+  "text": "`on_request`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 52,
+  "column": 55,
+  "end_column": 68,
+  "text": "`on_response`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 53,
+  "column": 39,
+  "end_column": 63,
+  "text": "`Verdict::Respond(resp)`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 53,
+  "column": 69,
+  "end_column": 81,
+  "text": "`on_request`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 54,
+  "column": 41,
+  "end_column": 57,
+  "text": "maintenance-page",
+  "kind": "product"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 60,
+  "column": 3,
+  "end_column": 19,
+  "text": "Fuel per request",
+  "kind": "table"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 60,
+  "column": 22,
+  "end_column": 38,
+  "text": "10M instructions",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 61,
+  "column": 3,
+  "end_column": 9,
+  "text": "Memory",
+  "kind": "table"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 61,
+  "column": 12,
+  "end_column": 17,
+  "text": "16MiB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 62,
+  "column": 3,
+  "end_column": 13,
+  "text": "Wall clock",
+  "kind": "table"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 62,
+  "column": 16,
+  "end_column": 19,
+  "text": "5ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 65,
+  "column": 14,
+  "end_column": 24,
+  "text": "`Continue`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 66,
+  "column": 5,
+  "end_column": 33,
+  "text": "`plugins.fail_closed = true`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 66,
+  "column": 37,
+  "end_column": 41,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 70,
+  "column": 3,
+  "end_column": 20,
+  "text": "`log(level, msg)`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 71,
+  "column": 3,
+  "end_column": 33,
+  "text": "`kv_get(key) -> Option<bytes>`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 71,
+  "column": 35,
+  "end_column": 60,
+  "text": "`kv_set(key, bytes, ttl)`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 72,
+  "column": 3,
+  "end_column": 17,
+  "text": "`now() -> u64`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 73,
+  "column": 3,
+  "end_column": 23,
+  "text": "`random(n) -> bytes`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 75,
+  "column": 42,
+  "end_column": 86,
+  "text": "People ask every month; the answer stays no.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 79,
+  "column": 1,
+  "end_column": 15,
+  "text": "gateway-plugin",
+  "kind": "product"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 79,
+  "column": 38,
+  "end_column": 81,
+  "text": "`gateway_plugin::test::request(\"GET\", \"/\")`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 80,
+  "column": 24,
+  "end_column": 28,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 86,
+  "column": 10,
+  "end_column": 15,
+  "text": ".wasm",
+  "kind": "path"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 86,
+  "column": 23,
+  "end_column": 26,
+  "text": "OCI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 86,
+  "column": 41,
+  "end_column": 45,
+  "text": "oras",
+  "kind": "product"
+ },
+ {
+  "file": "docs/plugin-authoring.md",
+  "line": 87,
+  "column": 1,
+  "end_column": 31,
+  "text": "`oci://ghcr.io/you/plugin:1.0`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 3,
+  "column": 11,
+  "end_column": 15,
+  "text": "SEV1",
+  "kind": "table"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 4,
+  "column": 11,
+  "end_column": 21,
+  "text": "47 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 4,
+  "column": 23,
+  "end_column": 28,
+  "text": "13:02",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 4,
+  "column": 32,
+  "end_column": 37,
+  "text": "13:49",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 4,
+  "column": 38,
+  "end_column": 41,
+  "text": "UTC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 5,
+  "column": 9,
+  "end_column": 23,
+  "text": "Pekka Virtanen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 10,
+  "column": 37,
+  "end_column": 48,
+  "text": "`/checkout`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 11,
+  "column": 86,
+  "end_column": 91,
+  "text": "`401`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 12,
+  "column": 35,
+  "end_column": 40,
+  "text": "3,100",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 19,
+  "column": 3,
+  "end_column": 8,
+  "text": "12:58",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 19,
+  "column": 11,
+  "end_column": 48,
+  "text": "Config PR #431 merged; rollout starts",
+  "kind": "table"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 20,
+  "column": 3,
+  "end_column": 8,
+  "text": "13:02",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 20,
+  "column": 11,
+  "end_column": 41,
+  "text": "Callback 401 rate goes to 100%",
+  "kind": "table"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 21,
+  "column": 3,
+  "end_column": 8,
+  "text": "13:09",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 21,
+  "column": 11,
+  "end_column": 46,
+  "text": "Alert `checkout_success_rate` fires",
+  "kind": "table"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 22,
+  "column": 3,
+  "end_column": 8,
+  "text": "13:14",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 22,
+  "column": 11,
+  "end_column": 47,
+  "text": "On-call acknowledges, opens incident",
+  "kind": "table"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 23,
+  "column": 3,
+  "end_column": 8,
+  "text": "13:31",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 23,
+  "column": 11,
+  "end_column": 44,
+  "text": "Cause identified from access logs",
+  "kind": "table"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 24,
+  "column": 3,
+  "end_column": 8,
+  "text": "13:44",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 24,
+  "column": 11,
+  "end_column": 24,
+  "text": "Revert merged",
+  "kind": "table"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 25,
+  "column": 3,
+  "end_column": 8,
+  "text": "13:49",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 25,
+  "column": 11,
+  "end_column": 40,
+  "text": "Success rate back to baseline",
+  "kind": "table"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 29,
+  "column": 41,
+  "end_column": 58,
+  "text": "`auth.skip_paths`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 30,
+  "column": 43,
+  "end_column": 55,
+  "text": "`skip_paths`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 34,
+  "column": 1,
+  "end_column": 39,
+  "text": "It was a rename. That was the problem.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 38,
+  "column": 57,
+  "end_column": 66,
+  "text": "10 minute",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 40,
+  "column": 44,
+  "end_column": 49,
+  "text": "`401`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 43,
+  "column": 31,
+  "end_column": 43,
+  "text": "An automated",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 47,
+  "column": 38,
+  "end_column": 47,
+  "text": "5 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 48,
+  "column": 46,
+  "end_column": 54,
+  "text": "24 hours",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 48,
+  "column": 81,
+  "end_column": 86,
+  "text": "13:30",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 55,
+  "column": 3,
+  "end_column": 41,
+  "text": "Alert window for checkout to 2 minutes",
+  "kind": "table"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 55,
+  "column": 44,
+  "end_column": 49,
+  "text": "Pekka",
+  "kind": "name"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 55,
+  "column": 52,
+  "end_column": 62,
+  "text": "2026-03-24",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 56,
+  "column": 3,
+  "end_column": 43,
+  "text": "`skip_paths` becomes a per-route setting",
+  "kind": "table"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 56,
+  "column": 46,
+  "end_column": 51,
+  "text": "Väinö",
+  "kind": "name"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 56,
+  "column": 54,
+  "end_column": 64,
+  "text": "2026-04-07",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 57,
+  "column": 3,
+  "end_column": 57,
+  "text": "`check-config` warns when a skip path matches no route",
+  "kind": "table"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 57,
+  "column": 60,
+  "end_column": 65,
+  "text": "Väinö",
+  "kind": "name"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 57,
+  "column": 68,
+  "end_column": 78,
+  "text": "2026-04-07",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 58,
+  "column": 3,
+  "end_column": 34,
+  "text": "One-click revert for config PRs",
+  "kind": "table"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 58,
+  "column": 37,
+  "end_column": 40,
+  "text": "Åsa",
+  "kind": "name"
+ },
+ {
+  "file": "docs/postmortem-2026-03.md",
+  "line": 58,
+  "column": 43,
+  "end_column": 53,
+  "text": "2026-04-30",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 4,
+  "column": 54,
+  "end_column": 64,
+  "text": "20 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 5,
+  "column": 31,
+  "end_column": 33,
+  "text": "CI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 10,
+  "column": 8,
+  "end_column": 24,
+  "text": "`just changelog`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 10,
+  "column": 72,
+  "end_column": 84,
+  "text": "CHANGELOG.md",
+  "kind": "path"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 11,
+  "column": 10,
+  "end_column": 22,
+  "text": "`Unreleased`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 14,
+  "column": 36,
+  "end_column": 46,
+  "text": "`#gateway`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 14,
+  "column": 79,
+  "end_column": 83,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 23,
+  "column": 18,
+  "end_column": 28,
+  "text": "Cargo.toml",
+  "kind": "path"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 23,
+  "column": 44,
+  "end_column": 52,
+  "text": "`v2.5.0`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 23,
+  "column": 65,
+  "end_column": 71,
+  "text": "GitHub",
+  "kind": "product"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 24,
+  "column": 29,
+  "end_column": 34,
+  "text": "Linux",
+  "kind": "product"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 24,
+  "column": 36,
+  "end_column": 42,
+  "text": "x86_64",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 24,
+  "column": 44,
+  "end_column": 51,
+  "text": "aarch64",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 24,
+  "column": 57,
+  "end_column": 62,
+  "text": "macOS",
+  "kind": "product"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 25,
+  "column": 12,
+  "end_column": 18,
+  "text": "Docker",
+  "kind": "product"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 25,
+  "column": 28,
+  "end_column": 51,
+  "text": "ghcr.io/example/gateway",
+  "kind": "url"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 26,
+  "column": 26,
+  "end_column": 29,
+  "text": "its",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 33,
+  "column": 11,
+  "end_column": 21,
+  "text": "`#gateway`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 33,
+  "column": 26,
+  "end_column": 42,
+  "text": "`#announcements`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 35,
+  "column": 14,
+  "end_column": 18,
+  "text": "Helm",
+  "kind": "product"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 35,
+  "column": 27,
+  "end_column": 39,
+  "text": "`appVersion`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 35,
+  "column": 43,
+  "end_column": 66,
+  "text": "deploy/chart/Chart.yaml",
+  "kind": "path"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 36,
+  "column": 37,
+  "end_column": 40,
+  "text": "its",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 41,
+  "column": 31,
+  "end_column": 37,
+  "text": "`main`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 49,
+  "column": 31,
+  "end_column": 35,
+  "text": "then",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 54,
+  "column": 40,
+  "end_column": 46,
+  "text": "Docker",
+  "kind": "product"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 54,
+  "column": 51,
+  "end_column": 59,
+  "text": "`latest`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 54,
+  "column": 75,
+  "end_column": 84,
+  "text": "crates.io",
+  "kind": "product"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 55,
+  "column": 29,
+  "end_column": 41,
+  "text": "`cargo yank`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 59,
+  "column": 31,
+  "end_column": 40,
+  "text": "`release`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 59,
+  "column": 60,
+  "end_column": 75,
+  "text": "`RELEASE_TOKEN`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 60,
+  "column": 7,
+  "end_column": 12,
+  "text": "there",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 60,
+  "column": 66,
+  "end_column": 75,
+  "text": "1Password",
+  "kind": "product"
+ },
+ {
+  "file": "docs/release-process.md",
+  "line": 61,
+  "column": 58,
+  "end_column": 84,
+  "text": "Which has happened. Twice.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 3,
+  "column": 33,
+  "end_column": 45,
+  "text": "cert-manager",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 4,
+  "column": 55,
+  "end_column": 59,
+  "text": "mTLS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 4,
+  "column": 70,
+  "end_column": 74,
+  "text": "SAML",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 11,
+  "column": 3,
+  "end_column": 18,
+  "text": "`internal-root`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 11,
+  "column": 21,
+  "end_column": 28,
+  "text": "5 years",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 11,
+  "column": 31,
+  "end_column": 38,
+  "text": "4 years",
+  "kind": "table"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 12,
+  "column": 3,
+  "end_column": 17,
+  "text": "`saml-signing`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 12,
+  "column": 20,
+  "end_column": 27,
+  "text": "2 years",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 12,
+  "column": 30,
+  "end_column": 39,
+  "text": "18 months",
+  "kind": "table"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 13,
+  "column": 3,
+  "end_column": 13,
+  "text": "`pinned-*`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 13,
+  "column": 16,
+  "end_column": 22,
+  "text": "1 year",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 13,
+  "column": 25,
+  "end_column": 46,
+  "text": "60 days before expiry",
+  "kind": "table"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 16,
+  "column": 9,
+  "end_column": 13,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 21,
+  "column": 36,
+  "end_column": 40,
+  "text": "then",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 22,
+  "column": 39,
+  "end_column": 43,
+  "text": "mTLS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 24,
+  "column": 53,
+  "end_column": 67,
+  "text": "/opt/ca/README",
+  "kind": "path"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 25,
+  "column": 10,
+  "end_column": 17,
+  "text": "openssl",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 26,
+  "column": 28,
+  "end_column": 42,
+  "text": "`trust-bundle`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 26,
+  "column": 43,
+  "end_column": 52,
+  "text": "ConfigMap",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 27,
+  "column": 29,
+  "end_column": 36,
+  "text": "kubectl",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 28,
+  "column": 4,
+  "end_column": 28,
+  "text": "`kubectl rollout status`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 30,
+  "column": 44,
+  "end_column": 47,
+  "text": "72h",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 37,
+  "column": 46,
+  "end_column": 51,
+  "text": "their",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 39,
+  "column": 60,
+  "end_column": 63,
+  "text": "XML",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 41,
+  "column": 63,
+  "end_column": 70,
+  "text": "14 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 42,
+  "column": 1,
+  "end_column": 7,
+  "text": "3 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 42,
+  "column": 16,
+  "end_column": 68,
+  "text": "After that they break, and honestly that is on them.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 47,
+  "column": 44,
+  "end_column": 60,
+  "text": "api.acme.example",
+  "kind": "url"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 49,
+  "column": 1,
+  "end_column": 10,
+  "text": "1Password",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 49,
+  "column": 17,
+  "end_column": 34,
+  "text": "`platform-shared`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 57,
+  "column": 4,
+  "end_column": 14,
+  "text": "`notAfter`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-cert-rotation.md",
+  "line": 58,
+  "column": 34,
+  "end_column": 44,
+  "text": "10 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 3,
+  "column": 16,
+  "end_column": 27,
+  "text": "`orders-db`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 3,
+  "column": 32,
+  "end_column": 44,
+  "text": "`billing-db`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 3,
+  "column": 64,
+  "end_column": 71,
+  "text": "Patroni",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 4,
+  "column": 21,
+  "end_column": 25,
+  "text": "etcd",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 8,
+  "column": 3,
+  "end_column": 54,
+  "text": "The primary is unreachable for more than 60 seconds",
+  "kind": "list"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 9,
+  "column": 3,
+  "end_column": 41,
+  "text": "Replication lag above 30s and climbing",
+  "kind": "list"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 10,
+  "column": 3,
+  "end_column": 44,
+  "text": "Planned maintenance on the primary's host",
+  "kind": "list"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 17,
+  "column": 4,
+  "end_column": 12,
+  "text": "and then",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 25,
+  "column": 7,
+  "end_column": 9,
+  "text": "5s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 25,
+  "column": 16,
+  "end_column": 25,
+  "text": "PgBouncer",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 30,
+  "column": 35,
+  "end_column": 38,
+  "text": "WAL",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 31,
+  "column": 18,
+  "end_column": 21,
+  "text": "LSN",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 45,
+  "column": 41,
+  "end_column": 50,
+  "text": "PgBouncer",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 45,
+  "column": 62,
+  "end_column": 65,
+  "text": "DNS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 46,
+  "column": 10,
+  "end_column": 17,
+  "text": "Patroni",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 46,
+  "column": 33,
+  "end_column": 36,
+  "text": "10s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 48,
+  "column": 13,
+  "end_column": 16,
+  "text": "WAL",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 48,
+  "column": 27,
+  "end_column": 46,
+  "text": "`patronictl reinit`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 55,
+  "column": 11,
+  "end_column": 21,
+  "text": "`failover`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 55,
+  "column": 27,
+  "end_column": 39,
+  "text": "`switchover`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 56,
+  "column": 18,
+  "end_column": 22,
+  "text": "`-c`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 57,
+  "column": 51,
+  "end_column": 55,
+  "text": "it's",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 61,
+  "column": 16,
+  "end_column": 29,
+  "text": "Jyri Lehtinen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 61,
+  "column": 31,
+  "end_column": 47,
+  "text": "Ingrid Nordström",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-db-failover.md",
+  "line": 61,
+  "column": 54,
+  "end_column": 65,
+  "text": "`db-oncall`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 10,
+  "column": 3,
+  "end_column": 7,
+  "text": "SEV1",
+  "kind": "table"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 10,
+  "column": 10,
+  "end_column": 32,
+  "text": "Customer-facing outage",
+  "kind": "table"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 10,
+  "column": 35,
+  "end_column": 56,
+  "text": "Page everyone, 15 min",
+  "kind": "table"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 11,
+  "column": 3,
+  "end_column": 7,
+  "text": "SEV2",
+  "kind": "table"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 11,
+  "column": 10,
+  "end_column": 37,
+  "text": "Degraded, workaround exists",
+  "kind": "table"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 11,
+  "column": 40,
+  "end_column": 60,
+  "text": "Page on-call, 1 hour",
+  "kind": "table"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 12,
+  "column": 3,
+  "end_column": 7,
+  "text": "SEV3",
+  "kind": "table"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 12,
+  "column": 10,
+  "end_column": 23,
+  "text": "Internal only",
+  "kind": "table"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 12,
+  "column": 26,
+  "end_column": 43,
+  "text": "Next business day",
+  "kind": "table"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 16,
+  "column": 28,
+  "end_column": 37,
+  "text": "PagerDuty",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 17,
+  "column": 9,
+  "end_column": 21,
+  "text": "`#incidents`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 18,
+  "column": 4,
+  "end_column": 8,
+  "text": "it's",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 19,
+  "column": 10,
+  "end_column": 21,
+  "text": "an incident",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 19,
+  "column": 59,
+  "end_column": 62,
+  "text": "UTC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 20,
+  "column": 14,
+  "end_column": 21,
+  "text": "Grafana",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 32,
+  "column": 3,
+  "end_column": 32,
+  "text": "Feature flags in `flags.yaml`",
+  "kind": "list"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 33,
+  "column": 3,
+  "end_column": 37,
+  "text": "Scaling up the affected deployment",
+  "kind": "list"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 34,
+  "column": 3,
+  "end_column": 51,
+  "text": "Draining a bad node (see the node drain runbook)",
+  "kind": "list"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 35,
+  "column": 3,
+  "end_column": 32,
+  "text": "Enabling the read-only banner",
+  "kind": "list"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 39,
+  "column": 37,
+  "end_column": 41,
+  "text": "SEV1",
+  "kind": "table"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 40,
+  "column": 28,
+  "end_column": 32,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 47,
+  "column": 7,
+  "end_column": 11,
+  "text": "SEV1",
+  "kind": "table"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 47,
+  "column": 16,
+  "end_column": 20,
+  "text": "SEV2",
+  "kind": "table"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 48,
+  "column": 16,
+  "end_column": 43,
+  "text": "docs/postmortem-template.md",
+  "kind": "path"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 53,
+  "column": 34,
+  "end_column": 48,
+  "text": "Pekka Virtanen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-incident-response.md",
+  "line": 53,
+  "column": 60,
+  "end_column": 78,
+  "text": "`#security-oncall`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 8,
+  "column": 64,
+  "end_column": 68,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 14,
+  "column": 23,
+  "end_column": 28,
+  "text": "Kafka",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 14,
+  "column": 41,
+  "end_column": 51,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 24,
+  "column": 1,
+  "end_column": 22,
+  "text": "`--ignore-daemonsets`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 24,
+  "column": 43,
+  "end_column": 52,
+  "text": "DaemonSet",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 25,
+  "column": 1,
+  "end_column": 25,
+  "text": "`--delete-emptydir-data`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 25,
+  "column": 44,
+  "end_column": 54,
+  "text": "`emptyDir`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 26,
+  "column": 57,
+  "end_column": 67,
+  "text": "`emptyDir`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 28,
+  "column": 20,
+  "end_column": 40,
+  "text": "PodDisruptionBudgets",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 35,
+  "column": 15,
+  "end_column": 36,
+  "text": "`ALLOWED DISRUPTIONS`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 36,
+  "column": 14,
+  "end_column": 18,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 45,
+  "column": 38,
+  "end_column": 49,
+  "text": "Descheduler",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 45,
+  "column": 61,
+  "end_column": 71,
+  "text": "10 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 46,
+  "column": 12,
+  "end_column": 15,
+  "text": "hot",
+  "kind": "term"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 58,
+  "column": 36,
+  "end_column": 39,
+  "text": "AWS",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 59,
+  "column": 25,
+  "end_column": 36,
+  "text": "m6i.2xlarge",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 60,
+  "column": 1,
+  "end_column": 19,
+  "text": "Ask me how I know.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 64,
+  "column": 3,
+  "end_column": 29,
+  "text": "Cordon first, drain second",
+  "kind": "list"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 65,
+  "column": 7,
+  "end_column": 10,
+  "text": "60s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 66,
+  "column": 3,
+  "end_column": 10,
+  "text": "kubectl",
+  "kind": "product"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 66,
+  "column": 11,
+  "end_column": 15,
+  "text": "1.29",
+  "kind": "version"
+ },
+ {
+  "file": "docs/runbook-k8s-node-drain.md",
+  "line": 66,
+  "column": 28,
+  "end_column": 37,
+  "text": "`--force`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 3,
+  "column": 40,
+  "end_column": 45,
+  "text": "docs/",
+  "kind": "path"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 4,
+  "column": 13,
+  "end_column": 81,
+  "text": "Nobody reads long style guides, including the people who write them.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 10,
+  "column": 17,
+  "end_column": 20,
+  "text": "30s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 11,
+  "column": 22,
+  "end_column": 27,
+  "text": "color",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 11,
+  "column": 29,
+  "end_column": 37,
+  "text": "behavior",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 11,
+  "column": 39,
+  "end_column": 47,
+  "text": "organize",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 12,
+  "column": 63,
+  "end_column": 71,
+  "text": "`colour`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 20,
+  "column": 3,
+  "end_column": 14,
+  "text": "config file",
+  "kind": "table"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 20,
+  "column": 17,
+  "end_column": 41,
+  "text": "configuration file, conf",
+  "kind": "table"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 21,
+  "column": 3,
+  "end_column": 11,
+  "text": "upstream",
+  "kind": "table"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 21,
+  "column": 14,
+  "end_column": 29,
+  "text": "backend, origin",
+  "kind": "table"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 22,
+  "column": 3,
+  "end_column": 8,
+  "text": "route",
+  "kind": "table"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 22,
+  "column": 11,
+  "end_column": 24,
+  "text": "rule, mapping",
+  "kind": "table"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 23,
+  "column": 3,
+  "end_column": 30,
+  "text": "log in (verb), login (noun)",
+  "kind": "table"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 23,
+  "column": 33,
+  "end_column": 45,
+  "text": "login (verb)",
+  "kind": "table"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 25,
+  "column": 20,
+  "end_column": 25,
+  "text": "their",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 25,
+  "column": 51,
+  "end_column": 57,
+  "text": "GitHub",
+  "kind": "product"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 25,
+  "column": 59,
+  "end_column": 64,
+  "text": "macOS",
+  "kind": "product"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 26,
+  "column": 1,
+  "end_column": 11,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 26,
+  "column": 13,
+  "end_column": 23,
+  "text": "JavaScript",
+  "kind": "product"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 26,
+  "column": 25,
+  "end_column": 32,
+  "text": "kubectl",
+  "kind": "product"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 26,
+  "column": 34,
+  "end_column": 37,
+  "text": "npm",
+  "kind": "product"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 26,
+  "column": 39,
+  "end_column": 44,
+  "text": "nginx",
+  "kind": "product"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 32,
+  "column": 25,
+  "end_column": 26,
+  "text": "3",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 32,
+  "column": 30,
+  "end_column": 31,
+  "text": "5",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 37,
+  "column": 41,
+  "end_column": 50,
+  "text": "`console`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 37,
+  "column": 74,
+  "end_column": 80,
+  "text": "`text`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 42,
+  "column": 61,
+  "end_column": 78,
+  "text": "`api.example.com`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 43,
+  "column": 1,
+  "end_column": 6,
+  "text": "`foo`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 43,
+  "column": 8,
+  "end_column": 11,
+  "text": "30s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 43,
+  "column": 16,
+  "end_column": 23,
+  "text": "12345ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 49,
+  "column": 1,
+  "end_column": 29,
+  "text": "https://docs.example.com/...",
+  "kind": "url"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 49,
+  "column": 59,
+  "end_column": 64,
+  "text": "their",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 54,
+  "column": 3,
+  "end_column": 29,
+  "text": "Emoji in headings or prose",
+  "kind": "list"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 55,
+  "column": 3,
+  "end_column": 32,
+  "text": "\"Simply\", \"just\", \"obviously\"",
+  "kind": "list"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 56,
+  "column": 3,
+  "end_column": 43,
+  "text": "Screenshots of terminals; paste the text",
+  "kind": "list"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 57,
+  "column": 3,
+  "end_column": 39,
+  "text": "Marketing language in reference docs",
+  "kind": "list"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 59,
+  "column": 79,
+  "end_column": 83,
+  "text": "it's",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 60,
+  "column": 19,
+  "end_column": 23,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/style-guide.md",
+  "line": 60,
+  "column": 63,
+  "end_column": 76,
+  "text": "explicit.toml",
+  "kind": "path"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 3,
+  "column": 12,
+  "end_column": 34,
+  "text": "`gateway check-config`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 3,
+  "column": 48,
+  "end_column": 51,
+  "text": "200",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 4,
+  "column": 9,
+  "end_column": 14,
+  "text": "there",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 8,
+  "column": 33,
+  "end_column": 55,
+  "text": "`ss -ltnp | grep 8080`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 8,
+  "column": 72,
+  "end_column": 77,
+  "text": "macOS",
+  "kind": "product"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 9,
+  "column": 1,
+  "end_column": 16,
+  "text": "`lsof -i :8080`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 10,
+  "column": 39,
+  "end_column": 42,
+  "text": "30s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 15,
+  "column": 1,
+  "end_column": 17,
+  "text": "`upstream_error`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 19,
+  "column": 3,
+  "end_column": 20,
+  "text": "`connect_timeout`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 19,
+  "column": 23,
+  "end_column": 64,
+  "text": "no TCP handshake within `connect_timeout`",
+  "kind": "table"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 20,
+  "column": 3,
+  "end_column": 12,
+  "text": "`refused`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 20,
+  "column": 15,
+  "end_column": 32,
+  "text": "nothing listening",
+  "kind": "table"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 21,
+  "column": 3,
+  "end_column": 10,
+  "text": "`reset`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 21,
+  "column": 13,
+  "end_column": 41,
+  "text": "upstream closed mid-response",
+  "kind": "table"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 22,
+  "column": 3,
+  "end_column": 8,
+  "text": "`tls`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 22,
+  "column": 11,
+  "end_column": 43,
+  "text": "certificate or handshake problem",
+  "kind": "table"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 24,
+  "column": 1,
+  "end_column": 8,
+  "text": "`reset`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 29,
+  "column": 7,
+  "end_column": 21,
+  "text": "`read_timeout`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 29,
+  "column": 74,
+  "end_column": 87,
+  "text": "`upstream_ms`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 30,
+  "column": 49,
+  "end_column": 66,
+  "text": "`request_read_ms`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 31,
+  "column": 73,
+  "end_column": 83,
+  "text": "flamegraph",
+  "kind": "term"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 32,
+  "column": 1,
+  "end_column": 24,
+  "text": "`gateway --profile 30s`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 32,
+  "column": 42,
+  "end_column": 50,
+  "text": "an issue",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 36,
+  "column": 32,
+  "end_column": 57,
+  "text": "`gateway_rate_limit_keys`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 38,
+  "column": 9,
+  "end_column": 19,
+  "text": "`max_keys`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 40,
+  "column": 41,
+  "end_column": 54,
+  "text": "`cache_bytes`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 40,
+  "column": 75,
+  "end_column": 78,
+  "text": "10%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 45,
+  "column": 3,
+  "end_column": 85,
+  "text": "The file is on a bind mount from Docker Desktop (no inotify events); send `SIGHUP`",
+  "kind": "list"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 46,
+  "column": 3,
+  "end_column": 107,
+  "text": "Your editor writes a temp file and renames it; the watcher follows the rename after 2.4.0 but not before",
+  "kind": "list"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 47,
+  "column": 3,
+  "end_column": 82,
+  "text": "The new config failed validation; look for an `error` line with the line number",
+  "kind": "list"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 51,
+  "column": 14,
+  "end_column": 23,
+  "text": "`workers`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 51,
+  "column": 33,
+  "end_column": 36,
+  "text": "2.3",
+  "kind": "version"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 51,
+  "column": 62,
+  "end_column": 63,
+  "text": "4",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 52,
+  "column": 18,
+  "end_column": 21,
+  "text": "CPU",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 52,
+  "column": 39,
+  "end_column": 43,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 57,
+  "column": 20,
+  "end_column": 39,
+  "text": "`gateway --version`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 58,
+  "column": 1,
+  "end_column": 59,
+  "text": "\"It does not work\" is not a bug report, but you knew that.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/troubleshooting.md",
+  "line": 59,
+  "column": 27,
+  "end_column": 32,
+  "text": "their",
+  "kind": "correct"
+ },
+ {
+  "file": "py/client.py",
+  "line": 8,
+  "column": 27,
+  "end_column": 34,
+  "text": "``429``",
+  "kind": "code"
+ },
+ {
+  "file": "py/client.py",
+  "line": 8,
+  "column": 39,
+  "end_column": 46,
+  "text": "``5xx``",
+  "kind": "code"
+ },
+ {
+  "file": "py/client.py",
+  "line": 23,
+  "column": 48,
+  "end_column": 51,
+  "text": "20%",
+  "kind": "unit"
+ },
+ {
+  "file": "py/client.py",
+  "line": 89,
+  "column": 72,
+  "end_column": 76,
+  "text": "it's",
+  "kind": "correct"
+ },
+ {
+  "file": "py/scheduler.py",
+  "line": 5,
+  "column": 53,
+  "end_column": 55,
+  "text": "1s",
+  "kind": "unit"
+ },
+ {
+  "file": "py/scheduler.py",
+  "line": 19,
+  "column": 51,
+  "end_column": 57,
+  "text": "a real",
+  "kind": "correct"
+ },
+ {
+  "file": "py/scheduler.py",
+  "line": 73,
+  "column": 18,
+  "end_column": 23,
+  "text": "There",
+  "kind": "correct"
+ },
+ {
+  "file": "py/utils.py",
+  "line": 3,
+  "column": 58,
+  "end_column": 62,
+  "text": "it's",
+  "kind": "correct"
+ },
+ {
+  "file": "py/utils.py",
+  "line": 15,
+  "column": 35,
+  "end_column": 38,
+  "text": "JPY",
+  "kind": "acronym"
+ },
+ {
+  "file": "py/utils.py",
+  "line": 24,
+  "column": 20,
+  "end_column": 23,
+  "text": "EUR",
+  "kind": "acronym"
+ },
+ {
+  "file": "py/utils.py",
+  "line": 24,
+  "column": 56,
+  "end_column": 59,
+  "text": "JPY",
+  "kind": "acronym"
+ },
+ {
+  "file": "py/utils.py",
+  "line": 25,
+  "column": 36,
+  "end_column": 41,
+  "text": "which",
+  "kind": "correct"
+ },
+ {
+  "file": "py/utils.py",
+  "line": 47,
+  "column": 29,
+  "end_column": 30,
+  "text": "ä",
+  "kind": "name"
+ },
+ {
+  "file": "py/utils.py",
+  "line": 47,
+  "column": 35,
+  "end_column": 36,
+  "text": "ö",
+  "kind": "name"
+ },
+ {
+  "file": "py/utils.py",
+  "line": 67,
+  "column": 55,
+  "end_column": 61,
+  "text": "you're",
+  "kind": "correct"
+ },
+ {
+  "file": "src/cache.rs",
+  "line": 1,
+  "column": 35,
+  "end_column": 38,
+  "text": "LRU",
+  "kind": "acronym"
+ },
+ {
+  "file": "src/cache.rs",
+  "line": 1,
+  "column": 52,
+  "end_column": 55,
+  "text": "RFC",
+  "kind": "acronym"
+ },
+ {
+  "file": "src/cache.rs",
+  "line": 9,
+  "column": 37,
+  "end_column": 47,
+  "text": "`MAX_BODY`",
+  "kind": "identifier"
+ },
+ {
+  "file": "src/cache.rs",
+  "line": 10,
+  "column": 45,
+  "end_column": 49,
+  "text": "1MiB",
+  "kind": "unit"
+ },
+ {
+  "file": "src/cache.rs",
+  "line": 50,
+  "column": 23,
+  "end_column": 27,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "src/cache.rs",
+  "line": 79,
+  "column": 12,
+  "end_column": 16,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "src/cache.rs",
+  "line": 93,
+  "column": 51,
+  "end_column": 54,
+  "text": "RFC",
+  "kind": "acronym"
+ },
+ {
+  "file": "src/cache.rs",
+  "line": 98,
+  "column": 26,
+  "end_column": 29,
+  "text": "10%",
+  "kind": "unit"
+ },
+ {
+  "file": "src/cache.rs",
+  "line": 98,
+  "column": 68,
+  "end_column": 70,
+  "text": "1h",
+  "kind": "unit"
+ },
+ {
+  "file": "src/cache.rs",
+  "line": 99,
+  "column": 32,
+  "end_column": 36,
+  "text": "your",
+  "kind": "correct"
+ },
+ {
+  "file": "src/cache.rs",
+  "line": 100,
+  "column": 21,
+  "end_column": 27,
+  "text": "Chrome",
+  "kind": "product"
+ },
+ {
+  "file": "src/config.rs",
+  "line": 3,
+  "column": 17,
+  "end_column": 21,
+  "text": "TOML",
+  "kind": "acronym"
+ },
+ {
+  "file": "src/config.rs",
+  "line": 4,
+  "column": 35,
+  "end_column": 38,
+  "text": "2.0",
+  "kind": "version"
+ },
+ {
+  "file": "src/config.rs",
+  "line": 24,
+  "column": 44,
+  "end_column": 48,
+  "text": "IPv6",
+  "kind": "acronym"
+ },
+ {
+  "file": "src/config.rs",
+  "line": 26,
+  "column": 52,
+  "end_column": 55,
+  "text": "30s",
+  "kind": "unit"
+ },
+ {
+  "file": "src/config.rs",
+  "line": 29,
+  "column": 61,
+  "end_column": 64,
+  "text": "CPU",
+  "kind": "acronym"
+ },
+ {
+  "file": "src/config.rs",
+  "line": 41,
+  "column": 32,
+  "end_column": 37,
+  "text": "there",
+  "kind": "correct"
+ },
+ {
+  "file": "src/config.rs",
+  "line": 97,
+  "column": 46,
+  "end_column": 50,
+  "text": "it's",
+  "kind": "correct"
+ },
+ {
+  "file": "src/lib.rs",
+  "line": 3,
+  "column": 29,
+  "end_column": 37,
+  "text": "`config`",
+  "kind": "identifier"
+ },
+ {
+  "file": "src/lib.rs",
+  "line": 3,
+  "column": 39,
+  "end_column": 53,
+  "text": "`rate_limiter`",
+  "kind": "identifier"
+ },
+ {
+  "file": "src/lib.rs",
+  "line": 3,
+  "column": 55,
+  "end_column": 62,
+  "text": "`cache`",
+  "kind": "identifier"
+ },
+ {
+  "file": "src/lib.rs",
+  "line": 4,
+  "column": 9,
+  "end_column": 16,
+  "text": "`proxy`",
+  "kind": "identifier"
+ },
+ {
+  "file": "src/lib.rs",
+  "line": 14,
+  "column": 57,
+  "end_column": 62,
+  "text": "`Arc`",
+  "kind": "identifier"
+ },
+ {
+  "file": "src/lib.rs",
+  "line": 48,
+  "column": 34,
+  "end_column": 38,
+  "text": "It's",
+  "kind": "correct"
+ },
+ {
+  "file": "src/lib.rs",
+  "line": 68,
+  "column": 76,
+  "end_column": 81,
+  "text": "hyper",
+  "kind": "product"
+ },
+ {
+  "file": "src/lib.rs",
+  "line": 88,
+  "column": 9,
+  "end_column": 14,
+  "text": "vaino",
+  "kind": "name"
+ },
+ {
+  "file": "src/lib.rs",
+  "line": 88,
+  "column": 59,
+  "end_column": 81,
+  "text": "`[[route.rate_limit]]`",
+  "kind": "identifier"
+ },
+ {
+  "file": "src/lib.rs",
+  "line": 89,
+  "column": 23,
+  "end_column": 30,
+  "text": "100/min",
+  "kind": "unit"
+ },
+ {
+  "file": "src/rate_limiter.rs",
+  "line": 3,
+  "column": 19,
+  "end_column": 22,
+  "text": "its",
+  "kind": "correct"
+ },
+ {
+  "file": "src/rate_limiter.rs",
+  "line": 4,
+  "column": 5,
+  "end_column": 8,
+  "text": "LRU",
+  "kind": "acronym"
+ },
+ {
+  "file": "src/rate_limiter.rs",
+  "line": 4,
+  "column": 14,
+  "end_column": 24,
+  "text": "`max_keys`",
+  "kind": "identifier"
+ },
+ {
+  "file": "src/rate_limiter.rs",
+  "line": 4,
+  "column": 52,
+  "end_column": 61,
+  "text": "lock-free",
+  "kind": "term"
+ },
+ {
+  "file": "src/rate_limiter.rs",
+  "line": 5,
+  "column": 39,
+  "end_column": 48,
+  "text": "`buckets`",
+  "kind": "identifier"
+ },
+ {
+  "file": "src/rate_limiter.rs",
+  "line": 13,
+  "column": 63,
+  "end_column": 66,
+  "text": "100",
+  "kind": "unit"
+ },
+ {
+  "file": "src/rate_limiter.rs",
+  "line": 14,
+  "column": 34,
+  "end_column": 37,
+  "text": "100",
+  "kind": "unit"
+ },
+ {
+  "file": "src/rate_limiter.rs",
+  "line": 19,
+  "column": 73,
+  "end_column": 76,
+  "text": "8MB",
+  "kind": "unit"
+ },
+ {
+  "file": "src/rate_limiter.rs",
+  "line": 42,
+  "column": 68,
+  "end_column": 73,
+  "text": "`429`",
+  "kind": "code"
+ },
+ {
+  "file": "src/rate_limiter.rs",
+  "line": 44,
+  "column": 9,
+  "end_column": 14,
+  "text": "their",
+  "kind": "correct"
+ },
+ {
+  "file": "src/rate_limiter.rs",
+  "line": 69,
+  "column": 67,
+  "end_column": 71,
+  "text": "here",
+  "kind": "correct"
+ },
+ {
+  "file": "src/rate_limiter.rs",
+  "line": 70,
+  "column": 48,
+  "end_column": 53,
+  "text": "which",
+  "kind": "correct"
+ },
+ {
+  "file": "src/rate_limiter.rs",
+  "line": 71,
+  "column": 4,
+  "end_column": 8,
+  "text": "then",
+  "kind": "correct"
+ },
+ {
+  "file": "src/rate_limiter.rs",
+  "line": 71,
+  "column": 47,
+  "end_column": 50,
+  "text": "LRU",
+  "kind": "acronym"
+ },
+ {
+  "file": "src/rate_limiter.rs",
+  "line": 72,
+  "column": 4,
+  "end_column": 8,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "src/rate_limiter.rs",
+  "line": 91,
+  "column": 18,
+  "end_column": 20,
+  "text": "1s",
+  "kind": "unit"
+ },
+ {
+  "file": "ts/api.ts",
+  "line": 13,
+  "column": 44,
+  "end_column": 49,
+  "text": "10000",
+  "kind": "unit"
+ },
+ {
+  "file": "ts/api.ts",
+  "line": 32,
+  "column": 48,
+  "end_column": 69,
+  "text": "`BACKOFF_MS * 2 ** n`",
+  "kind": "identifier"
+ },
+ {
+  "file": "ts/api.ts",
+  "line": 33,
+  "column": 32,
+  "end_column": 35,
+  "text": "15s",
+  "kind": "unit"
+ },
+ {
+  "file": "ts/api.ts",
+  "line": 33,
+  "column": 44,
+  "end_column": 48,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "ts/api.ts",
+  "line": 53,
+  "column": 69,
+  "end_column": 73,
+  "text": "UUID",
+  "kind": "acronym"
+ },
+ {
+  "file": "ts/api.ts",
+  "line": 54,
+  "column": 20,
+  "end_column": 23,
+  "text": "its",
+  "kind": "correct"
+ },
+ {
+  "file": "ts/api.ts",
+  "line": 72,
+  "column": 58,
+  "end_column": 61,
+  "text": "AWS",
+  "kind": "product"
+ },
+ {
+  "file": "ts/api.ts",
+  "line": 98,
+  "column": 65,
+  "end_column": 68,
+  "text": "see",
+  "kind": "correct"
+ },
+ {
+  "file": "ts/hooks.ts",
+  "line": 57,
+  "column": 8,
+  "end_column": 12,
+  "text": "than",
+  "kind": "correct"
+ },
+ {
+  "file": "ts/hooks.ts",
+  "line": 66,
+  "column": 60,
+  "end_column": 66,
+  "text": "you're",
+  "kind": "correct"
+ },
+ {
+  "file": "ts/hooks.ts",
+  "line": 67,
+  "column": 4,
+  "end_column": 7,
+  "text": "99%",
+  "kind": "unit"
+ },
+ {
+  "file": "ts/hooks.ts",
+  "line": 78,
+  "column": 70,
+  "end_column": 73,
+  "text": "SSR",
+  "kind": "acronym"
+ },
+ {
+  "file": "ts/store.ts",
+  "line": 4,
+  "column": 8,
+  "end_column": 13,
+  "text": "Redux",
+  "kind": "product"
+ },
+ {
+  "file": "ts/store.ts",
+  "line": 4,
+  "column": 19,
+  "end_column": 26,
+  "text": "Zustand",
+  "kind": "product"
+ },
+ {
+  "file": "ts/store.ts",
+  "line": 4,
+  "column": 34,
+  "end_column": 42,
+  "text": "60 lines",
+  "kind": "unit"
+ },
+ {
+  "file": "ts/store.ts",
+  "line": 27,
+  "column": 10,
+  "end_column": 16,
+  "text": "you're",
+  "kind": "correct"
+ },
+ {
+  "file": "ts/store.ts",
+  "line": 37,
+  "column": 58,
+  "end_column": 63,
+  "text": "React",
+  "kind": "product"
+ },
+ {
+  "file": "ts/store.ts",
+  "line": 59,
+  "column": 28,
+  "end_column": 33,
+  "text": "250ms",
+  "kind": "unit"
+ },
+ {
+  "file": "ts/store.ts",
+  "line": 60,
+  "column": 21,
+  "end_column": 31,
+  "text": "an invalid",
+  "kind": "correct"
+ },
+ {
+  "file": "ts/store.ts",
+  "line": 61,
+  "column": 4,
+  "end_column": 7,
+  "text": "its",
+  "kind": "correct"
+ }
+]

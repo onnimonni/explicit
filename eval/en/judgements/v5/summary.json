@@ -1,0 +1,843 @@
+{
+ "diff_hybrid_vs_spellbook_clean": {
+  "hybrid_only": 10,
+  "spellbook_only": 0,
+  "verdicts": "HHTTHHHTHH",
+  "TP": 3,
+  "FP": 7
+ },
+ "clean_counts_v5_spelling/grammar": {
+  "hybrid-corpus": "1318/32",
+  "spellbook-corpus": "1318/24",
+  "curated-corpus": "1686/33",
+  "hybrid-rs": "203/17",
+  "spellbook-rs": "203/15",
+  "curated-rs": "432/23"
+ },
+ "scores_v5": {
+  "hybrid-seeded": {
+   "precision": 0.7883211678832117,
+   "recall": 0.7081967213114754,
+   "f1": 0.7461139896373057,
+   "true_positives": 216,
+   "false_positives": 58,
+   "labels": 305,
+   "fp_not_on_trap": 7,
+   "recall_by_category": {
+    "a_an": [
+     26,
+     26
+    ],
+    "agreement": [
+     0,
+     21
+    ],
+    "british": [
+     16,
+     16
+    ],
+    "capitalization": [
+     10,
+     21
+    ],
+    "fragment": [
+     1,
+     11
+    ],
+    "homophone": [
+     17,
+     26
+    ],
+    "its_its": [
+     20,
+     21
+    ],
+    "missing_extra_word": [
+     1,
+     16
+    ],
+    "punctuation": [
+     0,
+     16
+    ],
+    "repeated_word": [
+     21,
+     21
+    ],
+    "spelling": [
+     61,
+     62
+    ],
+    "their_there": [
+     15,
+     16
+    ],
+    "then_than": [
+     13,
+     16
+    ],
+    "your_youre": [
+     15,
+     16
+    ]
+   }
+  },
+  "spellbook-seeded": {
+   "precision": 0.7912087912087912,
+   "recall": 0.7081967213114754,
+   "f1": 0.7474048442906575,
+   "true_positives": 216,
+   "false_positives": 57,
+   "labels": 305,
+   "fp_not_on_trap": 6,
+   "recall_by_category": {
+    "a_an": [
+     26,
+     26
+    ],
+    "agreement": [
+     0,
+     21
+    ],
+    "british": [
+     16,
+     16
+    ],
+    "capitalization": [
+     10,
+     21
+    ],
+    "fragment": [
+     1,
+     11
+    ],
+    "homophone": [
+     17,
+     26
+    ],
+    "its_its": [
+     20,
+     21
+    ],
+    "missing_extra_word": [
+     1,
+     16
+    ],
+    "punctuation": [
+     0,
+     16
+    ],
+    "repeated_word": [
+     21,
+     21
+    ],
+    "spelling": [
+     61,
+     62
+    ],
+    "their_there": [
+     15,
+     16
+    ],
+    "then_than": [
+     13,
+     16
+    ],
+    "your_youre": [
+     15,
+     16
+    ]
+   }
+  },
+  "curated-seeded": {
+   "precision": 0.7049180327868853,
+   "recall": 0.7049180327868853,
+   "f1": 0.7049180327868853,
+   "true_positives": 215,
+   "false_positives": 90,
+   "labels": 305,
+   "fp_not_on_trap": 29,
+   "recall_by_category": {
+    "a_an": [
+     26,
+     26
+    ],
+    "agreement": [
+     0,
+     21
+    ],
+    "british": [
+     16,
+     16
+    ],
+    "capitalization": [
+     10,
+     21
+    ],
+    "fragment": [
+     1,
+     11
+    ],
+    "homophone": [
+     17,
+     26
+    ],
+    "its_its": [
+     20,
+     21
+    ],
+    "missing_extra_word": [
+     1,
+     16
+    ],
+    "punctuation": [
+     0,
+     16
+    ],
+    "repeated_word": [
+     20,
+     21
+    ],
+    "spelling": [
+     61,
+     62
+    ],
+    "their_there": [
+     15,
+     16
+    ],
+    "then_than": [
+     13,
+     16
+    ],
+    "your_youre": [
+     15,
+     16
+    ]
+   }
+  },
+  "hybrid-holdout": {
+   "precision": 0.678082191780822,
+   "recall": 0.495,
+   "f1": 0.5722543352601156,
+   "true_positives": 99,
+   "false_positives": 47,
+   "labels": 200,
+   "fp_not_on_trap": 2,
+   "recall_by_category": {
+    "a_an": [
+     12,
+     14
+    ],
+    "agreement": [
+     0,
+     18
+    ],
+    "british": [
+     7,
+     7
+    ],
+    "capitalization": [
+     2,
+     9
+    ],
+    "fragment": [
+     0,
+     12
+    ],
+    "homophone": [
+     9,
+     24
+    ],
+    "its_its": [
+     10,
+     15
+    ],
+    "missing_extra_word": [
+     0,
+     6
+    ],
+    "punctuation": [
+     0,
+     15
+    ],
+    "repeated_word": [
+     8,
+     8
+    ],
+    "spelling": [
+     26,
+     26
+    ],
+    "their_there": [
+     7,
+     17
+    ],
+    "then_than": [
+     12,
+     18
+    ],
+    "your_youre": [
+     6,
+     11
+    ]
+   }
+  },
+  "spellbook-holdout": {
+   "precision": 0.678082191780822,
+   "recall": 0.495,
+   "f1": 0.5722543352601156,
+   "true_positives": 99,
+   "false_positives": 47,
+   "labels": 200,
+   "fp_not_on_trap": 2,
+   "recall_by_category": {
+    "a_an": [
+     12,
+     14
+    ],
+    "agreement": [
+     0,
+     18
+    ],
+    "british": [
+     7,
+     7
+    ],
+    "capitalization": [
+     2,
+     9
+    ],
+    "fragment": [
+     0,
+     12
+    ],
+    "homophone": [
+     9,
+     24
+    ],
+    "its_its": [
+     10,
+     15
+    ],
+    "missing_extra_word": [
+     0,
+     6
+    ],
+    "punctuation": [
+     0,
+     15
+    ],
+    "repeated_word": [
+     8,
+     8
+    ],
+    "spelling": [
+     26,
+     26
+    ],
+    "their_there": [
+     7,
+     17
+    ],
+    "then_than": [
+     12,
+     18
+    ],
+    "your_youre": [
+     6,
+     11
+    ]
+   }
+  },
+  "curated-holdout": {
+   "precision": 0.66,
+   "recall": 0.495,
+   "f1": 0.5657142857142857,
+   "true_positives": 99,
+   "false_positives": 51,
+   "labels": 200,
+   "fp_not_on_trap": 5,
+   "recall_by_category": {
+    "a_an": [
+     12,
+     14
+    ],
+    "agreement": [
+     0,
+     18
+    ],
+    "british": [
+     7,
+     7
+    ],
+    "capitalization": [
+     3,
+     9
+    ],
+    "fragment": [
+     0,
+     12
+    ],
+    "homophone": [
+     9,
+     24
+    ],
+    "its_its": [
+     10,
+     15
+    ],
+    "missing_extra_word": [
+     0,
+     6
+    ],
+    "punctuation": [
+     0,
+     15
+    ],
+    "repeated_word": [
+     7,
+     8
+    ],
+    "spelling": [
+     26,
+     26
+    ],
+    "their_there": [
+     7,
+     17
+    ],
+    "then_than": [
+     12,
+     18
+    ],
+    "your_youre": [
+     6,
+     11
+    ]
+   }
+  },
+  "hybrid-holdout2": {
+   "precision": 0.6982248520710059,
+   "recall": 0.466403162055336,
+   "f1": 0.5592417061611374,
+   "true_positives": 118,
+   "false_positives": 51,
+   "labels": 253,
+   "fp_not_on_trap": 5,
+   "recall_by_category": {
+    "a_an": [
+     13,
+     14
+    ],
+    "agreement": [
+     0,
+     22
+    ],
+    "british": [
+     6,
+     6
+    ],
+    "capitalization": [
+     3,
+     4
+    ],
+    "fragment": [
+     0,
+     12
+    ],
+    "homophone": [
+     22,
+     51
+    ],
+    "its_its": [
+     12,
+     21
+    ],
+    "missing_extra_word": [
+     0,
+     4
+    ],
+    "punctuation": [
+     2,
+     16
+    ],
+    "spelling": [
+     16,
+     16
+    ],
+    "spelling_1edit": [
+     15,
+     15
+    ],
+    "their_there": [
+     5,
+     20
+    ],
+    "then_than": [
+     16,
+     31
+    ],
+    "your_youre": [
+     8,
+     21
+    ]
+   }
+  },
+  "spellbook-holdout2": {
+   "precision": 0.6982248520710059,
+   "recall": 0.466403162055336,
+   "f1": 0.5592417061611374,
+   "true_positives": 118,
+   "false_positives": 51,
+   "labels": 253,
+   "fp_not_on_trap": 5,
+   "recall_by_category": {
+    "a_an": [
+     13,
+     14
+    ],
+    "agreement": [
+     0,
+     22
+    ],
+    "british": [
+     6,
+     6
+    ],
+    "capitalization": [
+     3,
+     4
+    ],
+    "fragment": [
+     0,
+     12
+    ],
+    "homophone": [
+     22,
+     51
+    ],
+    "its_its": [
+     12,
+     21
+    ],
+    "missing_extra_word": [
+     0,
+     4
+    ],
+    "punctuation": [
+     2,
+     16
+    ],
+    "spelling": [
+     16,
+     16
+    ],
+    "spelling_1edit": [
+     15,
+     15
+    ],
+    "their_there": [
+     5,
+     20
+    ],
+    "then_than": [
+     16,
+     31
+    ],
+    "your_youre": [
+     8,
+     21
+    ]
+   }
+  },
+  "curated-holdout2": {
+   "precision": 0.6038647342995169,
+   "recall": 0.49407114624505927,
+   "f1": 0.5434782608695652,
+   "true_positives": 125,
+   "false_positives": 82,
+   "labels": 253,
+   "fp_not_on_trap": 20,
+   "recall_by_category": {
+    "a_an": [
+     13,
+     14
+    ],
+    "agreement": [
+     0,
+     22
+    ],
+    "british": [
+     6,
+     6
+    ],
+    "capitalization": [
+     3,
+     4
+    ],
+    "fragment": [
+     0,
+     12
+    ],
+    "homophone": [
+     22,
+     51
+    ],
+    "its_its": [
+     12,
+     21
+    ],
+    "missing_extra_word": [
+     0,
+     4
+    ],
+    "punctuation": [
+     3,
+     16
+    ],
+    "spelling": [
+     16,
+     16
+    ],
+    "spelling_1edit": [
+     15,
+     15
+    ],
+    "their_there": [
+     5,
+     20
+    ],
+    "then_than": [
+     18,
+     31
+    ],
+    "your_youre": [
+     12,
+     21
+    ]
+   }
+  },
+  "hybrid-holdout3": {
+   "precision": 0.543046357615894,
+   "recall": 0.4205128205128205,
+   "f1": 0.47398843930635837,
+   "true_positives": 82,
+   "false_positives": 69,
+   "labels": 195,
+   "fp_not_on_trap": 11,
+   "recall_by_category": {
+    "a_an": [
+     15,
+     21
+    ],
+    "agreement": [
+     1,
+     33
+    ],
+    "british": [
+     1,
+     1
+    ],
+    "fragment": [
+     0,
+     9
+    ],
+    "homophone": [
+     17,
+     30
+    ],
+    "its_its": [
+     15,
+     28
+    ],
+    "missing_extra_word": [
+     0,
+     1
+    ],
+    "punctuation": [
+     0,
+     10
+    ],
+    "spelling": [
+     6,
+     6
+    ],
+    "spelling_1edit": [
+     2,
+     2
+    ],
+    "their_there": [
+     12,
+     22
+    ],
+    "then_than": [
+     9,
+     16
+    ],
+    "your_youre": [
+     4,
+     16
+    ]
+   }
+  },
+  "spellbook-holdout3": {
+   "precision": 0.543046357615894,
+   "recall": 0.4205128205128205,
+   "f1": 0.47398843930635837,
+   "true_positives": 82,
+   "false_positives": 69,
+   "labels": 195,
+   "fp_not_on_trap": 11,
+   "recall_by_category": {
+    "a_an": [
+     15,
+     21
+    ],
+    "agreement": [
+     1,
+     33
+    ],
+    "british": [
+     1,
+     1
+    ],
+    "fragment": [
+     0,
+     9
+    ],
+    "homophone": [
+     17,
+     30
+    ],
+    "its_its": [
+     15,
+     28
+    ],
+    "missing_extra_word": [
+     0,
+     1
+    ],
+    "punctuation": [
+     0,
+     10
+    ],
+    "spelling": [
+     6,
+     6
+    ],
+    "spelling_1edit": [
+     2,
+     2
+    ],
+    "their_there": [
+     12,
+     22
+    ],
+    "then_than": [
+     9,
+     16
+    ],
+    "your_youre": [
+     4,
+     16
+    ]
+   }
+  },
+  "curated-holdout3": {
+   "precision": 0.5283018867924528,
+   "recall": 0.4307692307692308,
+   "f1": 0.4745762711864407,
+   "true_positives": 84,
+   "false_positives": 75,
+   "labels": 195,
+   "fp_not_on_trap": 16,
+   "recall_by_category": {
+    "a_an": [
+     15,
+     21
+    ],
+    "agreement": [
+     1,
+     33
+    ],
+    "british": [
+     1,
+     1
+    ],
+    "fragment": [
+     0,
+     9
+    ],
+    "homophone": [
+     17,
+     30
+    ],
+    "its_its": [
+     15,
+     28
+    ],
+    "missing_extra_word": [
+     0,
+     1
+    ],
+    "punctuation": [
+     0,
+     10
+    ],
+    "spelling": [
+     6,
+     6
+    ],
+    "spelling_1edit": [
+     2,
+     2
+    ],
+    "their_there": [
+     12,
+     22
+    ],
+    "then_than": [
+     11,
+     16
+    ],
+    "your_youre": [
+     4,
+     16
+    ]
+   }
+  }
+ },
+ "timing_debug_build": {
+  "hybrid-corpus": {
+   "wall_s": 4.29,
+   "cpu_s": 16.66,
+   "rss_mb": 478.298112
+  },
+  "hybrid-rs": {
+   "wall_s": 2.69,
+   "cpu_s": 9.18,
+   "rss_mb": 455.196672
+  },
+  "spellbook-corpus": {
+   "wall_s": 1.83,
+   "cpu_s": 9.940000000000001,
+   "rss_mb": 225.230848
+  },
+  "spellbook-rs": {
+   "wall_s": 1.08,
+   "cpu_s": 4.7299999999999995,
+   "rss_mb": 210.092032
+  },
+  "curated-corpus": {
+   "wall_s": 3.46,
+   "cpu_s": 21.06,
+   "rss_mb": 602.112
+  },
+  "curated-rs": {
+   "wall_s": 2.6,
+   "cpu_s": 10.93,
+   "rss_mb": 508.96896
+  }
+ }
+}

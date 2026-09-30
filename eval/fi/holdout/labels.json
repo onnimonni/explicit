@@ -1,0 +1,706 @@
+[
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 11,
+  "column": 179,
+  "end_column": 194,
+  "text": "tunnistauduttva",
+  "category": "typo",
+  "correction": "tunnistauduttava"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 13,
+  "column": 26,
+  "end_column": 38,
+  "text": "toimi kortti",
+  "category": "compound_split",
+  "correction": "toimikortti"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 13,
+  "column": 160,
+  "end_column": 167,
+  "text": "Elokuun",
+  "category": "capitalization",
+  "correction": "elokuun"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 23,
+  "column": 29,
+  "end_column": 33,
+  "text": "Sitä",
+  "category": "confusion",
+  "correction": "Se",
+  "real_word": true
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 23,
+  "column": 180,
+  "end_column": 186,
+  "text": "liikka",
+  "category": "typo",
+  "correction": "liikaa"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 27,
+  "column": 171,
+  "end_column": 180,
+  "text": "laiteesen",
+  "category": "inflection",
+  "correction": "laitteeseen"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 33,
+  "column": 46,
+  "end_column": 63,
+  "text": "sellaisenaanilman",
+  "category": "compound_joined",
+  "correction": "sellaisenaan ilman"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 34,
+  "column": 82,
+  "end_column": 85,
+  "text": "kun",
+  "category": "confusion",
+  "correction": "kuin",
+  "real_word": true
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 37,
+  "column": 24,
+  "end_column": 34,
+  "text": "asiakaiden",
+  "category": "double_letter",
+  "correction": "asiakkaiden"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 41,
+  "column": 38,
+  "end_column": 54,
+  "text": "käyttö liittymän",
+  "category": "compound_split",
+  "correction": "käyttöliittymän"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 43,
+  "column": 19,
+  "end_column": 30,
+  "text": "tarkistetän",
+  "category": "inflection",
+  "correction": "tarkistetaan"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 44,
+  "column": 39,
+  "end_column": 47,
+  "text": "heti kun",
+  "category": "punctuation",
+  "correction": "heti, kun"
+ },
+ {
+  "file": "adr-003-tunnistautuminen.md",
+  "line": 46,
+  "column": 50,
+  "end_column": 66,
+  "text": "componenttipulan",
+  "category": "loan",
+  "correction": "komponenttipulan"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 7,
+  "column": 110,
+  "end_column": 117,
+  "text": "kaheden",
+  "category": "typo",
+  "correction": "kahden"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 17,
+  "column": 39,
+  "end_column": 50,
+  "text": "Purku avain",
+  "category": "compound_split",
+  "correction": "Purkuavain"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 21,
+  "column": 62,
+  "end_column": 70,
+  "text": "asetetän",
+  "category": "inflection",
+  "correction": "asetetaan"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 22,
+  "column": 42,
+  "end_column": 53,
+  "text": "hetkeä joka",
+  "category": "punctuation",
+  "correction": "hetkeä, joka"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 34,
+  "column": 72,
+  "end_column": 80,
+  "text": "vaikkase",
+  "category": "compound_joined",
+  "correction": "vaikka se"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 34,
+  "column": 138,
+  "end_column": 142,
+  "text": "vaan",
+  "category": "confusion",
+  "correction": "mutta",
+  "real_word": true
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 38,
+  "column": 93,
+  "end_column": 102,
+  "text": "poistettu",
+  "category": "inflection",
+  "correction": "poistetun",
+  "real_word": true
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 46,
+  "column": 47,
+  "end_column": 64,
+  "text": "lokiin ennen kuin",
+  "category": "punctuation",
+  "correction": "lokiin, ennen kuin"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 50,
+  "column": 93,
+  "end_column": 102,
+  "text": "ongelmmat",
+  "category": "double_letter",
+  "correction": "ongelmat"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 50,
+  "column": 158,
+  "end_column": 166,
+  "text": "Kesäkuun",
+  "category": "capitalization",
+  "correction": "kesäkuun"
+ },
+ {
+  "file": "ajokirja-varmuuskopiot.md",
+  "line": 52,
+  "column": 5,
+  "end_column": 19,
+  "text": "palautus testi",
+  "category": "compound_split",
+  "correction": "palautustesti"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 7,
+  "column": 105,
+  "end_column": 110,
+  "text": "jotka",
+  "category": "confusion",
+  "correction": "joista",
+  "real_word": true
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 33,
+  "column": 60,
+  "end_column": 66,
+  "text": "estäää",
+  "category": "double_letter",
+  "correction": "estää"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 33,
+  "column": 67,
+  "end_column": 85,
+  "text": "toisto hyökkäykset",
+  "category": "compound_split",
+  "correction": "toistohyökkäykset"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 39,
+  "column": 34,
+  "end_column": 46,
+  "text": "useammankuin",
+  "category": "compound_joined",
+  "correction": "useamman kuin"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 46,
+  "column": 48,
+  "end_column": 53,
+  "text": "peruu",
+  "category": "confusion",
+  "correction": "perui",
+  "real_word": true
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 47,
+  "column": 44,
+  "end_column": 50,
+  "text": "muutui",
+  "category": "double_letter",
+  "correction": "muuttui"
+ },
+ {
+  "file": "api-webhookit.md",
+  "line": 50,
+  "column": 35,
+  "end_column": 42,
+  "text": "schemaa",
+  "category": "loan",
+  "correction": "skeemaa"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 15,
+  "column": 20,
+  "end_column": 36,
+  "text": "ruotsin kielinen",
+  "category": "compound_split",
+  "correction": "ruotsinkielinen"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 21,
+  "column": 61,
+  "end_column": 76,
+  "text": "kortinlukioiden",
+  "category": "typo",
+  "correction": "kortinlukijoiden"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 21,
+  "column": 178,
+  "end_column": 192,
+  "text": "jotenprojektin",
+  "category": "compound_joined",
+  "correction": "joten projektin"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 30,
+  "column": 87,
+  "end_column": 99,
+  "text": "Marraskuussa",
+  "category": "capitalization",
+  "correction": "marraskuussa"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 31,
+  "column": 47,
+  "end_column": 60,
+  "text": "Documentaatio",
+  "category": "loan",
+  "correction": "Dokumentaatio"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 35,
+  "column": 48,
+  "end_column": 59,
+  "text": "intanetissä",
+  "category": "typo",
+  "correction": "intranetissä"
+ },
+ {
+  "file": "kokousmuistio-ohjausryhma.md",
+  "line": 36,
+  "column": 62,
+  "end_column": 82,
+  "text": "tieto suoja vastaava",
+  "category": "compound_split",
+  "correction": "tietosuojavastaava"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 12,
+  "column": 16,
+  "end_column": 27,
+  "text": "reseptesitä",
+  "category": "typo",
+  "correction": "resepteistä"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 20,
+  "column": 41,
+  "end_column": 53,
+  "text": "lyhennettyna",
+  "category": "inflection",
+  "correction": "lyhennettynä"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 24,
+  "column": 12,
+  "end_column": 17,
+  "text": "kaatu",
+  "category": "confusion",
+  "correction": "kaatui",
+  "real_word": true
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 27,
+  "column": 3,
+  "end_column": 17,
+  "text": "Suomenkielinen",
+  "category": "capitalization",
+  "correction": "suomenkielinen"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 33,
+  "column": 13,
+  "end_column": 34,
+  "text": "sormenjälki tunnistus",
+  "category": "compound_split",
+  "correction": "sormenjälkitunnistus"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 33,
+  "column": 47,
+  "end_column": 57,
+  "text": "senjälkeen",
+  "category": "compound_joined",
+  "correction": "sen jälkeen"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 34,
+  "column": 42,
+  "end_column": 50,
+  "text": "siiretty",
+  "category": "double_letter",
+  "correction": "siirretty"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 55,
+  "column": 68,
+  "end_column": 75,
+  "text": "näyttää",
+  "category": "confusion",
+  "correction": "näyttävät",
+  "real_word": true
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 56,
+  "column": 95,
+  "end_column": 106,
+  "text": "ensimäisenä",
+  "category": "double_letter",
+  "correction": "ensimmäisenä"
+ },
+ {
+  "file": "muutosloki-mobiili.md",
+  "line": 60,
+  "column": 9,
+  "end_column": 19,
+  "text": "oire arvio",
+  "category": "compound_split",
+  "correction": "oirearvio"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 7,
+  "column": 125,
+  "end_column": 137,
+  "text": "kuntotumista",
+  "category": "typo",
+  "correction": "kuntoutumista"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 13,
+  "column": 53,
+  "end_column": 61,
+  "text": "väsyttäa",
+  "category": "inflection",
+  "correction": "väsyttää"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 19,
+  "column": 43,
+  "end_column": 52,
+  "text": "peiteetty",
+  "category": "double_letter",
+  "correction": "peitetty"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 19,
+  "column": 194,
+  "end_column": 202,
+  "text": "päivästa",
+  "category": "inflection",
+  "correction": "päivästä"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 21,
+  "column": 39,
+  "end_column": 47,
+  "text": "punottaa",
+  "category": "confusion",
+  "correction": "punoittaa",
+  "real_word": true
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 25,
+  "column": 125,
+  "end_column": 141,
+  "text": "Physioterapeutin",
+  "category": "loan",
+  "correction": "Fysioterapeutin"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 25,
+  "column": 150,
+  "end_column": 166,
+  "text": "koti harjoitteet",
+  "category": "compound_split",
+  "correction": "kotiharjoitteet"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 27,
+  "column": 83,
+  "end_column": 90,
+  "text": "Yleensä",
+  "category": "capitalization",
+  "correction": "yleensä"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 33,
+  "column": 156,
+  "end_column": 164,
+  "text": "merkkeja",
+  "category": "inflection",
+  "correction": "merkkejä"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 37,
+  "column": 39,
+  "end_column": 50,
+  "text": "orto pedian",
+  "category": "compound_split",
+  "correction": "ortopedian"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 37,
+  "column": 148,
+  "end_column": 156,
+  "text": "erilistä",
+  "category": "double_letter",
+  "correction": "erillistä"
+ },
+ {
+  "file": "potilasohje-kotiutus.md",
+  "line": 39,
+  "column": 149,
+  "end_column": 165,
+  "text": "omaaloitteisesti",
+  "category": "compound_joined",
+  "correction": "oma-aloitteisesti"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 11,
+  "column": 197,
+  "end_column": 204,
+  "text": "takasin",
+  "category": "typo",
+  "correction": "takaisin"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 11,
+  "column": 251,
+  "end_column": 258,
+  "text": "Arkisin",
+  "category": "capitalization",
+  "correction": "arkisin"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 13,
+  "column": 76,
+  "end_column": 89,
+  "text": "Niidennumerot",
+  "category": "compound_joined",
+  "correction": "Niiden numerot"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 17,
+  "column": 181,
+  "end_column": 187,
+  "text": "toimii",
+  "category": "confusion",
+  "correction": "toimi",
+  "real_word": true
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 21,
+  "column": 86,
+  "end_column": 94,
+  "text": "kaikkinä",
+  "category": "inflection",
+  "correction": "kaikkina"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 21,
+  "column": 113,
+  "end_column": 130,
+  "text": "Englanninkielinen",
+  "category": "capitalization",
+  "correction": "englanninkielinen"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 21,
+  "column": 179,
+  "end_column": 190,
+  "text": "järjestetän",
+  "category": "double_letter",
+  "correction": "järjestetään"
+ },
+ {
+  "file": "tiedote-asiakkaille.md",
+  "line": 29,
+  "column": 19,
+  "end_column": 33,
+  "text": "ajan varauksen",
+  "category": "compound_split",
+  "correction": "ajanvarauksen"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 5,
+  "column": 234,
+  "end_column": 243,
+  "text": "pelkstään",
+  "category": "typo",
+  "correction": "pelkästään"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 9,
+  "column": 30,
+  "end_column": 43,
+  "text": "tutkimus lupa",
+  "category": "compound_split",
+  "correction": "tutkimuslupa"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 11,
+  "column": 146,
+  "end_column": 154,
+  "text": "käsitelä",
+  "category": "double_letter",
+  "correction": "käsitellä"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 17,
+  "column": 129,
+  "end_column": 141,
+  "text": "postinumeron",
+  "category": "confusion",
+  "correction": "postinumeroon",
+  "real_word": true
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 17,
+  "column": 161,
+  "end_column": 174,
+  "text": "karkeistetään",
+  "category": "inflection",
+  "correction": "karkeistetaan"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 17,
+  "column": 215,
+  "end_column": 228,
+  "text": "kunta tasolle",
+  "category": "compound_split",
+  "correction": "kuntatasolle"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 29,
+  "column": 46,
+  "end_column": 63,
+  "text": "tietoturvallisesa",
+  "category": "double_letter",
+  "correction": "tietoturvallisessa"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 29,
+  "column": 64,
+  "end_column": 89,
+  "text": "remote-käyttöympäristössä",
+  "category": "loan",
+  "correction": "etäkäyttöympäristössä"
+ },
+ {
+  "file": "tietosuojaohje-tutkimus.md",
+  "line": 29,
+  "column": 225,
+  "end_column": 233,
+  "text": "peitetän",
+  "category": "inflection",
+  "correction": "peitetään"
+ }
+]

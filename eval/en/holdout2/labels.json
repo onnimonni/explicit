@@ -1,0 +1,2279 @@
+[
+ {
+  "file": "code/elf.rs",
+  "line": 3,
+  "column": 65,
+  "end_column": 80,
+  "text": "an deliberately",
+  "category": "a_an",
+  "correction": "a deliberately"
+ },
+ {
+  "file": "code/elf.rs",
+  "line": 4,
+  "column": 18,
+  "end_column": 29,
+  "text": "rather then",
+  "category": "then_than",
+  "correction": "rather than"
+ },
+ {
+  "file": "code/elf.rs",
+  "line": 5,
+  "column": 5,
+  "end_column": 11,
+  "text": "handle",
+  "category": "agreement",
+  "correction": "handles"
+ },
+ {
+  "file": "code/elf.rs",
+  "line": 5,
+  "column": 45,
+  "end_column": 50,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "code/elf.rs",
+  "line": 16,
+  "column": 41,
+  "end_column": 49,
+  "text": "truncted",
+  "category": "spelling_1edit",
+  "correction": "truncated"
+ },
+ {
+  "file": "code/elf.rs",
+  "line": 30,
+  "column": 60,
+  "end_column": 63,
+  "text": "Its",
+  "category": "its_its",
+  "correction": "It's"
+ },
+ {
+  "file": "code/elf.rs",
+  "line": 32,
+  "column": 9,
+  "end_column": 14,
+  "text": "there",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "code/elf.rs",
+  "line": 48,
+  "column": 38,
+  "end_column": 42,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "code/elf.rs",
+  "line": 49,
+  "column": 15,
+  "end_column": 107,
+  "text": "The table is small, a few hundred entries at most, so this is about clarity more than speed.",
+  "category": "punctuation",
+  "correction": "The table is small, a few hundred entries at most; this is about clarity more than speed."
+ },
+ {
+  "file": "code/elf.rs",
+  "line": 68,
+  "column": 13,
+  "end_column": 20,
+  "text": "weather",
+  "category": "homophone",
+  "correction": "whether"
+ },
+ {
+  "file": "code/elf.rs",
+  "line": 69,
+  "column": 74,
+  "end_column": 82,
+  "text": "complian",
+  "category": "spelling",
+  "correction": "complain"
+ },
+ {
+  "file": "code/elf.rs",
+  "line": 92,
+  "column": 25,
+  "end_column": 31,
+  "text": "You're",
+  "category": "your_youre",
+  "correction": "Your"
+ },
+ {
+  "file": "code/elf.rs",
+  "line": 92,
+  "column": 58,
+  "end_column": 61,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "code/elf.rs",
+  "line": 93,
+  "column": 25,
+  "end_column": 30,
+  "text": "who's",
+  "category": "homophone",
+  "correction": "whose"
+ },
+ {
+  "file": "code/resolver.py",
+  "line": 4,
+  "column": 27,
+  "end_column": 33,
+  "text": "result",
+  "category": "agreement",
+  "correction": "results"
+ },
+ {
+  "file": "code/resolver.py",
+  "line": 5,
+  "column": 50,
+  "end_column": 136,
+  "text": "The negative cache is short, five seconds, NXDOMAIN is often transient during deploys.",
+  "category": "punctuation",
+  "correction": "The negative cache is short, five seconds; NXDOMAIN is often transient during deploys."
+ },
+ {
+  "file": "code/resolver.py",
+  "line": 19,
+  "column": 79,
+  "end_column": 91,
+  "text": "synchronised",
+  "category": "british",
+  "correction": "synchronized"
+ },
+ {
+  "file": "code/resolver.py",
+  "line": 33,
+  "column": 18,
+  "end_column": 21,
+  "text": "Its",
+  "category": "its_its",
+  "correction": "It's"
+ },
+ {
+  "file": "code/resolver.py",
+  "line": 33,
+  "column": 75,
+  "end_column": 80,
+  "text": "their",
+  "category": "their_there",
+  "correction": "there"
+ },
+ {
+  "file": "code/resolver.py",
+  "line": 46,
+  "column": 55,
+  "end_column": 62,
+  "text": "weather",
+  "category": "homophone",
+  "correction": "whether"
+ },
+ {
+  "file": "code/resolver.py",
+  "line": 48,
+  "column": 67,
+  "end_column": 111,
+  "text": "Deliberate, if a little chatty under outage.",
+  "category": "fragment",
+  "correction": "This is deliberate, if a little chatty under an outage."
+ },
+ {
+  "file": "code/resolver.py",
+  "line": 68,
+  "column": 40,
+  "end_column": 46,
+  "text": "dosent",
+  "category": "spelling",
+  "correction": "doesn't"
+ },
+ {
+  "file": "code/resolver.py",
+  "line": 79,
+  "column": 48,
+  "end_column": 54,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "code/resolver.py",
+  "line": 80,
+  "column": 9,
+  "end_column": 18,
+  "text": "principle",
+  "category": "homophone",
+  "correction": "principal"
+ },
+ {
+  "file": "code/resolver.py",
+  "line": 80,
+  "column": 53,
+  "end_column": 64,
+  "text": "rather then",
+  "category": "then_than",
+  "correction": "rather than"
+ },
+ {
+  "file": "code/resolver.py",
+  "line": 92,
+  "column": 37,
+  "end_column": 41,
+  "text": "it's",
+  "category": "its_its",
+  "correction": "its"
+ },
+ {
+  "file": "code/resolver.py",
+  "line": 93,
+  "column": 26,
+  "end_column": 38,
+  "text": "comprehensiv",
+  "category": "spelling",
+  "correction": "comprehensive"
+ },
+ {
+  "file": "code/resolver.py",
+  "line": 93,
+  "column": 50,
+  "end_column": 55,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 5,
+  "column": 19,
+  "end_column": 123,
+  "text": "The reconnect policy is deliberately boring, exponential backoff with full jitter, capped at 30 seconds.",
+  "category": "punctuation",
+  "correction": "The reconnect policy is deliberately boring: exponential backoff with full jitter, capped at 30 seconds."
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 6,
+  "column": 22,
+  "end_column": 26,
+  "text": "tend",
+  "category": "agreement",
+  "correction": "tends"
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 7,
+  "column": 4,
+  "end_column": 9,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 13,
+  "column": 65,
+  "end_column": 69,
+  "text": "drop",
+  "category": "agreement",
+  "correction": "drops"
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 20,
+  "column": 42,
+  "end_column": 49,
+  "text": "weather",
+  "category": "homophone",
+  "correction": "whether"
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 31,
+  "column": 43,
+  "end_column": 52,
+  "text": "an second",
+  "category": "a_an",
+  "correction": "a second"
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 37,
+  "column": 48,
+  "end_column": 51,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 49,
+  "column": 54,
+  "end_column": 58,
+  "text": "it's",
+  "category": "its_its",
+  "correction": "its"
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 50,
+  "column": 10,
+  "end_column": 14,
+  "text": "then",
+  "category": "then_than",
+  "correction": "than"
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 64,
+  "column": 42,
+  "end_column": 52,
+  "text": "diagnosics",
+  "category": "spelling_1edit",
+  "correction": "diagnostics"
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 73,
+  "column": 80,
+  "end_column": 85,
+  "text": "Their",
+  "category": "their_there",
+  "correction": "There"
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 74,
+  "column": 56,
+  "end_column": 59,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 79,
+  "column": 67,
+  "end_column": 73,
+  "text": "accept",
+  "category": "homophone",
+  "correction": "except"
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 80,
+  "column": 41,
+  "end_column": 48,
+  "text": "firefox",
+  "category": "capitalization",
+  "correction": "Firefox"
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 86,
+  "column": 35,
+  "end_column": 45,
+  "text": "imediately",
+  "category": "spelling",
+  "correction": "immediately"
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 87,
+  "column": 13,
+  "end_column": 19,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 87,
+  "column": 57,
+  "end_column": 66,
+  "text": "principal",
+  "category": "homophone",
+  "correction": "principle"
+ },
+ {
+  "file": "code/ws.ts",
+  "line": 88,
+  "column": 47,
+  "end_column": 51,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 6,
+  "column": 3,
+  "end_column": 10,
+  "text": "weather",
+  "category": "homophone",
+  "correction": "whether"
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 7,
+  "column": 75,
+  "end_column": 78,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 10,
+  "column": 3,
+  "end_column": 7,
+  "text": "were",
+  "category": "agreement",
+  "correction": "was"
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 16,
+  "column": 3,
+  "end_column": 94,
+  "text": "It is enabled again, and the sync is resumable, it picks up at the last acknowledged batch.",
+  "category": "punctuation",
+  "correction": "It is enabled again, and the sync is resumable; it picks up at the last acknowledged batch."
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 17,
+  "column": 65,
+  "end_column": 71,
+  "text": "colour",
+  "category": "british",
+  "correction": "color"
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 21,
+  "column": 43,
+  "end_column": 56,
+  "text": "occassionally",
+  "category": "spelling_1edit",
+  "correction": "occasionally"
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 22,
+  "column": 67,
+  "end_column": 78,
+  "text": "rather then",
+  "category": "then_than",
+  "correction": "rather than"
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 24,
+  "column": 23,
+  "end_column": 36,
+  "text": "Long overdue.",
+  "category": "fragment",
+  "correction": "This was long overdue."
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 29,
+  "column": 35,
+  "end_column": 40,
+  "text": "there",
+  "category": "their_there",
+  "correction": "they're"
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 35,
+  "column": 34,
+  "end_column": 39,
+  "text": "loose",
+  "category": "homophone",
+  "correction": "lose"
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 36,
+  "column": 57,
+  "end_column": 60,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 37,
+  "column": 3,
+  "end_column": 12,
+  "text": "incomplet",
+  "category": "spelling",
+  "correction": "incomplete"
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 38,
+  "column": 64,
+  "end_column": 70,
+  "text": "You're",
+  "category": "your_youre",
+  "correction": "Your"
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 41,
+  "column": 17,
+  "end_column": 23,
+  "text": "kotlin",
+  "category": "capitalization",
+  "correction": "Kotlin"
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 42,
+  "column": 28,
+  "end_column": 38,
+  "text": "An hundred",
+  "category": "a_an",
+  "correction": "A hundred"
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 42,
+  "column": 54,
+  "end_column": 58,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 48,
+  "column": 54,
+  "end_column": 59,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/CHANGELOG-pos.md",
+  "line": 49,
+  "column": 3,
+  "end_column": 10,
+  "text": "effects",
+  "category": "homophone",
+  "correction": "affects"
+ },
+ {
+  "file": "docs/README-stonecut.md",
+  "line": 15,
+  "column": 1,
+  "end_column": 5,
+  "text": "your",
+  "category": "your_youre",
+  "correction": "you're"
+ },
+ {
+  "file": "docs/README-stonecut.md",
+  "line": 26,
+  "column": 22,
+  "end_column": 26,
+  "text": "it's",
+  "category": "its_its",
+  "correction": "its"
+ },
+ {
+  "file": "docs/README-stonecut.md",
+  "line": 26,
+  "column": 78,
+  "end_column": 83,
+  "text": "who's",
+  "category": "homophone",
+  "correction": "whose"
+ },
+ {
+  "file": "docs/README-stonecut.md",
+  "line": 27,
+  "column": 60,
+  "end_column": 65,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/README-stonecut.md",
+  "line": 28,
+  "column": 29,
+  "end_column": 37,
+  "text": "writting",
+  "category": "spelling_1edit",
+  "correction": "writing"
+ },
+ {
+  "file": "docs/README-stonecut.md",
+  "line": 32,
+  "column": 40,
+  "end_column": 47,
+  "text": "contain",
+  "category": "agreement",
+  "correction": "contains"
+ },
+ {
+  "file": "docs/README-stonecut.md",
+  "line": 33,
+  "column": 9,
+  "end_column": 92,
+  "text": "Filters cover dates, slugs and word counts, anything else you write as a shortcode.",
+  "category": "punctuation",
+  "correction": "Filters cover dates, slugs and word counts; anything else you write as a shortcode."
+ },
+ {
+  "file": "docs/README-stonecut.md",
+  "line": 42,
+  "column": 48,
+  "end_column": 52,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/README-stonecut.md",
+  "line": 43,
+  "column": 25,
+  "end_column": 33,
+  "text": "genrates",
+  "category": "spelling",
+  "correction": "generates"
+ },
+ {
+  "file": "docs/README-stonecut.md",
+  "line": 43,
+  "column": 50,
+  "end_column": 55,
+  "text": "write",
+  "category": "homophone",
+  "correction": "right"
+ },
+ {
+  "file": "docs/README-stonecut.md",
+  "line": 49,
+  "column": 26,
+  "end_column": 35,
+  "text": "principle",
+  "category": "homophone",
+  "correction": "principal"
+ },
+ {
+  "file": "docs/README-stonecut.md",
+  "line": 54,
+  "column": 40,
+  "end_column": 46,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/README-stonecut.md",
+  "line": 55,
+  "column": 44,
+  "end_column": 96,
+  "text": "which is intentional,, CI should always start clean.",
+  "category": "punctuation",
+  "correction": "which is intentional; CI should always start clean."
+ },
+ {
+  "file": "docs/README-stonecut.md",
+  "line": 60,
+  "column": 25,
+  "end_column": 32,
+  "text": "an much",
+  "category": "a_an",
+  "correction": "a much"
+ },
+ {
+  "file": "docs/README-stonecut.md",
+  "line": 61,
+  "column": 1,
+  "end_column": 23,
+  "text": "Not better, different.",
+  "category": "fragment",
+  "correction": "It is not better, just different."
+ },
+ {
+  "file": "docs/README-stonecut.md",
+  "line": 61,
+  "column": 44,
+  "end_column": 50,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/README-stonecut.md",
+  "line": 67,
+  "column": 73,
+  "end_column": 78,
+  "text": "there",
+  "category": "their_there",
+  "correction": "they're"
+ },
+ {
+  "file": "docs/README-tmx-tool.md",
+  "line": 26,
+  "column": 59,
+  "end_column": 64,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/README-tmx-tool.md",
+  "line": 27,
+  "column": 15,
+  "end_column": 19,
+  "text": "need",
+  "category": "agreement",
+  "correction": "needs"
+ },
+ {
+  "file": "docs/README-tmx-tool.md",
+  "line": 33,
+  "column": 6,
+  "end_column": 83,
+  "text": "Lower it for morphologically rich targets like Finnish, raise it for English.",
+  "category": "punctuation",
+  "correction": "Lower it for morphologically rich targets like Finnish; raise it for English."
+ },
+ {
+  "file": "docs/README-tmx-tool.md",
+  "line": 35,
+  "column": 10,
+  "end_column": 15,
+  "text": "who's",
+  "category": "homophone",
+  "correction": "whose"
+ },
+ {
+  "file": "docs/README-tmx-tool.md",
+  "line": 35,
+  "column": 45,
+  "end_column": 50,
+  "text": "who's",
+  "category": "homophone",
+  "correction": "whose"
+ },
+ {
+  "file": "docs/README-tmx-tool.md",
+  "line": 36,
+  "column": 34,
+  "end_column": 83,
+  "text": "Usually a sign that two translators never talked.",
+  "category": "fragment",
+  "correction": "This is usually a sign that two translators never talked."
+ },
+ {
+  "file": "docs/README-tmx-tool.md",
+  "line": 47,
+  "column": 1,
+  "end_column": 12,
+  "text": "interprests",
+  "category": "spelling_1edit",
+  "correction": "interprets"
+ },
+ {
+  "file": "docs/README-tmx-tool.md",
+  "line": 47,
+  "column": 37,
+  "end_column": 43,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/README-tmx-tool.md",
+  "line": 53,
+  "column": 20,
+  "end_column": 25,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/README-tmx-tool.md",
+  "line": 53,
+  "column": 50,
+  "end_column": 53,
+  "text": "Its",
+  "category": "its_its",
+  "correction": "It's"
+ },
+ {
+  "file": "docs/README-tmx-tool.md",
+  "line": 54,
+  "column": 64,
+  "end_column": 70,
+  "text": "effect",
+  "category": "homophone",
+  "correction": "affect"
+ },
+ {
+  "file": "docs/README-tmx-tool.md",
+  "line": 55,
+  "column": 13,
+  "end_column": 18,
+  "text": "there",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/README-tmx-tool.md",
+  "line": 60,
+  "column": 36,
+  "end_column": 48,
+  "text": "paralellized",
+  "category": "spelling",
+  "correction": "parallelized"
+ },
+ {
+  "file": "docs/README-tmx-tool.md",
+  "line": 61,
+  "column": 40,
+  "end_column": 44,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/README-tmx-tool.md",
+  "line": 69,
+  "column": 47,
+  "end_column": 57,
+  "text": "An request",
+  "category": "a_an",
+  "correction": "A request"
+ },
+ {
+  "file": "docs/README-tmx-tool.md",
+  "line": 70,
+  "column": 23,
+  "end_column": 27,
+  "text": "then",
+  "category": "then_than",
+  "correction": "than"
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 10,
+  "column": 62,
+  "end_column": 67,
+  "text": "block",
+  "category": "agreement",
+  "correction": "blocks"
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 11,
+  "column": 60,
+  "end_column": 65,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 12,
+  "column": 23,
+  "end_column": 28,
+  "text": "there",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 27,
+  "column": 29,
+  "end_column": 34,
+  "text": "there",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 28,
+  "column": 41,
+  "end_column": 97,
+  "text": "Add `for` attributes, it is a one line change per field.",
+  "category": "punctuation",
+  "correction": "Add `for` attributes; it is a one line change per field."
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 32,
+  "column": 59,
+  "end_column": 63,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 34,
+  "column": 1,
+  "end_column": 8,
+  "text": "allmost",
+  "category": "spelling_1edit",
+  "correction": "almost"
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 38,
+  "column": 62,
+  "end_column": 68,
+  "text": "A ARIA",
+  "category": "a_an",
+  "correction": "An ARIA"
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 40,
+  "column": 1,
+  "end_column": 50,
+  "text": "Something like \"card number must have 16 digits\".",
+  "category": "fragment",
+  "correction": "Use something like \"card number must have 16 digits\"."
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 45,
+  "column": 56,
+  "end_column": 59,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 46,
+  "column": 13,
+  "end_column": 20,
+  "text": "weather",
+  "category": "homophone",
+  "correction": "whether"
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 59,
+  "column": 50,
+  "end_column": 106,
+  "text": "That ratio is typical, do not rely on the scanner alone.",
+  "category": "punctuation",
+  "correction": "That ratio is typical; do not rely on the scanner alone."
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 65,
+  "column": 36,
+  "end_column": 43,
+  "text": "disbled",
+  "category": "spelling",
+  "correction": "disabled"
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 65,
+  "column": 51,
+  "end_column": 57,
+  "text": "colour",
+  "category": "british",
+  "correction": "color"
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 66,
+  "column": 16,
+  "end_column": 23,
+  "text": "effects",
+  "category": "homophone",
+  "correction": "affects"
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 66,
+  "column": 59,
+  "end_column": 70,
+  "text": "rather then",
+  "category": "then_than",
+  "correction": "rather than"
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 69,
+  "column": 35,
+  "end_column": 41,
+  "text": "You're",
+  "category": "your_youre",
+  "correction": "Your"
+ },
+ {
+  "file": "docs/accessibility-audit.md",
+  "line": 70,
+  "column": 14,
+  "end_column": 24,
+  "text": "comparible",
+  "category": "spelling_1edit",
+  "correction": "comparable"
+ },
+ {
+  "file": "docs/cli-dnsctl.md",
+  "line": 4,
+  "column": 28,
+  "end_column": 34,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/cli-dnsctl.md",
+  "line": 5,
+  "column": 17,
+  "end_column": 21,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/cli-dnsctl.md",
+  "line": 11,
+  "column": 26,
+  "end_column": 74,
+  "text": "Nothing is written, run it as often as you like.",
+  "category": "punctuation",
+  "correction": "Nothing is written; run it as often as you like."
+ },
+ {
+  "file": "docs/cli-dnsctl.md",
+  "line": 13,
+  "column": 4,
+  "end_column": 17,
+  "text": "a unreachable",
+  "category": "a_an",
+  "correction": "an unreachable"
+ },
+ {
+  "file": "docs/cli-dnsctl.md",
+  "line": 17,
+  "column": 36,
+  "end_column": 44,
+  "text": "requires",
+  "category": "agreement",
+  "correction": "require"
+ },
+ {
+  "file": "docs/cli-dnsctl.md",
+  "line": 18,
+  "column": 48,
+  "end_column": 53,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/cli-dnsctl.md",
+  "line": 24,
+  "column": 45,
+  "end_column": 51,
+  "text": "usualy",
+  "category": "spelling_1edit",
+  "correction": "usually"
+ },
+ {
+  "file": "docs/cli-dnsctl.md",
+  "line": 30,
+  "column": 22,
+  "end_column": 30,
+  "text": "and than",
+  "category": "then_than",
+  "correction": "and then"
+ },
+ {
+  "file": "docs/cli-dnsctl.md",
+  "line": 42,
+  "column": 17,
+  "end_column": 22,
+  "text": "There",
+  "category": "their_there",
+  "correction": "They're"
+ },
+ {
+  "file": "docs/cli-dnsctl.md",
+  "line": 57,
+  "column": 57,
+  "end_column": 60,
+  "text": "Its",
+  "category": "its_its",
+  "correction": "It's"
+ },
+ {
+  "file": "docs/cli-dnsctl.md",
+  "line": 58,
+  "column": 35,
+  "end_column": 41,
+  "text": "catchs",
+  "category": "spelling",
+  "correction": "catches"
+ },
+ {
+  "file": "docs/cli-dnsctl.md",
+  "line": 68,
+  "column": 22,
+  "end_column": 33,
+  "text": "rather then",
+  "category": "then_than",
+  "correction": "rather than"
+ },
+ {
+  "file": "docs/cli-dnsctl.md",
+  "line": 73,
+  "column": 73,
+  "end_column": 80,
+  "text": "weather",
+  "category": "homophone",
+  "correction": "whether"
+ },
+ {
+  "file": "docs/cli-dnsctl.md",
+  "line": 74,
+  "column": 22,
+  "end_column": 28,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/design-k8s-operator.md",
+  "line": 10,
+  "column": 1,
+  "end_column": 3,
+  "text": "go",
+  "category": "agreement",
+  "correction": "goes"
+ },
+ {
+  "file": "docs/design-k8s-operator.md",
+  "line": 16,
+  "column": 1,
+  "end_column": 101,
+  "text": "The controller is level-triggered, it re-derives desired state from the resource on every reconcile.",
+  "category": "punctuation",
+  "correction": "The controller is level-triggered; it re-derives desired state from the resource on every reconcile."
+ },
+ {
+  "file": "docs/design-k8s-operator.md",
+  "line": 30,
+  "column": 16,
+  "end_column": 20,
+  "text": "walk",
+  "category": "agreement",
+  "correction": "walks"
+ },
+ {
+  "file": "docs/design-k8s-operator.md",
+  "line": 32,
+  "column": 54,
+  "end_column": 58,
+  "text": "Than",
+  "category": "then_than",
+  "correction": "Then"
+ },
+ {
+  "file": "docs/design-k8s-operator.md",
+  "line": 33,
+  "column": 9,
+  "end_column": 14,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/design-k8s-operator.md",
+  "line": 45,
+  "column": 48,
+  "end_column": 108,
+  "text": "A choice we may regret in storage costs, never in data loss.",
+  "category": "fragment",
+  "correction": "This is a choice we may regret in storage costs, never in data loss."
+ },
+ {
+  "file": "docs/design-k8s-operator.md",
+  "line": 46,
+  "column": 1,
+  "end_column": 11,
+  "text": "A operator",
+  "category": "a_an",
+  "correction": "An operator"
+ },
+ {
+  "file": "docs/design-k8s-operator.md",
+  "line": 51,
+  "column": 67,
+  "end_column": 73,
+  "text": "nothng",
+  "category": "spelling",
+  "correction": "nothing"
+ },
+ {
+  "file": "docs/design-k8s-operator.md",
+  "line": 53,
+  "column": 43,
+  "end_column": 46,
+  "text": "Its",
+  "category": "its_its",
+  "correction": "It's"
+ },
+ {
+  "file": "docs/design-k8s-operator.md",
+  "line": 54,
+  "column": 29,
+  "end_column": 33,
+  "text": "it's",
+  "category": "its_its",
+  "correction": "its"
+ },
+ {
+  "file": "docs/design-k8s-operator.md",
+  "line": 61,
+  "column": 40,
+  "end_column": 44,
+  "text": "then",
+  "category": "then_than",
+  "correction": "than"
+ },
+ {
+  "file": "docs/design-k8s-operator.md",
+  "line": 63,
+  "column": 21,
+  "end_column": 28,
+  "text": "excepts",
+  "category": "homophone",
+  "correction": "accepts"
+ },
+ {
+  "file": "docs/design-k8s-operator.md",
+  "line": 68,
+  "column": 90,
+  "end_column": 94,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/design-k8s-operator.md",
+  "line": 69,
+  "column": 39,
+  "end_column": 45,
+  "text": "You're",
+  "category": "your_youre",
+  "correction": "Your"
+ },
+ {
+  "file": "docs/design-k8s-operator.md",
+  "line": 70,
+  "column": 32,
+  "end_column": 37,
+  "text": "there",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/design-k8s-operator.md",
+  "line": 70,
+  "column": 47,
+  "end_column": 60,
+  "text": "needed before",
+  "category": "missing_extra_word",
+  "correction": "is needed before"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 3,
+  "column": 55,
+  "end_column": 60,
+  "text": "there",
+  "category": "their_there",
+  "correction": "they're"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 4,
+  "column": 36,
+  "end_column": 40,
+  "text": "then",
+  "category": "then_than",
+  "correction": "than"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 9,
+  "column": 67,
+  "end_column": 72,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 11,
+  "column": 62,
+  "end_column": 66,
+  "text": "it's",
+  "category": "its_its",
+  "correction": "its"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 17,
+  "column": 10,
+  "end_column": 17,
+  "text": "weather",
+  "category": "homophone",
+  "correction": "whether"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 18,
+  "column": 9,
+  "end_column": 13,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 18,
+  "column": 24,
+  "end_column": 31,
+  "text": "weather",
+  "category": "homophone",
+  "correction": "whether"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 19,
+  "column": 1,
+  "end_column": 100,
+  "text": "Do not add an exception to `deny.toml` yourself, exceptions need a name and a reason in the commit.",
+  "category": "punctuation",
+  "correction": "Do not add an exception to `deny.toml` yourself; exceptions need a name and a reason in the commit."
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 24,
+  "column": 12,
+  "end_column": 28,
+  "text": "a implementation",
+  "category": "a_an",
+  "correction": "an implementation"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 24,
+  "column": 51,
+  "end_column": 57,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 25,
+  "column": 12,
+  "end_column": 17,
+  "text": "right",
+  "category": "homophone",
+  "correction": "write"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 25,
+  "column": 45,
+  "end_column": 69,
+  "text": "Same for code from LLMs.",
+  "category": "fragment",
+  "correction": "The same applies to code from LLMs."
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 29,
+  "column": 43,
+  "end_column": 52,
+  "text": "regardles",
+  "category": "spelling_1edit",
+  "correction": "regardless"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 35,
+  "column": 27,
+  "end_column": 37,
+  "text": "a explicit",
+  "category": "a_an",
+  "correction": "an explicit"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 42,
+  "column": 28,
+  "end_column": 33,
+  "text": "Their",
+  "category": "their_there",
+  "correction": "There"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 42,
+  "column": 73,
+  "end_column": 76,
+  "text": "end",
+  "category": "agreement",
+  "correction": "ends"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 49,
+  "column": 35,
+  "end_column": 41,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 50,
+  "column": 43,
+  "end_column": 47,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 56,
+  "column": 42,
+  "end_column": 54,
+  "text": "automaticaly",
+  "category": "spelling_1edit",
+  "correction": "automatically"
+ },
+ {
+  "file": "docs/faq-licensing.md",
+  "line": 57,
+  "column": 14,
+  "end_column": 26,
+  "text": "occationally",
+  "category": "spelling",
+  "correction": "occasionally"
+ },
+ {
+  "file": "docs/guide-container-hardening.md",
+  "line": 11,
+  "column": 3,
+  "end_column": 7,
+  "text": "it's",
+  "category": "its_its",
+  "correction": "its"
+ },
+ {
+  "file": "docs/guide-container-hardening.md",
+  "line": 14,
+  "column": 24,
+  "end_column": 109,
+  "text": "A shell is not needed for debugging, use `kubectl debug` with an ephemeral container.",
+  "category": "punctuation",
+  "correction": "A shell is not needed for debugging; use `kubectl debug` with an ephemeral container."
+ },
+ {
+  "file": "docs/guide-container-hardening.md",
+  "line": 17,
+  "column": 62,
+  "end_column": 68,
+  "text": "reject",
+  "category": "agreement",
+  "correction": "rejects"
+ },
+ {
+  "file": "docs/guide-container-hardening.md",
+  "line": 23,
+  "column": 28,
+  "end_column": 59,
+  "text": "Cheap now, painful to backfill.",
+  "category": "fragment",
+  "correction": "It is cheap now and painful to backfill."
+ },
+ {
+  "file": "docs/guide-container-hardening.md",
+  "line": 25,
+  "column": 62,
+  "end_column": 69,
+  "text": "weather",
+  "category": "homophone",
+  "correction": "whether"
+ },
+ {
+  "file": "docs/guide-container-hardening.md",
+  "line": 26,
+  "column": 3,
+  "end_column": 8,
+  "text": "realy",
+  "category": "spelling_1edit",
+  "correction": "really"
+ },
+ {
+  "file": "docs/guide-container-hardening.md",
+  "line": 40,
+  "column": 50,
+  "end_column": 55,
+  "text": "makes",
+  "category": "agreement",
+  "correction": "make"
+ },
+ {
+  "file": "docs/guide-container-hardening.md",
+  "line": 42,
+  "column": 50,
+  "end_column": 61,
+  "text": "rather then",
+  "category": "then_than",
+  "correction": "rather than"
+ },
+ {
+  "file": "docs/guide-container-hardening.md",
+  "line": 43,
+  "column": 54,
+  "end_column": 59,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/guide-container-hardening.md",
+  "line": 49,
+  "column": 55,
+  "end_column": 66,
+  "text": "A unfixable",
+  "category": "a_an",
+  "correction": "An unfixable"
+ },
+ {
+  "file": "docs/guide-container-hardening.md",
+  "line": 50,
+  "column": 28,
+  "end_column": 37,
+  "text": "supressed",
+  "category": "spelling",
+  "correction": "suppressed"
+ },
+ {
+  "file": "docs/guide-container-hardening.md",
+  "line": 51,
+  "column": 15,
+  "end_column": 21,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/guide-container-hardening.md",
+  "line": 52,
+  "column": 12,
+  "end_column": 18,
+  "text": "except",
+  "category": "homophone",
+  "correction": "accept"
+ },
+ {
+  "file": "docs/guide-container-hardening.md",
+  "line": 56,
+  "column": 72,
+  "end_column": 76,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 10,
+  "column": 9,
+  "end_column": 13,
+  "text": "it's",
+  "category": "its_its",
+  "correction": "its"
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 11,
+  "column": 1,
+  "end_column": 6,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 11,
+  "column": 53,
+  "end_column": 136,
+  "text": "Check `errors` even on a 200, the transport status says nothing about field errors.",
+  "category": "punctuation",
+  "correction": "Check `errors` even on a 200; the transport status says nothing about field errors."
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 17,
+  "column": 17,
+  "end_column": 26,
+  "text": "a expired",
+  "category": "a_an",
+  "correction": "an expired"
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 32,
+  "column": 35,
+  "end_column": 39,
+  "text": "goes",
+  "category": "agreement",
+  "correction": "go"
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 33,
+  "column": 11,
+  "end_column": 16,
+  "text": "there",
+  "category": "their_there",
+  "correction": "they're"
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 33,
+  "column": 31,
+  "end_column": 37,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 34,
+  "column": 24,
+  "end_column": 30,
+  "text": "effect",
+  "category": "homophone",
+  "correction": "affect"
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 39,
+  "column": 40,
+  "end_column": 96,
+  "text": "Enough for any real UI, not enough to dump the database.",
+  "category": "fragment",
+  "correction": "That is enough for any real UI and not enough to dump the database."
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 41,
+  "column": 33,
+  "end_column": 44,
+  "text": "rather then",
+  "category": "then_than",
+  "correction": "rather than"
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 46,
+  "column": 36,
+  "end_column": 42,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 47,
+  "column": 33,
+  "end_column": 38,
+  "text": "Their",
+  "category": "their_there",
+  "correction": "There"
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 48,
+  "column": 9,
+  "end_column": 13,
+  "text": "Than",
+  "category": "then_than",
+  "correction": "Then"
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 61,
+  "column": 13,
+  "end_column": 43,
+  "text": "the query itself often too big",
+  "category": "missing_extra_word",
+  "correction": "the query itself is often too big"
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 62,
+  "column": 1,
+  "end_column": 13,
+  "text": "comfortabley",
+  "category": "spelling_1edit",
+  "correction": "comfortably"
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 67,
+  "column": 57,
+  "end_column": 67,
+  "text": "deduplicat",
+  "category": "spelling",
+  "correction": "deduplicate"
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 69,
+  "column": 42,
+  "end_column": 46,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/guide-graphql.md",
+  "line": 76,
+  "column": 37,
+  "end_column": 50,
+  "text": "authorisation",
+  "category": "british",
+  "correction": "authorization"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 8,
+  "column": 58,
+  "end_column": 63,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 10,
+  "column": 4,
+  "end_column": 31,
+  "text": "Not urgent, worth watching.",
+  "category": "missing_extra_word",
+  "correction": "Not urgent, but worth watching."
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 12,
+  "column": 28,
+  "end_column": 31,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 13,
+  "column": 59,
+  "end_column": 64,
+  "text": "Their",
+  "category": "their_there",
+  "correction": "They're"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 13,
+  "column": 65,
+  "end_column": 76,
+  "text": "generateing",
+  "category": "spelling_1edit",
+  "correction": "generating"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 15,
+  "column": 23,
+  "end_column": 34,
+  "text": "rather then",
+  "category": "then_than",
+  "correction": "rather than"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 20,
+  "column": 56,
+  "end_column": 80,
+  "text": "Postmortem not required.",
+  "category": "fragment",
+  "correction": "A postmortem is not required."
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 22,
+  "column": 71,
+  "end_column": 77,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 28,
+  "column": 3,
+  "end_column": 8,
+  "text": "start",
+  "category": "agreement",
+  "correction": "starts"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 28,
+  "column": 13,
+  "end_column": 18,
+  "text": "drain",
+  "category": "agreement",
+  "correction": "drains"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 32,
+  "column": 3,
+  "end_column": 8,
+  "text": "there",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 36,
+  "column": 48,
+  "end_column": 52,
+  "text": "drop",
+  "category": "agreement",
+  "correction": "drops"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 37,
+  "column": 34,
+  "end_column": 41,
+  "text": "weather",
+  "category": "homophone",
+  "correction": "whether"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 38,
+  "column": 10,
+  "end_column": 17,
+  "text": "excepts",
+  "category": "homophone",
+  "correction": "accepts"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 40,
+  "column": 3,
+  "end_column": 26,
+  "text": "Check Airflow scheduler",
+  "category": "missing_extra_word",
+  "correction": "Check the Airflow scheduler"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 45,
+  "column": 57,
+  "end_column": 69,
+  "text": "A escalation",
+  "category": "a_an",
+  "correction": "An escalation"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 46,
+  "column": 40,
+  "end_column": 53,
+  "text": "authorisation",
+  "category": "british",
+  "correction": "authorization"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 47,
+  "column": 9,
+  "end_column": 12,
+  "text": "its",
+  "category": "its_its",
+  "correction": "it's"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 51,
+  "column": 65,
+  "end_column": 72,
+  "text": "grafana",
+  "category": "capitalization",
+  "correction": "Grafana"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 52,
+  "column": 65,
+  "end_column": 72,
+  "text": "slighty",
+  "category": "spelling",
+  "correction": "slightly"
+ },
+ {
+  "file": "docs/oncall-handover.md",
+  "line": 53,
+  "column": 23,
+  "end_column": 27,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/protocol-telemetry.md",
+  "line": 5,
+  "column": 73,
+  "end_column": 81,
+  "text": "excepted",
+  "category": "homophone",
+  "correction": "accepted"
+ },
+ {
+  "file": "docs/protocol-telemetry.md",
+  "line": 19,
+  "column": 51,
+  "end_column": 174,
+  "text": "The timestamp epoch is deliberate, a 32-bit Unix timestamp would wrap in 2038 and these nodes are expected to outlive that.",
+  "category": "punctuation",
+  "correction": "The timestamp epoch is deliberate: a 32-bit Unix timestamp would wrap in 2038 and these nodes are expected to outlive that."
+ },
+ {
+  "file": "docs/protocol-telemetry.md",
+  "line": 23,
+  "column": 53,
+  "end_column": 58,
+  "text": "who's",
+  "category": "homophone",
+  "correction": "whose"
+ },
+ {
+  "file": "docs/protocol-telemetry.md",
+  "line": 25,
+  "column": 50,
+  "end_column": 53,
+  "text": "are",
+  "category": "agreement",
+  "correction": "is"
+ },
+ {
+  "file": "docs/protocol-telemetry.md",
+  "line": 38,
+  "column": 10,
+  "end_column": 14,
+  "text": "send",
+  "category": "agreement",
+  "correction": "sends"
+ },
+ {
+  "file": "docs/protocol-telemetry.md",
+  "line": 38,
+  "column": 57,
+  "end_column": 61,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/protocol-telemetry.md",
+  "line": 39,
+  "column": 60,
+  "end_column": 87,
+  "text": "No exceptions, no clamping.",
+  "category": "fragment",
+  "correction": "There are no exceptions and no clamping."
+ },
+ {
+  "file": "docs/protocol-telemetry.md",
+  "line": 41,
+  "column": 3,
+  "end_column": 6,
+  "text": "Its",
+  "category": "its_its",
+  "correction": "It's"
+ },
+ {
+  "file": "docs/protocol-telemetry.md",
+  "line": 41,
+  "column": 17,
+  "end_column": 22,
+  "text": "loose",
+  "category": "homophone",
+  "correction": "lose"
+ },
+ {
+  "file": "docs/protocol-telemetry.md",
+  "line": 41,
+  "column": 33,
+  "end_column": 37,
+  "text": "then",
+  "category": "then_than",
+  "correction": "than"
+ },
+ {
+  "file": "docs/protocol-telemetry.md",
+  "line": 46,
+  "column": 10,
+  "end_column": 15,
+  "text": "Their",
+  "category": "their_there",
+  "correction": "They're"
+ },
+ {
+  "file": "docs/protocol-telemetry.md",
+  "line": 46,
+  "column": 16,
+  "end_column": 23,
+  "text": "upgarde",
+  "category": "spelling_1edit",
+  "correction": "upgrade"
+ },
+ {
+  "file": "docs/protocol-telemetry.md",
+  "line": 47,
+  "column": 22,
+  "end_column": 27,
+  "text": "there",
+  "category": "their_there",
+  "correction": "their"
+ },
+ {
+  "file": "docs/protocol-telemetry.md",
+  "line": 48,
+  "column": 78,
+  "end_column": 85,
+  "text": "weather",
+  "category": "homophone",
+  "correction": "whether"
+ },
+ {
+  "file": "docs/protocol-telemetry.md",
+  "line": 49,
+  "column": 31,
+  "end_column": 36,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/protocol-telemetry.md",
+  "line": 59,
+  "column": 26,
+  "end_column": 35,
+  "text": "encodeing",
+  "category": "spelling",
+  "correction": "encoding"
+ },
+ {
+  "file": "docs/protocol-telemetry.md",
+  "line": 59,
+  "column": 52,
+  "end_column": 58,
+  "text": "You're",
+  "category": "your_youre",
+  "correction": "Your"
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 11,
+  "column": 52,
+  "end_column": 56,
+  "text": "wait",
+  "category": "agreement",
+  "correction": "waits"
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 19,
+  "column": 44,
+  "end_column": 134,
+  "text": "The `--force` flag is required, without it the job refuses to recompute an approved month.",
+  "category": "punctuation",
+  "correction": "The `--force` flag is required; without it the job refuses to recompute an approved month."
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 24,
+  "column": 6,
+  "end_column": 14,
+  "text": "recieved",
+  "category": "spelling_1edit",
+  "correction": "received"
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 24,
+  "column": 18,
+  "end_column": 25,
+  "text": "there's",
+  "category": "their_there",
+  "correction": "theirs"
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 26,
+  "column": 38,
+  "end_column": 58,
+  "text": "Never for all three.",
+  "category": "fragment",
+  "correction": "Never rerun it for all three."
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 28,
+  "column": 37,
+  "end_column": 42,
+  "text": "dredd",
+  "category": "spelling",
+  "correction": "dread"
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 28,
+  "column": 69,
+  "end_column": 73,
+  "text": "than",
+  "category": "then_than",
+  "correction": "then"
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 29,
+  "column": 61,
+  "end_column": 64,
+  "text": "Its",
+  "category": "its_its",
+  "correction": "It's"
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 35,
+  "column": 13,
+  "end_column": 18,
+  "text": "who's",
+  "category": "homophone",
+  "correction": "whose"
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 36,
+  "column": 29,
+  "end_column": 35,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 36,
+  "column": 69,
+  "end_column": 75,
+  "text": "you're",
+  "category": "your_youre",
+  "correction": "your"
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 48,
+  "column": 66,
+  "end_column": 72,
+  "text": "except",
+  "category": "homophone",
+  "correction": "accept"
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 50,
+  "column": 1,
+  "end_column": 8,
+  "text": "effects",
+  "category": "homophone",
+  "correction": "affects"
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 56,
+  "column": 57,
+  "end_column": 62,
+  "text": "typst",
+  "category": "capitalization",
+  "correction": "Typst"
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 62,
+  "column": 43,
+  "end_column": 53,
+  "text": "anonymised",
+  "category": "british",
+  "correction": "anonymized"
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 62,
+  "column": 63,
+  "end_column": 68,
+  "text": "witch",
+  "category": "homophone",
+  "correction": "which"
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 63,
+  "column": 24,
+  "end_column": 31,
+  "text": "A audit",
+  "category": "a_an",
+  "correction": "An audit"
+ },
+ {
+  "file": "docs/runbook-payroll-batch.md",
+  "line": 64,
+  "column": 1,
+  "end_column": 6,
+  "text": "there",
+  "category": "their_there",
+  "correction": "they're"
+ }
+]

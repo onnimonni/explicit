@@ -1,0 +1,2810 @@
+[
+ {
+  "file": "code/csvsplit.rs",
+  "line": 1,
+  "column": 15,
+  "end_column": 18,
+  "text": "CSV",
+  "kind": "acronym"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 1,
+  "column": 36,
+  "end_column": 44,
+  "text": "roastlog",
+  "kind": "crate"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 3,
+  "column": 71,
+  "end_column": 74,
+  "text": "csv",
+  "kind": "crate"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 4,
+  "column": 9,
+  "end_column": 15,
+  "text": "memchr",
+  "kind": "crate"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 4,
+  "column": 58,
+  "end_column": 61,
+  "text": "10x",
+  "kind": "unit"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 5,
+  "column": 39,
+  "end_column": 42,
+  "text": "2GB",
+  "kind": "unit"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 12,
+  "column": 35,
+  "end_column": 37,
+  "text": "10",
+  "kind": "unit"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 13,
+  "column": 5,
+  "end_column": 8,
+  "text": "ISO",
+  "kind": "acronym"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 14,
+  "column": 11,
+  "end_column": 24,
+  "text": "`unknown.csv`",
+  "kind": "code"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 51,
+  "column": 65,
+  "end_column": 68,
+  "text": "csv",
+  "kind": "crate"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 52,
+  "column": 26,
+  "end_column": 33,
+  "text": "they're",
+  "kind": "correct"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 71,
+  "column": 12,
+  "end_column": 20,
+  "text": "reusable",
+  "kind": "derived"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 71,
+  "column": 32,
+  "end_column": 33,
+  "text": "3",
+  "kind": "unit"
+ },
+ {
+  "file": "code/csvsplit.rs",
+  "line": 72,
+  "column": 41,
+  "end_column": 49,
+  "text": "plotters",
+  "kind": "crate"
+ },
+ {
+  "file": "code/units.py",
+  "line": 3,
+  "column": 37,
+  "end_column": 44,
+  "text": "Artisan",
+  "kind": "product"
+ },
+ {
+  "file": "code/units.py",
+  "line": 4,
+  "column": 1,
+  "end_column": 9,
+  "text": "Cropster",
+  "kind": "product"
+ },
+ {
+  "file": "code/units.py",
+  "line": 69,
+  "column": 24,
+  "end_column": 27,
+  "text": "2Hz",
+  "kind": "unit"
+ },
+ {
+  "file": "code/units.py",
+  "line": 69,
+  "column": 31,
+  "end_column": 33,
+  "text": "60",
+  "kind": "unit"
+ },
+ {
+  "file": "code/units.py",
+  "line": 83,
+  "column": 50,
+  "end_column": 52,
+  "text": "40",
+  "kind": "unit"
+ },
+ {
+  "file": "code/units.py",
+  "line": 84,
+  "column": 7,
+  "end_column": 14,
+  "text": "Pi Zero",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 8,
+  "column": 5,
+  "end_column": 14,
+  "text": "Metsähovi",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 8,
+  "column": 35,
+  "end_column": 38,
+  "text": "4TB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 8,
+  "column": 68,
+  "end_column": 72,
+  "text": "FITS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 9,
+  "column": 25,
+  "end_column": 35,
+  "text": "JupyterHub",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 9,
+  "column": 41,
+  "end_column": 48,
+  "text": "astropy",
+  "kind": "crate"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 10,
+  "column": 1,
+  "end_column": 6,
+  "text": "200GB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 10,
+  "column": 46,
+  "end_column": 50,
+  "text": "FITS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 11,
+  "column": 14,
+  "end_column": 17,
+  "text": "NFS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 11,
+  "column": 19,
+  "end_column": 34,
+  "text": "Noora Heikkinen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 11,
+  "column": 44,
+  "end_column": 54,
+  "text": "40 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 12,
+  "column": 6,
+  "end_column": 10,
+  "text": "0.5%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 16,
+  "column": 7,
+  "end_column": 11,
+  "text": "Zarr",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 16,
+  "column": 12,
+  "end_column": 14,
+  "text": "v3",
+  "kind": "version"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 17,
+  "column": 1,
+  "end_column": 5,
+  "text": "FITS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 18,
+  "column": 1,
+  "end_column": 11,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 18,
+  "column": 41,
+  "end_column": 51,
+  "text": "`zarr_url`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 22,
+  "column": 23,
+  "end_column": 32,
+  "text": "9 seconds",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 23,
+  "column": 37,
+  "end_column": 41,
+  "text": "FITS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 23,
+  "column": 59,
+  "end_column": 68,
+  "text": "an hourly",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 25,
+  "column": 3,
+  "end_column": 7,
+  "text": "CASA",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 25,
+  "column": 45,
+  "end_column": 46,
+  "text": "3",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 26,
+  "column": 3,
+  "end_column": 7,
+  "text": "Zarr",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 26,
+  "column": 11,
+  "end_column": 26,
+  "text": "measurement set",
+  "kind": "term"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 27,
+  "column": 28,
+  "end_column": 31,
+  "text": "15%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 31,
+  "column": 8,
+  "end_column": 12,
+  "text": "FITS",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 31,
+  "column": 18,
+  "end_column": 22,
+  "text": "Dask",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 32,
+  "column": 42,
+  "end_column": 45,
+  "text": "HDU",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 34,
+  "column": 3,
+  "end_column": 7,
+  "text": "HDF5",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 34,
+  "column": 58,
+  "end_column": 59,
+  "text": "8",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 35,
+  "column": 1,
+  "end_column": 7,
+  "text": "MPI-IO",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 37,
+  "column": 3,
+  "end_column": 10,
+  "text": "Parquet",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 39,
+  "column": 1,
+  "end_column": 19,
+  "text": "calibration tables",
+  "kind": "term"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 39,
+  "column": 55,
+  "end_column": 62,
+  "text": "Parquet",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 43,
+  "column": 1,
+  "end_column": 5,
+  "text": "Zarr",
+  "kind": "product"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 43,
+  "column": 6,
+  "end_column": 8,
+  "text": "v3",
+  "kind": "version"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 43,
+  "column": 30,
+  "end_column": 41,
+  "text": "zarr-python",
+  "kind": "crate"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 44,
+  "column": 16,
+  "end_column": 18,
+  "text": "v2",
+  "kind": "version"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 45,
+  "column": 41,
+  "end_column": 44,
+  "text": "4TB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/ADR-012-astronomy-pipeline.md",
+  "line": 47,
+  "column": 1,
+  "end_column": 8,
+  "text": "3 weeks",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 3,
+  "column": 37,
+  "end_column": 40,
+  "text": "PDF",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 4,
+  "column": 5,
+  "end_column": 10,
+  "text": "Ricoh",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 4,
+  "column": 15,
+  "end_column": 20,
+  "text": "Xerox",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 4,
+  "column": 34,
+  "end_column": 37,
+  "text": "IPP",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 8,
+  "column": 3,
+  "end_column": 16,
+  "text": "feat(impose):",
+  "kind": "scope"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 8,
+  "column": 61,
+  "end_column": 63,
+  "text": "64",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 9,
+  "column": 22,
+  "end_column": 42,
+  "text": "fixtures/booklet.pdf",
+  "kind": "path"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 10,
+  "column": 3,
+  "end_column": 13,
+  "text": "feat(api):",
+  "kind": "scope"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 10,
+  "column": 14,
+  "end_column": 32,
+  "text": "`GET /jobs?state=`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 12,
+  "column": 3,
+  "end_column": 12,
+  "text": "fix(ipp):",
+  "kind": "scope"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 12,
+  "column": 17,
+  "end_column": 22,
+  "text": "Xerox",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 12,
+  "column": 23,
+  "end_column": 26,
+  "text": "C60",
+  "kind": "version"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 13,
+  "column": 3,
+  "end_column": 14,
+  "text": "`media-col`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 13,
+  "column": 50,
+  "end_column": 57,
+  "text": "`media`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 14,
+  "column": 3,
+  "end_column": 11,
+  "text": "*(deps)*",
+  "kind": "scope"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 14,
+  "column": 12,
+  "end_column": 17,
+  "text": "lopdf",
+  "kind": "crate"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 14,
+  "column": 18,
+  "end_column": 22,
+  "text": "0.34",
+  "kind": "version"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 14,
+  "column": 24,
+  "end_column": 27,
+  "text": "ipp",
+  "kind": "crate"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 14,
+  "column": 28,
+  "end_column": 31,
+  "text": "5.1",
+  "kind": "version"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 18,
+  "column": 3,
+  "end_column": 15,
+  "text": "fix(upload):",
+  "kind": "scope"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 18,
+  "column": 18,
+  "end_column": 21,
+  "text": "PDF",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 18,
+  "column": 32,
+  "end_column": 40,
+  "text": "`/Pages`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 19,
+  "column": 3,
+  "end_column": 5,
+  "text": "32",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 20,
+  "column": 3,
+  "end_column": 11,
+  "text": "fix(ui):",
+  "kind": "scope"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 24,
+  "column": 3,
+  "end_column": 19,
+  "text": "perf(preflight):",
+  "kind": "scope"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 24,
+  "column": 68,
+  "end_column": 71,
+  "text": "400",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 25,
+  "column": 26,
+  "end_column": 28,
+  "text": "3s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 25,
+  "column": 41,
+  "end_column": 44,
+  "text": "40s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 26,
+  "column": 3,
+  "end_column": 8,
+  "text": "docs:",
+  "kind": "scope"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 30,
+  "column": 3,
+  "end_column": 12,
+  "text": "fix(ipp):",
+  "kind": "scope"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 30,
+  "column": 27,
+  "end_column": 39,
+  "text": "`processing`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 32,
+  "column": 3,
+  "end_column": 12,
+  "text": "fix(api):",
+  "kind": "scope"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 32,
+  "column": 13,
+  "end_column": 32,
+  "text": "`DELETE /jobs/{id}`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 32,
+  "column": 57,
+  "end_column": 67,
+  "text": "`printing`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 33,
+  "column": 15,
+  "end_column": 20,
+  "text": "`409`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 33,
+  "column": 26,
+  "end_column": 31,
+  "text": "`204`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 37,
+  "column": 3,
+  "end_column": 14,
+  "text": "feat(auth):",
+  "kind": "scope"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 37,
+  "column": 38,
+  "end_column": 41,
+  "text": "SSO",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 38,
+  "column": 3,
+  "end_column": 17,
+  "text": "feat(reports):",
+  "kind": "scope"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 38,
+  "column": 18,
+  "end_column": 30,
+  "text": "downloadable",
+  "kind": "derived"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 38,
+  "column": 59,
+  "end_column": 62,
+  "text": "CSV",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 38,
+  "column": 67,
+  "end_column": 70,
+  "text": "PDF",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 39,
+  "column": 20,
+  "end_column": 25,
+  "text": "02:00",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 39,
+  "column": 55,
+  "end_column": 62,
+  "text": "2 years",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 40,
+  "column": 3,
+  "end_column": 12,
+  "text": "refactor:",
+  "kind": "scope"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 40,
+  "column": 51,
+  "end_column": 64,
+  "text": "printq-impose",
+  "kind": "crate"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 41,
+  "column": 3,
+  "end_column": 8,
+  "text": "Ricoh",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 41,
+  "column": 51,
+  "end_column": 69,
+  "text": "They asked nicely.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 45,
+  "column": 3,
+  "end_column": 18,
+  "text": "fix(preflight):",
+  "kind": "scope"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 45,
+  "column": 19,
+  "end_column": 23,
+  "text": "CMYK",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 45,
+  "column": 48,
+  "end_column": 51,
+  "text": "ICC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 46,
+  "column": 3,
+  "end_column": 6,
+  "text": "RGB",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 46,
+  "column": 20,
+  "end_column": 35,
+  "text": "Noora Heikkinen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 48,
+  "column": 3,
+  "end_column": 9,
+  "text": "chore:",
+  "kind": "scope"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 48,
+  "column": 10,
+  "end_column": 14,
+  "text": "Rust",
+  "kind": "product"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 48,
+  "column": 15,
+  "end_column": 19,
+  "text": "1.88",
+  "kind": "version"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 48,
+  "column": 21,
+  "end_column": 25,
+  "text": "MSRV",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/CHANGELOG-printq.md",
+  "line": 48,
+  "column": 29,
+  "end_column": 33,
+  "text": "1.85",
+  "kind": "version"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 4,
+  "column": 1,
+  "end_column": 8,
+  "text": "Phidget",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 4,
+  "column": 12,
+  "end_column": 19,
+  "text": "Artisan",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 4,
+  "column": 42,
+  "end_column": 45,
+  "text": "USB",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 5,
+  "column": 1,
+  "end_column": 4,
+  "text": "2Hz",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 5,
+  "column": 31,
+  "end_column": 34,
+  "text": "CSV",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 5,
+  "column": 40,
+  "end_column": 43,
+  "text": "PNG",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 5,
+  "column": 61,
+  "end_column": 78,
+  "text": "Raspberry Pi Zero",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 13,
+  "column": 22,
+  "end_column": 32,
+  "text": "serialport",
+  "kind": "crate"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 13,
+  "column": 34,
+  "end_column": 37,
+  "text": "csv",
+  "kind": "crate"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 13,
+  "column": 42,
+  "end_column": 50,
+  "text": "plotters",
+  "kind": "crate"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 13,
+  "column": 52,
+  "end_column": 57,
+  "text": "Linux",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 14,
+  "column": 1,
+  "end_column": 10,
+  "text": "`dialout`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 14,
+  "column": 61,
+  "end_column": 64,
+  "text": "5MB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 22,
+  "column": 7,
+  "end_column": 10,
+  "text": "`c`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 22,
+  "column": 30,
+  "end_column": 33,
+  "text": "`d`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 23,
+  "column": 1,
+  "end_column": 4,
+  "text": "CSV",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 26,
+  "column": 5,
+  "end_column": 13,
+  "text": "reusable",
+  "kind": "derived"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 28,
+  "column": 48,
+  "end_column": 55,
+  "text": "Pi Zero",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 35,
+  "column": 3,
+  "end_column": 10,
+  "text": "`--ror`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 35,
+  "column": 13,
+  "end_column": 15,
+  "text": "on",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 35,
+  "column": 18,
+  "end_column": 42,
+  "text": "rate of rise, 30s window",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 36,
+  "column": 3,
+  "end_column": 13,
+  "text": "`--events`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 36,
+  "column": 16,
+  "end_column": 18,
+  "text": "on",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 36,
+  "column": 21,
+  "end_column": 43,
+  "text": "crack and drop markers",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 37,
+  "column": 3,
+  "end_column": 10,
+  "text": "`--dpi`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 37,
+  "column": 13,
+  "end_column": 16,
+  "text": "120",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 37,
+  "column": 19,
+  "end_column": 33,
+  "text": "PNG resolution",
+  "kind": "table"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 39,
+  "column": 28,
+  "end_column": 31,
+  "text": "30s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 40,
+  "column": 24,
+  "end_column": 36,
+  "text": "thermocouple",
+  "kind": "term"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 40,
+  "column": 56,
+  "end_column": 59,
+  "text": "15s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 44,
+  "column": 1,
+  "end_column": 4,
+  "text": "CSV",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 44,
+  "column": 17,
+  "end_column": 36,
+  "text": "`t,bt,et,ror,event`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 44,
+  "column": 50,
+  "end_column": 60,
+  "text": "importable",
+  "kind": "derived"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 45,
+  "column": 1,
+  "end_column": 8,
+  "text": "Artisan",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 45,
+  "column": 13,
+  "end_column": 21,
+  "text": "Cropster",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 51,
+  "column": 3,
+  "end_column": 52,
+  "text": "Type K probes only; type T reads low above 200 °C",
+  "kind": "list"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 52,
+  "column": 3,
+  "end_column": 54,
+  "text": "Keep the USB cable away from the gas valve solenoid",
+  "kind": "list"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 53,
+  "column": 3,
+  "end_column": 38,
+  "text": "A powered hub if you run two probes",
+  "kind": "list"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 55,
+  "column": 13,
+  "end_column": 22,
+  "text": "Bluetooth",
+  "kind": "product"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 59,
+  "column": 34,
+  "end_column": 51,
+  "text": "roastlog-profiles",
+  "kind": "linktext"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 59,
+  "column": 64,
+  "end_column": 77,
+  "text": "Aada Virtanen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 60,
+  "column": 34,
+  "end_column": 45,
+  "text": "Sixten Holm",
+  "kind": "name"
+ },
+ {
+  "file": "docs/README-roastlog.md",
+  "line": 60,
+  "column": 68,
+  "end_column": 74,
+  "text": "you're",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 3,
+  "column": 9,
+  "end_column": 20,
+  "text": "Sixten Holm",
+  "kind": "name"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 4,
+  "column": 12,
+  "end_column": 25,
+  "text": "Aada Virtanen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 4,
+  "column": 27,
+  "end_column": 42,
+  "text": "Noora Heikkinen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 8,
+  "column": 13,
+  "end_column": 17,
+  "text": "Solr",
+  "kind": "product"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 8,
+  "column": 38,
+  "end_column": 49,
+  "text": "Meilisearch",
+  "kind": "product"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 9,
+  "column": 52,
+  "end_column": 56,
+  "text": "ISBN",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 10,
+  "column": 7,
+  "end_column": 11,
+  "text": "50ms",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 10,
+  "column": 30,
+  "end_column": 34,
+  "text": "MARC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 10,
+  "column": 64,
+  "end_column": 68,
+  "text": "Solr",
+  "kind": "product"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 14,
+  "column": 18,
+  "end_column": 38,
+  "text": "bibliographic record",
+  "kind": "term"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 14,
+  "column": 40,
+  "end_column": 44,
+  "text": "1.8M",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 15,
+  "column": 54,
+  "end_column": 57,
+  "text": "40k",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 16,
+  "column": 12,
+  "end_column": 23,
+  "text": "Meilisearch",
+  "kind": "product"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 17,
+  "column": 1,
+  "end_column": 5,
+  "text": "ISBN",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 19,
+  "column": 5,
+  "end_column": 15,
+  "text": "searchable",
+  "kind": "derived"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 19,
+  "column": 54,
+  "end_column": 64,
+  "text": "filterable",
+  "kind": "derived"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 20,
+  "column": 28,
+  "end_column": 42,
+  "text": "Typo tolerance",
+  "kind": "term"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 20,
+  "column": 65,
+  "end_column": 66,
+  "text": "4",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 21,
+  "column": 1,
+  "end_column": 5,
+  "text": "ISBN",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 25,
+  "column": 21,
+  "end_column": 37,
+  "text": "`available:desc`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 31,
+  "column": 1,
+  "end_column": 12,
+  "text": "Meilisearch",
+  "kind": "product"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 31,
+  "column": 52,
+  "end_column": 64,
+  "text": "Tove Jansson",
+  "kind": "name"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 31,
+  "column": 71,
+  "end_column": 84,
+  "text": "Jansson, Tove",
+  "kind": "name"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 32,
+  "column": 43,
+  "end_column": 46,
+  "text": "600",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 37,
+  "column": 16,
+  "end_column": 23,
+  "text": "4 weeks",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 37,
+  "column": 43,
+  "end_column": 45,
+  "text": "5%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 44,
+  "column": 3,
+  "end_column": 14,
+  "text": "Meilisearch",
+  "kind": "product"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 45,
+  "column": 26,
+  "end_column": 30,
+  "text": "Solr",
+  "kind": "product"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 46,
+  "column": 24,
+  "end_column": 27,
+  "text": "6GB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 46,
+  "column": 46,
+  "end_column": 49,
+  "text": "8GB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 46,
+  "column": 53,
+  "end_column": 56,
+  "text": "RAM",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 48,
+  "column": 24,
+  "end_column": 28,
+  "text": "Solr",
+  "kind": "product"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 48,
+  "column": 35,
+  "end_column": 37,
+  "text": "UI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 49,
+  "column": 3,
+  "end_column": 14,
+  "text": "Meilisearch",
+  "kind": "product"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 49,
+  "column": 32,
+  "end_column": 35,
+  "text": "80%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 49,
+  "column": 56,
+  "end_column": 59,
+  "text": "CLI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 53,
+  "column": 40,
+  "end_column": 42,
+  "text": "3x",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 53,
+  "column": 68,
+  "end_column": 70,
+  "text": "2%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 55,
+  "column": 26,
+  "end_column": 29,
+  "text": "API",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/design-catalog-search.md",
+  "line": 56,
+  "column": 4,
+  "end_column": 10,
+  "text": "4-week",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 5,
+  "column": 1,
+  "end_column": 7,
+  "text": "`M115`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 5,
+  "column": 13,
+  "end_column": 16,
+  "text": "USB",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 5,
+  "column": 53,
+  "end_column": 58,
+  "text": "3.4.0",
+  "kind": "version"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 11,
+  "column": 6,
+  "end_column": 18,
+  "text": "firmware.bin",
+  "kind": "path"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 11,
+  "column": 26,
+  "end_column": 28,
+  "text": "SD",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 12,
+  "column": 34,
+  "end_column": 46,
+  "text": "firmware.cur",
+  "kind": "path"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 13,
+  "column": 40,
+  "end_column": 49,
+  "text": "2 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 18,
+  "column": 31,
+  "end_column": 35,
+  "text": "32GB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 18,
+  "column": 49,
+  "end_column": 54,
+  "text": "exFAT",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 19,
+  "column": 5,
+  "end_column": 10,
+  "text": "FAT32",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 25,
+  "column": 37,
+  "end_column": 39,
+  "text": "5s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 25,
+  "column": 63,
+  "end_column": 66,
+  "text": "DFU",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 26,
+  "column": 47,
+  "end_column": 55,
+  "text": "dfu-util",
+  "kind": "product"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 32,
+  "column": 27,
+  "end_column": 29,
+  "text": "SD",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 32,
+  "column": 37,
+  "end_column": 44,
+  "text": "there's",
+  "kind": "correct"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 33,
+  "column": 20,
+  "end_column": 23,
+  "text": "DFU",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 38,
+  "column": 1,
+  "end_column": 8,
+  "text": "Klipper",
+  "kind": "product"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 38,
+  "column": 13,
+  "end_column": 19,
+  "text": "Marlin",
+  "kind": "product"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 39,
+  "column": 69,
+  "end_column": 81,
+  "text": "v3-community",
+  "kind": "linktext"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 40,
+  "column": 23,
+  "end_column": 29,
+  "text": "Marlin",
+  "kind": "product"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 40,
+  "column": 30,
+  "end_column": 33,
+  "text": "2.1",
+  "kind": "version"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 51,
+  "column": 22,
+  "end_column": 28,
+  "text": "`M115`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 51,
+  "column": 41,
+  "end_column": 47,
+  "text": "G-code",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 51,
+  "column": 60,
+  "end_column": 69,
+  "text": "shareable",
+  "kind": "derived"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 52,
+  "column": 26,
+  "end_column": 38,
+  "text": "reproducible",
+  "kind": "derived"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 52,
+  "column": 40,
+  "end_column": 53,
+  "text": "Aada Virtanen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/faq-3d-printer-firmware.md",
+  "line": 53,
+  "column": 30,
+  "end_column": 36,
+  "text": "G-code",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 3,
+  "column": 71,
+  "end_column": 75,
+  "text": "SOAP",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 4,
+  "column": 6,
+  "end_column": 8,
+  "text": "v1",
+  "kind": "version"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 4,
+  "column": 19,
+  "end_column": 21,
+  "text": "v2",
+  "kind": "version"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 4,
+  "column": 22,
+  "end_column": 26,
+  "text": "REST",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 4,
+  "column": 39,
+  "end_column": 49,
+  "text": "2027-03-31",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 5,
+  "column": 44,
+  "end_column": 51,
+  "text": "Shopify",
+  "kind": "product"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 11,
+  "column": 3,
+  "end_column": 18,
+  "text": "`POST /tickets`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 11,
+  "column": 21,
+  "end_column": 41,
+  "text": "`POST /reservations`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 11,
+  "column": 44,
+  "end_column": 57,
+  "text": "slot required",
+  "kind": "table"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 12,
+  "column": 3,
+  "end_column": 22,
+  "text": "`GET /tickets/{id}`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 12,
+  "column": 25,
+  "end_column": 49,
+  "text": "`GET /reservations/{id}`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 12,
+  "column": 52,
+  "end_column": 74,
+  "text": "same shape plus `slot`",
+  "kind": "table"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 13,
+  "column": 3,
+  "end_column": 25,
+  "text": "`DELETE /tickets/{id}`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 13,
+  "column": 28,
+  "end_column": 60,
+  "text": "`POST /reservations/{id}/cancel`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 13,
+  "column": 63,
+  "end_column": 84,
+  "text": "returns refund status",
+  "kind": "table"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 14,
+  "column": 3,
+  "end_column": 16,
+  "text": "`GET /prices`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 14,
+  "column": 19,
+  "end_column": 37,
+  "text": "`GET /slots?date=`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 14,
+  "column": 40,
+  "end_column": 59,
+  "text": "prices are per slot",
+  "kind": "table"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 16,
+  "column": 26,
+  "end_column": 28,
+  "text": "20",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 17,
+  "column": 32,
+  "end_column": 35,
+  "text": "API",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 22,
+  "column": 11,
+  "end_column": 21,
+  "text": "30 minutes",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 22,
+  "column": 36,
+  "end_column": 43,
+  "text": "60 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 24,
+  "column": 1,
+  "end_column": 15,
+  "text": "`available: 0`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 29,
+  "column": 1,
+  "end_column": 21,
+  "text": "`POST /reservations`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 29,
+  "column": 34,
+  "end_column": 51,
+  "text": "`Idempotency-Key`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 31,
+  "column": 14,
+  "end_column": 22,
+  "text": "`status`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 31,
+  "column": 42,
+  "end_column": 50,
+  "text": "48 hours",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 36,
+  "column": 18,
+  "end_column": 21,
+  "text": "RFC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 36,
+  "column": 48,
+  "end_column": 54,
+  "text": "`type`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 36,
+  "column": 55,
+  "end_column": 58,
+  "text": "URI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 37,
+  "column": 1,
+  "end_column": 9,
+  "text": "`detail`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 38,
+  "column": 1,
+  "end_column": 12,
+  "text": "`slot-full`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 38,
+  "column": 14,
+  "end_column": 27,
+  "text": "`slot-closed`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 38,
+  "column": 32,
+  "end_column": 47,
+  "text": "`visitor-limit`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 39,
+  "column": 1,
+  "end_column": 14,
+  "text": "`Retry-After`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 43,
+  "column": 1,
+  "end_column": 24,
+  "text": "`reservation.cancelled`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 43,
+  "column": 29,
+  "end_column": 42,
+  "text": "`slot.closed`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 44,
+  "column": 6,
+  "end_column": 10,
+  "text": "HMAC",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 44,
+  "column": 21,
+  "end_column": 23,
+  "text": "v2",
+  "kind": "version"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 45,
+  "column": 9,
+  "end_column": 19,
+  "text": "idempotent",
+  "kind": "term"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 45,
+  "column": 23,
+  "end_column": 33,
+  "text": "`event.id`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 50,
+  "column": 3,
+  "end_column": 13,
+  "text": "2026-09-01",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 51,
+  "column": 3,
+  "end_column": 13,
+  "text": "2026-12-01",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 52,
+  "column": 3,
+  "end_column": 13,
+  "text": "2027-03-31",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 52,
+  "column": 61,
+  "end_column": 63,
+  "text": "v1",
+  "kind": "version"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 55,
+  "column": 14,
+  "end_column": 27,
+  "text": "Aada Virtanen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 55,
+  "column": 58,
+  "end_column": 74,
+  "text": "`#ticketing-api`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/migration-ticketing-api.md",
+  "line": 56,
+  "column": 1,
+  "end_column": 68,
+  "text": "We answer faster than the old ticket queue did, which is a low bar.",
+  "kind": "informal"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 10,
+  "column": 3,
+  "end_column": 16,
+  "text": "account email",
+  "kind": "table"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 10,
+  "column": 19,
+  "end_column": 29,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 10,
+  "column": 32,
+  "end_column": 46,
+  "text": "until deletion",
+  "kind": "table"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 10,
+  "column": 49,
+  "end_column": 64,
+  "text": "login, receipts",
+  "kind": "table"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 11,
+  "column": 3,
+  "end_column": 18,
+  "text": "lesson progress",
+  "kind": "table"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 11,
+  "column": 21,
+  "end_column": 31,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 11,
+  "column": 34,
+  "end_column": 48,
+  "text": "until deletion",
+  "kind": "table"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 11,
+  "column": 51,
+  "end_column": 62,
+  "text": "the product",
+  "kind": "table"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 12,
+  "column": 3,
+  "end_column": 19,
+  "text": "audio recordings",
+  "kind": "table"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 12,
+  "column": 22,
+  "end_column": 24,
+  "text": "S3",
+  "kind": "product"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 12,
+  "column": 26,
+  "end_column": 36,
+  "text": "eu-north-1",
+  "kind": "name"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 12,
+  "column": 39,
+  "end_column": 46,
+  "text": "30 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 12,
+  "column": 49,
+  "end_column": 70,
+  "text": "pronunciation scoring",
+  "kind": "table"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 13,
+  "column": 3,
+  "end_column": 16,
+  "text": "crash reports",
+  "kind": "table"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 13,
+  "column": 19,
+  "end_column": 25,
+  "text": "Sentry",
+  "kind": "product"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 13,
+  "column": 28,
+  "end_column": 35,
+  "text": "90 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 13,
+  "column": 38,
+  "end_column": 47,
+  "text": "debugging",
+  "kind": "table"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 14,
+  "column": 3,
+  "end_column": 19,
+  "text": "analytics events",
+  "kind": "table"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 14,
+  "column": 22,
+  "end_column": 32,
+  "text": "ClickHouse",
+  "kind": "product"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 14,
+  "column": 35,
+  "end_column": 44,
+  "text": "13 months",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 14,
+  "column": 47,
+  "end_column": 64,
+  "text": "product decisions",
+  "kind": "table"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 17,
+  "column": 22,
+  "end_column": 26,
+  "text": "GDPR",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 18,
+  "column": 59,
+  "end_column": 66,
+  "text": "Android",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 19,
+  "column": 1,
+  "end_column": 4,
+  "text": "4GB",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 19,
+  "column": 5,
+  "end_column": 8,
+  "text": "RAM",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 23,
+  "column": 28,
+  "end_column": 30,
+  "text": "EU",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 29,
+  "column": 1,
+  "end_column": 13,
+  "text": "`DELETE /me`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 29,
+  "column": 47,
+  "end_column": 55,
+  "text": "24 hours",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 30,
+  "column": 1,
+  "end_column": 11,
+  "text": "PostgreSQL",
+  "kind": "product"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 30,
+  "column": 44,
+  "end_column": 54,
+  "text": "ClickHouse",
+  "kind": "product"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 31,
+  "column": 1,
+  "end_column": 7,
+  "text": "7 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 31,
+  "column": 39,
+  "end_column": 48,
+  "text": "partition",
+  "kind": "term"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 31,
+  "column": 72,
+  "end_column": 79,
+  "text": "35 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 37,
+  "column": 16,
+  "end_column": 18,
+  "text": "13",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 37,
+  "column": 20,
+  "end_column": 22,
+  "text": "16",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 43,
+  "column": 39,
+  "end_column": 42,
+  "text": "DPA",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 44,
+  "column": 38,
+  "end_column": 41,
+  "text": "DPA",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 45,
+  "column": 24,
+  "end_column": 39,
+  "text": "Noora Heikkinen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 49,
+  "column": 20,
+  "end_column": 29,
+  "text": "queryable",
+  "kind": "derived"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 50,
+  "column": 18,
+  "end_column": 25,
+  "text": "4 hours",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/privacy-language-app.md",
+  "line": 50,
+  "column": 57,
+  "end_column": 65,
+  "text": "redacted",
+  "kind": "term"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 3,
+  "column": 14,
+  "end_column": 19,
+  "text": "2,400",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 3,
+  "column": 35,
+  "end_column": 40,
+  "text": "Turku",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 3,
+  "column": 45,
+  "end_column": 52,
+  "text": "Uppsala",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 4,
+  "column": 30,
+  "end_column": 33,
+  "text": "60s",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 4,
+  "column": 39,
+  "end_column": 44,
+  "text": "LTE-M",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 9,
+  "column": 68,
+  "end_column": 70,
+  "text": "3%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 10,
+  "column": 19,
+  "end_column": 22,
+  "text": "10%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 10,
+  "column": 29,
+  "end_column": 32,
+  "text": "20%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 11,
+  "column": 40,
+  "end_column": 51,
+  "text": "rebalancing",
+  "kind": "term"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 15,
+  "column": 25,
+  "end_column": 26,
+  "text": "3",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 16,
+  "column": 13,
+  "end_column": 21,
+  "text": "24 hours",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 17,
+  "column": 27,
+  "end_column": 32,
+  "text": "06:00",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 21,
+  "column": 44,
+  "end_column": 47,
+  "text": "15%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 22,
+  "column": 64,
+  "end_column": 70,
+  "text": "7 days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 24,
+  "column": 1,
+  "end_column": 4,
+  "text": "30%",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 28,
+  "column": 21,
+  "end_column": 29,
+  "text": "`jammed`",
+  "kind": "code"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 35,
+  "column": 61,
+  "end_column": 71,
+  "text": "no-parking",
+  "kind": "term"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 36,
+  "column": 1,
+  "end_column": 8,
+  "text": "GeoJSON",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 36,
+  "column": 12,
+  "end_column": 31,
+  "text": "zones/turku.geojson",
+  "kind": "path"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 36,
+  "column": 36,
+  "end_column": 57,
+  "text": "zones/uppsala.geojson",
+  "kind": "path"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 37,
+  "column": 7,
+  "end_column": 9,
+  "text": "UI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 43,
+  "column": 35,
+  "end_column": 37,
+  "text": "20",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 43,
+  "column": 52,
+  "end_column": 59,
+  "text": "8 hours",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 44,
+  "column": 1,
+  "end_column": 9,
+  "text": "Kupittaa",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 44,
+  "column": 13,
+  "end_column": 19,
+  "text": "Gränby",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 45,
+  "column": 53,
+  "end_column": 65,
+  "text": "demand model",
+  "kind": "term"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 50,
+  "column": 18,
+  "end_column": 29,
+  "text": "Sixten Holm",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 50,
+  "column": 31,
+  "end_column": 38,
+  "text": "Uppsala",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 50,
+  "column": 41,
+  "end_column": 54,
+  "text": "Aada Virtanen",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 50,
+  "column": 56,
+  "end_column": 61,
+  "text": "Turku",
+  "kind": "name"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 51,
+  "column": 42,
+  "end_column": 57,
+  "text": "2 business days",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 52,
+  "column": 22,
+  "end_column": 26,
+  "text": "IMEI",
+  "kind": "acronym"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 52,
+  "column": 40,
+  "end_column": 42,
+  "text": "10",
+  "kind": "unit"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 52,
+  "column": 63,
+  "end_column": 73,
+  "text": "exportable",
+  "kind": "derived"
+ },
+ {
+  "file": "docs/runbook-bikeshare-fleet.md",
+  "line": 53,
+  "column": 21,
+  "end_column": 23,
+  "text": "UI",
+  "kind": "acronym"
+ }
+]

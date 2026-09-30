@@ -1,0 +1,478 @@
+{
+ "samples": {
+  "random-harper": {
+   "all": {
+    "n": 60,
+    "T": 17,
+    "H": 17,
+    "J": 26,
+    "precision_strict": 0.2833333333333333,
+    "ci95_strict": [
+     0.1850667860430859,
+     0.4076752504973517
+    ],
+    "precision_excl_jargon": 0.5,
+    "ci95_excl_jargon": [
+     0.3406906262804899,
+     0.6593093737195102
+    ]
+   },
+   "spelling": {
+    "n": 30,
+    "T": 6,
+    "H": 0,
+    "J": 24,
+    "precision_strict": 0.2,
+    "ci95_strict": [
+     0.09504978102401236,
+     0.37306047381027446
+    ],
+    "precision_excl_jargon": 1.0,
+    "ci95_excl_jargon": [
+     0.6096569663469354,
+     1.0
+    ]
+   },
+   "grammar": {
+    "n": 30,
+    "T": 11,
+    "H": 17,
+    "J": 2,
+    "precision_strict": 0.36666666666666664,
+    "ci95_strict": [
+     0.2187370220401768,
+     0.5448675356639506
+    ],
+    "precision_excl_jargon": 0.39285714285714285,
+    "ci95_excl_jargon": [
+     0.23565451827580033,
+     0.575912739650937
+    ]
+   }
+  },
+  "random-curated": {
+   "all": {
+    "n": 60,
+    "T": 21,
+    "H": 12,
+    "J": 27,
+    "precision_strict": 0.35,
+    "ci95_strict": [
+     0.24167601723815485,
+     0.47637616190522497
+    ],
+    "precision_excl_jargon": 0.6363636363636364,
+    "ci95_excl_jargon": [
+     0.46615872621534094,
+     0.7781303383204012
+    ]
+   },
+   "spelling": {
+    "n": 30,
+    "T": 2,
+    "H": 1,
+    "J": 27,
+    "precision_strict": 0.06666666666666667,
+    "ci95_strict": [
+     0.01847663532769335,
+     0.2132381772107209
+    ],
+    "precision_excl_jargon": 0.6666666666666666,
+    "ci95_excl_jargon": [
+     0.20765495512648788,
+     0.9385096847238393
+    ]
+   },
+   "grammar": {
+    "n": 30,
+    "T": 19,
+    "H": 11,
+    "J": 0,
+    "precision_strict": 0.6333333333333333,
+    "ci95_strict": [
+     0.4551324643360493,
+     0.7812629779598231
+    ],
+    "precision_excl_jargon": 0.6333333333333333,
+    "ci95_excl_jargon": [
+     0.4551324643360493,
+     0.7812629779598231
+    ]
+   }
+  },
+  "random-spellbook": {
+   "all": {
+    "n": 60,
+    "T": 26,
+    "H": 16,
+    "J": 18,
+    "precision_strict": 0.43333333333333335,
+    "ci95_strict": [
+     0.3157220039440064,
+     0.5589678534530513
+    ],
+    "precision_excl_jargon": 0.6190476190476191,
+    "ci95_excl_jargon": [
+     0.46813768219996377,
+     0.7500047910121406
+    ]
+   },
+   "spelling": {
+    "n": 30,
+    "T": 4,
+    "H": 8,
+    "J": 18,
+    "precision_strict": 0.13333333333333333,
+    "ci95_strict": [
+     0.05309569424218104,
+     0.2968168394441695
+    ],
+    "precision_excl_jargon": 0.3333333333333333,
+    "ci95_excl_jargon": [
+     0.13811783989736134,
+     0.609382412602386
+    ]
+   },
+   "grammar": {
+    "n": 30,
+    "T": 22,
+    "H": 8,
+    "J": 0,
+    "precision_strict": 0.7333333333333333,
+    "ci95_strict": [
+     0.5555169795568831,
+     0.8581750444608938
+    ],
+    "precision_excl_jargon": 0.7333333333333333,
+    "ci95_excl_jargon": [
+     0.5555169795568831,
+     0.8581750444608938
+    ]
+   }
+  },
+  "random-hybrid": {
+   "all": {
+    "n": 60,
+    "T": 24,
+    "H": 18,
+    "J": 18,
+    "precision_strict": 0.4,
+    "ci95_strict": [
+     0.28569303003765506,
+     0.5263417560579315
+    ],
+    "precision_excl_jargon": 0.5714285714285714,
+    "ci95_excl_jargon": [
+     0.4220597791187447,
+     0.7088257048085178
+    ]
+   },
+   "spelling": {
+    "n": 30,
+    "T": 6,
+    "H": 6,
+    "J": 18,
+    "precision_strict": 0.2,
+    "ci95_strict": [
+     0.09504978102401236,
+     0.37306047381027446
+    ],
+    "precision_excl_jargon": 0.5,
+    "ci95_excl_jargon": [
+     0.2537781703934222,
+     0.7462218296065778
+    ]
+   },
+   "grammar": {
+    "n": 30,
+    "T": 18,
+    "H": 12,
+    "J": 0,
+    "precision_strict": 0.6,
+    "ci95_strict": [
+     0.42320052498273836,
+     0.754096056739166
+    ],
+    "precision_excl_jargon": 0.6,
+    "ci95_excl_jargon": [
+     0.42320052498273836,
+     0.754096056739166
+    ]
+   }
+  },
+  "spellbook-only-vs-harper": {
+   "all": {
+    "n": 40,
+    "T": 2,
+    "H": 21,
+    "J": 17,
+    "precision_strict": 0.05,
+    "ci95_strict": [
+     0.013820377146101093,
+     0.165041708179252
+    ],
+    "precision_excl_jargon": 0.08695652173913043,
+    "ci95_excl_jargon": [
+     0.02417949540723341,
+     0.2679640429809401
+    ]
+   },
+   "spelling": {
+    "n": 40,
+    "T": 2,
+    "H": 21,
+    "J": 17,
+    "precision_strict": 0.05,
+    "ci95_strict": [
+     0.013820377146101093,
+     0.165041708179252
+    ],
+    "precision_excl_jargon": 0.08695652173913043,
+    "ci95_excl_jargon": [
+     0.02417949540723341,
+     0.2679640429809401
+    ]
+   },
+   "grammar": {
+    "n": 0,
+    "T": 0,
+    "H": 0,
+    "J": 0,
+    "precision_strict": null,
+    "ci95_strict": [
+     null,
+     null
+    ],
+    "precision_excl_jargon": null,
+    "ci95_excl_jargon": [
+     null,
+     null
+    ]
+   }
+  },
+  "harper-only-vs-spellbook": {
+   "all": {
+    "n": 40,
+    "T": 4,
+    "H": 33,
+    "J": 3,
+    "precision_strict": 0.1,
+    "ci95_strict": [
+     0.03957888759557486,
+     0.230520743804739
+    ],
+    "precision_excl_jargon": 0.10810810810810811,
+    "ci95_excl_jargon": [
+     0.04285120520506268,
+     0.24708846415167166
+    ]
+   },
+   "spelling": {
+    "n": 4,
+    "T": 0,
+    "H": 1,
+    "J": 3,
+    "precision_strict": 0.0,
+    "ci95_strict": [
+     0.0,
+     0.48990002040399916
+    ],
+    "precision_excl_jargon": 0.0,
+    "ci95_excl_jargon": [
+     0.0,
+     0.7934567085261071
+    ]
+   },
+   "grammar": {
+    "n": 36,
+    "T": 4,
+    "H": 32,
+    "J": 0,
+    "precision_strict": 0.1111111111111111,
+    "ci95_strict": [
+     0.044065689087418335,
+     0.25315129015036325
+    ],
+    "precision_excl_jargon": 0.1111111111111111,
+    "ci95_excl_jargon": [
+     0.044065689087418335,
+     0.25315129015036325
+    ]
+   }
+  },
+  "curated-only-vs-harper": {
+   "all": {
+    "n": 40,
+    "T": 3,
+    "H": 0,
+    "J": 37,
+    "precision_strict": 0.075,
+    "ci95_strict": [
+     0.02583555677185823,
+     0.19864530159097524
+    ],
+    "precision_excl_jargon": 1.0,
+    "ci95_excl_jargon": [
+     0.4384939195509822,
+     1.0
+    ]
+   },
+   "spelling": {
+    "n": 40,
+    "T": 3,
+    "H": 0,
+    "J": 37,
+    "precision_strict": 0.075,
+    "ci95_strict": [
+     0.02583555677185823,
+     0.19864530159097524
+    ],
+    "precision_excl_jargon": 1.0,
+    "ci95_excl_jargon": [
+     0.4384939195509822,
+     1.0
+    ]
+   },
+   "grammar": {
+    "n": 0,
+    "T": 0,
+    "H": 0,
+    "J": 0,
+    "precision_strict": null,
+    "ci95_strict": [
+     null,
+     null
+    ],
+    "precision_excl_jargon": null,
+    "ci95_excl_jargon": [
+     null,
+     null
+    ]
+   }
+  },
+  "harper-only-vs-curated": {
+   "all": {
+    "n": 40,
+    "T": 6,
+    "H": 32,
+    "J": 2,
+    "precision_strict": 0.15,
+    "ci95_strict": [
+     0.07061091708507436,
+     0.2907262603902002
+    ],
+    "precision_excl_jargon": 0.15789473684210525,
+    "ci95_excl_jargon": [
+     0.07443762223722684,
+     0.30417122637276883
+    ]
+   },
+   "spelling": {
+    "n": 0,
+    "T": 0,
+    "H": 0,
+    "J": 0,
+    "precision_strict": null,
+    "ci95_strict": [
+     null,
+     null
+    ],
+    "precision_excl_jargon": null,
+    "ci95_excl_jargon": [
+     null,
+     null
+    ]
+   },
+   "grammar": {
+    "n": 40,
+    "T": 6,
+    "H": 32,
+    "J": 2,
+    "precision_strict": 0.15,
+    "ci95_strict": [
+     0.07061091708507436,
+     0.2907262603902002
+    ],
+    "precision_excl_jargon": 0.15789473684210525,
+    "ci95_excl_jargon": [
+     0.07443762223722684,
+     0.30417122637276883
+    ]
+   }
+  }
+ },
+ "extrapolation": {
+  "harper": {
+   "corpus": {
+    "spelling": 2285,
+    "grammar": 1399,
+    "per100k": 1357.5661094896966,
+    "fp_per100k_strict": 1000.1302044947573,
+    "hardfp_per100k": 313.0040598533568,
+    "tp_per100k": 357.43590499493916
+   },
+   "rs": {
+    "spelling": 451,
+    "grammar": 383,
+    "per100k": 378.4527002191758,
+    "fp_per100k_strict": 273.7958563815868,
+    "hardfp_per100k": 105.52010667724623,
+    "tp_per100k": 104.65684383758904
+   }
+  },
+  "curated": {
+   "corpus": {
+    "spelling": 2945,
+    "grammar": 64,
+    "per100k": 1108.8263907314054,
+    "fp_per100k_strict": 1021.540245472323,
+    "hardfp_per100k": 370.3949372561737,
+    "tp_per100k": 87.28614525908239
+   },
+   "rs": {
+    "spelling": 469,
+    "grammar": 62,
+    "per100k": 240.95729474386374,
+    "fp_per100k_strict": 208.95066350230599,
+    "hardfp_per100k": 81.25691069454086,
+    "tp_per100k": 32.0066312415578
+   }
+  },
+  "spellbook": {
+   "corpus": {
+    "spelling": 3962,
+    "grammar": 48,
+    "per100k": 1477.698181067775,
+    "fp_per100k_strict": 1270.0588622583848,
+    "hardfp_per100k": 978.0568576005031,
+    "tp_per100k": 207.6393188093905
+   },
+   "rs": {
+    "spelling": 824,
+    "grammar": 35,
+    "per100k": 389.7972056214293,
+    "fp_per100k_strict": 328.2948603340125,
+    "hardfp_per100k": 253.51188072235763,
+    "tp_per100k": 61.50234528741682
+   }
+  },
+  "hybrid": {
+   "corpus": {
+    "spelling": 3962,
+    "grammar": 59,
+    "per100k": 1481.7517172253176,
+    "fp_per100k_strict": 1176.7046962058903,
+    "hardfp_per100k": 738.7016892190678,
+    "tp_per100k": 305.0470210194275
+   },
+   "rs": {
+    "spelling": 824,
+    "grammar": 48,
+    "per100k": 395.6963484306011,
+    "fp_per100k_strict": 307.84449859555025,
+    "hardfp_per100k": 195.6700291780679,
+    "tp_per100k": 87.8518498350509
+   }
+  }
+ }
+}
