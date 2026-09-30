@@ -28,6 +28,8 @@ pub enum Lang {
 pub enum FileKind {
     Markdown,
     Code(Lang),
+    /// GNU gettext PO/POT catalog.
+    Gettext,
 }
 
 impl FileKind {
@@ -36,6 +38,7 @@ impl FileKind {
         let ext = path.extension().and_then(|e| e.to_str()).unwrap_or("");
         Some(match ext.to_ascii_lowercase().as_str() {
             "md" | "markdown" | "mdx" => FileKind::Markdown,
+            "po" | "pot" => FileKind::Gettext,
             "rs" => FileKind::Code(Lang::Rust),
             "go" => FileKind::Code(Lang::Go),
             "py" | "pyi" => FileKind::Code(Lang::Python),

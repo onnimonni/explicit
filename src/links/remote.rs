@@ -2,7 +2,7 @@
 
 use std::collections::{HashMap, HashSet, VecDeque};
 use std::ops::Range;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 use std::sync::{Condvar, LazyLock, Mutex};
 use std::time::{Duration, Instant};
 
@@ -38,7 +38,7 @@ const MAX_RETRY_AFTER: Duration = Duration::from_secs(10);
 /// Statuses sites use to turn away bots or anonymous clients (999 is LinkedIn's).
 const BLOCKED_STATUSES: &[u16] = &[401, 403, 999];
 /// Many sites reject non-browser clients outright, so look like one while staying identifiable.
-const USER_AGENT: &str = concat!(
+pub(crate) const USER_AGENT: &str = concat!(
     "Mozilla/5.0 (compatible; explicit-link-checker/",
     env!("CARGO_PKG_VERSION"),
     ")"
@@ -524,10 +524,10 @@ fn is_private_url(url: &str) -> bool {
 }
 
 /// One http(s) URL occurrence in a file.
-struct Occurrence {
-    url: String,
-    range: Range<usize>,
-    image: bool,
+pub(crate) struct Occurrence {
+    pub(crate) url: String,
+    pub(crate) range: Range<usize>,
+    pub(crate) image: bool,
 }
 
 /// `srcset` attributes of `<img>` / `<source>` tags.
@@ -543,7 +543,7 @@ fn srcset_first(v: &str) -> Option<&str> {
     (!first.is_empty()).then_some(first)
 }
 
-fn occurrences(ctx: &FileCtx) -> Vec<Occurrence> {
+pub(crate) fn occurrences(ctx: &FileCtx) -> Vec<Occurrence> {
     let src = ctx.src();
     let mut v = Vec::new();
     if let Some(md) = &ctx.a.md {
@@ -698,20 +698,15 @@ pub fn report(ctx: &FileCtx, statuses: &HashMap<String, RemoteStatus>, out: &mut
 pub fn urls(ctx: &FileCtx) -> Vec<Target> {
     let image_rule = ctx.enabled("links/image-url");
     let http_rules = ctx.family_enabled("links/http");
-    // URLs that `links/same-repo-url` rewrites to local paths need no request.
-    let same_repo = ctx
-        .a
-        .md
-        .as_ref()
-        .filter(|_| ctx.enabled("links/same-repo-url"))
-        .and_then(|_| super::github::repo(ctx));
-    let from = ctx.a.file.path.parent().unwrap_or(Path::new(""));
+    // URLs into this repository are never requested: anonymous requests to a private repository
+    // answer 404, and `links/same-repo-url` / `links/same-repo-ref` check them locally.
+    let same_repo = super::github::repo(ctx);
     let mut v: Vec<Target> = occurrences(ctx)
         .into_iter()
         .filter(|o| {
             same_repo
                 .as_ref()
-                .is_none_or(|r| !super::github::is_rewritable(r, &o.url, from))
+                .is_none_or(|r| !super::same_repo::is_same_repo(r, &o.url))
         })
         .filter_map(|o| {
             let url = strip_fragment(&o.url).to_string();

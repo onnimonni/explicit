@@ -3,7 +3,7 @@ name = "explicit"
 version = "0.2.0"
 edition = "2024"
 description = "Lint prose in Markdown and code comments: structure, spelling, grammar, AI slop, links and diagrams"
-license = "MIT OR Apache-2.0"
+license = "GPL-3.0-or-later"
 repository = "https://github.com/onnimonni/explicit"
 readme = "README.md"
 keywords = ["markdown", "linter", "prose", "spelling", "ai-slop"]
@@ -38,10 +38,21 @@ mermaid = ["dep:merman-core"]
 # Opt-in Harper grammar engines (`harper`, `curated`, `hybrid`): `--features harper`. The
 # default build runs `spellbook` with the same spelling and word-class data (dictionaries/harper).
 harper = ["dep:harper-core"]
+# Finnish spelling for `lang: fi` files and Finnish stretches: embeds the voikko-fi morphology
+# (dictionaries/fi, +1.6 MB) for the pure-Rust Voikko port in src/voikko. Without it, Finnish
+# needs `[languages.fi] dictionary_path`.
+voikko = []
+# Swedish spelling and grammar rules (Hunspell sv_SE + sv_FI through spellbook): embeds
+# dictionaries/sv (+0.7 MB). Opt-in; without it Swedish text is skipped as non-English.
+swedish = []
 
 [[example]]
 name = "export_harper_words"
 required-features = ["harper"]
+
+[[example]]
+name = "voikko_spell"
+required-features = ["voikko"]
 
 [profile.release]
 lto = "thin"

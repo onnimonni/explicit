@@ -122,7 +122,8 @@ pub struct Hit {
 
 // Rule slop/negation-chain (upstream `no-chain`, `did-not-chain`).
 
-const CHAIN_BODY: &str = r"[^,.;:!?\n\u{2013}\u{2014}\u{2026}]*";
+// Items end at clause punctuation, brackets and quotes, so a chain stays in one clause.
+const CHAIN_BODY: &str = r#"[^,.;:!?\n\u{2013}\u{2014}\u{2026}()\[\]"\u{201c}\u{201d}]*"#;
 const CHAIN_SEP: &str = r"(?:\s*,\s*(?:and\s+|or\s+)?|\s+(?:and|or)\s+|\s*[;&\u{2013}\u{2014}]\s*(?:and\s+|or\s+)?|\s+-{1,2}\s+)";
 
 struct Chain {
@@ -141,21 +142,36 @@ impl Chain {
         }
     }
 
-    fn find(&self, text: &str) -> Vec<Hit> {
+    /// Hits with the byte ranges of their counted items.
+    fn find(&self, text: &str) -> Vec<(Hit, Vec<Range<usize>>)> {
         static SPLIT: LazyLock<Regex> = LazyLock::new(|| re(&format!("(?i){CHAIN_SEP}")));
         self.chain
             .find_iter(text)
             .map(|m| {
                 let end = trim_end_ws(text, m.start(), m.end());
-                let count = SPLIT
-                    .split(m.as_str())
-                    .filter(|p| self.head.is_match(p.trim()))
-                    .count();
-                Hit {
-                    range: m.start()..end,
-                    count,
-                    label: self.label.to_string(),
+                let mut items = Vec::new();
+                let mut from = m.start();
+                let seps = SPLIT
+                    .find_iter(&text[m.start()..end])
+                    .map(|s| (m.start() + s.start(), m.start() + s.end()))
+                    .chain([(end, end)]);
+                for (a, b) in seps {
+                    let part = &text[from..a];
+                    let lead = part.len() - part.trim_start().len();
+                    if self.head.is_match(part.trim()) {
+                        items.push(from + lead..a);
+                    } else if let Some(last) = items.last_mut() {
+                        // "no X or Y": the non-negated part extends the previous item.
+                        last.end = a;
+                    }
+                    from = b;
                 }
+                let hit = Hit {
+                    range: m.start()..end,
+                    count: items.len(),
+                    label: self.label.to_string(),
+                };
+                (hit, items)
             })
             .collect()
     }
@@ -165,17 +181,313 @@ static NO_CHAIN: LazyLock<Chain> = LazyLock::new(|| Chain::new(r"no[-\s]", "No X
 static DID_NOT_CHAIN: LazyLock<Chain> =
     LazyLock::new(|| Chain::new(r"(?:did\s+not|didn't)\s", "Did not X, did not Y"));
 
+/// Nouns of slogan-style "no X, no Y" copy ("no fees, no fuss").
+const SLOGAN_NOUNS: &[&str] = &[
+    "ads",
+    "apologies",
+    "bells",
+    "bloat",
+    "bs",
+    "buzzwords",
+    "catch",
+    "clutter",
+    "commitment",
+    "commitments",
+    "compromise",
+    "compromises",
+    "contracts",
+    "downloads",
+    "drama",
+    "excuses",
+    "fees",
+    "filler",
+    "fluff",
+    "frills",
+    "friction",
+    "fuss",
+    "gimmicks",
+    "guesswork",
+    "hassle",
+    "headaches",
+    "hype",
+    "jargon",
+    "nonsense",
+    "paywall",
+    "paywalls",
+    "pressure",
+    "regrets",
+    "sign-ups",
+    "signup",
+    "signups",
+    "spam",
+    "stress",
+    "subscription",
+    "subscriptions",
+    "surprises",
+    "tricks",
+    "whistles",
+    "worries",
+];
+
+/// Technical nouns: a "no X, no Y" list of these is a factual scope statement.
+const TECH_NOUNS: &[&str] = &[
+    "api",
+    "backend",
+    "character",
+    "code",
+    "error",
+    "fallback",
+    "frontend",
+    "init",
+    "newline",
+    "path",
+    "prefix",
+    "reload",
+    "suffix",
+    "argument",
+    "artifact",
+    "attribute",
+    "auth",
+    "branch",
+    "bucket",
+    "build",
+    "cache",
+    "call",
+    "callback",
+    "check",
+    "client",
+    "clock",
+    "cluster",
+    "column",
+    "commit",
+    "component",
+    "config",
+    "configuration",
+    "container",
+    "cookie",
+    "credential",
+    "daemon",
+    "database",
+    "dependency",
+    "deploy",
+    "deployment",
+    "digest",
+    "directory",
+    "endpoint",
+    "entry",
+    "env",
+    "field",
+    "file",
+    "fixture",
+    "flag",
+    "header",
+    "hook",
+    "id",
+    "image",
+    "import",
+    "index",
+    "interpreter",
+    "job",
+    "key",
+    "lease",
+    "library",
+    "lock",
+    "log",
+    "manifest",
+    "method",
+    "migration",
+    "mock",
+    "module",
+    "network",
+    "node",
+    "package",
+    "parser",
+    "patch",
+    "pipeline",
+    "plugin",
+    "pointer",
+    "policy",
+    "process",
+    "proxy",
+    "push",
+    "query",
+    "queue",
+    "read",
+    "record",
+    "registry",
+    "release",
+    "request",
+    "response",
+    "role",
+    "route",
+    "row",
+    "runtime",
+    "schema",
+    "script",
+    "secret",
+    "server",
+    "service",
+    "session",
+    "socket",
+    "stamp",
+    "state",
+    "step",
+    "stub",
+    "styling",
+    "table",
+    "tag",
+    "test",
+    "thread",
+    "timer",
+    "token",
+    "tooling",
+    "type",
+    "upload",
+    "url",
+    "variable",
+    "version",
+    "wrapper",
+    "write",
+];
+
+fn in_words(list: &[&str], word: &str) -> bool {
+    let w = word.to_ascii_lowercase();
+    let singular = w.strip_suffix('s').unwrap_or(&w);
+    list.contains(&w.as_str()) || list.contains(&singular)
+}
+
+/// An identifier-looking token: `snake_case`, `a/b`, `a.b`, `a::b`, digits, `CamelCase`.
+fn identifier_like(word: &str) -> bool {
+    let w = word.trim_matches(|c: char| !c.is_alphanumeric());
+    w.contains(['_', '/', '@', '#', '§', ':', '.', '='])
+        || w.bytes().any(|b| b.is_ascii_digit())
+        || (w.chars().any(char::is_lowercase) && w.chars().skip(1).any(char::is_uppercase))
+}
+
+/// Blanked code or markup in the item `raw[r]` (head included): a run of 3+ spaces within a
+/// line, e.g. "no `x`" or "no `a`, no b". Runs that cross a newline are line indentation.
+fn has_blank(raw: &str, r: Range<usize>) -> bool {
+    let Some(item) = raw.get(r.start..) else {
+        return false;
+    };
+    let len = r.end - r.start;
+    let mut run = 0;
+    let mut newline = false;
+    for (i, c) in item.char_indices() {
+        match c {
+            ' ' => run += 1,
+            '\n' => {
+                newline = true;
+                run += 1;
+            }
+            _ => {
+                if run >= 3 && !newline {
+                    return true;
+                }
+                if i >= len {
+                    return false;
+                }
+                run = 0;
+                newline = false;
+            }
+        }
+    }
+    run >= 3 && !newline
+}
+
+/// Whether a "no X, no Y" chain reads as a rhetorical slogan rather than a factual scope list
+/// ("there is no registry, no `:global`, no lease"). Slogans have short everyday items and
+/// either slogan nouns or a sentence-initial fragment; scope lists carry code, identifiers,
+/// proper nouns, technical nouns or long items, usually inside a clause.
+fn rhetorical_no_chain(raw: &str, flat: &str, hit: &Hit, items: &[Range<usize>]) -> bool {
+    let chain = &flat[hit.range.clone()];
+    let shouting = !chain.chars().any(char::is_lowercase);
+    let mut slogan = false;
+    let mut technical = false;
+    let mut short = 0;
+    for r in items {
+        let item = &flat[r.clone()];
+        // Skip the head ("no " / "no-"); an empty body is blanked code.
+        let body = item.get(3..).unwrap_or("");
+        let words: Vec<&str> = body
+            .split_whitespace()
+            .filter(|w| w.chars().any(char::is_alphanumeric))
+            .collect();
+        if words.is_empty() || has_blank(raw, r.clone()) {
+            return false;
+        }
+        // "no such X", "no longer", "no one", "no more": not a list of absent things.
+        const NOT_NOUN: &[&str] = &["such", "longer", "one", "more", "less", "matter", "doubt"];
+        if words.iter().any(|w| identifier_like(w))
+            || NOT_NOUN.iter().any(|n| words[0].eq_ignore_ascii_case(n))
+        {
+            return false;
+        }
+        if words.len() <= 3 {
+            short += 1;
+        }
+        for w in &words {
+            let w = w.trim_matches(|c: char| !c.is_alphanumeric() && c != '-');
+            if in_words(SLOGAN_NOUNS, w) {
+                slogan = true;
+            }
+            if in_words(TECH_NOUNS, w) || (!shouting && w.starts_with(char::is_uppercase)) {
+                technical = true;
+            }
+        }
+    }
+    let n = items.len();
+    if slogan && (!technical || short == n) {
+        return true;
+    }
+    // Short items; three or more may end in a longer one ("no time, no money, no way to ...").
+    let last_short = items
+        .last()
+        .is_some_and(|r| flat[r.clone()].split_whitespace().count() <= 4);
+    if technical || !(short == n || (n >= 3 && short == n - 1 && !last_short)) {
+        return false;
+    }
+    // Sentence-initial fragment: nothing but an opener, colon or dash before the chain.
+    let before = flat[..hit.range.start].trim_end();
+    before.is_empty()
+        || before.ends_with([
+            '.', '!', '?', ':', ';', '\u{2014}', '\u{2013}', '-', '"', '\u{201c}', '(',
+        ])
+}
+
+/// Negation chains in `text` (raw segment text; wrapped lines are joined here).
+#[cfg(test)]
 pub fn negation_chains(text: &str) -> Vec<Hit> {
-    let mut hits = NO_CHAIN.find(text);
-    hits.extend(DID_NOT_CHAIN.find(text));
+    let flat = flatten(text);
+    negation_chains_in(text, &flat)
+}
+
+fn negation_chains_in(raw: &str, flat: &str) -> Vec<Hit> {
+    let mut hits: Vec<Hit> = NO_CHAIN
+        .find(flat)
+        .into_iter()
+        .filter(|(h, items)| rhetorical_no_chain(raw, flat, h, items))
+        .map(|(h, _)| h)
+        .collect();
+    hits.extend(DID_NOT_CHAIN.find(flat).into_iter().map(|(h, _)| h));
     hits.sort_by_key(|h| h.range.start);
     hits
 }
 
 pub fn negation_chain(seg: &Segment, sev: Severity, out: &mut Vec<Finding>) {
     let text = flatten(&seg.text);
-    // Blanked code can leave an empty item ("no `x`"), so require two counted items.
-    for h in negation_chains(&text).into_iter().filter(|h| h.count >= 2) {
+    // Chains in list items and table cells are usually terse spec notes: info by default.
+    let sev = if sev == Severity::Warning
+        && matches!(seg.kind, SegmentKind::ListItem | SegmentKind::TableCell)
+    {
+        Severity::Info
+    } else {
+        sev
+    };
+    for h in negation_chains_in(&seg.text, &text)
+        .into_iter()
+        .filter(|h| h.count >= 2)
+    {
         out.push(
             Finding::new(
                 "slop/negation-chain",

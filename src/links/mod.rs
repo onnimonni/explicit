@@ -1,15 +1,26 @@
 //! Link checking: local files and anchors, reference definitions and remote URLs.
 
 pub mod cache;
+pub mod gh;
+pub mod git_local;
 pub mod github;
 pub mod local;
 pub mod remote;
+pub mod same_repo;
 
 use std::ops::Range;
 
 use crate::config::Config;
 use crate::diagnostic::Severity;
 use crate::extract::markdown::{Link, LinkKind};
+
+/// Everything checked up front for a run: HTTP statuses and same-repo answers.
+#[derive(Debug, Clone, Default)]
+pub struct Checked {
+    /// Remote status per URL (without fragment).
+    pub remote: std::collections::HashMap<String, remote::RemoteStatus>,
+    pub same_repo: same_repo::Results,
+}
 
 /// Default severity of a links rule.
 pub(crate) fn sev(rule: &str) -> Severity {

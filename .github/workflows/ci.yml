@@ -23,10 +23,10 @@ jobs:
       - run: cargo fmt --check
       - run: cargo clippy --all-targets -- -D warnings
       - run: cargo test
-      - name: Full build (Harper)
+      - name: Full build (Harper, Finnish, Swedish)
         run: |
-          cargo clippy --all-targets --features harper -- -D warnings
-          cargo test --features harper
+          cargo clippy --all-targets --features harper,voikko,swedish -- -D warnings
+          cargo test --features harper,voikko,swedish
       - name: Lint this repository with explicit
         run: cargo run --quiet -- check --no-remote --format github .
 

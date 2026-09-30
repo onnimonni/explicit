@@ -25,7 +25,7 @@
       packages = forAllSystems (pkgs: rec {
         # Lite build: `spellbook` engine, no Harper (see README).
         explicit = pkgs.callPackage ./nix/package.nix { };
-        # With the Harper grammar engines (cargo feature `harper`).
+        # With the Harper grammar engines, Finnish and Swedish (features `harper`, `voikko`, `swedish`).
         explicit-full = pkgs.callPackage ./nix/package.nix { full = true; };
         explicit-lite = explicit;
         default = explicit;

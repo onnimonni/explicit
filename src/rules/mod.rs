@@ -3,12 +3,16 @@
 pub mod codeblock;
 pub mod diagram;
 pub mod docs;
+pub mod gettext;
 pub mod grammar;
+pub mod grammar_fi;
+pub mod grammar_sv;
 pub mod lint;
 pub mod patterns;
 pub mod prose;
 pub mod slop;
 pub mod spell;
+pub mod spell_lang;
 pub mod structure;
 pub mod style;
 pub mod words;
@@ -26,6 +30,8 @@ pub struct Analyzed {
     pub file: SourceFile,
     /// Present for Markdown files.
     pub md: Option<MdDoc>,
+    /// Present for gettext PO/POT catalogs.
+    pub po: Option<crate::extract::gettext::Catalog>,
     /// Comment blocks for code files.
     pub comments: Vec<CommentBlock>,
     /// Prose segments: Markdown blocks or comment blocks.
@@ -42,6 +48,7 @@ impl Analyzed {
                 Analyzed {
                     file,
                     md: Some(md),
+                    po: None,
                     comments: Vec::new(),
                     segments,
                 }
@@ -52,6 +59,18 @@ impl Analyzed {
                 Analyzed {
                     file,
                     md: None,
+                    po: None,
+                    comments,
+                    segments,
+                }
+            }
+            FileKind::Gettext => {
+                let po = crate::extract::gettext::parse(&file.text);
+                let (comments, segments) = gettext::prose(&file, &po);
+                Analyzed {
+                    file,
+                    md: None,
+                    po: Some(po),
                     comments,
                     segments,
                 }
@@ -159,6 +178,7 @@ rules! {
     "md/max-heading-length" => OFF, "Headings not longer than markdown.max_heading_length";
     "md/no-inline-html" => OFF, "Only markdown.allowed_html elements in raw HTML (MD033)";
     "md/front-matter-required" => OFF, "Front matter has the markdown.front_matter_required keys";
+    "md/front-matter-lang" => I, "Finnish or Swedish files declare `lang:` in front matter (fix adds it)";
     "md/task-list-style" => I, "Task list checkboxes are [ ] or [x]";
 
     // English.
@@ -174,6 +194,7 @@ rules! {
     "links/http-error" => E, "Remote link responds with success";
     "links/http-unreachable" => W, "Remote link host is reachable";
     "links/same-repo-url" => W, "Links into this GitHub repository's default branch use relative paths";
+    "links/same-repo-ref" => E, "Links to this repository's commits, tags, paths, issues and pull requests exist (checked with local git and gh)";
     "links/image-url" => E, "Remote image URL exists and serves an image, not an HTML page";
     "links/http-redirect" => I, "Remote link permanently redirects";
     "links/insecure" => I, "Link uses http:// instead of https://";
@@ -222,6 +243,7 @@ rules! {
     "prose/inclusive" => W, "Insensitive or exclusionary wording (alex/retext-equality)";
     "prose/simplify" => I, "Wordy or complex phrasing with a plain alternative (retext-simplify)";
     "prose/terminology" => W, "Canonical spelling of product and tech names (JavaScript, GitHub)";
+    "prose/entity-name" => W, "Configured [[entity]] names and case-sensitive [[vocab]] terms keep their casing";
     "prose/passive" => OFF, "Passive voice (write-good)";
     "prose/weasel" => I, "Weasel words (very, quite, several, some people say)";
     "prose/there-is" => I, "Sentence starts with There is/are/was/were";
@@ -232,6 +254,22 @@ rules! {
     "prose/acronym-defined" => OFF, "Acronym used before it is defined (Markdown)";
     "prose/smart-quotes" => OFF, "Mixed straight and curly quotes in one file";
     "prose/sentence-spacing" => OFF, "Two or more spaces after a sentence";
+
+    // GNU gettext PO/POT catalogs (POT templates skip the translation checks).
+    "gettext/syntax" => E, "PO syntax: terminated strings, known escapes and keywords, msgstr present";
+    "gettext/duplicate" => E, "Each msgctxt + msgid pair appears once";
+    "gettext/header" => E, "Header entry exists with a UTF-8 charset, valid Plural-Forms and a Language matching the path";
+    "gettext/plural-count" => E, "Translated plural entries have nplurals msgstr[N] forms";
+    "gettext/placeholders" => E, "msgstr keeps the msgid's printf, python, brace, ICU, Elixir and Ruby placeholders";
+    "gettext/plural-placeholder" => OFF, "A plural msgstr[N] omits the count placeholder (allowed by default)";
+    "gettext/markup" => W, "msgstr keeps the msgid's HTML tags, Markdown links and code spans";
+    "gettext/whitespace" => W, "msgstr keeps the msgid's leading and trailing newlines and spaces";
+    "gettext/punctuation" => I, "msgstr ends with the same punctuation (: . ? ! …) as the msgid";
+    "gettext/accelerator" => W, "msgstr keeps the msgid's & or _ keyboard accelerator (when the catalog uses them)";
+    "gettext/untranslated" => I, "Entry has no translation";
+    "gettext/fuzzy" => W, "Entry is marked fuzzy and is ignored at runtime";
+    "gettext/obsolete" => I, "Obsolete #~ entry left in the catalog";
+    "gettext/same-as-source" => I, "msgstr identical to a longer msgid (probably untranslated)";
 
     // Vale-style rules from explicit.toml.
     "style/*" => W, "User-defined existence/substitution/repetition/occurrence/capitalization rules";
@@ -315,6 +353,20 @@ fn harper_rows(config: &Config) -> Vec<RuleRow> {
             description: desc.to_string(),
         }
     }));
+    // Finnish and Swedish rules (with their dictionaries).
+    rows.extend(
+        grammar_fi::RULES
+            .iter()
+            .chain(grammar_sv::RULES)
+            .map(|(name, desc)| {
+                let on = !disabled.iter().any(|d| d == name);
+                RuleRow {
+                    id: format!("grammar/{name}"),
+                    default: on.then(|| severity(name)),
+                    description: desc.to_string(),
+                }
+            }),
+    );
     // Our own word-confusion rules, which every engine runs.
     rows.extend(patterns::OWN_DESCRIPTIONS.iter().map(|(name, desc)| {
         let on = !disabled.iter().any(|d| d == name);

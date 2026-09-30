@@ -1,8 +1,9 @@
 {
   lib,
   rustPlatform,
-  # With the Harper grammar engines (cargo feature `harper`). The default lite build has only
-  # the `spellbook` engine, with the same spelling and word-class data.
+  # With the Harper grammar engines (cargo feature `harper`), Finnish (`voikko`) and Swedish
+  # (`swedish`). The default lite build has only the `spellbook` engine, with the same spelling
+  # and word-class data.
   full ? false,
 }:
 
@@ -27,7 +28,13 @@ rustPlatform.buildRustPackage {
 
   cargoLock.lockFile = ../Cargo.lock;
 
-  buildFeatures = lib.optionals full [ "harper" ];
+  # Finnish (`voikko`, pure Rust with the voikko-fi data embedded) and Swedish only in the
+  # full build.
+  buildFeatures = lib.optionals full [
+    "harper"
+    "voikko"
+    "swedish"
+  ];
 
   # Tests run in CI with cargo; some need a local HTTP server, which the Darwin sandbox blocks.
   doCheck = false;
@@ -35,10 +42,7 @@ rustPlatform.buildRustPackage {
   meta = {
     inherit (manifest) description;
     homepage = manifest.repository;
-    license = with lib.licenses; [
-      mit
-      asl20
-    ];
+    license = lib.licenses.gpl3Plus;
     mainProgram = "explicit";
   };
 }

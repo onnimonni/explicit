@@ -1,4 +1,4 @@
-//! Phrase catalog: built-in `phrases.toml` plus user catalogs from `[slop] extra`.
+//! Phrase catalogue: built-in `phrases.toml` plus user catalogs from `[slop] extra`.
 
 use std::collections::HashMap;
 use std::ops::Range;

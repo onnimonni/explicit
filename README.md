@@ -19,6 +19,8 @@ A fast Rust linter for prose in Markdown files and code comments. It combines id
 - **Code comments:** Rust, Go, Python, JS/TS, shell, Nix, Elixir, Zig, C/C++, Ruby, Java, C#, PHP,
   TOML and YAML comments get the same prose checks.
 - **Docs sites:** table-of-contents sync, include/snippet paths, orphan pages.
+- **Gettext catalogs:** PO/POT syntax, headers, plural forms, placeholders and markup kept in
+  translations, and English msgids through the prose checks.
 
 ## Install
 
@@ -41,7 +43,8 @@ Nix silently ignores the cache and builds from source.
 The default package is the lite build: spelling through Hunspell dictionaries plus Harper's
 vendored word list (`spellbook` engine) and our own grammar pattern rules, without Harper
 itself. `nix run github:onnimonni/explicit#explicit-full -- check` adds the Harper grammar
-engines (`hybrid`, `harper`, `curated`); both packages are on the cache. On our evaluation sets
+engines (`hybrid`, `harper`, `curated`), Finnish (Voikko) and Swedish (experimental); both
+packages are on the cache. On our evaluation sets
 `spellbook` matched `hybrid` at half the run time.
 
 ### devenv
@@ -68,7 +71,7 @@ Options in `devenv.nix`:
 ```nix
 { inputs, pkgs, ... }:
 {
-  # Harper grammar engines (the default package is the lite build):
+  # Harper grammar engines, Finnish and Swedish (the default package is the lite build):
   # explicit.package = inputs.explicit.packages.${pkgs.stdenv.hostPlatform.system}.explicit-full;
   explicit.hook.args = [ "--offline" "--format" "github" ];
   explicit.hook.excludes = [ "^vendor/" ];
@@ -84,7 +87,7 @@ nix profile install github:onnimonni/explicit
 ```
 
 The default package is the lite build (`packages.explicit-lite` is an alias). `packages.explicit-full`
-adds the Harper engines: `nix run github:onnimonni/explicit#explicit-full -- check`. Both are
+adds the Harper engines, Finnish (`voikko` feature) and Swedish (`swedish` feature): `nix run github:onnimonni/explicit#explicit-full -- check`. Both are
 prebuilt on the cache. The flake also exports `overlays.default`, which adds `pkgs.explicit` and
 `pkgs.explicit-full`.
 
@@ -101,10 +104,16 @@ Build without Mermaid support (fewer dependencies) with `--no-default-features`.
 Cargo features:
 
 - `mermaid` (default): parse-checks Mermaid blocks.
+- `swedish` (opt-in, `--features swedish`, experimental): Swedish spelling and rules; embeds
+  the Swedish Hunspell dictionary (0.7 MB). Without it, Swedish files and stretches keep only
+  the language-independent rules (structure, links, style).
+- `voikko` (opt-in, `--features voikko`): Finnish spelling and rules; embeds the voikko-fi
+  morphology (1.6 MB) for the built-in Voikko reader. No C library or system dictionary is
+  needed.
 - `harper` (opt-in, `--features harper`): the Harper grammar engines. Spelling and pattern rules
   give the same results without it. Asking for a Harper engine in a build without it is an
-  error. The lite build compiles in about 25% less time and gives an 11.9 MB instead of a
-  19.5 MB binary (macOS arm64).
+  error. The default build compiles in about 25% less time and gives a 12.7 MB binary; the
+  full build (`harper,voikko,swedish`) 22.7 MB (macOS arm64).
 
 ## Usage
 
@@ -120,6 +129,8 @@ explicit watch                 # re-check on change
 explicit rules                 # list all rules and default severities
 explicit rules --all           # every rule id, incl. each grammar rule (grammar/<Name>) and style/*
 explicit rules --format json   # machine-readable rule list
+explicit vocab suggest         # propose [[vocab]] / [[entity]] entries for unknown names
+explicit vocab list            # table of the configured vocabulary (--format json)
 explicit init                  # write a starter explicit.toml (--force to overwrite)
 ```
 
@@ -148,7 +159,8 @@ rules look at other files, so they run every time. The directory ignores itself 
 (handy for CI caches).
 
 Entries are keyed by root-relative path, file content and config only (no absolute paths,
-mtimes or inodes), so a copied or copy-on-write cloned checkout (`cp -c`, git worktrees) keeps
+mtimes or inodes; the content holds `lang:` front matter and the config `[languages.*]`,
+`[[vocab]]` and the contents of vocab files and dictionaries, so a language change rechecks), so a copied or copy-on-write cloned checkout (`cp -c`, git worktrees) keeps
 its hits. Several checkouts can share one `--cache-dir`: each keeps its own entries, and a save
 merges with what other runs wrote and replaces the file by rename. Runs over the whole project
 drop entries unused for 30 days and keep at most four per checked file.
@@ -212,6 +224,44 @@ capitalized name (`Zellij`) also passes when it occurs 3 or more times across th
 or in a link text of the same file, unless it is one edit from a dictionary word (`Teh`); its
 lowercase form still counts as a typo.
 
+### Project vocabulary
+
+Domain terms and the organizations a project deals with go in `explicit.toml` with what they
+mean, so the file doubles as a glossary:
+
+```toml
+[[vocab]]
+term = "Astori"
+description = "Finnish national medical device register (Fimea)"
+# case_sensitive = true      # accept only this casing (and ALL CAPS)
+# aliases = ["ASTORI"]
+
+[[entity]]
+name = "Telia Oy"            # legal name, accepted as a phrase
+kind = "company"             # company | authority | person | product | ...
+relationship = "Pharmacy partner that dispenses our prescriptions"
+aliases = ["Telia"]          # short forms, accepted as words
+# url = "https://..."
+```
+
+`[[vocab]]` terms and aliases are accepted like `prose.accept` (case-insensitive, hyphenated
+entries as whole words); a term with spaces is accepted as a phrase. An `[[entity]]` name is
+accepted only as the whole phrase: `Oy` passes inside `Telia Oy` but a lone `Oy` elsewhere is
+still flagged. Its aliases are accepted as standalone words. `prose/entity-name` (warning)
+reports entity names, aliases and case-sensitive terms written in another casing
+(`telia oy` -> `Telia Oy`, with a safe fix outside headings); ALL CAPS is fine, and a
+single-word name whose lowercase form is a dictionary word (`Apple`, `apple`) is left alone.
+`description` (vocab) and `relationship` (entity) are required. `[[overrides]]` entries may add
+`vocab` and `entity` lists for their paths.
+
+`explicit vocab suggest [paths]` runs the spell check (without the recurring-name allowance)
+and prints ready-to-paste stanzas for flagged capitalized words and runs of capitalized words
+around them, most frequent first. Runs ending in a legal suffix (`Oy`, `Oyj`, `AB`, `Ltd`,
+`Inc`, `GmbH`, `AS`, `ApS`, `LLC`, `SA`, `BV`, ...) become `kind = "company"` entities, with
+the short form as an alias when it also appears alone. Each stanza has `description = "TODO"`
+or `relationship = "TODO"` and a comment with its count and top files; `--format json` and
+`--min-count N` are available. `explicit vocab list` prints the configured entries as a table.
+
 Remote link checks send a browser-like `User-Agent`. HTTP 401, 403 and 999 (bot walls and
 login pages) are reported as `links/http-unreachable` warnings, not `links/http-error`.
 Links and redirects to localhost or private addresses are not requested unless
@@ -237,6 +287,29 @@ locally are left alone. `#fragment` is kept (`?plain=1` too, with a line fragmen
 and `<autolinks>` only get a suggestion, since GitHub does not link bare relative paths. URLs
 the rule rewrites are not requested remotely.
 
+Other URLs into this repository are never sent to the HTTP checker (anonymous requests to a
+private repository answer 404). `links/same-repo-ref` checks them with local git and GitHub
+instead. Commits, branches, tags and paths at a ref (`blob|tree|raw/<ref>/<path>`,
+`commit/<sha>`, `compare/<a>...<b>`, `releases/tag/<tag>`) go through one read-only
+`git cat-file --batch-check` per run. Whatever git cannot confirm (not fetched, a shallow or
+partial clone, no `git`) is then asked from GitHub, together with issues, pull requests and
+discussions (`issues/<n>`, `pull/<n>`, `discussions/<n>`), in batched GraphQL queries through
+`gh api graphql`. Without `gh` (or when it is not logged in) the token from `GH_TOKEN`,
+`GITHUB_TOKEN` or gh's `hosts.yml` is used over HTTPS; on macOS gh usually keeps its token in
+the keychain, where only `gh` itself can read it. Found on GitHub: no finding. Missing on GitHub
+too: error. Missing in local git and GitHub unreachable (no `gh` or token, offline without a
+cached answer, 401/403, a process running over 30 seconds): info, so it shows without failing
+CI. Paths on the default branch are checked in the working tree (`links/missing-file`).
+
+GitHub answers go to the link cache, keyed by repository and ref/path, never by token. Answers
+that cannot change (commits by SHA, including paths at a SHA, tags, issue, pull request and
+discussion numbers) never expire; they are dropped only when the cache is cleared or no
+checked file has used them for 90 days. Answers through a branch name follow
+`links.cache_ttl_hours` (7 days) and "not found" answers `links.cache_failed_ttl_hours` (1
+hour). `--offline` and `--no-remote` use the cache only and never start `gh`. `git` and `gh`
+are the only programs explicit runs, never through a shell. Set
+`links.check_same_repo = false` to skip all of this.
+
 Files matched by `.gitignore`, `.explicitignore` or `general.exclude` are skipped, also when
 named on the command line (pass `--no-exclude` to check them anyway). Generated files are
 skipped too: code files with `@generated`, `DO NOT EDIT` or `auto-generated` in their first
@@ -245,13 +318,110 @@ edit. -->` or `<!-- AUTO-GENERATED -->` in their first 10 lines.
 
 ### Other languages
 
-Spelling, grammar, `prose/*` and `slop/*` rules are English-only. Structure, link and code
-block rules run on every file. A file counts as non-English when:
+Structure, link, code block and `style/*` rules run on every file. The prose language of a file
+comes from, in order:
 
-- a matching `[[overrides]]` entry (or `general.language`) sets `language` to anything but `en`,
-- its front matter has `lang:` or `language:` other than `en` (first two letters), or
-- `general.detect_language` is on (default) and its prose (80+ words) has few English
-  stop words plus many non-ASCII or non-dictionary words.
+1. front matter `lang:` or `language:` (a BCP 47 tag: `fi`, `fi-FI`, `sv-FI`, `en-GB`),
+2. a matching `[[overrides]]` entry's `language`, or `general.language`,
+3. detection (`general.detect_language`, on by default): prose of 80+ words with few English
+   stop words is Finnish or Swedish when it looks like it, else another language.
+
+**Finnish** (`fi`, `voikko` feature) and **Swedish** (`sv`, opt-in `swedish` feature) files get
+spelling in their language with suggestions, plus a few rules where the orthography leaves no
+choice: `grammar/FinnishCompoundSplit` and `grammar/SwedishCompoundSplit` (`tieto kanta`,
+`kund tjänsten`), `grammar/FinnishCompoundJoined` (`kirjautumisenjälkeen`),
+`grammar/FinnishCapitalization` and `grammar/SwedishCapitalization` (months, weekdays,
+nationalities inside a sentence), `grammar/FinnishSentenceStart` and
+`grammar/SwedishSentenceStart`, `grammar/FinnishKuin` (`parempi kun`),
+`grammar/FinnishComma` (a comma before `jos`, `että`, `koska`, `kun`, ...),
+`grammar/FinnishVaanVain` (`on vaan kaksi`, `ei sisällä logiikkaa vain kutsuu`),
+`grammar/FinnishAgreement` (`tiedot siirtyy`, `katselija pystyivät`) and
+`grammar/SwedishDomDem` (`dom` or `dem` as a subject: `om dem är klara`). The split-compound rules
+want two nouns (Voikko's analysis for Finnish, the dictionary's inflections for Swedish), skip
+noun phrases (`unohtunut annos väliin`, `föregående mötes protokoll`, `två veckors`) and stay
+off in headings and table header rows. English-only
+families (`slop/*`, English grammar, `prose/*` except `prose/entity-name`,
+`prose/terminology`, `prose/smart-quotes` and `prose/sentence-spacing`) stay off. The accept
+lists, `[[vocab]]`, `[[entity]]` and code/URL masking apply as in English. The spell check also
+takes: abbreviations before a dot (`esim.`, `jne.`, `t.ex.`, `osv.`), case endings after a code
+span or colon (`` `namespace`ssa ``, `EU:n`), names and acronyms before a hyphen
+(`Kanta-palvelut`, `API-rajapinta`, `Kela-handläggare` for a configured entity), capitalized
+unknown words inside a sentence and surnames after a known given name as names, English words
+of four or more letters (not plain-vowel spellings of a word of the language: `for` for `för`),
+Finnish inflections of English, developer, accepted or configured words and names
+(`nginxistä`, `commitin`, `Jiraan`, `App Storesta`, `Vitest:llä`; not when the stem is Finnish,
+`testissa`, or the loanword has a Finnish spelling, `clusterin` for `klusterin`), general
+medical and IT loanwords voikko-fi lacks from a short curated list
+([`dictionaries/fi/extra.txt`](dictionaries/fi/extra.txt): `infuusio`, `lokitus`,
+`idempotentti`) with their inflections and compounds (`lokituksen`, `asennusskripti`), English words
+with a Swedish ending (`headern`), Swedish closed compounds whose first part the dictionary's
+compound flags allow, or is an English, developer or configured term, and whose rest it knows
+(`kalendervy`, `meddelandekö`, `pullförfrågan`; not `sårbar|eter` or `lösenordbyte`), weekday abbreviations, and quoted passages of three or more words
+(verbatim, often colloquial speech).
+
+With detection on, stretches in another language are checked with their own dictionary:
+English sentences, table cells and English clauses between commas in a Finnish or Swedish file
+get the English rules (in the configured `prose.dialect`, as do English words inside Finnish or
+Swedish sentences), a Swedish
+paragraph in a Finnish file (or the reverse) the Swedish speller, and Finnish or Swedish phrases,
+cells and quotes in an English file the Finnish or Swedish speller instead of being skipped.
+Files in other languages (and builds without the language's feature or dictionary) keep only
+the language-independent rules.
+
+Mark mixed passages explicitly when detection is not enough (a one-word Finnish cell, a quote
+that looks English). A marked region is checked in its language whatever detection says, with
+the English rules (`en`), the Finnish or Swedish speller (`fi`, `sv`), or only the
+language-independent rules (any other tag); detection of the rest of the file ignores it.
+
+```markdown
+The button reads <span lang="fi">Tallenna</span>.
+
+<div lang="sv">
+
+Hela stycket är på svenska.
+
+</div>
+
+<!-- explicit-lang fi -->
+Everything up to the next marker (or the end of the file) is Finnish.
+<!-- explicit-lang end -->
+```
+
+Any HTML element with a `lang` attribute marks its content (up to the matching end tag; inner
+markers win). In code, the same block markers start a comment: `// explicit-lang fi` …
+`// explicit-lang end` (any comment syntax).
+
+`md/front-matter-lang` (info) reports a Markdown file whose prose is 80% Finnish or Swedish
+words while neither front matter nor an `[[overrides]]` entry declares its language; `--fix`
+adds `lang: fi` to the front matter, or creates `---`/`lang: fi`/`---` at the top of a file
+without one.
+
+```toml
+[languages.fi]
+dictionary_path = "/usr/share/voikko"   # optional: another voikko-fi (mor.vfst or its directory)
+accept = ["Omakanta"]                   # words accepted only in Finnish text
+
+[languages.sv]
+# dictionary_path = "dictionaries/sv_FI.aff"   # optional: a Hunspell .aff (its .dic beside it)
+
+[languages.de]
+dictionary_path = "dictionaries/de"     # any language with a Hunspell index.aff / index.dic
+```
+
+`dictionary_path` is relative to the config root; its contents are part of the results cache
+key. A configured Voikko dictionary also works in builds without the `voikko` feature.
+
+`[[vocab]]` and `[[entity]]` entries apply to every language unless they name one: with
+`lang = "fi"` (or `langs = ["fi", "sv"]`) a term is accepted in Finnish text (files, stretches,
+marked regions) and still flagged in English. `[languages.fi] accept` adds plain words the
+same way.
+
+```toml
+[[vocab]]
+term = "Omakanta"
+description = "Finnish patient portal for health records"
+lang = "fi"
+```
 
 ```toml
 [[overrides]]
@@ -259,8 +429,46 @@ paths = ["docs/fi/**"]       # gitignore-style globs, relative to the config roo
 language = "fi"              # or "none"
 # dialect = "british"        # replaces prose.dialect
 # accept = ["Kalevala"]      # appended to prose.accept
+# vocab = [{ term = "Kalevala", description = "Finnish national epic" }]  # appended to [[vocab]]
 # rules = { "md/line-length" = "off" }  # merged over [rules]
 ```
+
+### Gettext
+
+`.po` and `.pot` files are parsed as GNU gettext catalogs (own parser: multi-line strings,
+escapes, `#~` obsolete entries, `#|` previous strings, flags, header fields). Findings point at
+the exact bytes inside a string, also across concatenated lines.
+
+| Rule | Default | Checks |
+|---|---|---|
+| `gettext/syntax` | error | Unterminated strings, unknown escapes and keywords, stray text, missing `msgstr`, `msgid_plural` without `msgstr[N]` |
+| `gettext/duplicate` | error | The same `msgctxt` + `msgid` twice |
+| `gettext/header` | error/warning | Header entry present, `Plural-Forms` parses and stays below `nplurals`, charset (non-UTF-8 is a warning), `Language` set and matching the path (`fi/LC_MESSAGES/x.po`, `fi.po`, `fi/messages.po`) |
+| `gettext/plural-count` | error | Translated plural entries have `nplurals` forms |
+| `gettext/placeholders` | error | Each `msgstr` keeps the source placeholders: printf (`%s`, `%1$d`, reordering allowed), Python `%(name)s` and `{name}`, ICU `{count, plural, …}` arguments, Elixir/Ruby `%{name}`, Ruby `%<name>s`, Qt `%1`; chosen by the `*-format` flag, otherwise detected from the msgid |
+| `gettext/plural-placeholder` | off | A plural `msgstr[N]` drops the count placeholder (`msgstr[0] "Yksi tiedosto"` for `%{count} files`), which many languages do |
+| `gettext/markup` | warning | Same HTML/XML tags, Markdown links and code spans |
+| `gettext/whitespace` | warning | Same leading/trailing newline and space |
+| `gettext/punctuation` | info | Same final `.` `:` `?` `!` `…` (full-width forms count as equal) |
+| `gettext/accelerator` | warning | Same number of `&` / `_` keyboard accelerators, when at least 3 msgids use them |
+| `gettext/untranslated` | info | Empty `msgstr` (not reported in English catalogs with source-text msgids) |
+| `gettext/fuzzy` | warning | `#, fuzzy` entries, which are ignored at runtime |
+| `gettext/obsolete` | info | `#~` entries |
+| `gettext/same-as-source` | info | A translation identical to a msgid of 3+ words (not in English catalogs, not for capitalized brand names) |
+
+POT templates only get the syntax, duplicate and header checks. Entries whose msgid is a lookup
+key (`auth.login.title`) skip the source/translation comparisons.
+
+msgids, `msgid_plural`s, translator comments (`#`) and extracted comments (`#.`) are English
+prose: spelling, grammar, `prose/*`, `slop/*` and `style/*` rules check them, with
+placeholders, tags and escapes blanked. When a PO file has a POT template next to it
+(`priv/gettext/default.pot` for `priv/gettext/fi/LC_MESSAGES/default.po`, or a single `.pot` in
+the same directory), msgids and extracted comments are checked in the template only, so each
+finding appears once. Translations (`msgstr`, `msgstr[N]`) are prose in the catalog's language,
+taken from the header `Language` or else the path (`fi/LC_MESSAGES/x.po`, `fi.po`): English
+catalogs get the English rules, Finnish and Swedish ones their spellers (placeholders and markup
+blanked as in msgids). Translations in other languages, and copies of the source text, are
+skipped.
 
 ## Suppressing findings
 
@@ -274,7 +482,8 @@ In Markdown:
 <!-- explicit-disable-file md/line-length -- reason goes after two dashes -->
 ```
 
-In code, put the same directives in any comment: `// explicit-disable-line grammar/*`.
+In code, put the same directives in any comment: `// explicit-disable-line grammar/*`. In PO
+files, use a translator comment: `# explicit-disable-next-line gettext/fuzzy`.
 
 To skip a code block's syntax check, add `skip-lint` to the fence: ```` ```json skip-lint ````.
 
@@ -289,6 +498,7 @@ To skip a code block's syntax check, add `skip-lint` to the fence: ```` ```json 
 | `links/*` | Local files, anchors, references, footnotes, http status, remote images, same-repo URLs |
 | `codeblock/*`, `diagram/*` | JSON, TOML, YAML, DOT, Mermaid and D2 blocks |
 | `docs/*` | TOC sync, includes, orphan pages |
+| `gettext/*` | PO/POT syntax, headers, plural forms, placeholders, markup, untranslated and fuzzy entries |
 | `style/*` | Your own `[[style]]` rules |
 
 Run `explicit rules` for the full list with descriptions.
@@ -304,7 +514,8 @@ annotations and `--format sarif` works with code scanning.
 ```console
 devenv shell
 cargo test
-cargo test --no-default-features --features mermaid   # the lite build
+cargo test --no-default-features --features mermaid   # without optional features
+cargo test --features harper,voikko,swedish           # the full build
 scripts/update-linguist.sh       # refresh the embedded GitHub language list
 scripts/update-harper-words.sh   # regenerate dictionaries/harper after bumping harper-core
 ```
@@ -313,5 +524,5 @@ The comment rules in `src/rules/slop/comments.rs` are ported from aislop (MIT); 
 
 ## License
 
-Licensed under either of [Apache License 2.0](LICENSE-APACHE) or [MIT](LICENSE-MIT) at your option.
+Licensed under the [GNU General Public License v3.0 or later](LICENSE) (`GPL-3.0-or-later`), which lets explicit embed and link GPL-licensed language data such as Voikko for Finnish. Releases up to v0.2.0 were published under MIT OR Apache-2.0.
 Third-party code and data are listed in [NOTICE](NOTICE).

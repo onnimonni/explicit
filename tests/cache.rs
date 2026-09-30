@@ -132,3 +132,73 @@ fn worktrees_sharing_a_cache_dir_do_not_thrash() {
     }
     assert_eq!(explicit::cache::entry_count(shared.path()), 4);
 }
+
+/// Config loaded from `root/explicit.toml` with a canonical root.
+fn load_at(root: &Path) -> Config {
+    let mut c = Config::load(&root.join("explicit.toml")).expect("config loads");
+    c.root = root.canonicalize().expect("root exists");
+    c
+}
+
+/// The resolved language of a file and everything language-specific in the config (`[languages.*]`
+/// accept lists and dictionaries, per-language vocab) are part of the results cache key.
+#[test]
+fn language_changes_invalidate_cached_results() {
+    let dir = tempfile::tempdir().unwrap();
+    let root = dir.path().canonicalize().unwrap();
+    let fi = |lang: &str| {
+        format!(
+            "---\nlang: {lang}\n---\n\n# Ohje\n\nTämä ohje kertoo, miten Omakanta-palvelu \
+             toimii ja mitä tietoja se tallentaa.\n"
+        )
+    };
+    std::fs::write(root.join("fi.md"), fi("fi")).unwrap();
+    std::fs::write(
+        root.join("de.md"),
+        "---\nlang: de\n---\n\n# Titel\n\nhaus baum hauss.\n",
+    )
+    .unwrap();
+    std::fs::create_dir_all(root.join("dict")).unwrap();
+    std::fs::write(root.join("dict/index.aff"), "SET UTF-8\n").unwrap();
+    std::fs::write(root.join("dict/index.dic"), "3\nTitel\nhaus\nbaum\n").unwrap();
+    let toml = |extra: &str| {
+        std::fs::write(
+            root.join("explicit.toml"),
+            format!("[languages.de]\ndictionary_path = \"dict\"\n{extra}"),
+        )
+        .unwrap();
+    };
+    toml("");
+    let cache = root.join(DEFAULT_DIR);
+    let check = |expect_misses: usize, what: &str| {
+        let config = load_at(&root);
+        let (cached, s) = run(&config, Some(&cache));
+        assert_eq!(cached, run(&config, None).0, "{what}: cached = uncached");
+        assert_eq!(s.misses, expect_misses, "{what}: {s:?}");
+        cached
+    };
+    let first = check(3, "first run");
+    assert!(
+        first.contains("\"hauss\""),
+        "the de dictionary is used: {first}"
+    );
+    check(0, "unchanged");
+    // A new `lang:` rechecks that file only.
+    std::fs::write(root.join("fi.md"), fi("sv")).unwrap();
+    check(1, "front matter lang");
+    std::fs::write(root.join("fi.md"), fi("fi")).unwrap();
+    check(0, "front matter back (cached)");
+    // A language accept list, per-language vocab and dictionary contents: everything rechecks.
+    toml("[languages.fi]\naccept = [\"Omakanta\"]\n");
+    check(3, "languages.fi accept");
+    toml(
+        "[languages.fi]\naccept = [\"Omakanta\"]\n[[vocab]]\nterm = \"hauss\"\ndescription = \"x\"\nlang = \"de\"\n",
+    );
+    let with_vocab = check(3, "per-language vocab");
+    assert!(!with_vocab.contains("\"hauss\""), "{with_vocab}");
+    toml("[languages.fi]\naccept = [\"Omakanta\"]\n");
+    check(0, "vocab removed again (cached)");
+    std::fs::write(root.join("dict/index.dic"), "4\nTitel\nhaus\nbaum\nhauss\n").unwrap();
+    // (Spellers load once per process, so only the key is checked here.)
+    check(3, "dictionary contents");
+}

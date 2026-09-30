@@ -8,6 +8,9 @@ use std::sync::{Arc, Mutex, OnceLock, PoisonError};
 
 use crate::config::Config;
 use crate::diagnostic::Diagnostic;
+use crate::diagnostic::{Finding, Severity};
+use crate::lang_marks::Region;
+use crate::links::Checked;
 use crate::links::remote::RemoteStatus;
 use crate::rules::spell::ProjectVocab;
 use crate::rules::{Analyzed, FileCtx, Out, default_severity};
@@ -363,13 +366,7 @@ fn is_generated_markdown(text: &str) -> bool {
     false
 }
 
-/// Common English function words; they make up roughly a quarter of English prose.
-const STOPWORDS: &[&str] = &[
-    "the", "and", "of", "to", "is", "that", "for", "with", "it", "as", "are", "be", "this", "was",
-    "by", "an", "or", "from", "at", "not", "you", "we", "can", "will", "have", "has", "if",
-    "which", "your", "they", "their", "these", "when", "than", "but", "into", "its", "been",
-    "were", "a",
-];
+use crate::lang::STOPWORDS;
 
 /// Cheap guess that prose is not English: at least 80 words, few English stopwords, and
 /// either many words with non-ASCII letters or few dictionary words.
@@ -409,7 +406,7 @@ pub fn looks_non_english(segments: &[crate::segment::Segment], config: &Config) 
     known / n < 0.5
 }
 
-/// Language code from Markdown front matter (`lang:` / `language:`), first two letters.
+/// Language tag from Markdown front matter (`lang:` / `language:`), as written.
 fn front_matter_language(a: &Analyzed) -> Option<String> {
     let range = a.md.as_ref()?.front_matter.clone()?;
     let fm = a.file.text.get(range)?;
@@ -419,17 +416,130 @@ fn front_matter_language(a: &Analyzed) -> Option<String> {
             return None;
         }
         let v = v.trim().trim_matches(|c| c == '"' || c == '\'');
-        (!v.is_empty()).then(|| v.chars().take(2).collect::<String>().to_lowercase())
+        (!v.is_empty()).then(|| v.to_string())
     })
 }
 
-/// Whether English prose rules (spelling, grammar, prose, slop) apply to this file.
-fn prose_is_english(a: &Analyzed, config: &Config) -> bool {
-    let lang = front_matter_language(a).unwrap_or_else(|| config.general.language.clone());
-    if !crate::config::is_english(&lang) {
-        return false;
+/// Primary language subtag of the file's prose: front matter, then `general.language` (as
+/// `[[overrides]]` set it), then detection (`fi`, `sv`, or `und` for other languages).
+pub fn document_language(a: &Analyzed, config: &Config) -> String {
+    document_language_in(a, config, &crate::lang_marks::regions(a))
+}
+
+/// [`document_language`] with detection limited to prose outside the marked regions.
+fn document_language_in(a: &Analyzed, config: &Config, marks: &[Region]) -> String {
+    use crate::rules::spell_lang::primary;
+    if let Some(tag) = front_matter_language(a) {
+        return primary(&tag);
     }
-    !(config.general.detect_language && looks_non_english(&a.segments, config))
+    let configured = primary(&config.general.language);
+    if configured != "en" {
+        return configured;
+    }
+    if config.general.detect_language {
+        let segments = unmarked_segments(a, marks);
+        if looks_non_english(&segments, config) {
+            return crate::lang::document_nordic(&segments)
+                .unwrap_or("und")
+                .to_string();
+        }
+    }
+    configured
+}
+
+/// Segments of `a` with the marked regions blanked.
+fn unmarked_segments<'a>(
+    a: &'a Analyzed,
+    marks: &[Region],
+) -> std::borrow::Cow<'a, [crate::segment::Segment]> {
+    if marks.is_empty() {
+        return std::borrow::Cow::Borrowed(&a.segments);
+    }
+    let ranges: Vec<&std::ops::Range<usize>> = marks.iter().map(|(r, _)| r).collect();
+    std::borrow::Cow::Owned(
+        a.segments
+            .iter()
+            .map(|s| {
+                let mut s = s.clone();
+                s.blank_all(ranges.iter().copied());
+                s
+            })
+            .filter(|s| !s.is_blank())
+            .collect(),
+    )
+}
+
+/// `md/front-matter-lang`: a Markdown file without a declared language (front matter or
+/// `[[overrides]]`) whose prose outside marked regions is 80% Finnish or Swedish words. The fix
+/// adds `lang:` to the front matter, or creates front matter holding only it.
+fn front_matter_lang(ctx: &FileCtx, marks: &[Region], out: &mut Out) {
+    let (a, config) = (ctx.a, ctx.config);
+    let Some(md) = &a.md else {
+        return;
+    };
+    if !ctx.enabled("md/front-matter-lang")
+        || !config.general.detect_language
+        || config.general.language_from_override
+        || crate::rules::spell_lang::primary(&config.general.language) != "en"
+        || front_matter_language(a).is_some()
+    {
+        return;
+    }
+    let segments = unmarked_segments(a, marks);
+    let text = segments
+        .iter()
+        .map(|s| s.text.as_str())
+        .collect::<Vec<_>>()
+        .join("\n");
+    if !crate::lang::looks_nordic(&text, 20, true) {
+        return;
+    }
+    let Some(lang) = crate::lang::decisive_nordic(&text) else {
+        return;
+    };
+    let src = a.file.text.as_str();
+    let name = if lang == "fi" { "Finnish" } else { "Swedish" };
+    let line_end = |at: usize| src[at..].find('\n').map_or(src.len(), |i| at + i);
+    let nl = if src[..line_end(0)].ends_with('\r') {
+        "\r\n"
+    } else {
+        "\n"
+    };
+    let (range, fix) = match &md.front_matter {
+        Some(fm) => {
+            let first = fm.start..line_end(fm.start);
+            // Insert after the opening `---` line.
+            let fix = (src[first.clone()].trim_end() == "---" && first.end < fm.end)
+                .then(|| (first.end + 1..first.end + 1, format!("lang: {lang}{nl}")));
+            (first, fix)
+        }
+        None => {
+            // A leading BOM or `---` / `+++` line would make new front matter ambiguous.
+            let fix = (!src.starts_with(['\u{feff}', '-', '+']))
+                .then(|| (0..0, format!("---{nl}lang: {lang}{nl}---{nl}")));
+            (0..line_end(0), fix)
+        }
+    };
+    let mut f = Finding::new(
+        "md/front-matter-lang",
+        Severity::Info,
+        range,
+        format!("The prose is {name}, but the file declares no language"),
+    )
+    .help(format!(
+        "Add `lang: {lang}` to the front matter, so the file is checked as {name} without \
+         relying on detection"
+    ));
+    if let Some((r, text)) = fix {
+        f = f.fix(r, text);
+    }
+    out.push(f);
+}
+
+/// Whether English prose rules (spelling, grammar, prose, slop) apply to this file.
+#[cfg(test)]
+fn prose_is_english(a: &Analyzed, config: &Config) -> bool {
+    document_language(a, config) == "en"
 }
 
 /// Run `f` over items on all cores.
@@ -519,26 +629,35 @@ pub fn check_with_stats(
         .filter_map(|p| ws.files.get(p).cloned())
         .collect();
 
-    let statuses: HashMap<String, RemoteStatus> = if opts.remote && config.links.remote {
+    // The link cache lives in the project cache dir and stays on with `--no-cache`
+    // (that only disables the results cache), unless `links.cache = false`.
+    let link_cache = config.links.cache.then(|| {
+        let dir = opts
+            .cache_dir
+            .clone()
+            .unwrap_or_else(|| crate::links::cache::default_dir(config));
+        crate::links::cache::path_in(&dir)
+    });
+    let network = opts.remote && config.links.remote;
+    let remote: HashMap<String, RemoteStatus> = if network {
         let mut urls: HashSet<crate::links::remote::Target> = HashSet::new();
         for a in &targets {
             urls.extend(crate::links::remote::urls(&FileCtx { a, config }));
         }
         let mut urls: Vec<_> = urls.into_iter().collect();
         urls.sort();
-        // The link cache lives in the project cache dir and stays on with `--no-cache`
-        // (that only disables the results cache), unless `links.cache = false`.
-        let link_cache = config.links.cache.then(|| {
-            let dir = opts
-                .cache_dir
-                .clone()
-                .unwrap_or_else(|| crate::links::cache::default_dir(config));
-            crate::links::cache::path_in(&dir)
-        });
-        crate::links::remote::check_all(&urls, config, link_cache)
+        crate::links::remote::check_all(&urls, config, link_cache.clone())
     } else {
         HashMap::new()
     };
+    // Same-repo links: local git always; issues via gh/token only with network access.
+    let same_repo = crate::links::same_repo::check_all(
+        targets.iter().map(|a| &**a),
+        config,
+        link_cache,
+        network,
+    );
+    let statuses = Checked { remote, same_repo };
 
     let cache = opts.cache_dir.as_deref().map(crate::cache::Cache::open);
     // Config keys per distinct effective config (`None` = the base config).
@@ -625,7 +744,7 @@ pub fn check_file(
     a: &Analyzed,
     ws: &Workspace,
     config: &Config,
-    statuses: &HashMap<String, RemoteStatus>,
+    statuses: &Checked,
 ) -> Vec<Diagnostic> {
     let effective = config.for_path(&a.file.rel);
     let config: &Config = effective.as_deref().unwrap_or(config);
@@ -644,99 +763,222 @@ pub fn local_findings(a: &Analyzed, config: &Config) -> Out {
         crate::rules::diagram::check(&ctx, &mut out);
         crate::rules::codeblock::check(&ctx, &mut out);
     }
-    if is_md || config.comments.enabled {
-        // Non-English prose keeps only user style rules.
-        let english = prose_is_english(a, config);
-        if english {
-            crate::rules::grammar::check(&ctx, &mut out);
-        }
+    let is_po = a.po.is_some();
+    if is_po {
+        crate::rules::gettext::check(&ctx, &mut out);
+    }
+    if is_md || is_po || config.comments.enabled {
+        // Explicitly marked regions override detection (see `crate::lang_marks`).
+        let marks = crate::lang_marks::regions(a);
+        let marked: Vec<std::ops::Range<usize>> = marks.iter().map(|(r, _)| r.clone()).collect();
+        let lang = document_language_in(a, config, &marks);
         crate::rules::style::check(&ctx, &mut out);
-        if english {
-            crate::rules::slop::check(&ctx, &mut out);
-            crate::rules::prose::check(&ctx, &mut out);
+        if lang == "en" {
+            english_prose(&ctx, &mut out);
             if config.general.detect_language {
-                drop_foreign_segment_findings(a, &mut out);
+                drop_foreign_segment_findings(a, &marked, &mut out);
+                check_stretches(&ctx, "en", &marked, &mut out);
             }
+        } else if let Some(sp) = crate::rules::spell_lang::speller(&lang, config) {
+            // Finnish / Swedish prose: its own spelling; English-only rule families stay off
+            // except in English stretches. Other languages keep only user style rules.
+            language_prose(&ctx, &lang, sp, &marked, &mut out);
+        }
+        if !marks.is_empty() {
+            marked_prose(&ctx, &lang, &marks, &mut out);
+        }
+        if is_md {
+            front_matter_lang(&ctx, &marks, &mut out);
         }
     }
     out
 }
 
-/// English-only rule families.
-fn is_english_rule(rule: &str) -> bool {
-    rule == "spelling"
-        || ["grammar/", "prose/", "slop/"]
+/// English rule families: spelling and grammar, slop, prose.
+fn english_prose(ctx: &FileCtx, out: &mut Out) {
+    crate::rules::grammar::check(ctx, out);
+    crate::rules::slop::check(ctx, out);
+    crate::rules::prose::check(ctx, out);
+}
+
+/// A finding of an English-only rule family that depends on the text's language.
+fn language_dependent(f: &crate::diagnostic::Finding) -> bool {
+    crate::lang::is_english_rule(&f.rule) && !LANGUAGE_NEUTRAL_PROSE.contains(&f.rule.as_str())
+}
+
+/// Marked regions of a file in language `doc_lang`: findings of the file's own checks inside
+/// them are replaced by checks in the region's language (English rules, a Finnish or Swedish
+/// speller, or nothing for languages without one). English regions of an English file were
+/// already checked as such.
+fn marked_prose(ctx: &FileCtx, doc_lang: &str, marks: &[Region], out: &mut Out) {
+    let own = |l: &str| doc_lang == "en" && l == "en";
+    out.retain(|f| {
+        !language_dependent(f)
+            || !marks
+                .iter()
+                .any(|(r, l)| !own(l) && r.contains(&f.range.start))
+    });
+    let mut by_lang: std::collections::BTreeMap<&str, Vec<std::ops::Range<usize>>> =
+        Default::default();
+    for (r, l) in marks.iter().filter(|(_, l)| !own(l)) {
+        by_lang.entry(l.as_str()).or_default().push(r.clone());
+    }
+    for (l, ranges) in by_lang {
+        if l == "en" {
+            let mut en = Vec::new();
+            english_prose(ctx, &mut en);
+            en.retain(|f| ranges.iter().any(|r| r.contains(&f.range.start)));
+            out.extend(en);
+        } else if let Some(sp) = crate::rules::spell_lang::speller(l, ctx.config) {
+            crate::rules::grammar::check_language(ctx, l, sp, None, Some(&ranges), out);
+        }
+    }
+}
+
+/// `prose/*` rules that do not depend on English: configured names and terms, typography.
+const LANGUAGE_NEUTRAL_PROSE: &[&str] = &[
+    "prose/entity-name",
+    "prose/terminology",
+    "prose/smart-quotes",
+    "prose/sentence-spacing",
+];
+
+/// Byte ranges of the segments of `a` minus `exclude`.
+fn segments_minus(a: &Analyzed, exclude: &[std::ops::Range<usize>]) -> Vec<std::ops::Range<usize>> {
+    let mut ex: Vec<&std::ops::Range<usize>> = exclude.iter().collect();
+    ex.sort_by_key(|r| r.start);
+    let mut out = Vec::new();
+    for s in &a.segments {
+        let mut pos = s.range.start;
+        for r in ex
             .iter()
-            .any(|p| rule.starts_with(p))
+            .filter(|r| r.start < s.range.end && s.range.start < r.end)
+        {
+            if r.start > pos {
+                out.push(pos..r.start);
+            }
+            pos = pos.max(r.end);
+        }
+        if pos < s.range.end {
+            out.push(pos..s.range.end);
+        }
+    }
+    out
+}
+
+/// Prose of a file in language `lang` (not English) with its speller `sp`: spelling in that
+/// language outside English stretches and stretches of another Nordic language (checked with
+/// their own spellers); English rules inside English stretches; language-neutral prose rules.
+fn language_prose(
+    ctx: &FileCtx,
+    lang: &str,
+    sp: Arc<dyn crate::rules::spell_lang::LangSpeller>,
+    marked: &[std::ops::Range<usize>],
+    out: &mut Out,
+) {
+    let a = ctx.a;
+    let detect = ctx.config.general.detect_language;
+    // Detection stays out of marked regions.
+    let unmarked =
+        |r: &std::ops::Range<usize>| !marked.iter().any(|m| m.start < r.end && r.start < m.end);
+    let english: Vec<_> = if detect {
+        crate::lang::english_ranges(&a.segments)
+            .into_iter()
+            .filter(unmarked)
+            .collect()
+    } else {
+        Vec::new()
+    };
+    let others: Vec<_> = if detect {
+        crate::lang::other_nordic_ranges(&a.segments, lang)
+            .into_iter()
+            .filter(|(r, _)| !english.iter().any(|e| e.start <= r.start && r.end <= e.end))
+            .filter(|(r, _)| unmarked(r))
+            .collect()
+    } else {
+        Vec::new()
+    };
+    let mut exclude = english.clone();
+    exclude.extend(marked.iter().cloned());
+    exclude.extend(others.iter().map(|(r, _)| r.clone()));
+    let own = segments_minus(a, &exclude);
+    // The other Nordic language vouches for longer words (a Finnish title in Swedish text).
+    let neighbour = match lang {
+        "fi" => crate::rules::spell_lang::speller("sv", ctx.config),
+        "sv" => crate::rules::spell_lang::speller("fi", ctx.config),
+        _ => None,
+    };
+    crate::rules::grammar::check_language(ctx, lang, sp.clone(), neighbour, Some(&own), out);
+    if !english.is_empty() {
+        let mut en = Vec::new();
+        crate::rules::grammar::check(ctx, &mut en);
+        en.retain(|f| english.iter().any(|r| r.contains(&f.range.start)));
+        out.extend(en);
+    }
+    let mut by_lang: std::collections::BTreeMap<&str, Vec<std::ops::Range<usize>>> =
+        Default::default();
+    for (r, l) in others {
+        by_lang.entry(l).or_default().push(r);
+    }
+    for (l, ranges) in by_lang {
+        if let Some(other) = crate::rules::spell_lang::speller(l, ctx.config) {
+            let main = Some(sp.clone());
+            crate::rules::grammar::check_language(ctx, l, other, main, Some(&ranges), out);
+        }
+    }
+    let mut prose = Vec::new();
+    crate::rules::prose::check(ctx, &mut prose);
+    prose.retain(|f| LANGUAGE_NEUTRAL_PROSE.contains(&f.rule.as_str()));
+    out.extend(prose);
+}
+
+/// Spelling of Finnish and Swedish stretches inside a file in language `lang` (other than
+/// `lang`, outside `skip`), each with its language's speller when this build has one.
+fn check_stretches(ctx: &FileCtx, lang: &str, skip: &[std::ops::Range<usize>], out: &mut Out) {
+    let mut by_lang: std::collections::BTreeMap<&str, Vec<std::ops::Range<usize>>> =
+        Default::default();
+    for (r, l) in crate::lang::foreign_stretches(&ctx.a.segments) {
+        if let Some(l) = l.filter(|l| *l != lang)
+            && !skip.iter().any(|s| s.contains(&r.start))
+        {
+            by_lang.entry(l).or_default().push(r);
+        }
+    }
+    for (l, ranges) in by_lang {
+        if let Some(sp) = crate::rules::spell_lang::speller(l, ctx.config) {
+            crate::rules::grammar::check_language(ctx, l, sp, None, Some(&ranges), out);
+        }
+    }
 }
 
 /// Drop English-only findings inside foreign-language stretches of an English file, e.g. a
-/// quoted Finnish sentence or table cell: whole segments, or phrases between sentence
-/// punctuation, quotes, brackets, table pipes and line breaks.
-fn drop_foreign_segment_findings(a: &Analyzed, out: &mut Out) {
-    let mut foreign: Vec<std::ops::Range<usize>> = Vec::new();
-    for s in &a.segments {
-        if looks_foreign(&s.text, 6, 6) {
-            foreign.push(s.range.clone());
-            continue;
-        }
-        let mut start = 0;
-        let bounds = s
-            .text
-            .match_indices(|c: char| ".!?;:|\"“”«»()[]\n".contains(c))
-            .map(|(i, m)| (i, i + m.len()))
-            .chain([(s.text.len(), s.text.len())]);
-        for (end, next) in bounds {
-            if looks_foreign(&s.text[start..end], 3, 4) {
-                foreign.push(s.abs(start..end));
-            }
-            start = next;
-        }
+/// quoted Finnish sentence or table cell (see `crate::lang`); `marked` regions are left to
+/// [`marked_prose`].
+fn drop_foreign_segment_findings(a: &Analyzed, marked: &[std::ops::Range<usize>], out: &mut Out) {
+    if marked.is_empty() {
+        crate::lang::drop_foreign_findings(&a.segments, out);
+        return;
     }
-    if !foreign.is_empty() {
-        out.retain(|f| {
-            !is_english_rule(&f.rule) || !foreign.iter().any(|r| r.contains(&f.range.start))
-        });
-    }
-}
-
-/// At least `min_words` words, under 5% English stopwords and at least one in `ascii_div`
-/// words with non-ASCII letters.
-fn looks_foreign(text: &str, min_words: usize, ascii_div: usize) -> bool {
-    let mut n = 0;
-    let mut stop = 0;
-    let mut non_ascii = 0;
-    for w in text
-        .split(|c: char| !c.is_alphabetic() && c != '\'')
-        .map(|w| w.trim_matches('\''))
-        .filter(|w| !w.is_empty())
-    {
-        n += 1;
-        if !w.is_ascii() {
-            non_ascii += 1;
-        } else if STOPWORDS.contains(&w.to_ascii_lowercase().as_str()) {
-            stop += 1;
-        }
-    }
-    n >= min_words && stop * 20 < n && non_ascii * ascii_div >= n
+    let (mut kept, mut rest): (Out, Out) = std::mem::take(out)
+        .into_iter()
+        .partition(|f| marked.iter().any(|r| r.contains(&f.range.start)));
+    crate::lang::drop_foreign_findings(&a.segments, &mut rest);
+    kept.extend(rest);
+    *out = kept;
 }
 
 /// Findings of rules that look at other files or the network (links, docs); never cached.
-pub fn cross_findings(
-    a: &Analyzed,
-    ws: &Workspace,
-    config: &Config,
-    statuses: &HashMap<String, RemoteStatus>,
-) -> Out {
+pub fn cross_findings(a: &Analyzed, ws: &Workspace, config: &Config, statuses: &Checked) -> Out {
     let ctx = FileCtx { a, config };
     let mut out: Out = Vec::new();
     if a.md.is_some() {
         crate::rules::docs::check(&ctx, ws, &mut out);
     }
     crate::links::local::check(&ctx, ws, &mut out);
-    if !statuses.is_empty() {
-        crate::links::remote::report(&ctx, statuses, &mut out);
+    if !statuses.remote.is_empty() {
+        crate::links::remote::report(&ctx, &statuses.remote, &mut out);
     }
+    crate::links::same_repo::report(&ctx, &statuses.same_repo, &mut out);
     out
 }
 
@@ -759,7 +1001,7 @@ pub fn cross_diagnostics(
     a: &Analyzed,
     ws: &Workspace,
     config: &Config,
-    statuses: &HashMap<String, RemoteStatus>,
+    statuses: &Checked,
 ) -> Vec<Diagnostic> {
     to_diagnostics(a, config, cross_findings(a, ws, config, statuses))
 }
@@ -877,46 +1119,9 @@ mod tests {
     }
 
     #[test]
-    fn foreign_phrases() {
-        assert!(looks_foreign("Tämä on hyvä käyttäjälle", 3, 4));
-        assert!(!looks_foreign("The user sees the café menu", 3, 4));
-        assert!(!looks_foreign("Hyvä päivä", 3, 4));
-        // Quoted Finnish inside an English paragraph: only the quote is dropped.
-        let text = format!("# T\n\n{EN} The label says \"Tämä älä käytä väärin\" and teh end.\n");
-        let a = md(&text);
-        let at = |needle: &str| text.find(needle).unwrap();
-        let mut out: Out = vec![
-            crate::diagnostic::Finding::new(
-                "spelling",
-                crate::diagnostic::Severity::Error,
-                at("älä")..at("älä") + 4,
-                "x",
-            ),
-            crate::diagnostic::Finding::new(
-                "spelling",
-                crate::diagnostic::Severity::Error,
-                at("teh")..at("teh") + 3,
-                "x",
-            ),
-            crate::diagnostic::Finding::new(
-                "md/x",
-                crate::diagnostic::Severity::Error,
-                at("älä")..at("älä") + 4,
-                "x",
-            ),
-        ];
-        drop_foreign_segment_findings(&a, &mut out);
-        let rules: Vec<(&str, usize)> = out
-            .iter()
-            .map(|f| (f.rule.as_str(), f.range.start))
-            .collect();
-        assert_eq!(rules, [("spelling", at("teh")), ("md/x", at("älä"))]);
-    }
-
-    #[test]
     fn front_matter_language_key() {
         let a = md("---\ntitle: X\nlang: fi-FI\n---\n\n# X\n");
-        assert_eq!(front_matter_language(&a).as_deref(), Some("fi"));
+        assert_eq!(front_matter_language(&a).as_deref(), Some("fi-FI"));
         let a = md("---\nlanguage: \"en\"\n---\n\n# X\n");
         assert!(prose_is_english(&a, &Config::default()));
         assert_eq!(front_matter_language(&md("# X\n")), None);
@@ -1021,6 +1226,182 @@ mod tests {
             );
         }
         assert!(rules_for(&c, "c.md").contains(&"spelling".to_string()));
+    }
+
+    /// `(rule, flagged text)` of `rel`'s diagnostics.
+    #[cfg(any(feature = "voikko", feature = "swedish"))]
+    fn found(c: &Config, rel: &str) -> Vec<(String, String)> {
+        let path = c.root.join(rel);
+        let text = std::fs::read_to_string(&path).unwrap();
+        let ws = build_workspace(std::slice::from_ref(&path), c);
+        check(&ws, &[path], c, &Options::default())
+            .into_iter()
+            .map(|d| (d.rule.clone(), text[d.range.clone()].to_string()))
+            .collect()
+    }
+
+    #[cfg(feature = "voikko")]
+    #[test]
+    fn finnish_files_get_finnish_spelling() {
+        let fi = "---\nlang: fi-FI\n---\n\n# Ohje\n\nTämä ohje kertoo, miten potilasasiakrja tallenetaan \
+            järjestelmään. Kokous pidetään Tiistaina.\n\n\
+            The English summary has a speling mistake and the words are otherwise fine.\n";
+        let (_dir, c) = project(&[("a.md", fi)], "");
+        let got = found(&c, "a.md");
+        let spelled: Vec<&str> = got
+            .iter()
+            .filter(|(r, _)| r == "spelling")
+            .map(|(_, t)| t.as_str())
+            .collect();
+        assert_eq!(
+            spelled,
+            ["potilasasiakrja", "tallenetaan", "speling"],
+            "{got:?}"
+        );
+        assert!(got.contains(&("grammar/FinnishCapitalization".into(), "Tiistaina".into())));
+        // English-only families stay off for the Finnish prose.
+        assert!(!got.iter().any(|(r, _)| r.starts_with("slop/")), "{got:?}");
+    }
+
+    /// English words and passages inside a Finnish file follow `prose.dialect`.
+    #[cfg(feature = "voikko")]
+    #[test]
+    fn english_inside_finnish_follows_the_dialect() {
+        let fi = "---\nlang: fi\n---\n\n# Ohje\n\nTämä ohje kertoo, miten sovelluksen colour \
+            valitaan asetuksista ja tallennetaan.\n\n\
+            The colour of the button is set in the settings and saved to the profile.\n";
+        let colours = |cfg: &str| {
+            let (_dir, c) = project(&[("a.md", fi)], cfg);
+            found(&c, "a.md")
+                .into_iter()
+                .filter(|(r, t)| r == "spelling" && t == "colour")
+                .count()
+        };
+        assert_eq!(colours(""), 2);
+        assert_eq!(colours("[prose]\ndialect = \"british\"\n"), 0);
+    }
+
+    #[cfg(feature = "voikko")]
+    #[test]
+    fn finnish_dictionary_path_from_config() {
+        let dir = tempfile::tempdir().unwrap();
+        let vfst = dir.path().join("dict/5/mor-standard");
+        std::fs::create_dir_all(&vfst).unwrap();
+        let data = miniz_oxide::inflate::decompress_to_vec_zlib(include_bytes!(
+            "../dictionaries/fi/mor.vfst.zlib"
+        ))
+        .unwrap();
+        std::fs::write(vfst.join("mor.vfst"), data).unwrap();
+        std::fs::write(
+            dir.path().join("a.md"),
+            "---\nlang: fi\n---\n\n# Ohje\n\nKissa istuu talosa.\n",
+        )
+        .unwrap();
+        std::fs::write(
+            dir.path().join("explicit.toml"),
+            "[languages.fi]\ndictionary_path = \"dict\"\naccept = [\"talosa\"]\n",
+        )
+        .unwrap();
+        let c = Config::load(&dir.path().join("explicit.toml")).unwrap();
+        assert!(crate::rules::spell_lang::dictionary_files(&c)[0].ends_with("mor.vfst"));
+        assert!(found(&c, "a.md").iter().all(|(r, _)| r != "spelling"));
+    }
+
+    #[cfg(feature = "swedish")]
+    #[test]
+    fn swedish_files_and_stretches() {
+        let sv = "---\nlang: sv\n---\n\n# Rubrik\n\nKontakta kund tjänsten om sjukvårdssystemet \
+            inte fungrar.\n";
+        let (_dir, c) = project(
+            &[
+                ("sv.md", sv),
+                (
+                    "en.md",
+                    "# Matrix\n\n| Id | Requirement | Source |\n|----|----|----|\n\
+                     | R1 | Store the records | Uppgifterna ska sparas och inte delsa |\n",
+                ),
+            ],
+            "",
+        );
+        let got = found(&c, "sv.md");
+        assert!(
+            got.contains(&("spelling".into(), "fungrar".into())),
+            "{got:?}"
+        );
+        assert!(got.contains(&(
+            "grammar/SwedishCompoundSplit".into(),
+            "kund tjänsten".into()
+        )));
+        assert!(
+            !got.iter().any(|(_, t)| t == "sjukvårdssystemet"),
+            "{got:?}"
+        );
+        // A Swedish table cell in an English file is checked with the Swedish speller.
+        let got = found(&c, "en.md");
+        assert!(
+            got.contains(&("spelling".into(), "delsa".into())),
+            "{got:?}"
+        );
+        assert!(!got.iter().any(|(_, t)| t == "Uppgifterna"), "{got:?}");
+    }
+
+    /// Words with `spelling` findings in `rel`.
+    #[cfg(any(feature = "voikko", feature = "swedish"))]
+    fn spelled(c: &Config, rel: &str) -> Vec<String> {
+        found(c, rel)
+            .into_iter()
+            .filter(|(r, _)| r == "spelling")
+            .map(|(_, t)| t)
+            .collect()
+    }
+
+    #[cfg(feature = "swedish")]
+    #[test]
+    fn marked_regions_override_detection() {
+        let en = "# Guide\n\nThe installer copies teh files. The button says \
+            <span lang=\"sv\">Ta emot</span> and <span lang='sv-FI'>Spara i systemt</span>.\n\n\
+            <!-- explicit-lang sv -->\n\nFilerna sparas i systemt.\n\n\
+            <!-- explicit-lang en -->\n\nBack in Englsh.\n\n<!-- explicit-lang end -->\n\n\
+            <div lang=\"de\">\n\nUnbekannte Wrter werden übersprungen.\n\n</div>\n\nThe ende.\n";
+        let sv = "---\nlang: sv\n---\n\n# Rubrik\n\nFilerna sparas i systemt.\n\n\
+            <!-- explicit-lang en -->\n\nThis part is Englsh, marked as such.\n";
+        let rs = "// Copies teh files.\n// explicit-lang sv\n// Filerna sparas i systemt.\n\
+            fn a() {}\n// explicit-lang end\n// Back in Englsh.\nfn b() {}\n";
+        let (_dir, c) = project(&[("en.md", en), ("sv.md", sv), ("a.rs", rs)], "");
+        // English outside, Swedish (`emot` is fine) inside, German skipped.
+        assert_eq!(
+            spelled(&c, "en.md"),
+            ["teh", "systemt", "systemt", "Englsh", "ende"]
+        );
+        assert_eq!(spelled(&c, "sv.md"), ["systemt", "Englsh"]);
+        assert_eq!(spelled(&c, "a.rs"), ["teh", "systemt", "Englsh"]);
+    }
+
+    #[cfg(feature = "voikko")]
+    #[test]
+    fn marked_finnish_region() {
+        let en = "# Guide\n\nThe label reads <span lang=\"fi\">Tallenna tiedosto \
+            levylle</span>, and teh button <span lang=\"fi\">tallenna tiedstoa</span> is broken.\n";
+        let (_dir, c) = project(&[("en.md", en)], "");
+        assert_eq!(spelled(&c, "en.md"), ["teh", "tiedstoa"]);
+    }
+
+    #[cfg(feature = "swedish")]
+    #[test]
+    fn per_language_vocab() {
+        let text = "# Guide\n\nThe Zorpvardik app by Frobnik Ab uses Kundzorp.\n\n\
+            <!-- explicit-lang sv -->\n\nAppen Zorpvardik från Frobnik Ab använder Kundzorp och \
+            Blixtfrob.\n";
+        let config = "[[vocab]]\nterm = \"Zorpvardik\"\ndescription = \"Swedish app name\"\n\
+            lang = \"sv\"\n\n[[vocab]]\nterm = \"Kundzorp\"\ndescription = \"Everywhere\"\n\n\
+            [[entity]]\nname = \"Frobnik Ab\"\nrelationship = \"Vendor\"\nlangs = [\"fi\", \"sv-FI\"]\n\n\
+            [languages.sv]\naccept = [\"Blixtfrob\"]\n";
+        let (_dir, c) = project(&[("a.md", text)], config);
+        // Swedish-only terms are flagged in English and accepted in the Swedish region; terms
+        // without a language are accepted in both.
+        assert_eq!(spelled(&c, "a.md"), ["Zorpvardik", "Frobnik"]);
+        assert!(c.vocab[0].applies_to("sv") && !c.vocab[0].applies_to("en"));
+        assert!(c.entities[0].applies_to("fi") && c.vocab[1].applies_to("en"));
     }
 
     #[test]

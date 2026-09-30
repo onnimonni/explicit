@@ -59,7 +59,7 @@ in
       };
       files = lib.mkOption {
         type = lib.types.str;
-        default = "\\.(md|markdown|mdx|rs|go|py|js|jsx|ts|tsx|sh|bash|nix|ex|exs|zig|c|h|cc|cpp|hpp|rb|java|kt|cs|php|toml|ya?ml)$";
+        default = "\\.(md|markdown|mdx|rs|go|py|js|jsx|ts|tsx|sh|bash|nix|ex|exs|zig|c|h|cc|cpp|hpp|rb|java|kt|cs|php|toml|ya?ml|po|pot)$";
         description = "Regex of files the hook checks.";
       };
       excludes = lib.mkOption {

@@ -71,6 +71,12 @@ static SPELLERS: [Speller; 5] = [
     },
 ];
 
+impl Speller {
+    pub fn dialect(&self) -> Dialect {
+        self.dialect
+    }
+}
+
 /// The speller for a `prose.dialect` value: en_GB for British-style spelling, else en_US.
 pub fn dictionary(dialect: &str) -> &'static Speller {
     speller(super::grammar::dialect(dialect))
@@ -310,16 +316,64 @@ const PREFIXES: &[&str] = &[
     "un", "re", "pre", "non", "de", "sub", "multi", "inter", "over",
 ];
 
-/// A [`PREFIXES`] prefix on a known word (itself possibly [`derived`]) of 4+ letters, not one
-/// edit from a known word (`untill` is `until`).
+/// A [`PREFIXES`] prefix on a known word (itself possibly [`derived`]) of 4+ letters, or `un` /
+/// `re` on a three-letter verb (`unrun`), not one edit from a known word (`untill` is `until`).
+/// A neighbour that is the same word under another prefix (`invalidated` for `unvalidated`,
+/// `regenerated` for `pregenerated`) is no typo, nor the prefix on a word one substitution from
+/// a listed stem (`unpaused` for `unparsed`), or one insertion from a three-letter verb
+/// (`unrung` for `unrun`). Other insertions and deletions are (`restore` for `retore`,
+/// `until` for `untill`).
 fn prefixed(s: &Speller, lower: &str) -> bool {
     PREFIXES.iter().any(|p| {
         lower.strip_prefix(p).is_some_and(|rest| {
-            rest.len() >= 4
-                && rest.starts_with(|c: char| c.is_ascii_lowercase())
-                && (listed(s, rest) || derived(s, rest))
+            let short = rest.len() == 3;
+            let stem_ok = if short {
+                matches!(*p, "un" | "re") && three_letter_verb(s, rest)
+            } else {
+                rest.len() >= 4 && (listed(s, rest) || derived(s, rest))
+            };
+            if !stem_ok || !rest.starts_with(|c: char| c.is_ascii_lowercase()) {
+                return false;
+            }
+            // Not insertions into the prefix: `res` + `tore` is `re` + `store`.
+            let mut except: Vec<String> = edits(p, true, false)
+                .iter()
+                .map(|q| format!("{q}{rest}"))
+                .collect();
+            if short || listed(s, rest) {
+                except.extend(edits(rest, false, short).iter().map(|r| format!("{p}{r}")));
+            }
+            !near_known_except(s, lower, &except)
         })
-    }) && !near_known(s, lower, "")
+    })
+}
+
+/// `run`, `set`, `cut`: a three-letter verb Harper knows, with an `-ing` form.
+fn three_letter_verb(s: &Speller, w: &str) -> bool {
+    harper_known(w, s.dialect) && verb(s, w)
+}
+
+/// Every string one substitution of a lowercase letter from `w`, plus with `deletions` one
+/// deletion and with `insertions` one insertion.
+fn edits(w: &str, deletions: bool, insertions: bool) -> Vec<String> {
+    let p: Vec<char> = w.chars().collect();
+    let mut out = Vec::new();
+    for i in 0..=p.len() {
+        if deletions && i < p.len() {
+            out.push([&p[..i], &p[i + 1..]].concat());
+        }
+        for l in 'a'..='z' {
+            if insertions {
+                out.push([&p[..i], &[l], &p[i..]].concat());
+            }
+            if i < p.len() && p[i] != l {
+                let mut v = p.clone();
+                v[i] = l;
+                out.push(v);
+            }
+        }
+    }
+    out.into_iter().map(|v| v.into_iter().collect()).collect()
 }
 
 fn is_vowel(c: char) -> bool {
@@ -521,7 +575,7 @@ fn in_phrase(chars: &[char], tokens: &[Token], i: usize) -> bool {
 }
 
 /// Up to three corrections from Hunspell's suggester, without its n-gram pass (5x slower
-/// overall on large docs, and mostly adds guesses for names and jargon).
+/// overall on large docs, and its extra guesses are for names and jargon).
 pub fn suggest(d: &Speller, word: &str) -> Vec<String> {
     let mut out = Vec::new();
     d.hunspell
@@ -1075,6 +1129,70 @@ mod tests {
         }
         let gb = dictionary("british");
         assert!(known(gb, "organisation") && known(gb, "behaviour"));
+    }
+
+    #[test]
+    fn un_prefixed_participles() {
+        let us = dictionary("american");
+        for w in [
+            "unvalidated",
+            "unrun",
+            "unmerged",
+            "unreviewed",
+            "untested",
+            "unsanitized",
+            "unversioned",
+            "unparsed",
+            "rerun",
+        ] {
+            assert!(known(us, w), "{w}");
+        }
+        for w in [
+            "untill",
+            "unecessary",
+            "unrecieved",
+            "unvalidatd",
+            "unrn",
+            "retore",
+            "unallowed",
+        ] {
+            assert!(!known(us, w), "{w}");
+        }
+    }
+
+    #[test]
+    fn developer_words() {
+        let us = dictionary("american");
+        for w in [
+            "cron",
+            "crontab",
+            "pnpm",
+            "npx",
+            "bunx",
+            "argv",
+            "argc",
+            "keyset",
+            "fanout",
+            "prerender",
+            "gitignored",
+            "nixpkgs",
+            "devenv",
+            "stdlib",
+            "upsert",
+            "idempotency",
+            "webhooks",
+            "healthchecks",
+            "backoff",
+            "failover",
+            "runbooks",
+            "linter",
+            "monorepo",
+            "codegen",
+            "subcommand",
+            "tokenizer",
+        ] {
+            assert!(known(us, w), "{w}");
+        }
     }
 
     #[test]

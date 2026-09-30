@@ -85,7 +85,15 @@ pub fn config_key(config: &Config) -> u128 {
         debug = debug.replace(&*root, "<root>");
     }
     let mut files = Vec::new();
-    for p in config.prose.vocab_files.iter().chain(&config.slop.extra) {
+    // Configured spelling dictionaries (`[languages.*] dictionary_path`) count by content.
+    let dictionaries = crate::rules::spell_lang::dictionary_files(config);
+    for p in config
+        .prose
+        .vocab_files
+        .iter()
+        .chain(&config.slop.extra)
+        .chain(&dictionaries)
+    {
         let full = config.root.join(p);
         let rel = full.strip_prefix(&config.root).unwrap_or(&full);
         files.extend(rel.to_string_lossy().as_bytes());

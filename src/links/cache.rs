@@ -13,6 +13,10 @@ use crate::config::Config;
 
 /// Entries older than this are dropped on save, even for offline use.
 const MAX_AGE_SECS: u64 = 30 * 24 * 3600;
+/// Permanent entries are dropped once no checked file has used them for this long.
+const PERMANENT_UNSEEN_SECS: u64 = 90 * 24 * 3600;
+/// `last_seen` is rewritten at most this often, so reads do not rewrite the file every run.
+const TOUCH_EVERY_SECS: u64 = 24 * 3600;
 const FILE: &str = "links.json";
 const CACHEDIR_TAG: &str = "Signature: 8a477f597d28d172789f06886806bc55\n\
 # This file is a cache directory tag created by explicit.\n\
@@ -25,6 +29,16 @@ pub struct Entry {
     /// Final response `Content-Type` of an image check (`""` when absent); `None` for plain link checks.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub content_type: Option<String>,
+    /// Positive answer that can never change (commit SHA, tag, issue number): no TTL.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub permanent: bool,
+    /// Last run that used a permanent entry (`0`: `checked_at_unix`).
+    #[serde(default, skip_serializing_if = "is_zero")]
+    pub last_seen_unix: u64,
+}
+
+fn is_zero(n: &u64) -> bool {
+    *n == 0
 }
 
 impl Entry {
@@ -35,6 +49,19 @@ impl Entry {
     /// Whether this entry answers an image check (failures do; successes need a content type).
     pub fn serves_image(&self) -> bool {
         !self.is_ok() || self.content_type.is_some()
+    }
+
+    fn last_seen(&self) -> u64 {
+        self.last_seen_unix.max(self.checked_at_unix)
+    }
+
+    /// Whether `save` keeps this entry at time `now`.
+    fn keep(&self, now: u64) -> bool {
+        if self.permanent {
+            now.saturating_sub(self.last_seen()) <= PERMANENT_UNSEEN_SECS
+        } else {
+            now.saturating_sub(self.checked_at_unix) <= MAX_AGE_SECS
+        }
     }
 }
 
@@ -113,6 +140,9 @@ impl Cache {
         fail_ttl_hours: u64,
     ) -> Option<&Entry> {
         let e = self.entries.get(url)?;
+        if e.permanent && e.is_ok() {
+            return Some(e);
+        }
         let ttl = if e.is_ok() {
             ok_ttl_hours
         } else {
@@ -128,13 +158,28 @@ impl Cache {
         content_type: Option<String>,
         now: u64,
     ) {
+        self.insert_with(url, status, content_type, now, false);
+    }
+
+    /// [`Cache::insert`]; `permanent` positive answers never expire (negative ones always do).
+    pub fn insert_with(
+        &mut self,
+        url: String,
+        status: RemoteStatus,
+        content_type: Option<String>,
+        now: u64,
+        permanent: bool,
+    ) {
         if status == RemoteStatus::Skipped {
             return;
         }
+        let permanent = permanent && matches!(status, RemoteStatus::Ok | RemoteStatus::Redirect(_));
         let e = Entry {
             status,
             checked_at_unix: now,
             content_type,
+            permanent,
+            last_seen_unix: 0,
         };
         self.entries.insert(url.clone(), e.clone());
         self.dirty.insert(url, e);
@@ -142,6 +187,23 @@ impl Cache {
 
     /// Merge new entries into the on-disk file (re-read to keep other runs' results) and write atomically.
     pub fn save(&mut self) -> std::io::Result<()> {
+        self.save_at(now_unix())
+    }
+
+    /// Record that a checked file still uses `url` (keeps permanent entries from being pruned).
+    pub fn touch(&mut self, url: &str, now: u64) {
+        if let Some(e) = self.entries.get_mut(url)
+            && e.permanent
+            && now.saturating_sub(e.last_seen()) >= TOUCH_EVERY_SECS
+        {
+            e.last_seen_unix = now;
+            self.dirty.insert(url.to_string(), e.clone());
+        }
+    }
+
+    /// [`Cache::save`], pruning as of `now`: plain entries after 30 days, permanent ones after
+    /// 90 days without use.
+    pub fn save_at(&mut self, now: u64) -> std::io::Result<()> {
         let Some(path) = &self.path else {
             return Ok(());
         };
@@ -152,8 +214,7 @@ impl Cache {
         for (k, v) in self.dirty.drain() {
             merged.insert(k, v);
         }
-        let cutoff = now_unix().saturating_sub(MAX_AGE_SECS);
-        merged.retain(|_, e| e.checked_at_unix >= cutoff);
+        merged.retain(|_, e| e.keep(now));
         if let Some(dir) = path.parent() {
             prepare_dir(dir)?;
         }
@@ -230,5 +291,58 @@ mod tests {
         assert!(c.get("https://skip").is_none());
         std::fs::write(&path, "{not json").unwrap();
         assert!(Cache::load(Some(path)).get("https://ok").is_none());
+    }
+
+    #[test]
+    fn permanent_entries() {
+        let dir = tempfile::tempdir().unwrap();
+        let path = dir.path().join("links.json");
+        let now = now_unix();
+        let day = 24 * 3600;
+        let mut c = Cache::load(Some(path.clone()));
+        c.insert_with("gh:sha".into(), RemoteStatus::Ok, None, now - 8 * day, true);
+        c.insert_with(
+            "gh:branch".into(),
+            RemoteStatus::Ok,
+            None,
+            now - 8 * day,
+            false,
+        );
+        // Negative answers never become permanent.
+        c.insert_with(
+            "gh:gone".into(),
+            RemoteStatus::HttpError(404),
+            None,
+            now - 2 * 3600,
+            true,
+        );
+        c.insert_with(
+            "gh:old".into(),
+            RemoteStatus::Ok,
+            None,
+            now - 100 * day,
+            true,
+        );
+        c.insert_with(
+            "gh:used".into(),
+            RemoteStatus::Ok,
+            None,
+            now - 100 * day,
+            true,
+        );
+        c.touch("gh:used", now - 10 * day);
+        c.save_at(now).unwrap();
+        let c = Cache::load(Some(path.clone()));
+        let fresh = |k: &str| c.fresh(k, now, 168, 1).is_some();
+        assert!(fresh("gh:sha"), "permanent: older than 7 days, still fresh");
+        assert!(!fresh("gh:branch"), "branch answers expire after 7 days");
+        assert!(!fresh("gh:gone"), "negatives expire after an hour");
+        assert!(!c.get("gh:gone").unwrap().permanent);
+        assert!(c.get("gh:old").is_none(), "unseen for 90+ days: pruned");
+        assert!(fresh("gh:used"), "seen recently: kept");
+        // Old cache files without the new fields still load.
+        std::fs::write(&path, r#"{"k":{"status":"Ok","checked_at_unix":1}}"#).unwrap();
+        let e = Cache::load(Some(path)).get("k").cloned().unwrap();
+        assert!(!e.permanent && e.last_seen_unix == 0);
     }
 }

@@ -601,8 +601,8 @@ fn bare_urls(src: &str, run: Range<usize>, links: &mut Vec<Link>) {
 }
 
 /// Whether the bare URL at `range` continues in the source past markdown syntax (e.g.
-/// `https://x.org/a*b*c`, where `*b*` parses as emphasis), so `range` holds only a prefix.
-/// Trailing emphasis closers (`**https://x.org**`) do not count.
+/// `https://example.org/a*b*c`, where `*b*` parses as emphasis), so `range` holds only a prefix.
+/// Trailing emphasis closers (`**https://example.org**`) do not count.
 pub fn bare_url_truncated(src: &str, range: &Range<usize>) -> bool {
     let line_end = src[range.start..]
         .find('\n')

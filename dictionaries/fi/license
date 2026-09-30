@@ -1,0 +1,17 @@
+mor.vfst.zlib: zlib-compressed mor.vfst from voikko-fi 2.6 (mor-standard), the Finnish
+morphology for Voikko. https://github.com/voikko/corevoikko (directory voikko-fi)
+
+Voikko-Dictionary-Format: 5
+Language: fi-x-standard
+Copyright: 2006-2026 Hannu Väisänen, Harri Pitkänen, Teemu Likonen and others
+License: GPL version 2 or later
+Description: suomi (perussanasto)
+SM-Version: 2.6
+
+This program is free software; you can redistribute it and/or modify it under the terms of
+the GNU General Public License as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+The reader in src/voikko/ is ported from libvoikko (corevoikko/libvoikko), Copyright (C)
+2006-2026 Harri Pitkänen and others, available under the MPL 1.1, the GPL 2 or later or the
+LGPL 2.1 or later.

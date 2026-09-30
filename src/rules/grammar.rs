@@ -31,7 +31,7 @@ use regex::Regex;
 use self::harper::Harper;
 use super::lint::{Lint, LintKind, Suggestion, remove_overlaps_map};
 use super::words::Dialect;
-use super::{FileCtx, Out, patterns, spell};
+use super::{FileCtx, Out, patterns, spell, spell_lang};
 use crate::config::{Config, Engine, GrammarLevel};
 use crate::diagnostic::{Finding, Severity};
 use crate::segment::{Segment, SegmentKind};
@@ -168,6 +168,82 @@ pub(crate) const TECH_WORDS: &[&str] = &[
     "proc",
     "fn",
     "fns",
+    // Tools and terms written in lowercase in READMEs and comments, which neither Hunspell nor
+    // Harper lists (checked against both; derivations such as `upserted` already pass).
+    "cron",
+    "crontab",
+    "crontabs",
+    "pnpm",
+    "npx",
+    "bunx",
+    "pipx",
+    "venv",
+    "virtualenv",
+    "conda",
+    "pytest",
+    "mypy",
+    "numpy",
+    "eslint",
+    "esbuild",
+    "tsconfig",
+    "rustfmt",
+    "nixpkgs",
+    "stdlib",
+    "argv",
+    "argc",
+    "keyset",
+    "keysets",
+    "fanout",
+    "prerender",
+    "prerenders",
+    "rehydrate",
+    "gitignored",
+    "gitattributes",
+    "dotenv",
+    "noop",
+    "noops",
+    "sudo",
+    "mkdir",
+    "chmod",
+    "nginx",
+    "kubectl",
+    "kubeconfig",
+    "cgroup",
+    "cgroups",
+    "tmpfs",
+    "pubsub",
+    "protobuf",
+    "protobufs",
+    "wasm",
+    "Wasm",
+    "repl",
+    "varchar",
+    "bitset",
+    "bitsets",
+    "rwlock",
+    "lockless",
+    "bcrypt",
+    "scrypt",
+    "nonces",
+    "keystore",
+    "keystores",
+    "slugify",
+    "permalink",
+    "permalinks",
+    "navbar",
+    "navbars",
+    "goroutine",
+    "goroutines",
+    "monomorphization",
+    "microbenchmark",
+    "microbenchmarks",
+    "failback",
+    "oncall",
+    "authn",
+    "authz",
+    "tsx",
+    "jsx",
+    "Dependabot",
 ];
 
 /// Closed technical compounds Harper's dictionary lacks and `SplitWords` wants to split
@@ -254,6 +330,25 @@ pub(crate) const TECH_COMPOUNDS: &[&str] = &[
 
 /// Harper rules that judge whole sentences. Table cells and unpunctuated list items or headings
 /// are fragments ("pending review", "retry on timeout"), where these are almost always wrong.
+/// Split-compound rules, off in headings and table header cells.
+const COMPOUND_SPLIT_RULES: &[&str] = &["FinnishCompoundSplit", "SwedishCompoundSplit"];
+
+/// `seg` is a cell of a Markdown table's header row: the next line is the delimiter row.
+fn table_header_cell(seg: &Segment, src: &str) -> bool {
+    if seg.kind != SegmentKind::TableCell {
+        return false;
+    }
+    let rest = &src[seg.range.start.min(src.len())..];
+    let Some(nl) = rest.find('\n') else {
+        return false;
+    };
+    let next = rest[nl + 1..].lines().next().unwrap_or("").trim();
+    next.contains('-')
+        && next
+            .chars()
+            .all(|c| matches!(c, '|' | '-' | ':' | ' ' | '\t'))
+}
+
 const FRAGMENT_RULES: &[&str] = &[
     "SentenceCapitalization",
     "MissingTo",
@@ -407,6 +502,108 @@ pub fn check(ctx: &FileCtx, out: &mut Out) {
     });
 }
 
+/// Spelling of `ctx`'s prose in language `code` with `speller`, limited to `ranges` (absolute
+/// byte offsets) when given: the rest of each segment is blanked first.
+pub fn check_language(
+    ctx: &FileCtx,
+    code: &str,
+    speller: Arc<dyn spell_lang::LangSpeller>,
+    secondary: Option<Arc<dyn spell_lang::LangSpeller>>,
+    ranges: Option<&[std::ops::Range<usize>]>,
+    out: &mut Out,
+) {
+    // English words inside the language's text follow the project's dialect.
+    spell_lang::with_english_dialect(dialect(&ctx.config.prose.dialect), || {
+        check_language_in(ctx, code, speller, secondary, ranges, out);
+    });
+}
+
+fn check_language_in(
+    ctx: &FileCtx,
+    code: &str,
+    speller: Arc<dyn spell_lang::LangSpeller>,
+    secondary: Option<Arc<dyn spell_lang::LangSpeller>>,
+    ranges: Option<&[std::ops::Range<usize>]>,
+    out: &mut Out,
+) {
+    if !ctx.enabled("spelling") || ranges.is_some_and(<[_]>::is_empty) {
+        return;
+    }
+    let is_code = ctx.a.md.is_none();
+    let segments: Vec<std::borrow::Cow<Segment>> = ctx
+        .a
+        .segments
+        .iter()
+        .filter(|s| {
+            !is_code || !ctx.config.comments.doc_only_grammar || s.kind == SegmentKind::DocComment
+        })
+        .filter_map(|s| match ranges {
+            None => Some(std::borrow::Cow::Borrowed(s)),
+            Some(rs) => {
+                let inside: Vec<_> = rs
+                    .iter()
+                    .filter(|r| r.start < s.range.end && s.range.start < r.end)
+                    .collect();
+                if inside.is_empty() {
+                    return None;
+                }
+                // Blank what lies outside the ranges.
+                let mut gaps = Vec::new();
+                let mut pos = s.range.start;
+                let mut sorted = inside;
+                sorted.sort_by_key(|r| r.start);
+                for r in sorted {
+                    if r.start > pos {
+                        gaps.push(pos..r.start);
+                    }
+                    pos = pos.max(r.end);
+                }
+                if pos < s.range.end {
+                    gaps.push(pos..s.range.end);
+                }
+                let mut seg = s.clone();
+                seg.blank_all(&gaps);
+                Some(std::borrow::Cow::Owned(seg))
+            }
+        })
+        .collect();
+    if segments.is_empty() {
+        return;
+    }
+    let idents = identifiers(ctx);
+    let mut h = DefaultHasher::new();
+    (config_key(ctx.config), code).hash(&mut h);
+    secondary
+        .as_ref()
+        .map(|s| Arc::as_ptr(s).cast::<()>() as usize)
+        .hash(&mut h);
+    let key = h.finish();
+    let mut file_names = Vec::new();
+    for seg in &segments {
+        let chars: Vec<char> = seg.text.chars().collect();
+        spell_lang::names(&*speller, code, &chars, &mut file_names);
+    }
+    CHECKERS.with(|cell| {
+        let mut cache = cell.borrow_mut();
+        let idx = match cache.iter().position(|c| c.key == key) {
+            Some(i) => i,
+            None => {
+                if cache.len() >= MAX_CHECKERS {
+                    cache.remove(0);
+                }
+                cache.push(Checker::new_lang(ctx.config, key, code, speller, secondary));
+                cache.len() - 1
+            }
+        };
+        let checker = &mut cache[idx];
+        checker.file_names = file_names;
+        checker.select(is_code);
+        for seg in &segments {
+            checker.lint_segment(seg, &idents, ctx, out);
+        }
+    });
+}
+
 const MAX_CHECKERS: usize = 4;
 
 thread_local! {
@@ -444,6 +641,17 @@ struct Checker {
     accepted_exact: HashSet<String>,
     /// `prose.accept_patterns`, anchored to whole words.
     accept_patterns: Vec<Regex>,
+    /// `[[entity]]` names and multi-word or case-sensitive `[[vocab]]` terms, accepted as
+    /// whole phrases.
+    phrases: Arc<crate::vocab::Phrases>,
+    /// `prose/entity-name` reports case-sensitive terms in another casing.
+    entity_case_on: bool,
+    /// Spelling in another language (`fi`, `sv`) instead of English; no grammar rules.
+    lang: Option<(String, Arc<dyn spell_lang::LangSpeller>)>,
+    /// Words the file's main language knows, accepted inside a stretch of `lang`.
+    secondary: Option<Arc<dyn spell_lang::LangSpeller>>,
+    /// Capitalized words the current file uses as names inside sentences (`lang` only).
+    file_names: Vec<String>,
 }
 
 fn config_key(c: &Config) -> u64 {
@@ -452,6 +660,8 @@ fn config_key(c: &Config) -> u64 {
     c.prose.engine.hash(&mut h);
     c.accepted_words().hash(&mut h);
     c.prose.accept_patterns.hash(&mut h);
+    c.vocab.hash(&mut h);
+    c.entities.hash(&mut h);
     c.prose.disable.hash(&mut h);
     c.comments.disable.hash(&mut h);
     for (k, l) in &c.rules {
@@ -563,6 +773,73 @@ impl Checker {
             accepted,
             accepted_exact,
             accept_patterns,
+            phrases: config.vocab_phrases_in("en"),
+            entity_case_on: super::rule_enabled(config, "prose/entity-name"),
+            lang: None,
+            secondary: None,
+            file_names: Vec::new(),
+        }
+    }
+
+    /// A checker for spelling in language `code` only: no Harper, no English pattern rules,
+    /// `[languages.<code>] accept` words on top of the shared accept lists.
+    fn new_lang(
+        config: &Config,
+        key: u64,
+        code: &str,
+        speller: Arc<dyn spell_lang::LangSpeller>,
+        secondary: Option<Arc<dyn spell_lang::LangSpeller>>,
+    ) -> Checker {
+        let spelling = super::rule_enabled(config, "spelling");
+        // Shared accept lists, vocab for this language and `[languages.<code>] accept`.
+        let words = config.accepted_words_in(code);
+        let mut suggest_key = DefaultHasher::new();
+        (words_key(config), code, &*words).hash(&mut suggest_key);
+        // Finnish grammar rules need the Voikko morphology.
+        let own = |is_code: bool| -> Vec<&'static str> {
+            let rules = match code {
+                "fi" if speller.voikko().is_some() => super::grammar_fi::RULES,
+                "sv" => super::grammar_sv::RULES,
+                _ => &[],
+            };
+            rules
+                .iter()
+                .map(|(n, _)| *n)
+                .filter(|n| {
+                    own_rule_on(config, n, is_code)
+                        && super::rule_enabled(config, &format!("grammar/{n}"))
+                })
+                .collect()
+        };
+        let all = || words.iter();
+        Checker {
+            key,
+            engine: Engine::Spellbook,
+            harper: None,
+            hunspell: None,
+            dialect: dialect(&config.prose.dialect),
+            suggest_key: suggest_key.finish(),
+            is_code: None,
+            spell_md: spelling && own_rule_on(config, "SpellCheck", false),
+            spell_code: spelling && own_rule_on(config, "SpellCheck", true),
+            harper_md: false,
+            harper_code: false,
+            own_md: own(false),
+            own_code: own(true),
+            rule_ids: HashMap::new(),
+            accepted: all().map(|w| w.to_lowercase()).collect(),
+            accepted_exact: all().cloned().collect(),
+            accept_patterns: config
+                .prose
+                .accept_patterns
+                .iter()
+                .filter_map(|p| Regex::new(&format!("^(?:{p})$")).ok())
+                .collect(),
+            phrases: config.vocab_phrases_in(code),
+            entity_case_on: super::rule_enabled(config, "prose/entity-name"),
+            lang: Some((code.to_string(), speller)),
+            secondary,
+            file_names: Vec::new(),
         }
     }
 
@@ -603,6 +880,13 @@ impl Checker {
 
     /// A word the active dictionary knows in some capitalization.
     fn known_word(&self, w: &str) -> bool {
+        if let Some((_, sp)) = &self.lang {
+            let lower = w.to_lowercase();
+            return sp.check(w)
+                || sp.check(&lower)
+                || sp.check(&capitalize(&lower))
+                || self.accepted.contains(&lower);
+        }
         match (self.hunspell, &self.harper) {
             (Some(h), _) => {
                 let lower = w.to_lowercase();
@@ -677,6 +961,29 @@ impl Checker {
         } else {
             (self.spell_md, self.harper_md, self.own_md.clone())
         };
+        if let Some((code, sp)) = &self.lang {
+            let mut lints = BTreeMap::new();
+            if !own.is_empty() {
+                let chars: Vec<char> = text.chars().collect();
+                if let Some(v) = sp.voikko() {
+                    lints = super::grammar_fi::lints(v, &**sp, &chars, &own);
+                } else if code == "sv" {
+                    lints = super::grammar_sv::lints(&**sp, &chars, &own);
+                }
+            }
+            if spell {
+                let chars: Vec<char> = text.chars().collect();
+                let mut found = spell_lang::misspelled(&**sp, code, &chars);
+                if let Some(other) = &self.secondary {
+                    found.retain(|l| {
+                        let w: String = chars[l.span.start..l.span.end].iter().collect();
+                        w.chars().count() < 5 || !other.check(&w)
+                    });
+                }
+                lints.insert("SpellCheck".to_string(), found);
+            }
+            return lints;
+        }
         let run_harper = harper && harper_ok && self.harper.is_some();
         let harper_spell = spell && self.hunspell.is_none();
         let mut lints = BTreeMap::new();
@@ -733,7 +1040,11 @@ impl Checker {
             return hit.clone();
         }
         let mut found: Arc<[String]> = Arc::new([]);
-        if let Some(h) = self.hunspell {
+        if let Some((_, sp)) = &self.lang {
+            let mut s = sp.suggest(word);
+            s.truncate(3);
+            found = s.into();
+        } else if let Some(h) = self.hunspell {
             found = spell::suggest(h, word).into();
         } else if let Some(h) = &self.harper {
             found = h.suggestions(word).into();
@@ -823,7 +1134,9 @@ impl Checker {
     }
 
     fn lint_segment(&mut self, seg: &Segment, idents: &Idents, ctx: &FileCtx, out: &mut Out) {
-        self.ana_numbers(seg, ctx, out);
+        if self.lang.is_none() {
+            self.ana_numbers(seg, ctx, out);
+        }
         let harper_ok = self.engine != Engine::Hybrid || full_sentence(seg);
         let lints = self.cached_raw_lints(&seg.text, harper_ok);
         if lints.values().all(Vec::is_empty) {
@@ -839,9 +1152,22 @@ impl Checker {
         let to_byte = |c: usize| char_bytes[c.min(char_bytes.len() - 1)];
         let fragment = is_fragment(seg);
         let level = ctx.config.prose.grammar_level;
+        // Configured phrases (`Telia Oy`): their words are accepted only inside them.
+        let phrase_ranges = if self.phrases.is_empty() || !lints.contains_key("SpellCheck") {
+            Vec::new()
+        } else {
+            self.phrases.accepted_ranges(&seg.text, self.entity_case_on)
+        };
 
         for (name, lints) in lints.iter().filter(|(_, l)| !l.is_empty()) {
             if fragment && FRAGMENT_RULES.contains(&name.as_str()) {
+                continue;
+            }
+            // Titles and table headers are noun phrases in telegraphic style
+            // (`Tiedote henkilöstölle`), not split compounds.
+            if COMPOUND_SPLIT_RULES.contains(&name.as_str())
+                && (seg.kind == SegmentKind::Heading || table_header_cell(seg, ctx.src()))
+            {
                 continue;
             }
             let whitespace_rule = WHITESPACE_RULES.contains(&name.as_str());
@@ -868,8 +1194,14 @@ impl Checker {
                 {
                     continue;
                 }
+                if is_spell && phrase_ranges.iter().any(|r| r.start <= s && e <= r.end) {
+                    continue;
+                }
+                if is_spell && self.lang.is_some() && self.lang_skips(seg, ctx.src(), s, word) {
+                    continue;
+                }
                 if is_spell
-                    && (jargon(seg, ctx, s, e, idents)
+                    && (jargon(seg, ctx, s, e, idents, self.lang.is_none())
                         || idents.project_name(self.name_speller(), word)
                         || emphasis_split(seg, ctx.src(), s, e)
                             .is_some_and(|w| self.known_word(&w)))
@@ -1047,6 +1379,11 @@ fn identifiers(ctx: &FileCtx) -> Idents {
         {
             add(&src[r.clone()]);
         }
+    } else if let Some(po) = &ctx.a.po {
+        // Catalog: references, flags, contexts and key msgids name things; msgids are prose.
+        for r in po.identifier_ranges() {
+            add(&src[r]);
+        }
     } else {
         let mut pos = 0;
         for c in &ctx.a.comments {
@@ -1082,7 +1419,14 @@ fn identifiers(ctx: &FileCtx) -> Idents {
 /// - a conventional-commit scope: `feat(deps):`, `*(http)*`;
 /// - two or three lowercase letters next to digits, brackets or name punctuation (`rb-sys`,
 ///   `v2rs`, `file.md`, `(pr 12)`), or inside link text.
-fn jargon(seg: &Segment, ctx: &FileCtx, s: usize, e: usize, idents: &Idents) -> bool {
+fn jargon(
+    seg: &Segment,
+    ctx: &FileCtx,
+    s: usize,
+    e: usize,
+    idents: &Idents,
+    english: bool,
+) -> bool {
     let src = ctx.src();
     let (a, b) = (seg.range.start + s, seg.range.start + e);
     let word = &src[a..b];
@@ -1131,8 +1475,11 @@ fn jargon(seg: &Segment, ctx: &FileCtx, s: usize, e: usize, idents: &Idents) -> 
         let numbered = compound
             .split(is_sep)
             .any(|p| p.chars().any(|c| c.is_ascii_digit()));
+        // Finnish and Swedish hyphenate words onto numbers and acronyms (`UTF-8-merkistö`):
+        // only code names count there.
+        let numbered = numbered && (english || !compound.contains('-'));
         if idents.contains(&compound.to_lowercase())
-            || named
+            || (named && english)
             || numbered
             || (compound.contains('/') && src[end..].starts_with(':'))
         {
@@ -1144,8 +1491,10 @@ fn jargon(seg: &Segment, ctx: &FileCtx, s: usize, e: usize, idents: &Idents) -> 
         return true;
     }
     // `Väinö`, `Göteborg`: a capitalized word with diacritics names someone or somewhere; the
-    // English words that keep theirs (`café`, `naïve`) are in the dictionaries.
-    if word.starts_with(char::is_uppercase)
+    // English words that keep theirs (`café`, `naïve`) are in the dictionaries. (Not in
+    // Finnish or Swedish text, where such words start sentences.)
+    if english
+        && word.starts_with(char::is_uppercase)
         && word.chars().any(|c| c.is_alphabetic() && !c.is_ascii())
     {
         return true;
@@ -1229,6 +1578,62 @@ fn emphasis_split(seg: &Segment, src: &str, s: usize, e: usize) -> Option<String
 }
 
 impl Checker {
+    /// Language-mode spelling findings that are no typos: forms of names the file uses inside
+    /// sentences (`Fimea` starting a sentence, `Fimean` elsewhere), and case endings glued to
+    /// a code span (`` `namespace`ssaan ``).
+    fn lang_skips(&self, seg: &Segment, src: &str, s: usize, word: &str) -> bool {
+        let orig = &src.as_bytes()[seg.range.clone()];
+        let glued =
+            s > 0 && seg.text.as_bytes()[s - 1] == b' ' && !orig[s - 1].is_ascii_whitespace();
+        // Part of an email address or URL in the source (`tuki@example.fi`).
+        let chunk_start = orig[..s]
+            .iter()
+            .rposition(u8::is_ascii_whitespace)
+            .map_or(0, |i| i + 1);
+        let chunk_end = orig[s..]
+            .iter()
+            .position(u8::is_ascii_whitespace)
+            .map_or(orig.len(), |i| s + i);
+        let chunk = &orig[chunk_start..chunk_end];
+        let address = chunk.contains(&b'@') || chunk.windows(3).any(|w| w == b"://");
+        address
+            || (glued && word.starts_with(char::is_lowercase))
+            || (word.starts_with(char::is_uppercase)
+                && spell_lang::is_name_form(word, &self.file_names))
+            || self.configured_forms(word)
+    }
+
+    /// Forms of configured words in a Finnish or Swedish text: a hyphenated compound led by
+    /// an entity or vocab term (`Kela-handläggare`), a Finnish inflection of an accepted
+    /// word, vocab term or entity (`Telian`, `Telia:n`), and a Swedish closed compound led by
+    /// one (`Teliaärendet`).
+    fn configured_forms(&self, word: &str) -> bool {
+        let Some((code, sp)) = &self.lang else {
+            return false;
+        };
+        let single = |w: &str| {
+            self.accepted(w, w)
+                || self
+                    .phrases
+                    .list
+                    .iter()
+                    .any(|p| !p.canonical.contains(' ') && p.canonical.eq_ignore_ascii_case(w))
+        };
+        let lower = word.to_lowercase();
+        let led = self.phrases.list.iter().any(|p| {
+            let c = p.canonical.to_lowercase();
+            !c.contains(' ')
+                && lower
+                    .strip_prefix(&c)
+                    .and_then(|r| r.strip_prefix('-'))
+                    .is_some_and(|rest| {
+                        !rest.is_empty() && spell_lang::word_ok(&**sp, code, rest, None)
+                    })
+        });
+        led || code == "fi" && spell_lang::finnish_inflection(&**sp, word, &single)
+            || code == "sv" && spell_lang::swedish_led(&**sp, word, &single)
+    }
+
     /// Dictionary for the project-name typo guard (Hunspell even for the Harper engines).
     fn name_speller(&self) -> &'static spell::Speller {
         self.hunspell
@@ -1271,6 +1676,9 @@ impl Checker {
             return true;
         }
         let cap = capitalize(&lower);
+        if let Some((_, sp)) = &self.lang {
+            return sp.check(&cap) || sp.check(&lower.to_uppercase());
+        }
         match (self.hunspell, &self.harper) {
             (Some(h), _) => {
                 spell::known(h, &cap)
@@ -2194,5 +2602,66 @@ mod accept_dialect_tests {
             assert!(f.iter().all(|f| f.rule != "spelling"), "{engine:?}: {f:?}");
             let _ = run(src, &config);
         }
+    }
+    fn vocab_config(engine: Engine) -> Config {
+        let mut c: Config = toml::from_str(
+            r#"
+[[vocab]]
+term = "Zorbax"
+description = "Device register"
+[[vocab]]
+term = "FiQMEA"
+description = "Agency"
+case_sensitive = true
+[[vocab]]
+term = "Kvarn Hubb"
+description = "Data hub"
+[[entity]]
+name = "Telia Oy"
+kind = "company"
+relationship = "Pharmacy partner"
+aliases = ["Qelvio"]
+"#,
+        )
+        .unwrap();
+        c.prose.engine = engine;
+        c
+    }
+
+    fn misspelled(src: &str, config: &Config) -> Vec<String> {
+        run(src, config)
+            .iter()
+            .filter(|f| f.rule == "spelling")
+            .map(|f| src[f.range.clone()].to_string())
+            .collect()
+    }
+
+    /// `[[vocab]]` terms are accepted words; `[[entity]]` names only as whole phrases.
+    #[test]
+    fn vocab_and_entity_phrases() {
+        let mut engines = vec![Engine::Spellbook];
+        if cfg!(feature = "harper") {
+            engines.extend([Engine::Hybrid, Engine::Harper]);
+        }
+        for engine in engines {
+            let c = vocab_config(engine);
+            let src = "Zorbax and zorbax-based checks. Telia Oy ships; telia oy and TELIA OY too. \
+                       Qelvio's app. FiQMEA and FIQMEA agree; the Kvarn Hubb and kvarn hubb.\n";
+            assert!(
+                misspelled(src, &c).is_empty(),
+                "{engine:?}: {:?}",
+                misspelled(src, &c)
+            );
+            // Words of an entity name alone, or of a multi-word term alone, stay unknown.
+            let src = "Telia said Oy. The Kvarn system.\n";
+            assert_eq!(misspelled(src, &c), ["Telia", "Oy", "Kvarn"], "{engine:?}");
+        }
+        // A case-sensitive term in another casing: reported by prose/entity-name, not spelling;
+        // with that rule off, by spelling.
+        let mut c = vocab_config(Engine::Spellbook);
+        assert!(misspelled("The fiqmea list.\n", &c).is_empty());
+        c.rules
+            .insert("prose/entity-name".into(), crate::config::Level::Off);
+        assert_eq!(misspelled("The fiqmea list.\n", &c), ["fiqmea"]);
     }
 }

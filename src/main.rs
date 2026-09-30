@@ -51,6 +51,38 @@ enum RulesFormat {
     Json,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, clap::ValueEnum)]
+enum SuggestFormat {
+    Toml,
+    Json,
+}
+
+#[derive(Subcommand)]
+enum VocabCommand {
+    /// Suggest `[[vocab]]` / `[[entity]]` entries for capitalized words the spell check flags.
+    Suggest {
+        /// Files or directories to scan.
+        #[arg(default_value = ".")]
+        paths: Vec<PathBuf>,
+        /// Path to `explicit.toml` (default: search upward from the first path).
+        #[arg(long)]
+        config: Option<PathBuf>,
+        #[arg(long, value_enum, default_value_t = SuggestFormat::Toml)]
+        format: SuggestFormat,
+        /// Only suggest words and names seen at least this many times.
+        #[arg(long, default_value_t = 1)]
+        min_count: usize,
+    },
+    /// List the configured `[[vocab]]` terms and `[[entity]]` names.
+    List {
+        /// Path to `explicit.toml` (default: search upward from the cwd).
+        #[arg(long)]
+        config: Option<PathBuf>,
+        #[arg(long, value_enum, default_value_t = RulesFormat::Text)]
+        format: RulesFormat,
+    },
+}
+
 #[derive(Subcommand)]
 enum Command {
     /// Check files once and exit (0 = clean, 1 = problems, 2 = error).
@@ -85,6 +117,11 @@ enum Command {
         /// Path to `explicit.toml` for `style/*` rules (default: search upward from the cwd).
         #[arg(long)]
         config: Option<PathBuf>,
+    },
+    /// Project vocabulary: suggest entries from unknown names, or list the configured ones.
+    Vocab {
+        #[command(subcommand)]
+        command: VocabCommand,
     },
     /// Write a starter explicit.toml in the current directory.
     Init {
@@ -236,6 +273,7 @@ fn run(cli: Cli) -> Result<ExitCode, String> {
                 _ => Ok(ExitCode::SUCCESS),
             }
         }
+        Command::Vocab { command } => run_vocab(command),
         Command::Init { force } => {
             let cwd = std::env::current_dir().map_err(|e| e.to_string())?;
             let path = cwd.join(explicit::config::CONFIG_FILE);
@@ -259,5 +297,53 @@ fn run(cli: Cli) -> Result<ExitCode, String> {
             println!("Wrote {}", path.display());
             Ok(ExitCode::SUCCESS)
         }
+    }
+}
+
+fn run_vocab(command: VocabCommand) -> Result<ExitCode, String> {
+    let mut out = std::io::stdout().lock();
+    let res = match command {
+        VocabCommand::Suggest {
+            paths,
+            config,
+            format,
+            min_count,
+        } => {
+            let config = match &config {
+                Some(p) => Config::load(p)?,
+                None => Config::discover(paths.first().map_or(std::path::Path::new("."), |p| p))?,
+            };
+            let files = engine::discover(&paths, &config)?;
+            let sugs = explicit::vocab::suggest(&files, &config, min_count);
+            match format {
+                SuggestFormat::Json => serde_json::to_writer_pretty(&mut out, &sugs)
+                    .map_err(std::io::Error::from)
+                    .and_then(|()| writeln!(out)),
+                SuggestFormat::Toml => {
+                    write!(out, "{}", explicit::vocab::to_toml(&sugs, files.len()))
+                }
+            }
+        }
+        VocabCommand::List { config, format } => {
+            let config = match &config {
+                Some(p) => Config::load(p)?,
+                None => Config::discover(std::path::Path::new("."))?,
+            };
+            let rows = explicit::vocab::list_rows(&config);
+            match format {
+                RulesFormat::Json => serde_json::to_writer_pretty(&mut out, &rows)
+                    .map_err(std::io::Error::from)
+                    .and_then(|()| writeln!(out)),
+                RulesFormat::Text if rows.is_empty() => writeln!(
+                    out,
+                    "No [[vocab]] or [[entity]] entries; `explicit vocab suggest` proposes some."
+                ),
+                RulesFormat::Text => write!(out, "{}", explicit::vocab::list_table(&rows)),
+            }
+        }
+    };
+    match res {
+        Err(e) if e.kind() != std::io::ErrorKind::BrokenPipe => Err(e.to_string()),
+        _ => Ok(ExitCode::SUCCESS),
     }
 }

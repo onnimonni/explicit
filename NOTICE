@@ -129,3 +129,28 @@ specific language governing permissions and limitations under the License.
 Changes from upstream: only each word's spelling, dialect flags and a fixed set
 of word-class bits (noun, verb, adjective, verb forms, ...) are kept, in a
 sorted, zlib-compressed TSV file.
+
+--------------------------------------------------------------------------------
+Voikko (Finnish spell checking)
+--------------------------------------------------------------------------------
+
+src/voikko/ is a Rust port of the spelling parts of libvoikko (corevoikko):
+the VFST transducer reader, the Finnish morphological analyzer, the speller and
+the typing-error suggestions. Upstream: https://github.com/voikko/corevoikko
+libvoikko is tri-licensed under MPL 1.1, GPL 2 or later, and LGPL 2.1 or later;
+this port is used under GPL-2.0-or-later terms, compatible with this project's
+GPL-3.0-or-later.
+
+dictionaries/fi/mor.vfst.zlib is the voikko-fi 2.6 (mor-standard) Finnish
+morphology, GPL-2.0-or-later. Copyright (C) 2006-2026 Hannu Väisänen,
+Harri Pitkänen, Teemu Likonen and the other voikko-fi contributors. Details in
+dictionaries/fi/license.
+
+--------------------------------------------------------------------------------
+Swedish Hunspell dictionary
+--------------------------------------------------------------------------------
+
+dictionaries/sv/ holds Göran Andersson's Swedish dictionary (sv_SE, plus the
+entries only the sv_FI dictionary has), taken from wooorm/dictionaries
+(dictionaries/sv and dictionaries/sv-FI, 4.0.0), LGPL-3.0. Details in
+dictionaries/sv/license.

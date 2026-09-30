@@ -3,14 +3,18 @@
 [general]
 exclude = ["vendor/**", "CHANGELOG.md"]
 fail_on = "warning" # info | warning | error
-language = "en"     # non-English ("fi", "none", ...) keeps only structure and link rules
-detect_language = true # skip English prose rules on files that do not look like English
+language = "en"     # BCP 47 tag; "fi" / "sv" get Finnish / Swedish spelling (builds with the
+                    # `voikko` / `swedish` features, e.g. explicit-full), others ("none") keep
+                    # only structure, link and style rules
+detect_language = true # detect Finnish, Swedish and other-language files and stretches
 
 # Rule id or glob -> off | info | warn | error. Run `explicit rules` for the list.
 [rules]
 "md/line-length" = "off"
 "slop/*" = "warn"
 # "grammar/LongSentences" = "off"
+# "gettext/plural-placeholder" = "error"  # msgstr[N] must keep the count placeholder too
+# "gettext/untranslated" = "off"
 
 [prose]
 dialect = "american"
@@ -49,6 +53,27 @@ exclude = ['^https?://localhost']
 # cache_failed_ttl_hours = 1     # recheck failures after an hour
 # github_repo = "owner/repo"     # for links/same-repo-url; default: parsed from the git remote
 # github_default_branch = "main" # default: origin/HEAD, else main, master or HEAD
+# check_same_repo = true         # links/same-repo-ref: check links into this repo with local
+#                                # `git cat-file` and `gh api graphql` (or GH_TOKEN) instead of HTTP
+
+# Domain vocabulary, documented: accepted by the spell check like prose.accept.
+# `explicit vocab suggest` proposes entries; `explicit vocab list` prints them.
+# [[vocab]]
+# term = "Astori"
+# description = "Finnish national medical device register (Fimea)" # required
+# case_sensitive = true  # accept only this casing (and ALL CAPS); others get prose/entity-name
+# aliases = ["ASTORI"]
+# lang = "fi"            # accept only in Finnish text (or langs = ["fi", "sv"]); unset = all
+
+# Organizations, people and products. The name is accepted only as a whole phrase ("Oy" inside
+# "Telia Oy", not alone); aliases are accepted as words. Other casings get prose/entity-name.
+# [[entity]]
+# name = "Telia Oy"
+# kind = "company"  # company | authority | person | product | ...
+# relationship = "Pharmacy partner that dispenses our prescriptions" # required
+# aliases = ["Telia"]
+# url = "https://example.com"
+# langs = ["fi", "sv"]   # accept only in Finnish and Swedish text; unset = all languages
 
 [slop]
 # extra = [".explicit/slop.toml"]
@@ -63,13 +88,27 @@ root = "docs"                     # docs/orphan-page: pages here must be linked 
 orphan_exempt = ["docs/drafts/*"] # globs never reported as orphans (index.md, README.md, _*.md always are)
 include_dirs = ["_includes"]      # docs/include-missing: extra include search directories (after the file's directory and project root)
 
+# Per-language spelling settings, keyed by primary language subtag.
+# [languages.fi]
+# dictionary_path = "/usr/share/voikko"  # another voikko-fi dictionary (mor.vfst or its dir)
+# accept = ["Omakanta"]                  # words accepted only in Finnish text
+# [languages.sv]                         # Swedish needs the opt-in `swedish` feature
+# accept = ["Kanta"]                     # (or a Hunspell dictionary_path)
+# [languages.de]
+# dictionary_path = "dictionaries/de"    # a Hunspell index.aff/index.dic for any language
+
+# Mixed documents: <span lang="fi">…</span>, <div lang="sv">, or <!-- explicit-lang fi --> …
+# <!-- explicit-lang end --> (// explicit-lang fi in code comments) mark a region's language.
+# md/front-matter-lang (info) suggests `lang: fi` for Finnish or Swedish files without one.
+
 # Per-path settings, applied in order. `paths` are gitignore-style globs relative to this
-# file. Markdown front matter `lang: fi` also marks a file as non-English.
+# file. Markdown front matter `lang: fi` sets a file's language too (and wins).
 [[overrides]]
 paths = ["docs/fi/**"]
 language = "fi"
 # dialect = "british"
 # accept = ["Kalevala"]
+# vocab = [{ term = "Kalevala", description = "Finnish national epic" }]
 # rules = { "md/line-length" = "off" }
 
 # Vale-style rules.

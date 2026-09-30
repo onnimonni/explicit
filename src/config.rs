@@ -51,8 +51,15 @@ pub struct Config {
     /// Vale-style rules.
     #[serde(rename = "style")]
     pub style: Vec<StyleRule>,
+    /// Domain vocabulary (`[[vocab]]`): accepted words, each with what it means.
+    pub vocab: Vec<Vocab>,
+    /// Organizations, people and products (`[[entity]]`): names accepted as whole phrases.
+    #[serde(rename = "entity")]
+    pub entities: Vec<Entity>,
     /// Per-path settings (`[[overrides]]`), applied in order.
     pub overrides: Vec<Override>,
+    /// Per-language settings (`[languages.fi]`), keyed by primary language subtag.
+    pub languages: BTreeMap<String, LanguageConfig>,
     /// Derived values computed on first use.
     /// Public only so `Config { .., ..Default::default() }` works; the contents are opaque.
     #[serde(skip)]
@@ -65,6 +72,7 @@ pub struct Config {
 pub struct ConfigCache {
     /// (fingerprint of the inputs, value): a config mutated after first use is recomputed.
     accepted: OnceLock<(u64, Arc<Vec<String>>)>,
+    phrases: OnceLock<(u64, Arc<crate::vocab::Phrases>)>,
     link_excludes: OnceLock<(u64, Arc<Vec<regex::Regex>>)>,
     overrides: OverrideCache,
 }
@@ -91,12 +99,84 @@ pub struct Override {
     pub paths: Vec<String>,
     /// Replaces `prose.dialect`.
     pub dialect: Option<String>,
-    /// Replaces `general.language`; anything but `en*` turns off spelling, grammar, prose and slop rules.
+    /// Replaces `general.language` (a BCP 47 tag: `fi`, `sv-FI`, `en-GB`).
     pub language: Option<String>,
     /// Merged over `[rules]`.
     pub rules: BTreeMap<String, Level>,
     /// Appended to `prose.accept`.
     pub accept: Vec<String>,
+    /// Appended to `[[vocab]]`.
+    pub vocab: Vec<Vocab>,
+    /// Appended to `[[entity]]`.
+    #[serde(rename = "entity")]
+    pub entities: Vec<Entity>,
+}
+
+/// A `[[vocab]]` term: accepted by the spell check like `prose.accept`, and documented.
+#[derive(Debug, Clone, Default, Hash, Deserialize, serde::Serialize)]
+#[serde(deny_unknown_fields)]
+pub struct Vocab {
+    pub term: String,
+    /// What the term means (required).
+    #[serde(default)]
+    pub description: String,
+    /// Accept only this exact casing (and ALL CAPS); other casings get `prose/entity-name`.
+    #[serde(default)]
+    pub case_sensitive: bool,
+    /// Other accepted spellings.
+    #[serde(default)]
+    pub aliases: Vec<String>,
+    /// Language the term belongs to (`fi`); with `langs`, unset means every language.
+    #[serde(default)]
+    pub lang: Option<String>,
+    /// Languages the term belongs to (`["fi", "sv"]`).
+    #[serde(default)]
+    pub langs: Vec<String>,
+}
+
+impl Vocab {
+    /// The term is accepted in text of language `code` (a primary subtag).
+    pub fn applies_to(&self, code: &str) -> bool {
+        applies_to(self.lang.as_ref(), &self.langs, code)
+    }
+}
+
+/// An `[[entity]]`: an organization, person or product. Its name is accepted only as the whole
+/// phrase (`Oy` inside `Telia Oy`), aliases as standalone words.
+#[derive(Debug, Clone, Default, Hash, Deserialize, serde::Serialize)]
+#[serde(deny_unknown_fields)]
+pub struct Entity {
+    pub name: String,
+    /// `company`, `authority`, `person`, `product`, ...
+    #[serde(default)]
+    pub kind: String,
+    /// How the project relates to it (required).
+    #[serde(default)]
+    pub relationship: String,
+    /// Short forms, accepted as words.
+    #[serde(default)]
+    pub aliases: Vec<String>,
+    #[serde(default)]
+    pub url: Option<String>,
+    /// Language the name belongs to (`fi`); with `langs`, unset means every language.
+    #[serde(default)]
+    pub lang: Option<String>,
+    /// Languages the name belongs to (`["fi", "sv"]`).
+    #[serde(default)]
+    pub langs: Vec<String>,
+}
+
+impl Entity {
+    /// The name is accepted in text of language `code` (a primary subtag).
+    pub fn applies_to(&self, code: &str) -> bool {
+        applies_to(self.lang.as_ref(), &self.langs, code)
+    }
+}
+
+/// `lang` / `langs` of a vocab entry include `code`; neither set means all languages.
+fn applies_to(lang: Option<&String>, langs: &[String], code: &str) -> bool {
+    let mut all = lang.into_iter().chain(langs).peekable();
+    all.peek().is_none() || all.any(|l| crate::rules::spell_lang::primary(l) == code)
 }
 
 /// Whether a language code (`en`, `en-GB`, `fi`, `none`) means English. Empty counts as English.
@@ -134,10 +214,25 @@ impl Default for Config {
             slop: Slop::default(),
             docs: Docs::default(),
             style: Vec::new(),
+            vocab: Vec::new(),
+            entities: Vec::new(),
             overrides: Vec::new(),
+            languages: BTreeMap::new(),
             cache: ConfigCache::default(),
         }
     }
+}
+
+/// `[languages.<code>]`: the spelling dictionary and extra words for one prose language.
+#[derive(Debug, Clone, Default, Hash, Deserialize)]
+#[serde(default, deny_unknown_fields)]
+pub struct LanguageConfig {
+    /// Finnish: a Voikko `mor.vfst` or a directory holding one (`5/mor-standard/mor.vfst`).
+    /// Other languages: a Hunspell `.aff` file (its `.dic` beside it) or a directory with
+    /// `index.aff` / `index.dic`. Relative to the root; replaces the bundled dictionary.
+    pub dictionary_path: Option<PathBuf>,
+    /// Words accepted only in text of this language.
+    pub accept: Vec<String>,
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -150,14 +245,20 @@ pub struct General {
     pub respect_gitignore: bool,
     /// Minimum severity that makes `check` exit with 1.
     pub fail_on: Severity,
-    /// Prose language (`en`, `fi`, `none`, ...). Non-English files get only structure and link rules.
+    /// Prose language, a BCP 47 tag (`en`, `fi`, `sv-FI`, `none`, ...). Finnish and Swedish
+    /// files get Finnish / Swedish spelling; other non-English files only structure, link and
+    /// style rules.
     pub language: String,
-    /// Skip spelling, grammar, prose and slop rules on files that do not look like English.
+    /// Detect the language of files and of stretches inside them (a Finnish table cell in an
+    /// English file): Finnish and Swedish get their own spelling, other languages are skipped.
     pub detect_language: bool,
     /// Reuse results for unchanged files (`check` only).
     pub cache: bool,
     /// Cache directory, relative to the root (default `.explicit_cache`).
     pub cache_dir: Option<PathBuf>,
+    /// `language` was set by a matching `[[overrides]]` entry.
+    #[serde(skip)]
+    pub language_from_override: bool,
 }
 
 impl Default for General {
@@ -171,6 +272,7 @@ impl Default for General {
             detect_language: true,
             cache: true,
             cache_dir: None,
+            language_from_override: false,
         }
     }
 }
@@ -397,6 +499,8 @@ pub struct Links {
     pub github_repo: Option<String>,
     /// Default branch for `links/same-repo-url`; default: `origin/HEAD`, else main/master/HEAD.
     pub github_default_branch: Option<String>,
+    /// Check links into this repository with local git and gh instead of anonymous HTTP.
+    pub check_same_repo: bool,
 }
 
 impl Default for Links {
@@ -418,6 +522,7 @@ impl Default for Links {
             allow_private: false,
             github_repo: None,
             github_default_branch: None,
+            check_same_repo: true,
         }
     }
 }
@@ -573,11 +678,13 @@ impl Config {
         for p in &self.links.exclude {
             regex::Regex::new(p).map_err(|e| format!("links.exclude: bad regex {p:?}: {e}"))?;
         }
+        validate_vocab(&self.vocab, &self.entities, "")?;
         for (i, o) in self.overrides.iter().enumerate() {
             if o.paths.is_empty() {
                 return Err(format!("overrides[{i}]: `paths` is empty"));
             }
             build_matcher(&self.root, &o.paths).map_err(|e| format!("overrides[{i}]: {e}"))?;
+            validate_vocab(&o.vocab, &o.entities, &format!("overrides[{i}]: "))?;
         }
         Ok(())
     }
@@ -629,9 +736,12 @@ impl Config {
             }
             if let Some(l) = &o.language {
                 c.general.language.clone_from(l);
+                c.general.language_from_override = true;
             }
             c.rules.extend(o.rules.iter().map(|(k, v)| (k.clone(), *v)));
             c.prose.accept.extend(o.accept.iter().cloned());
+            c.vocab.extend(o.vocab.iter().cloned());
+            c.entities.extend(o.entities.iter().cloned());
         }
         c
     }
@@ -656,14 +766,75 @@ impl Config {
         }
     }
 
-    /// Accepted words from config and vocab files; read once per config.
+    /// Accepted words (matched case-insensitively) in English text from `prose.accept`, vocab
+    /// files, `[[vocab]]` terms and `[[entity]]` aliases (those for all languages or English);
+    /// read once per config. Multi-word and case-sensitive entries are
+    /// [`Config::vocab_phrases_in`] instead.
     pub fn accepted_words(&self) -> Arc<Vec<String>> {
-        let key = fingerprint(&(&self.root, &self.prose.accept, &self.prose.vocab_files));
-        cached(&self.cache.accepted, key, || self.read_accepted_words())
+        let key = fingerprint(&(
+            &self.root,
+            &self.prose.accept,
+            &self.prose.vocab_files,
+            &self.vocab,
+            &self.entities,
+        ));
+        cached(&self.cache.accepted, key, || self.read_accepted_words("en"))
     }
 
-    fn read_accepted_words(&self) -> Vec<String> {
+    /// [`Config::accepted_words`] for text in language `code` (a primary subtag): vocab
+    /// entries for that language and `[languages.<code>] accept`. Not cached; spell checkers
+    /// read it once when built.
+    pub fn accepted_words_in(&self, code: &str) -> Arc<Vec<String>> {
+        if code == "en" && !self.languages.contains_key("en") {
+            return self.accepted_words();
+        }
+        let mut words = self.read_accepted_words(code);
+        if let Some(l) = self.languages.get(code) {
+            words.extend(l.accept.iter().cloned());
+        }
+        Arc::new(words)
+    }
+
+    /// [`Config::vocab_phrases`] limited to entries for language `code`.
+    pub fn vocab_phrases_in(&self, code: &str) -> Arc<crate::vocab::Phrases> {
+        let all = |v: &Vocab| v.lang.is_none() && v.langs.is_empty();
+        let all_e = |e: &Entity| e.lang.is_none() && e.langs.is_empty();
+        if self.vocab.iter().all(all) && self.entities.iter().all(all_e) {
+            return self.vocab_phrases();
+        }
+        let (v, e) = self.vocab_for(code);
+        Arc::new(crate::vocab::Phrases::new(&v, &e))
+    }
+
+    /// `[[vocab]]` and `[[entity]]` entries for language `code`.
+    fn vocab_for(&self, code: &str) -> (Vec<Vocab>, Vec<Entity>) {
+        (
+            self.vocab
+                .iter()
+                .filter(|v| v.applies_to(code))
+                .cloned()
+                .collect(),
+            self.entities
+                .iter()
+                .filter(|e| e.applies_to(code))
+                .cloned()
+                .collect(),
+        )
+    }
+
+    /// `[[entity]]` names and aliases, multi-word and case-sensitive `[[vocab]]` entries of all
+    /// languages, as phrases matched in text; built once per config.
+    pub fn vocab_phrases(&self) -> Arc<crate::vocab::Phrases> {
+        let key = fingerprint(&(&self.vocab, &self.entities));
+        cached(&self.cache.phrases, key, || {
+            crate::vocab::Phrases::new(&self.vocab, &self.entities)
+        })
+    }
+
+    fn read_accepted_words(&self, code: &str) -> Vec<String> {
         let mut words = self.prose.accept.clone();
+        let (v, e) = self.vocab_for(code);
+        words.extend(crate::vocab::accepted_words(&v, &e));
         for f in &self.prose.vocab_files {
             let p = if f.is_absolute() {
                 f.clone()
@@ -696,6 +867,47 @@ impl Config {
             },
         )
     }
+}
+
+/// `[[vocab]]` and `[[entity]]` entries document the project: each needs its explanation.
+fn validate_vocab(vocab: &[Vocab], entities: &[Entity], at: &str) -> Result<(), String> {
+    for (i, v) in vocab.iter().enumerate() {
+        if v.term.trim().is_empty() {
+            return Err(format!("{at}vocab[{i}]: `term` is empty"));
+        }
+        if v.description.trim().is_empty() {
+            return Err(format!(
+                "{at}vocab[{i}] ({:?}): `description` is required; say what the term means, \
+                 so explicit.toml documents the project's vocabulary",
+                v.term
+            ));
+        }
+        if v.aliases.iter().any(|a| a.trim().is_empty()) {
+            return Err(format!("{at}vocab[{i}] ({:?}): empty alias", v.term));
+        }
+        if v.lang.iter().chain(&v.langs).any(|l| l.trim().is_empty()) {
+            return Err(format!("{at}vocab[{i}] ({:?}): empty language", v.term));
+        }
+    }
+    for (i, e) in entities.iter().enumerate() {
+        if e.name.trim().is_empty() {
+            return Err(format!("{at}entity[{i}]: `name` is empty"));
+        }
+        if e.relationship.trim().is_empty() {
+            return Err(format!(
+                "{at}entity[{i}] ({:?}): `relationship` is required; say how the project \
+                 relates to it (\"Pharmacy partner that dispenses our prescriptions\")",
+                e.name
+            ));
+        }
+        if e.aliases.iter().any(|a| a.trim().is_empty()) {
+            return Err(format!("{at}entity[{i}] ({:?}): empty alias", e.name));
+        }
+        if e.lang.iter().chain(&e.langs).any(|l| l.trim().is_empty()) {
+            return Err(format!("{at}entity[{i}] ({:?}): empty language", e.name));
+        }
+    }
+    Ok(())
 }
 
 /// `explicit.toml` that applies to `start` (a file or directory): the nearest one walking up,
@@ -870,6 +1082,76 @@ dialect = "british"
                 e.contains("built without") && e.contains("spellbook"),
                 "{e}"
             );
+        }
+    }
+
+    #[test]
+    fn vocab_and_entities_need_explanations() {
+        let dir = tempfile::tempdir().unwrap();
+        let p = dir.path().join(CONFIG_FILE);
+        let ok = r#"
+[[vocab]]
+term = "Astori"
+description = "Device register"
+aliases = ["ASTORI"]
+[[vocab]]
+term = "FiMEA"
+description = "Agency"
+case_sensitive = true
+[[entity]]
+name = "Telia Oy"
+kind = "company"
+relationship = "Pharmacy partner"
+aliases = ["Telia"]
+[[overrides]]
+paths = ["docs/**"]
+vocab = [{ term = "Kalevala", description = "Epic" }]
+entity = [{ name = "Kela", relationship = "Pays refunds" }]
+"#;
+        std::fs::write(&p, ok).unwrap();
+        let c = Config::load(&p).unwrap();
+        assert_eq!(c.entities[0].aliases, ["Telia"]);
+        // Case-sensitive terms and entity names are phrases, not accepted words.
+        assert_eq!(*c.accepted_words(), ["Astori", "ASTORI", "Telia"]);
+        let docs = c.for_path(Path::new("docs/a.md")).unwrap();
+        assert_eq!(docs.vocab.len(), 3);
+        assert_eq!(docs.entities.len(), 2);
+        assert!(docs.accepted_words().iter().any(|w| w == "Kalevala"));
+        // Telia Oy, its alias, the case-sensitive FiMEA and Kela.
+        assert_eq!(docs.vocab_phrases().list.len(), 4);
+        // Vocab changes the cache key.
+        let mut c2 = c.clone();
+        c2.vocab[0].description = "Other".into();
+        assert_ne!(crate::cache::config_key(&c), crate::cache::config_key(&c2));
+        for (bad, want) in [
+            (
+                "[[vocab]]\nterm = \"X\"\n",
+                "vocab[0] (\"X\"): `description` is required",
+            ),
+            (
+                "[[vocab]]\nterm = \"X\"\ndescription = \" \"\n",
+                "`description` is required",
+            ),
+            (
+                "[[entity]]\nname = \"Y Oy\"\nkind = \"company\"\n",
+                "entity[0] (\"Y Oy\"): `relationship` is required",
+            ),
+            (
+                "[[entity]]\nname = \"\"\nrelationship = \"r\"\n",
+                "`name` is empty",
+            ),
+            (
+                "[[overrides]]\npaths = [\"a\"]\nentity = [{ name = \"Z\" }]\n",
+                "overrides[0]: entity[0]",
+            ),
+            (
+                "[[vocab]]\nterm = \"X\"\ndescription = \"d\"\nbogus = 1\n",
+                "unknown field",
+            ),
+        ] {
+            std::fs::write(&p, bad).unwrap();
+            let e = Config::load(&p).unwrap_err();
+            assert!(e.contains(want), "{bad}: {e}");
         }
     }
 

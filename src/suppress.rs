@@ -4,6 +4,7 @@
 //! `<!-- explicit-disable-next-line rule -->`, `<!-- explicit-disable-line -->`,
 //! `<!-- explicit-disable-file -->`. Code: the same words at the start of a comment.
 //! Rule lists accept globs; no list means all rules. Text after ` -- ` is a reason.
+//! `explicit-lang` markers (see `crate::lang_marks`) are directives too: kept out of prose.
 
 use std::ops::Range;
 use std::sync::LazyLock;
@@ -17,7 +18,7 @@ use crate::rules::Analyzed;
 /// Directive anchored at the start of comment content.
 static DIRECTIVE_RE: LazyLock<Regex> = LazyLock::new(|| {
     Regex::new(
-        r"^\s*explicit-(disable-next-line|disable-line|disable-file|disable|enable)\b([^\n]*)",
+        r"^\s*explicit-(disable-next-line|disable-line|disable-file|disable|enable|lang)\b([^\n]*)",
     )
     .expect("hardcoded regex is valid")
 });

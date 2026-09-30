@@ -977,6 +977,68 @@ fn front_matter_required() {
     );
 }
 
+/// `md/front-matter-lang` findings of a Markdown text (the rule lives in the engine, next to
+/// language detection).
+fn lang_findings(src: &str, cfg: &Config) -> Vec<Finding> {
+    let a = Analyzed::new(SourceFile::new(
+        "t.md".into(),
+        "t.md".into(),
+        FileKind::Markdown,
+        src.to_string(),
+    ));
+    crate::engine::local_findings(&a, cfg)
+        .into_iter()
+        .filter(|f| f.rule == "md/front-matter-lang")
+        .collect()
+}
+
+const FI_PROSE: &str = "Tämä on esimerkkiteksti, joka on kirjoitettu suomeksi. Se kertoo \
+    käyttäjälle miten ohjelma asennetaan ja miten sitä käytetään päivittäisessä työssä. \
+    Ensin lataa paketti ja pura se haluamaasi hakemistoon. Sen jälkeen avaa pääte ja siirry \
+    hakemistoon. Aja asennuskomento ja odota että kaikki riippuvuudet on ladattu.\n";
+
+#[test]
+fn front_matter_lang_suggested() {
+    let cfg = Config::default();
+    let fixed = |src: &str| {
+        let fs = lang_findings(src, &cfg);
+        assert_eq!(fs.len(), 1, "{src}");
+        assert_eq!(fs[0].severity, Severity::Info);
+        assert!(fs[0].help.as_deref().unwrap_or("").contains("lang: fi"));
+        let fixes: Vec<_> = fs.iter().filter_map(|f| f.fix.as_ref()).collect();
+        crate::fix::apply(src, &fixes).0
+    };
+    let body = format!("# Ohje\n\n{FI_PROSE}");
+    // No front matter: create it.
+    assert_eq!(fixed(&body), format!("---\nlang: fi\n---\n{body}"));
+    // Front matter: add the key.
+    let with_fm = format!("---\ntitle: Ohje\n---\n\n{body}");
+    assert_eq!(
+        fixed(&with_fm),
+        format!("---\nlang: fi\ntitle: Ohje\n---\n\n{body}")
+    );
+    // Declared languages, overrides, English, marked Finnish and short files stay quiet.
+    let fm_lang = format!("---\nlang: fi\n---\n\n{body}");
+    assert!(lang_findings(&fm_lang, &cfg).is_empty());
+    let mut fi = Config::default();
+    fi.general.language = "fi".into();
+    assert!(lang_findings(&body, &fi).is_empty());
+    let mut en = Config::default();
+    en.general.language_from_override = true;
+    assert!(lang_findings(&body, &en).is_empty());
+    let marked = format!("# Guide\n\n<!-- explicit-lang fi -->\n\n{FI_PROSE}");
+    assert!(lang_findings(&marked, &cfg).is_empty());
+    assert!(lang_findings("# Ohje\n\nTämä on lyhyt.\n", &cfg).is_empty());
+    let english = "# Guide\n\nThis guide tells the user how the program is installed and how \
+        it is used in daily work. First download the package and extract it to a directory. \
+        Then open a terminal and run the install command.\n";
+    assert!(lang_findings(english, &cfg).is_empty());
+    // Off with the rule.
+    let mut off = Config::default();
+    off.rules.insert("md/front-matter-lang".into(), Level::Off);
+    assert!(lang_findings(&body, &off).is_empty());
+}
+
 #[test]
 fn task_list_style() {
     let src = "- [X] done\n- [] todo\n- [x] ok\n- [ ] open\n";

@@ -458,3 +458,55 @@ fn no_fixes_in_headings() {
     assert_eq!(f.len(), 1, "{f:?}");
     assert!(f[0].fix.is_none());
 }
+
+// prose/entity-name
+
+const ENTITY_CFG: &str = r#"
+[[entity]]
+name = "Telia Oy"
+kind = "company"
+relationship = "Pharmacy partner"
+aliases = ["Telia", "Apple"]
+[[vocab]]
+term = "FiQMEA"
+description = "Agency"
+case_sensitive = true
+[[vocab]]
+term = "Zorbax"
+description = "Register"
+"#;
+
+fn entity_findings(name: &str, src: &str) -> Vec<Finding> {
+    run_cfg(name, src, ENTITY_CFG)
+        .into_iter()
+        .filter(|f| f.rule == "prose/entity-name")
+        .collect()
+}
+
+#[test]
+fn entity_name_casing() {
+    let src = "We use telia  oy and telia daily. TELIA OY, Telia Oy, Telia, an apple, \
+               fiqmea, FiQMEA, zorbax, telia.fi and telia-app.\n";
+    let f = entity_findings("a.md", src);
+    let hits: Vec<&str> = f.iter().map(|f| text(src, f)).collect();
+    assert_eq!(hits, ["telia  oy", "telia", "fiqmea"]);
+    assert_eq!(f[0].suggestions, ["Telia  Oy"]);
+    assert!(apply(src, &f[0]).starts_with("We use Telia  Oy and"));
+    assert_eq!(f[0].help.as_deref(), Some("Telia Oy: Pharmacy partner"));
+    assert_eq!(
+        f[1].help.as_deref(),
+        Some("Short for Telia Oy: Pharmacy partner")
+    );
+    assert!(f[2].message.contains("\"FiQMEA\""));
+}
+
+#[test]
+fn entity_name_in_headings_and_comments() {
+    let src = "# About telia oy\n\nText.\n";
+    let f = entity_findings("a.md", src);
+    assert_eq!(f.len(), 1);
+    assert!(f[0].fix.is_none(), "heading: suggestion only");
+    let f = entity_findings("a.rs", "// Sent to telia oy nightly.\nfn f() {}\n");
+    assert_eq!(f.len(), 1);
+    assert!(entity_findings("a.md", "No configured names here.\n").is_empty());
+}

@@ -1,0 +1,12 @@
+index.aff, index.dic.zlib (zlib-compressed index.dic): Swedish (sv_SE) Hunspell dictionary,
+sv-FI.dic: the entries only the Finland-Swedish (sv_FI) dictionary has, added on load.
+Source: https://github.com/wooorm/dictionaries (dictionaries/sv and dictionaries/sv-FI, 4.0.0).
+
+This Swedish Dictionary for Spell Checking is maintained by
+Göran Andersson <goran@init.se>.
+
+************ COPYRIGHT ************
+
+Copyright © 2003-19 Göran Andersson <goran@init.se>.
+
+This dictionary is made available subject to the terms of GNU Lesser General Public License Version 3. A copy of the LGPL license can be found at http://www.gnu.org/licenses/lgpl-3.0.html .

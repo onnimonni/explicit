@@ -24,6 +24,8 @@ pub struct Repo {
     pub branches: Vec<String>,
     /// Working tree top (URL paths are relative to it).
     pub top: PathBuf,
+    /// Git remote pointing at the repository on GitHub (for `<remote>/<branch>` lookups).
+    pub remote: String,
 }
 
 /// What git metadata says about the working tree containing a directory.
@@ -32,6 +34,7 @@ struct GitInfo {
     top: Option<PathBuf>,
     slug: Option<String>,
     default_branch: Option<String>,
+    remote: Option<String>,
 }
 
 static GIT_CACHE: LazyLock<Mutex<HashMap<PathBuf, GitInfo>>> = LazyLock::new(Mutex::default);
@@ -62,10 +65,11 @@ pub fn repo(ctx: &FileCtx) -> Option<Repo> {
         slug,
         branches,
         top: git.top.unwrap_or(root),
+        remote: git.remote.unwrap_or_else(|| "origin".into()),
     })
 }
 
-fn normalize_slug(s: &str) -> Option<String> {
+pub(crate) fn normalize_slug(s: &str) -> Option<String> {
     let s = s.trim().trim_end_matches('/');
     let s = s.strip_suffix(".git").unwrap_or(s);
     let (o, r) = s.split_once('/')?;
@@ -74,45 +78,29 @@ fn normalize_slug(s: &str) -> Option<String> {
 
 /// Find `.git` at or above `start` and read the GitHub remote and default branch.
 fn git_info(start: &Path) -> GitInfo {
-    let Some((top, dot_git)) = start
-        .ancestors()
-        .map(|d| (d, d.join(".git")))
-        .find(|(_, g)| g.exists())
-    else {
+    let Some(dirs) = super::git_local::git_dirs(start) else {
         return GitInfo::default();
     };
-    let git_dir = if dot_git.is_file() {
-        // Worktrees and submodules: `.git` is a file with `gitdir: <path>`.
-        let Some(p) = std::fs::read_to_string(&dot_git).ok().and_then(|t| {
-            t.lines()
-                .find_map(|l| l.strip_prefix("gitdir:"))
-                .map(|p| top.join(p.trim()))
-        }) else {
-            return GitInfo {
-                top: Some(top.to_path_buf()),
-                ..GitInfo::default()
-            };
-        };
-        p
-    } else {
-        dot_git
-    };
     // Linked worktrees keep config and remote refs in the common dir.
-    let common = std::fs::read_to_string(git_dir.join("commondir"))
-        .ok()
-        .map_or_else(|| git_dir.clone(), |c| git_dir.join(c.trim()));
+    let Some(common) = dirs.common else {
+        return GitInfo {
+            top: Some(dirs.top),
+            ..GitInfo::default()
+        };
+    };
     let config = std::fs::read_to_string(common.join("config")).unwrap_or_default();
     let (remote, slug) = github_remote(&config).unzip();
-    let default_branch = remote.and_then(|r| {
+    let default_branch = remote.as_ref().and_then(|r| {
         let head = std::fs::read_to_string(common.join(format!("refs/remotes/{r}/HEAD"))).ok()?;
         head.trim()
             .strip_prefix(&format!("ref: refs/remotes/{r}/"))
             .map(String::from)
     });
     GitInfo {
-        top: Some(top.to_path_buf()),
+        top: Some(dirs.top),
         slug,
         default_branch,
+        remote,
     }
 }
 
@@ -180,13 +168,13 @@ fn parse_github(url: &str) -> Option<GhUrl<'_>> {
 }
 
 /// `L12`, `L12-L20`, `L12C3`...
-fn is_line_fragment(f: &str) -> bool {
+pub(crate) fn is_line_fragment(f: &str) -> bool {
     f.strip_prefix('L')
         .is_some_and(|r| r.starts_with(|c: char| c.is_ascii_digit()))
 }
 
 /// Whether `path` (below `top`) exists with exactly this spelling, component by component.
-fn exists_exact(top: &Path, rel: &str) -> Option<PathBuf> {
+pub(crate) fn exists_exact(top: &Path, rel: &str) -> Option<PathBuf> {
     let mut cur = top.to_path_buf();
     for part in rel.split('/').filter(|p| !p.is_empty()) {
         if part == "." || part == ".." {
@@ -322,11 +310,6 @@ pub fn check(ctx: &FileCtx, out: &mut Out) {
         }
         out.push(f);
     }
-}
-
-/// Whether `url` would be rewritten for this file (such URLs need no remote check).
-pub fn is_rewritable(repo: &Repo, url: &str, from: &Path) -> bool {
-    rewrite(repo, url, from).is_some()
 }
 
 #[cfg(test)]

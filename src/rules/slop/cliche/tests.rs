@@ -379,3 +379,55 @@ fn technical_prose_stays_quiet() {
         assert_eq!(n, 0, "{t}");
     }
 }
+
+#[test]
+fn factual_scope_lists_are_not_chains() {
+    for t in [
+        // Code spans are blanked by extraction; identifiers, proper nouns and tech nouns.
+        "It uses cross-node messaging but no real clustering: no distributed lookup table, no `:global`, no Horde over native links.",
+        "The release adds no build manifest, no image digest, no cache-policy change and no rollout step.",
+        "The vendor gets no processing instruction rights, no inspection right, no subcontractor veto.",
+        "There is no registry and no coordination file.",
+        "A pending upload has no server id and no download URL.",
+        "If no listener is attached when the event fires, no record is loaded.",
+        "Pure helper: no DOM, no timer, no React.",
+        "No query keys but          , no body.",
+        "Screens add no styling: no tokens, no CSS-in-JS, no styling library, no inline style objects beyond the ones the shared stylesheet already uses (          ).",
+        "The free plan includes 2,000 minutes, no branch protection, no required checks.",
+    ] {
+        let f = flatten(t);
+        assert!(
+            negation_chains(&f).is_empty(),
+            "{t}: {:?}",
+            negation_chains(&f)
+        );
+    }
+}
+
+#[test]
+fn slogan_chains_still_fire() {
+    for t in [
+        "No setup, no waiting, no worries.",
+        "Just paste your text: no accounts, no ads, no tracking.",
+        "The service comes with no strings attached and no hidden fees.",
+    ] {
+        assert_eq!(negation_chains(&flatten(t)).len(), 1, "{t}");
+    }
+}
+
+#[test]
+fn chain_stays_in_its_clause_and_starts_at_no() {
+    // A bracket ends the item, and the range starts at the first "no".
+    let t = "Intro text. No fluff, no filler (see the guide) here.";
+    let h = &negation_chains(t)[0];
+    assert_eq!(&t[h.range.clone()], "No fluff, no filler");
+    // List items and table cells get info severity by default.
+    let seg = Segment {
+        range: 0..28,
+        text: "No fluff, no filler, no ads.".to_string(),
+        kind: SegmentKind::ListItem,
+    };
+    let mut out = Vec::new();
+    negation_chain(&seg, Severity::Warning, &mut out);
+    assert_eq!(out[0].severity, Severity::Info);
+}

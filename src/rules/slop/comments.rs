@@ -460,7 +460,7 @@ pub fn check(ctx: &FileCtx, out: &mut Out) {
     let src = ctx.src();
     let lang = match ctx.a.file.kind {
         FileKind::Code(l) => Some(l),
-        FileKind::Markdown => None,
+        FileKind::Markdown | FileKind::Gettext => None,
     };
     let (plan, history, narrative, banner) = (
         ctx.enabled("slop/comment-plan"),
@@ -785,6 +785,7 @@ mod tests {
         let a = Analyzed {
             file,
             md: None,
+            po: None,
             comments,
             segments,
         };

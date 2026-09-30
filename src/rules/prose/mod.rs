@@ -2,6 +2,7 @@
 //!
 //! - `prose/inclusive`, `prose/simplify`, `prose/terminology`: data-driven word lists
 //!   (`inclusive.toml`, `simplify.toml`, `terminology.toml`), see `lists.rs`.
+//! - `prose/entity-name`: casing of configured `[[entity]]` names, see `entity.rs`.
 //! - `prose/passive`, `prose/weasel`, `prose/there-is`, `prose/so-start`,
 //!   `prose/sentence-length`, `prose/sentence-spacing`: per segment / sentence, see `sentences.rs`.
 //! - `prose/readability`, `prose/consistency`, `prose/acronym-defined`, `prose/smart-quotes`:
@@ -10,6 +11,7 @@
 //! Stock AI phrases live in the slop catalogue and a/an, repeated words and spacing in Harper;
 //! nothing here duplicates those.
 
+mod entity;
 mod file;
 mod lists;
 mod sentences;
@@ -30,6 +32,7 @@ pub fn check(ctx: &FileCtx, out: &mut Out) {
         return;
     }
     lists::check(ctx, out);
+    entity::check(ctx, out);
     sentences::check(ctx, out);
     file::check(ctx, out);
 }
