@@ -988,26 +988,26 @@ impl Checker {
     /// suggestions yet), overlaps removed.
     fn raw_lints(&mut self, text: &str, harper_ok: bool) -> RawLints {
         let (spell, harper, own) = if self.is_code == Some(true) {
-            (self.spell_code, self.harper_code, self.own_code.clone())
+            (self.spell_code, self.harper_code, self.own_code.as_slice())
         } else {
-            (self.spell_md, self.harper_md, self.own_md.clone())
+            (self.spell_md, self.harper_md, self.own_md.as_slice())
         };
         if let Some((code, sp)) = &self.lang {
             let mut lints = BTreeMap::new();
             let chars: Vec<char> = text.chars().collect();
             if !own.is_empty() {
                 if let Some(v) = sp.voikko() {
-                    lints = super::grammar_fi::lints(v, &**sp, &chars, &own);
+                    lints = super::grammar_fi::lints(v, &**sp, &chars, own);
                 } else if code == "sv" {
-                    lints = super::grammar_sv::lints(&**sp, &chars, &own);
+                    lints = super::grammar_sv::lints(&**sp, &chars, own);
                 } else if code == "de" {
-                    lints = super::grammar_de::lints(&**sp, &chars, &own);
+                    lints = super::grammar_de::lints(&**sp, &chars, own);
                 } else if code == "fr" {
-                    lints = super::grammar_fr::lints(&**sp, &chars, &own);
+                    lints = super::grammar_fr::lints(&**sp, &chars, own);
                 } else if code == "es" {
-                    lints = super::grammar_es::lints(&**sp, &chars, &own);
+                    lints = super::grammar_es::lints(&**sp, &chars, own);
                 } else if code == "pt" {
-                    lints = super::grammar_pt::lints(&**sp, &chars, &own);
+                    lints = super::grammar_pt::lints(&**sp, &chars, own);
                 }
             }
             if spell {
@@ -1045,9 +1045,19 @@ impl Checker {
                     && matches!(r, "AnA" | "PronounVerbAgreement")
                     && self.harper.as_ref().is_some_and(|h| h.rule_on(r))
             };
-            let own: Vec<&str> = own.into_iter().filter(|r| !harper_has(r)).collect();
+            let filtered;
+            let own = if run_harper {
+                filtered = own
+                    .iter()
+                    .copied()
+                    .filter(|r| !harper_has(r))
+                    .collect::<Vec<_>>();
+                filtered.as_slice()
+            } else {
+                own
+            };
             let american = matches!(self.dialect, Dialect::American | Dialect::Canadian);
-            for (k, v) in patterns::lint(&chars, &tokens, &own, american) {
+            for (k, v) in patterns::lint(&chars, &tokens, own, american) {
                 lints.entry(k).or_insert_with(Vec::new).extend(v);
             }
         }
