@@ -159,6 +159,15 @@ fn english_homographs_do_not_hide_native_accents() {
         word_ok(&*french, "fr", "légal", Some(' ')),
         "accented French adjective"
     );
+    let chars: Vec<_> = "creative coding. creative, coding. creative\n\ncoding."
+        .chars()
+        .collect();
+    let missing = explicit::rules::spell_lang::misspelled(&*french, "fr", &chars);
+    let words: Vec<String> = missing
+        .iter()
+        .map(|lint| chars[lint.span.start..lint.span.end].iter().collect())
+        .collect();
+    assert_eq!(words, ["creative", "creative"]);
 }
 
 #[test]
@@ -217,13 +226,17 @@ fn decomposed_accents_keep_native_grammar_and_source_spans() {
 fn french_homographs_stay_native_without_disabling_english_crossover() {
     let dir = tempfile::tempdir().unwrap();
     let source = "---\nlang: fr\n---\n\n# Exemple\n\n\
-        Il commence à le lire. Il refuse de le faire.\n\n\
+        Il commence à le lire. Il refuse de le faire. Un an de creative coding.\n\n\
+        Le document est legal.\n\n\
         The colour of the button is set in the settings and saved to the profile.\n";
     let path = dir.path().join("mixed.md");
     std::fs::write(&path, source).unwrap();
     for (dialect, expected) in [
-        ("american", vec![("spelling", "colour")]),
-        ("british", vec![]),
+        (
+            "american",
+            vec![("spelling", "legal"), ("spelling", "colour")],
+        ),
+        ("british", vec![("spelling", "legal")]),
     ] {
         let mut config = Config {
             root: dir.path().to_path_buf(),

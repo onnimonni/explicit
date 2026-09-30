@@ -174,6 +174,15 @@ fn is_nordic_function_word(w: &str) -> bool {
     w.chars().count() <= 6 && NORDIC_FUNCTION_WORDS.iter().any(|f| eq_lower(w, f))
 }
 
+/// Function words shared with another supported language cannot establish English crossover.
+fn shared_function_word(w: &str) -> bool {
+    [
+        "a", "an", "as", "or", "be", "by", "all", "do", "no", "me", "so", "per", "via",
+    ]
+    .iter()
+    .any(|word| word.eq_ignore_ascii_case(w))
+}
+
 /// Strong Finnish/Swedish spelling: `ä ö å`, or a Finnish ending on a longer word.
 fn nordic_letters_or_ending(w: &str) -> bool {
     w.contains(['ä', 'ö', 'å', 'Ä', 'Ö', 'Å'])
@@ -613,16 +622,19 @@ pub fn foreign_stretches(
 /// (`Please ask your manager.`) or, of three words or more, with every word English
 /// (`Programme updates arrive weekly.`). British spellings count as English.
 pub fn looks_english(text: &str, min_words: usize) -> bool {
-    let (mut n, mut stop, mut function, mut known) = (0, 0, 0, 0);
+    let (mut n, mut stop, mut function, mut known, mut shared) = (0, 0, 0, 0, 0);
     for w in words(text).filter(|w| !neutral(w)) {
         n += 1;
+        let ambiguous = shared_function_word(w);
+        shared += usize::from(ambiguous);
         if w.is_ascii() && is_stopword(w) {
-            stop += 1;
+            stop += usize::from(!ambiguous);
             known += 1;
         } else if english_word(w) && !is_nordic_function_word(w) {
             known += 1;
-            function +=
-                usize::from(w.is_ascii() && ENGLISH_FUNCTION_WORDS.iter().any(|f| eq_lower(w, f)));
+            function += usize::from(
+                !ambiguous && w.is_ascii() && ENGLISH_FUNCTION_WORDS.iter().any(|f| eq_lower(w, f)),
+            );
         }
     }
     // One sentence: `Contact support via email. Kiitos.` is two.
@@ -631,7 +643,8 @@ pub fn looks_english(text: &str, min_words: usize) -> bool {
         .trim_end_matches(['.', '!', '?'])
         .contains(['.', '!', '?', '\n']);
     let short = one_sentence && (min_words.max(3)..=8).contains(&n);
-    let evidence = stop * 8 >= n || short && (function > 0 && known * 5 >= n * 4 || known == n);
+    let evidence =
+        stop * 8 >= n || short && (function > 0 && known * 5 >= n * 4 || known == n && shared == 0);
     n >= min_words.max(1)
         && known * 5 >= n * 4
         && evidence
@@ -669,7 +682,7 @@ fn english_runs(text: &str) -> Vec<Range<usize>> {
         if neutral(w) {
             continue;
         }
-        let stop = w.is_ascii() && is_stopword(w);
+        let stop = w.is_ascii() && is_stopword(w) && !shared_function_word(w);
         let english = w.is_ascii() && !is_nordic_function_word(w) && (stop || english_word(w));
         if !english {
             flush(&mut run, &mut out);
@@ -1085,5 +1098,25 @@ mod tests {
             ),
             ["done", "Valmis |\n\n"]
         );
+    }
+
+    #[test]
+    fn shared_function_words_do_not_establish_english_crossover() {
+        for text in [
+            "Un an de creative coding.",
+            "an private cloud",
+            "as private clouds",
+            "do private cloud",
+        ] {
+            assert!(!looks_english(text, 3), "{text}");
+            assert!(english_runs(text).is_empty(), "{text}");
+        }
+        for text in [
+            "The private cloud has an error.",
+            "You should do more.",
+            "Our colour scheme follows the brand guidelines.",
+        ] {
+            assert!(looks_english(text, 3), "{text}");
+        }
     }
 }

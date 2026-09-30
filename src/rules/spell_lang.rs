@@ -1230,6 +1230,53 @@ fn english_glue(sp: &dyn LangSpeller, chars: &[char], toks: &[(usize, usize)], k
     english_at(k.checked_sub(1)) || english_at(Some(k + 1))
 }
 
+/// Adjacent English-only vocabulary can establish a borrowed phrase even when
+/// the current word also has a native missing-accent reading.
+fn english_phrase_loan(
+    sp: &dyn LangSpeller,
+    code: &str,
+    chars: &[char],
+    toks: &[(usize, usize)],
+    k: usize,
+    word: &str,
+) -> bool {
+    if !matches!(code, "de" | "fr" | "es" | "pt")
+        || word.len() < 4
+        || !word.bytes().all(|byte| byte.is_ascii_alphabetic())
+        || !super::spell::known(english(), word)
+    {
+        return false;
+    }
+    let (start, end) = toks[k];
+    let english_at = |i: Option<usize>| {
+        let Some(&(s, e)) = i.and_then(|i| toks.get(i)) else {
+            return false;
+        };
+        let gap = if e <= start {
+            &chars[e..start]
+        } else {
+            &chars[end..s]
+        };
+        if !(4..=64).contains(&(e - s))
+            || gap.is_empty()
+            || !gap.iter().all(|c| c.is_whitespace())
+            || gap.iter().filter(|&&c| c == '\n').count() >= 2
+            || !chars[s..e].iter().all(char::is_ascii_alphabetic)
+        {
+            return false;
+        }
+        let mut buffer = [0_u8; 64];
+        for (byte, &letter) in buffer.iter_mut().zip(&chars[s..e]) {
+            *byte = letter as u8;
+        }
+        let neighbor = std::str::from_utf8(&buffer[..e - s]).expect("ASCII word");
+        super::spell::known(english(), neighbor)
+            && !sp.check(neighbor)
+            && !accent_variant(sp, code, neighbor)
+    };
+    english_at(k.checked_sub(1)) || english_at(Some(k + 1))
+}
+
 /// Capitalized words `chars` uses as names inside sentences (see [`unknown_name`]).
 /// Token `k` is a capitalized word right after a given name the speller knows: a surname
 /// (`Kjell Westö`, `Hilja Haahti`).
@@ -1342,7 +1389,9 @@ pub fn misspelled(sp: &dyn LangSpeller, code: &str, chars: &[char]) -> Vec<Lint>
         {
             continue;
         }
-        if english_glue(sp, chars, &toks, k) {
+        if english_glue(sp, chars, &toks, k)
+            || english_phrase_loan(sp, code, chars, &toks, k, &word)
+        {
             continue;
         }
         // `App Storesta`: an English word capitalized inside a sentence is part of a name.
