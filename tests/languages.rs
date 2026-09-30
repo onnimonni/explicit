@@ -240,3 +240,50 @@ fn french_homographs_stay_native_without_disabling_english_crossover() {
         assert_eq!(actual, expected, "{dialect}: {diagnostics:?}");
     }
 }
+
+#[test]
+fn native_hype_wraps_lines_without_crossing_comment_paragraphs() {
+    let dir = tempfile::tempdir().unwrap();
+    let sources = [
+        (
+            "claims.md",
+            "# 1\n\n<!-- explicit-lang fr -->\nUn monde de possibilités\n\nillimitées.\n\n\
+             Un monde de possibilités\r\nillimitées.\n<!-- explicit-lang end -->\n",
+            "monde de possibilités\r\nillimitées",
+        ),
+        (
+            "claims.rs",
+            "// explicit-lang de\n/*\nRevolutionär\n \t\nBahnbrechend.\n\n\
+             Revolutionär\nund beispiellos.\n*/\n// explicit-lang end\n",
+            "Revolutionär\nund beispiellos",
+        ),
+    ];
+    let paths: Vec<_> = sources
+        .iter()
+        .map(|(name, source, _)| {
+            let path = dir.path().join(name);
+            std::fs::write(&path, source).unwrap();
+            path
+        })
+        .collect();
+    let mut config = Config {
+        root: dir.path().to_path_buf(),
+        ..Config::default()
+    };
+    config.general.detect_language = false;
+    config
+        .rules
+        .insert("spelling".into(), explicit::config::Level::Off);
+    let workspace = engine::build_workspace(&paths, &config);
+    let diagnostics = engine::check(&workspace, &paths, &config, &Options::default());
+    let slop: Vec<_> = diagnostics
+        .iter()
+        .filter(|d| d.rule == "slop/phrase")
+        .collect();
+    assert_eq!(slop.len(), sources.len(), "{diagnostics:?}");
+    for (finding, (name, source, expected)) in slop.iter().zip(sources) {
+        assert_eq!(finding.path, std::path::Path::new(name));
+        assert_eq!(finding.text, expected);
+        assert_eq!(&source[finding.range.clone()], expected);
+    }
+}

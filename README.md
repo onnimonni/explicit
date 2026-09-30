@@ -430,6 +430,7 @@ after clear motion forms (`vou a escola` → `vou à escola`); optional house/pl
 ambiguous inverted subjects stay unchecked.
 `slop/phrase` also checks stacked promotional claims in these four languages, Finnish and
 Swedish. It flags empty promises, not evidence of AI authorship, and runs independently of spelling.
+Soft line wraps are supported without joining separate paragraphs, including code comments.
 
 **Finnish** (`fi`, `voikko` feature) and **Swedish** (`sv`, `swedish` feature, on by default) files get
 spelling in their language with suggestions, plus a few rules where the orthography leaves no

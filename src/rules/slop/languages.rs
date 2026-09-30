@@ -20,27 +20,27 @@ fn pattern(code: &str) -> Option<&'static Regex> {
     // descriptive adjective or an ordinary connective is not evidence of slop.
     matcher!(
         DE,
-        r"(?i)\b(?:(?:revolutionär|bahnbrechend|einzigartig)(?:e[nmrs]?)?\b[^.!?\r\n]{0,80}\b(?:bahnbrechend(?:e[nmrs]?)?|beispiellos(?:e[nmrs]?)?|alles[ ]+verändernd(?:e[nmrs]?)?|unbegrenzte[ ]+möglichkeiten)|welt[ ]+(?:voller|unbegrenzter|endloser)[ ]+möglichkeiten)\b"
+        r"(?i)\b(?:(?:revolutionär|bahnbrechend|einzigartig)(?:e[nmrs]?)?\b[^.!?]{0,80}\b(?:bahnbrechend(?:e[nmrs]?)?|beispiellos(?:e[nmrs]?)?|alles[ \t\r\n]+verändernd(?:e[nmrs]?)?|unbegrenzte[ \t\r\n]+möglichkeiten)|welt[ \t\r\n]+(?:voller|unbegrenzter|endloser)[ \t\r\n]+möglichkeiten)\b"
     );
     matcher!(
         FR,
-        r"(?i)\b(?:(?:révolutionnaire|miraculeu(?:x|se)|inégalée?s?)\b[^.!?\r\n]{0,80}\b(?:sans[ ]+(?:égal|précédent)|possibilités[ ]+(?:infinies|illimitées))|monde[ ]+de[ ]+possibilités[ ]+(?:infinies|illimitées))\b"
+        r"(?i)\b(?:(?:révolutionnaire|miraculeu(?:x|se)|inégalée?s?)\b[^.!?]{0,80}\b(?:sans[ \t\r\n]+(?:égal|précédent)|possibilités[ \t\r\n]+(?:infinies|illimitées))|monde[ \t\r\n]+de[ \t\r\n]+possibilités[ \t\r\n]+(?:infinies|illimitées))\b"
     );
     matcher!(
         ES,
-        r"(?i)\b(?:(?:revolucionari[oa]s?|revolución|incomparables?|definitiv[oa]s?)\b[^.!?\r\n]{0,80}\b(?:incomparable|transforma[ ]+todo|sin[ ]+(?:igual|precedentes|límites))|posibilidades[ ]+(?:ilimitadas|infinitas)[ ]+y[ ]+(?:excelencia|perfección)[ ]+sin[ ]+límites)\b"
+        r"(?i)\b(?:(?:revolucionari[oa]s?|revolución|incomparables?|definitiv[oa]s?)\b[^.!?]{0,80}\b(?:incomparable|transforma[ \t\r\n]+todo|sin[ \t\r\n]+(?:igual|precedentes|límites))|posibilidades[ \t\r\n]+(?:ilimitadas|infinitas)[ \t\r\n]+y[ \t\r\n]+(?:excelencia|perfección)[ \t\r\n]+sin[ \t\r\n]+límites)\b"
     );
     matcher!(
         PT,
-        r"(?i)\b(?:(?:revolucionári[oa]s?|milagros[oa]s?|incomparáveis)\b[^.!?\r\n]{0,80}\b(?:redefine[ ]+tudo|sem[ ]+(?:precedentes|limites))|possibilidades[ ]+(?:infinitas|ilimitadas)[ ]+e[ ]+(?:excelência|perfeição)[ ]+sem[ ]+limites)\b"
+        r"(?i)\b(?:(?:revolucionári[oa]s?|milagros[oa]s?|incomparáveis)\b[^.!?]{0,80}\b(?:redefine[ \t\r\n]+tudo|sem[ \t\r\n]+(?:precedentes|limites))|possibilidades[ \t\r\n]+(?:infinitas|ilimitadas)[ \t\r\n]+e[ \t\r\n]+(?:excelência|perfeição)[ \t\r\n]+sem[ \t\r\n]+limites)\b"
     );
     matcher!(
         FI,
-        r"(?i)\b(?:mullistaa[ ]+kaiken|vallankumouksellinen[ ]+ja[ ]+ennennäkemätön)\b"
+        r"(?i)\b(?:mullistaa[ \t\r\n]+kaiken|vallankumouksellinen[ \t\r\n]+ja[ \t\r\n]+ennennäkemätön)\b"
     );
     matcher!(
         SV,
-        r"(?i)\b(?:revolutionerar[ ]+allt|revolutionerande[ ]+och[ ]+utan[ ]+motstycke)\b"
+        r"(?i)\b(?:revolutionerar[ \t\r\n]+allt|revolutionerande[ \t\r\n]+och[ \t\r\n]+utan[ \t\r\n]+motstycke)\b"
     );
     match code {
         "de" => Some(&DE),
@@ -72,15 +72,32 @@ pub fn check(ctx: &FileCtx, code: &str, ranges: Option<&[Range<usize>]>, out: &m
             else {
                 return;
             };
-            for matched in re.find_iter(text) {
-                let finding = Finding::new(
-                    "slop/phrase",
-                    super::seg_sev("slop/phrase", segment),
-                    start + matched.start()..start + matched.end(),
-                    "Promotional claim without concrete evidence",
-                )
-                .help("Replace the promise with a specific capability, result or number.");
-                out.push(finding);
+            let emit = |text: &str, origin: usize, out: &mut Out| {
+                for matched in re.find_iter(text) {
+                    let finding = Finding::new(
+                        "slop/phrase",
+                        super::seg_sev("slop/phrase", segment),
+                        origin + matched.start()..origin + matched.end(),
+                        "Promotional claim without concrete evidence",
+                    )
+                    .help("Replace the promise with a specific capability, result or number.");
+                    out.push(finding);
+                }
+            };
+            // Soft wraps belong to a paragraph; blank lines separate claims even in comments.
+            let mut paragraph = 0;
+            let mut offset = 0;
+            for line in text.split_inclusive('\n') {
+                if line.trim().is_empty() {
+                    if paragraph < offset {
+                        emit(&text[paragraph..offset], start + paragraph, out);
+                    }
+                    paragraph = offset + line.len();
+                }
+                offset += line.len();
+            }
+            if paragraph < text.len() {
+                emit(&text[paragraph..], start + paragraph, out);
             }
         };
         if let Some(ranges) = ranges {
