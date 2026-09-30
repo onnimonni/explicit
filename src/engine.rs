@@ -421,7 +421,7 @@ fn front_matter_language(a: &Analyzed) -> Option<String> {
 }
 
 /// Primary language subtag of the file's prose: front matter, then `general.language` (as
-/// `[[overrides]]` set it), then detection (`fi`, `sv`, or `und` for other languages).
+/// `[[overrides]]` set it), then detection of supported languages or `und`.
 pub fn document_language(a: &Analyzed, config: &Config) -> String {
     document_language_in(a, config, &crate::lang_marks::regions(a))
 }
@@ -438,9 +438,11 @@ fn document_language_in(a: &Analyzed, config: &Config, marks: &[Region]) -> Stri
     }
     if config.general.detect_language {
         let segments = unmarked_segments(a, marks);
+        if let Some(language) = crate::lang::document_hint(&segments) {
+            return language.to_string();
+        }
         if looks_non_english(&segments, config) {
-            return crate::lang::document_hint(&segments)
-                .or_else(|| crate::lang::document_nordic(&segments))
+            return crate::lang::document_nordic(&segments)
                 .unwrap_or("und")
                 .to_string();
         }

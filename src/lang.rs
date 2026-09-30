@@ -732,7 +732,7 @@ pub fn language_hint(text: &str, min_words: usize) -> Option<&'static str> {
 }
 
 pub fn document_hint(segments: &[Segment]) -> Option<&'static str> {
-    language_hint_words(segments.iter().flat_map(|s| words(&s.text)), 80)
+    language_hint_words(segments.iter().flat_map(|s| words(&s.text)), 20)
 }
 
 fn language_hint_words<'a>(

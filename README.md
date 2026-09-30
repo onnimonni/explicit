@@ -399,9 +399,9 @@ comes from, in order:
 
 1. front matter `lang:` or `language:` (a BCP 47 tag: `fi`, `fi-FI`, `sv-FI`, `en-GB`),
 2. a matching `[[overrides]]` entry's `language`, or `general.language`,
-3. detection (`general.detect_language`, on by default): prose of 80+ words with little English
-   evidence uses distinctive German, French, Spanish or Portuguese function words, then Nordic
-   evidence. Short or ambiguous passages need an explicit tag.
+3. detection (`general.detect_language`, on by default): prose of 20+ words with little English
+   evidence first uses distinctive German, French, Spanish or Portuguese function words. Nordic
+   detection still needs 80+ words. Short or ambiguous passages need an explicit tag.
 
 German (`de`), French (`fr`), Spanish (`es`) and Portuguese (`pt`) have bundled Hunspell
 spelling and conservative native grammar in every build. Front matter, overrides and explicit
