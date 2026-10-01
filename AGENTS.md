@@ -26,6 +26,7 @@ once for CI and git hooks. `watch` re-checks on change.
 | `src/links/` | Local links, remote HTTP with cache, same-repo links through `git`/`gh` |
 | `src/rules/codeblock/`, `diagram/`, `docs/`, `gettext/` | Code block syntax, Mermaid/D2, docs-site rules, `.po`/`.pot` |
 | `src/cache.rs` | Results cache in `.explicit_cache/` (content + config + build keyed; safe with worktrees and CoW clones) |
+| `src/progress.rs` | Stderr progress bar; only on a terminal, never under CI or coding agents (`CLAUDECODE`, `CODEX_*`) |
 | `dictionaries/` | Embedded dictionaries with license notes; refresh with `scripts/update-*.sh` |
 | `eval/` | Labeled evaluation sets (see below) |
 

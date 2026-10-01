@@ -3,7 +3,7 @@
 use std::collections::{HashMap, HashSet, VecDeque};
 use std::ops::Range;
 use std::path::PathBuf;
-use std::sync::{Condvar, LazyLock, Mutex};
+use std::sync::{Arc, Condvar, LazyLock, Mutex};
 use std::time::{Duration, Instant};
 
 use regex::Regex;
@@ -54,6 +54,8 @@ pub struct CheckOpts {
     pub cache_path: Option<PathBuf>,
     /// Minimum time between starting requests to the same host.
     pub min_interval: Duration,
+    /// Progress bar on stderr; disabled by default.
+    pub progress: Arc<crate::progress::Progress>,
 }
 
 impl Default for CheckOpts {
@@ -61,6 +63,7 @@ impl Default for CheckOpts {
         CheckOpts {
             cache_path: None,
             min_interval: Duration::from_millis(250),
+            progress: Arc::default(),
         }
     }
 }
@@ -188,6 +191,7 @@ pub fn check_all_with(
     type Checked = (String, RemoteStatus, Option<String>);
     let checked: Mutex<Vec<Checked>> = Mutex::new(Vec::new());
     let workers = lc.concurrency.max(1).min(sched.len());
+    opts.progress.start("Checking links", sched.len());
     std::thread::scope(|s| {
         for _ in 0..workers {
             s.spawn(|| {
@@ -195,6 +199,7 @@ pub fn check_all_with(
                     let image = wanted.get(&url).copied().unwrap_or(false);
                     let (status, content_type) = check_url(&agent, &url, config, image);
                     sched.done(&host);
+                    opts.progress.tick(&url);
                     checked.lock().unwrap_or_else(|e| e.into_inner()).push((
                         url,
                         status,
@@ -204,6 +209,7 @@ pub fn check_all_with(
             });
         }
     });
+    opts.progress.finish();
     let now = now_unix();
     for (url, status, content_type) in checked.into_inner().unwrap_or_else(|e| e.into_inner()) {
         let image = wanted.get(&url).copied().unwrap_or(false);
@@ -828,6 +834,7 @@ mod tests {
         CheckOpts {
             cache_path: Some(dir.path().join("links.json")),
             min_interval: Duration::ZERO,
+            ..CheckOpts::default()
         }
     }
 

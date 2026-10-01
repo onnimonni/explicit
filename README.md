@@ -163,6 +163,11 @@ config already applies there.
 `check` exits with 0 when clean, 1 when a finding reaches `general.fail_on` (default `warning`),
 and 2 on configuration or I/O errors.
 
+In an interactive terminal `check` and `watch` draw a progress bar on stderr (reading files,
+checking links, checking files). It is hidden when stderr is not a terminal, when `TERM=dumb`,
+and under CI or coding agents (`CI`, `CLAUDECODE`, `CODEX_*`, `CURSOR_AGENT`), so transcripts
+and logs stay clean. `EXPLICIT_PROGRESS=0` or `=1` forces it off or on.
+
 `--fix` applies every safe fix from reported findings, including `info` ones. Rules that would
 change heading text (and so its anchor), and redirected links, only suggest a replacement.
 Files are replaced atomically and keep their permissions.

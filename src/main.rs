@@ -2,12 +2,14 @@ use std::collections::HashMap;
 use std::io::Write;
 use std::path::PathBuf;
 use std::process::ExitCode;
+use std::sync::Arc;
 
 use clap::{Parser, Subcommand};
 
 use explicit::config::Config;
 use explicit::engine::{self, Options};
 use explicit::output::{self, Format};
+use explicit::progress::Progress;
 
 // Harper allocates many small vectors per sentence; the system allocator is slow at that.
 #[global_allocator]
@@ -193,20 +195,23 @@ fn run(cli: Cli) -> Result<ExitCode, String> {
                 .paths
                 .iter()
                 .all(|p| p.canonicalize().is_ok_and(|p| p == config.root));
+            // Progress bar on stderr for interactive terminals only (hidden under agents and CI).
+            let progress = Arc::new(Progress::auto());
             let opts = Options {
                 remote: !common.no_remote,
                 cache_dir,
                 link_cache_dir: Some(resolved_cache_dir),
                 prune_cache,
+                progress: progress.clone(),
             };
-            let mut ws = engine::build_workspace(&files, &config);
+            let mut ws = engine::build_workspace_with(&files, &config, &progress);
             let mut diags = engine::check(&ws, &files, &config, &opts);
             if fix {
                 let n =
                     explicit::fix::write_fixes(&config.root, &diags).map_err(|e| e.to_string())?;
                 if n > 0 {
                     eprintln!("Applied {n} fixes.");
-                    ws = engine::build_workspace(&files, &config);
+                    ws = engine::build_workspace_with(&files, &config, &progress);
                     diags = engine::check(&ws, &files, &config, &opts);
                 }
             }
@@ -234,6 +239,7 @@ fn run(cli: Cli) -> Result<ExitCode, String> {
             // Watch keeps results in memory; no disk cache.
             let opts = Options {
                 remote: !common.no_remote,
+                progress: Arc::new(Progress::auto()),
                 ..Options::default()
             };
             // CLI overrides apply on every config (re)load.

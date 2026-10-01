@@ -10,6 +10,7 @@ pub mod lang;
 pub mod lang_marks;
 pub mod links;
 pub mod output;
+pub mod progress;
 pub mod rules;
 pub mod segment;
 pub mod source;

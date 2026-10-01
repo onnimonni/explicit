@@ -27,6 +27,8 @@ pub struct Options {
     pub link_cache_dir: Option<PathBuf>,
     /// Drop cache entries of files not checked in this run (set when checking the whole root).
     pub prune_cache: bool,
+    /// Progress bar on stderr; disabled by default (tests, library use).
+    pub progress: Arc<crate::progress::Progress>,
 }
 
 /// Directory entry names, `None` when the directory cannot be read.
@@ -595,7 +597,22 @@ fn par_map_in<T: Sync, R: Send>(
 }
 
 pub fn build_workspace(paths: &[PathBuf], config: &Config) -> Workspace {
-    let analyzed = par_map(paths, |p| load(p, &config.root));
+    build_workspace_with(paths, config, &crate::progress::Progress::disabled())
+}
+
+/// [`build_workspace`], reporting each loaded file to `progress`.
+pub fn build_workspace_with(
+    paths: &[PathBuf],
+    config: &Config,
+    progress: &crate::progress::Progress,
+) -> Workspace {
+    progress.start("Reading files", paths.len());
+    let analyzed = par_map(paths, |p| {
+        let a = load(p, &config.root);
+        progress.tick(&p.strip_prefix(&config.root).unwrap_or(p).to_string_lossy());
+        a
+    });
+    progress.finish();
     let files = analyzed
         .into_iter()
         .flatten()
@@ -647,7 +664,15 @@ pub fn check_with_stats(
         }
         let mut urls: Vec<_> = urls.into_iter().collect();
         urls.sort();
-        crate::links::remote::check_all(&urls, config, link_cache.clone())
+        crate::links::remote::check_all_with(
+            &urls,
+            config,
+            &crate::links::remote::CheckOpts {
+                cache_path: link_cache.clone(),
+                progress: opts.progress.clone(),
+                ..Default::default()
+            },
+        )
     } else {
         HashMap::new()
     };
@@ -668,6 +693,7 @@ pub fn check_with_stats(
     let vocab_key =
         u128::from(vocab.fingerprint) << 64 | u128::from(vocab.fingerprint.rotate_left(17));
 
+    opts.progress.start("Checking files", targets.len());
     let per_file = par_map_heaviest_first(
         &targets,
         |a| a.file.text.len(),
@@ -717,9 +743,11 @@ pub fn check_with_stats(
                 _ => local_diagnostics_in(a, fc, &vocab),
             };
             diags.extend(cross_diagnostics(a, ws, fc, &statuses));
+            opts.progress.tick(&a.file.rel.to_string_lossy());
             (diags, fresh, hit)
         },
     );
+    opts.progress.finish();
     let mut all: Vec<Diagnostic> = Vec::new();
     let mut fresh = Vec::new();
     let mut hits = Vec::new();
