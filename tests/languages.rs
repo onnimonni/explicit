@@ -361,3 +361,175 @@ fn code_inside_words_does_not_leave_spelling_fragments() {
             .any(|word| word == "neighbor")
     );
 }
+
+#[test]
+fn code_inside_comment_words_keeps_nearby_typos_and_source_offsets() {
+    let dir = tempfile::tempdir().unwrap();
+    let source = "// The `E`rror handler uses pré`API`fi\u{301}xe identifiers.\n\
+        // The handler reports an errror near the `code` example.\n\
+        // The literal \\`symbol`errror is misspelled.\nfn main() {}\n";
+    let path = dir.path().join("fragments.rs");
+    std::fs::write(&path, source).unwrap();
+    let config = Config {
+        root: dir.path().to_path_buf(),
+        ..Config::default()
+    };
+    let paths = [path];
+    let workspace = engine::build_workspace(&paths, &config);
+    let diagnostics = engine::check(&workspace, &paths, &config, &Options::default());
+    let spelling: Vec<_> = diagnostics
+        .iter()
+        .filter(|finding| finding.rule == "spelling")
+        .collect();
+    let expected: Vec<_> = source
+        .match_indices("errror")
+        .map(|(start, _)| start..start + "errror".len())
+        .collect();
+    let actual: Vec<_> = spelling
+        .iter()
+        .map(|finding| finding.range.clone())
+        .collect();
+    assert_eq!(actual, expected, "{diagnostics:?}");
+    for finding in spelling {
+        assert_eq!(finding.text, "errror");
+        assert!(finding.suggestions.iter().any(|word| word == "error"));
+    }
+}
+
+#[test]
+fn masked_entity_fragments_stay_excluded_from_native_spelling() {
+    let dir = tempfile::tempdir().unwrap();
+    let source = "---\nlang: fr\n---\n\n# 1\n\n\
+        La &#99;onfiguration est correcte. La &#99;onfi**guration** est correcte.\n\n\
+        La configurration est incorrecte.\n";
+    let path = dir.path().join("entities.md");
+    std::fs::write(&path, source).unwrap();
+    let config = Config {
+        root: dir.path().to_path_buf(),
+        ..Config::default()
+    };
+    let paths = [path];
+    let workspace = engine::build_workspace(&paths, &config);
+    let diagnostics = engine::check(&workspace, &paths, &config, &Options::default());
+    let spelling: Vec<_> = diagnostics
+        .iter()
+        .filter(|finding| finding.rule == "spelling")
+        .collect();
+    assert_eq!(spelling.len(), 1, "{diagnostics:?}");
+    assert_eq!(spelling[0].text, "configurration");
+    let start = source.find("configurration").unwrap();
+    assert_eq!(spelling[0].range, start..start + "configurration".len());
+    assert!(
+        spelling[0]
+            .suggestions
+            .iter()
+            .any(|word| word == "configuration")
+    );
+}
+
+#[test]
+fn detected_native_phrases_keep_second_sentence_agreement_errors() {
+    let dir = tempfile::tempdir().unwrap();
+    let source = "# 1\n\nDer Bericht ist fertig. Die Berichte ist fertig.\n\n\
+        Der Bericht ist fertig; die Berichte ist fertig.\n\n\
+        Der Bericht ist fertig: die Berichte ist fertig.\n";
+    let path = dir.path().join("agreement.md");
+    std::fs::write(&path, source).unwrap();
+    let config = Config {
+        root: dir.path().to_path_buf(),
+        ..Config::default()
+    };
+    let paths = [path];
+    let workspace = engine::build_workspace(&paths, &config);
+    let diagnostics = engine::check(&workspace, &paths, &config, &Options::default());
+    let agreement: Vec<_> = diagnostics
+        .iter()
+        .filter(|finding| finding.rule == "grammar/GermanNounVerbAgreement")
+        .collect();
+    let expected: Vec<_> = source
+        .match_indices("Berichte ist")
+        .map(|(start, _)| {
+            let verb = start + "Berichte ".len();
+            verb..verb + "ist".len()
+        })
+        .collect();
+    let actual: Vec<_> = agreement
+        .iter()
+        .map(|finding| finding.range.clone())
+        .collect();
+    assert_eq!(actual, expected, "{diagnostics:?}");
+    for finding in agreement {
+        assert!(finding.suggestions.iter().any(|word| word == "sind"));
+    }
+}
+
+#[test]
+fn native_quotes_keep_their_context_across_english_crossover() {
+    let dir = tempfile::tempdir().unwrap();
+    let source = "# 1\n\nDer Bericht ist fertig. Please read this example \
+        \"Die Berichte ist fertig.\" Die Berichte ist fertig.\n";
+    let path = dir.path().join("quoted.md");
+    std::fs::write(&path, source).unwrap();
+    let config = Config {
+        root: dir.path().to_path_buf(),
+        ..Config::default()
+    };
+    let paths = [path];
+    let workspace = engine::build_workspace(&paths, &config);
+    let diagnostics = engine::check(&workspace, &paths, &config, &Options::default());
+    let agreement: Vec<_> = diagnostics
+        .iter()
+        .filter(|finding| finding.rule == "grammar/GermanNounVerbAgreement")
+        .collect();
+    assert_eq!(agreement.len(), 1, "{diagnostics:?}");
+    let start = source.rfind("ist").unwrap();
+    assert_eq!(agreement[0].range, start..start + "ist".len());
+    assert!(agreement[0].suggestions.iter().any(|word| word == "sind"));
+    assert!(
+        diagnostics.iter().all(|finding| finding.rule != "spelling"),
+        "{diagnostics:?}"
+    );
+}
+
+#[test]
+fn french_years_and_english_loans_keep_native_and_crossover_errors_checked() {
+    let dir = tempfile::tempdir().unwrap();
+    let source = "---\nlang: fr\n---\n\n# 1\n\n\
+        Les utilisateurs apprécient les possibilités proposées après un an de creative coding.\n\n\
+        Une interface creative fonctionne.\n\n\
+        The report is definately ready.\n\n\
+        Les utilisateurs français disent an report is ready.\n";
+    let path = dir.path().join("loans.md");
+    std::fs::write(&path, source).unwrap();
+    let config = Config {
+        root: dir.path().to_path_buf(),
+        ..Config::default()
+    };
+    let paths = [path];
+    let workspace = engine::build_workspace(&paths, &config);
+    let diagnostics = engine::check(&workspace, &paths, &config, &Options::default());
+    let spelling: Vec<_> = diagnostics
+        .iter()
+        .filter(|finding| finding.rule == "spelling")
+        .collect();
+    assert_eq!(spelling.len(), 2, "{diagnostics:?}");
+    for (finding, (word, start, correction)) in spelling.iter().zip([
+        ("creative", source.rfind("creative").unwrap(), "créative"),
+        (
+            "definately",
+            source.find("definately").unwrap(),
+            "definitely",
+        ),
+    ]) {
+        assert_eq!(finding.range, start..start + word.len());
+        assert!(finding.suggestions.iter().any(|s| s == correction));
+    }
+    let articles: Vec<_> = diagnostics
+        .iter()
+        .filter(|finding| finding.rule == "grammar/AnA")
+        .collect();
+    assert_eq!(articles.len(), 1, "{diagnostics:?}");
+    let start = source.rfind("an report").unwrap();
+    assert_eq!(articles[0].range, start..start + "an".len());
+    assert!(articles[0].suggestions.iter().any(|s| s == "a"));
+}

@@ -22,8 +22,8 @@ A fast Rust linter for prose in Markdown files and code comments. It combines id
 - **Gettext catalogs:** PO/POT syntax, headers, plural forms, placeholders and markup kept in
   translations, and English msgids through the prose checks.
 
-Markdown words containing inline code are excluded from prose checks as a whole: `` `E`rror ``
-does not produce a spelling finding on `rror`. Nearby ordinary prose remains checked.
+Inline code directly joined to letters is excluded as one word in Markdown and code comments:
+`` `E`rror `` does not produce a spelling finding on `rror`. Nearby ordinary prose remains checked.
 
 ## Install
 
@@ -413,14 +413,18 @@ Portuguese accepts both European and Brazilian spelling through separate diction
 independent affix rules. Dictionaries load once per process, only when used.
 Spelling and native grammar reuse each segment's character buffer; token scans borrow character
 slices rather than allocating word chunks. Source offsets stay unchanged.
+Native checks keep underscore identifiers, qualified namespaces and code-shaped slash paths
+intact instead of reading their fragments as prose. Plain slash alternatives remain checked.
 Native near-name checks use allocation-free one-edit comparisons instead of full edit matrices.
 Repeated native suggestion lookups borrow cache keys without allocating; the cache stays bounded.
 Fully covered segments are borrowed rather than copied; partially marked regions stay masked.
 Dictionary lookups and these four grammars accept canonically decomposed accents without changing
 source offsets.
-English loanwords remain accepted, except when a native dictionary recognizes a spelling with
-one missing accent. Valid native homographs (Portuguese `por` and `pôr`) are not overridden;
-capitalized English terms may be names and are not forced into accented native spellings.
+English loanwords remain accepted. A native spelling with one missing accent remains an error
+unless a neighboring English-only dictionary word establishes a loan phrase (`creative coding`).
+Punctuation and paragraph boundaries end that phrase. Valid native homographs (Portuguese `por`
+and `pôr`) are not overridden; capitalized English terms may be names and are not forced into
+accented native spellings.
 Grammar checks use closed lexical paradigms for pronoun/noun agreement, auxiliaries and selected clause
 constructions; unknown words and ambiguous constructions are left unchecked. German noun
 capitalization does not turn recurring spelling errors into inferred project names. Agreement
@@ -497,8 +501,12 @@ compound flags allow, or is an English, developer or configured term, and whose 
 
 With detection on, confident stretches of another supported language use their own dictionary
 and native rules; English stretches get English rules in the configured `prose.dialect`.
+Decisive phrase-local evidence overrides the surrounding paragraph's language; clearly English
+phrases do not inherit a foreign language from that paragraph.
 English dictionary homographs alone do not override a clear native function-word profile in a
 short sentence; English function words still license English crossover.
+French determiner context distinguishes native `un an` from embedded English articles.
+Sentence delimiters and quotation marks retain their grammar context across language boundaries.
 Nordic crossover retains its short-phrase handling, while Nordic text inside other languages
 needs longer evidence. Builds without a language's dictionary skip its spelling and grammar;
 language-independent rules and supported promotional-claim checks still run.

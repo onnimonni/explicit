@@ -95,7 +95,21 @@ pub fn segments(src: &str, blocks: &[CommentBlock]) -> Vec<Segment> {
             let mut seg = Segment::from_ranges(src, b.range.clone(), &keep, kind);
             let mut blanks: Vec<Range<usize>> = CODE_SPAN_RE
                 .find_iter(&seg.text)
-                .map(|m| seg.abs(m.range()))
+                .filter(|m| {
+                    seg.text.as_bytes()[..m.start()]
+                        .iter()
+                        .rev()
+                        .take_while(|&&b| b == b'\\')
+                        .count()
+                        % 2
+                        == 0
+                })
+                .map(|m| {
+                    seg.abs(crate::extract::markdown::word_containing_range(
+                        &seg.text,
+                        m.range(),
+                    ))
+                })
                 .collect();
             blanks.extend(crate::extract::markdown::non_prose_ranges(&seg));
             blanks.extend(crate::segment::noise_ranges(&seg));

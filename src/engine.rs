@@ -912,7 +912,7 @@ fn language_prose(
     let unmarked =
         |r: &std::ops::Range<usize>| !marked.iter().any(|m| m.start < r.end && r.start < m.end);
     let english: Vec<_> = if detect {
-        crate::lang::english_ranges(&a.segments)
+        crate::lang::english_ranges(&a.segments, lang)
             .into_iter()
             .filter(unmarked)
             .collect()

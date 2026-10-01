@@ -557,19 +557,35 @@ fn check_language_in(
                 if inside.is_empty() {
                     return None;
                 }
-                // Blank what lies outside the ranges.
+                // Blank other languages' words, but keep shared quotation context.
                 let mut gaps = Vec::new();
+                let mut blank_gap = |gap: std::ops::Range<usize>| {
+                    let mut start = gap.start;
+                    let local = gap.start - s.range.start..gap.end - s.range.start;
+                    for (offset, c) in s.text[local].char_indices() {
+                        if matches!(c, '"' | '“' | '”' | '«' | '»' | '„' | '‟') {
+                            let at = gap.start + offset;
+                            if start < at {
+                                gaps.push(start..at);
+                            }
+                            start = at + c.len_utf8();
+                        }
+                    }
+                    if start < gap.end {
+                        gaps.push(start..gap.end);
+                    }
+                };
                 let mut pos = s.range.start;
                 let mut sorted = inside;
                 sorted.sort_by_key(|r| r.start);
                 for r in sorted {
                     if r.start > pos {
-                        gaps.push(pos..r.start);
+                        blank_gap(pos..r.start);
                     }
                     pos = pos.max(r.end);
                 }
                 if pos < s.range.end {
-                    gaps.push(pos..s.range.end);
+                    blank_gap(pos..s.range.end);
                 }
                 let mut seg = s.clone();
                 seg.blank_all(&gaps);
@@ -2012,6 +2028,107 @@ mod tests {
         let mut out = Vec::new();
         check(&FileCtx { a: &a, config }, &mut out);
         out
+    }
+
+    fn run_native(src: &str, code: &str, kind: FileKind) -> Vec<Finding> {
+        let path = if kind == FileKind::Markdown {
+            "a.md"
+        } else {
+            "a.rs"
+        };
+        let a = Analyzed::new(SourceFile::new(path.into(), path.into(), kind, src.into()));
+        let config = Config::default();
+        let sp = spell_lang::speller(code, &config).expect("bundled dictionary");
+        let mut out = Vec::new();
+        check_language(
+            &FileCtx {
+                a: &a,
+                config: &config,
+            },
+            code,
+            sp,
+            None,
+            None,
+            &mut out,
+        );
+        out
+    }
+
+    #[test]
+    fn native_identifiers_do_not_hide_nearby_prose_typos() {
+        for (code, lead, typo, correct) in [
+            ("de", "Die Funktion", "Konfigurration", "Konfiguration"),
+            ("fr", "La fonction", "configurration", "configuration"),
+            ("es", "La función", "configurración", "configuración"),
+            ("pt", "A função", "configurração", "configuração"),
+        ] {
+            let prose = format!(
+                "{lead} reqwest_client, reqwest::blocking::Client, ReqwestClient42, \
+                 sha256sum, node_modules/reqwest, ./reqwest/blocking, reqwest/client.rs. \
+                 ({typo}) {typo}/{correct}.\n"
+            );
+            for kind in [
+                FileKind::Markdown,
+                FileKind::Code(crate::source::Lang::Rust),
+            ] {
+                let src = if kind == FileKind::Markdown {
+                    prose.clone()
+                } else {
+                    format!("/// {prose}fn main() {{}}\n")
+                };
+                let findings = run_native(&src, code, kind);
+                let spans: Vec<_> = findings
+                    .iter()
+                    .filter(|f| f.rule == "spelling")
+                    .map(|f| f.range.clone())
+                    .collect();
+                let expected: Vec<_> = src
+                    .match_indices(typo)
+                    .map(|(start, _)| start..start + typo.len())
+                    .collect();
+                assert_eq!(spans, expected, "{code} {kind:?}: {findings:?}");
+            }
+        }
+    }
+
+    #[test]
+    fn native_grammar_does_not_read_namespace_suffixes_as_pronouns() {
+        for (code, src, rule, verb) in [
+            (
+                "de",
+                "Das Symbol ns::wir ist bereit. Das Symbol ::wir ist bereit. Wir ist bereit.\n",
+                "grammar/GermanPronounVerbAgreement",
+                "ist",
+            ),
+            (
+                "fr",
+                "Le symbole ns::nous est disponible. Le symbole ::nous est disponible. Nous est disponible.\n",
+                "grammar/FrenchPronounVerbAgreement",
+                "est",
+            ),
+            (
+                "es",
+                "El símbolo ns::nosotros es correcto. El símbolo ::nosotros es correcto. Nosotros es correcto.\n",
+                "grammar/SpanishPronounVerbAgreement",
+                "es",
+            ),
+            (
+                "pt",
+                "O símbolo ns::nós é correto. O símbolo ::nós é correto. Nós é correto.\n",
+                "grammar/PortuguesePronounVerbAgreement",
+                "é",
+            ),
+        ] {
+            let findings = run_native(src, code, FileKind::Markdown);
+            let spans: Vec<_> = findings
+                .iter()
+                .filter(|f| f.rule == rule)
+                .map(|f| f.range.clone())
+                .collect();
+            let start = src.rfind(verb).expect("real agreement error");
+            assert_eq!(spans.len(), 1, "{code}: {findings:?}");
+            assert_eq!(spans[0], start..start + verb.len(), "{code}: {findings:?}");
+        }
     }
 
     #[cfg(feature = "harper")]
