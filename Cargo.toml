@@ -57,6 +57,10 @@ required-features = ["harper"]
 name = "voikko_spell"
 required-features = ["voikko"]
 
+[[example]]
+name = "autoresearch_cold"
+required-features = ["harper", "voikko", "swedish"]
+
 [profile.release]
 lto = "thin"
 codegen-units = 1

@@ -686,9 +686,10 @@ scripts/update-harper-words.sh   # regenerate dictionaries/harper after bumping 
 
 ### Multilingual benchmark
 
-Run `bash autoresearch.sh` through the existing devenv environment. It builds both release
-benchmarks offline, then executes the real discovery, extraction and checking pipeline
-with the default features plus `voikko`. Build time and public-source downloads are excluded.
+Run `bash scripts/benchmark-quality.sh` through the existing devenv environment. It builds
+both release benchmarks offline, then executes the real discovery, extraction and checking
+pipeline with the default features plus `voikko`. Build time and public-source downloads
+are excluded.
 
 `eval/multilingual/*.json` contains fixed public error/clean pairs for German, French,
 Spanish and Portuguese, with English, Finnish and Swedish controls. Each pair runs as
@@ -728,6 +729,17 @@ SHA-256 hash on each invocation, and never executes their contents. The Rust run
 hashes again. Only provenance and annotations are committed; third-party README contents are
 not redistributed. Network access is limited to preparation, never timed checking.
 Timing and RSS vary with the machine and system load; compare on the same idle machine.
+
+### Cold-start benchmark
+
+Run `bash autoresearch.sh` for the full build (`harper,voikko,swedish`). Set
+`EXPLICIT_COLD_CORPUS` to an unchanged checkout; the local default is `../treat`.
+Sources stay read-only and temporary caches live outside both repositories.
+The benchmark checks cold/warm diagnostic equality and cache hit counts, then validates
+128 remote resources against eight loopback HTTP servers with fixed response latency.
+No live network requests are made. `cold_start_ms` is the sum of uncached local checking
+and the independent remote workload; phase timings and aggregate counts are also printed.
+This isolates local work and remote scheduling, not the total time against live websites.
 
 The comment rules in `src/rules/slop/comments.rs` are ported from aislop (MIT); see [NOTICE](NOTICE).
 
