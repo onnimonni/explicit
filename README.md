@@ -34,14 +34,16 @@ Don't build explicit from source. Prebuilt binaries for Linux (`x86_64`, `aarch6
 cachix use onnimonni
 nix run github:onnimonni/explicit -- check
 
-# or without cachix, trusting the flake's nixConfig
-nix run --accept-flake-config github:onnimonni/explicit -- check
+# or without cachix: the release tarball, no prompts, also on x86_64 macOS
+nix run github:onnimonni/explicit#prebuilt -- check
 ```
 
 In a devenv project use the input and module below; it adds `onnimonni` to `cachix.pull`.
-`--option extra-substituters https://onnimonni.cachix.org` alone is not enough: without the
-trusted public key (`onnimonni.cachix.org-1:bAPuRbTAiFMLNLoojt7KlqhQcpdeTN/OMIL22fP3LyM=`)
-Nix silently ignores the cache and builds from source.
+The flake sets no `nixConfig`, so Nix never prompts, but it also won't find the cache by
+itself: `--option extra-substituters https://onnimonni.cachix.org` alone is not enough, and
+without the trusted public key (`onnimonni.cachix.org-1:bAPuRbTAiFMLNLoojt7KlqhQcpdeTN/OMIL22fP3LyM=`)
+Nix silently ignores the cache and builds from source. Run `cachix use onnimonni` first, or use
+`#prebuilt`.
 
 The default package is the lite build: spelling through Hunspell dictionaries plus Harper's
 vendored word list (`spellbook` engine) and our own grammar pattern rules, without Harper

@@ -1,13 +1,9 @@
 {
   description = "Lint prose in Markdown and code comments: structure, spelling, grammar, AI slop, links and diagrams";
 
-  nixConfig = {
-    extra-substituters = [ "https://onnimonni.cachix.org" ];
-    extra-trusted-public-keys = [
-      "onnimonni.cachix.org-1:bAPuRbTAiFMLNLoojt7KlqhQcpdeTN/OMIL22fP3LyM="
-    ];
-  };
-
+  # No `nixConfig` on purpose: Nix would prompt for the binary cache substituter on every
+  # output, including `prebuilt`, which doesn't need it. Cache users run `cachix use onnimonni`
+  # (README) and the devenv module sets `cachix.pull`.
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
   outputs =
@@ -28,7 +24,7 @@
         # With the Harper grammar engines, Finnish and Swedish (features `harper`, `voikko`, `swedish`).
         explicit-full = pkgs.callPackage ./nix/package.nix { full = true; };
         explicit-lite = explicit;
-        # Release tarballs from GitHub (`nix/prebuilt-hashes.json`): no cachix, no Rust toolchain.
+        # Release tarballs from GitHub (`nix/prebuilt-hashes.json`): no binary cache, no Rust toolchain.
         prebuilt = pkgs.callPackage ./nix/prebuilt.nix { };
         prebuilt-full = pkgs.callPackage ./nix/prebuilt.nix { full = true; };
         default = explicit;
