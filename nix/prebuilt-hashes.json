@@ -1,7 +1,19 @@
 {
-  "version": "0.3.1",
-  "x86_64-linux": { "explicit": "", "explicit-full": "" },
-  "aarch64-linux": { "explicit": "", "explicit-full": "" },
-  "x86_64-darwin": { "explicit": "", "explicit-full": "" },
-  "aarch64-darwin": { "explicit": "", "explicit-full": "" }
+  "version": "0.3.2",
+  "x86_64-linux": {
+    "explicit": "sha256-tOqrsjeer1XVIVoyhklBwzwYM0GGXHSuF7Wv7EEWG60=",
+    "explicit-full": "sha256-hV6zsPQpNrgHzGHztpbPUSC4g1DWDVUDru2PqIMeqeE="
+  },
+  "aarch64-linux": {
+    "explicit": "sha256-90PYkR7S4uifjfkLZIvE7I69apcCkur7FaJErRhDL30=",
+    "explicit-full": "sha256-NaAUt51D+ch/O4ahz8c5j+jG3p+e/2FYuPR6ObRForU="
+  },
+  "x86_64-darwin": {
+    "explicit": "sha256-Zm9xEe8dB6srJFuqcJ4gq1GPEJ5WKcra1Bd3PSemNjc=",
+    "explicit-full": "sha256-HCUKPABHd8JB8rxHStKotZSI86fZNmYvcQCdM9/6F3I="
+  },
+  "aarch64-darwin": {
+    "explicit": "sha256-Pz36CIJ2Zi5T8UHwgjf1j3NsXBdmtfxkcU8nBPlennQ=",
+    "explicit-full": "sha256-/ullap7rX/7otj5Dsi2Ex42gaQp1onNtmKA0PDPf61g="
+  }
 }
