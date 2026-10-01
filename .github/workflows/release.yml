@@ -1,0 +1,142 @@
+name: Release
+
+# Builds release tarballs for the `prebuilt` flake packages when a `v*` tag is pushed (the
+# `gh release create` step of the release process), uploads them to the GitHub release and
+# commits their hashes to nix/prebuilt-hashes.json on main.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to build, for example v0.3.1"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+  RELEASE_TAG: ${{ github.event.inputs.tag || github.ref_name }}
+
+jobs:
+  build:
+    name: build (${{ matrix.target }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Older Ubuntu for a wider glibc range.
+          - target: x86_64-unknown-linux-gnu
+            runner: ubuntu-22.04
+          - target: aarch64-unknown-linux-gnu
+            runner: ubuntu-22.04-arm
+          - target: x86_64-apple-darwin
+            runner: macos-15-intel
+          - target: aarch64-apple-darwin
+            runner: macos-latest
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ env.RELEASE_TAG }}
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - uses: Swatinem/rust-cache@v2
+      - name: Check that the tag matches Cargo.toml
+        run: |
+          version="$(grep -m1 '^version = ' Cargo.toml | cut -d'"' -f2)"
+          [ "v$version" = "$RELEASE_TAG" ] || { echo "::error::tag $RELEASE_TAG but Cargo.toml has $version"; exit 1; }
+      - name: Build lite and full
+        run: |
+          cargo build --release --locked --target "${{ matrix.target }}"
+          cp "target/${{ matrix.target }}/release/explicit" explicit-lite-bin
+          cargo build --release --locked --target "${{ matrix.target }}" --features harper,voikko,swedish
+          cp "target/${{ matrix.target }}/release/explicit" explicit-full-bin
+      - name: Package
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          for variant in lite full; do
+            name=explicit; [ "$variant" = full ] && name=explicit-full
+            staging="$(mktemp -d)"
+            install -m755 "explicit-$variant-bin" "$staging/explicit"
+            "$staging/explicit" --version
+            tar -C "$staging" -czf "dist/$name-$RELEASE_TAG-${{ matrix.target }}.tar.gz" explicit
+          done
+          ls -l dist
+      - uses: actions/upload-artifact@v7
+        with:
+          name: explicit-${{ matrix.target }}
+          path: dist/*.tar.gz
+          if-no-files-found: error
+
+  release:
+    name: upload to the GitHub release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Checksums
+        run: cd dist && sha256sum -- *.tar.gz | tee SHA256SUMS.txt
+      - name: Upload
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if ! gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            gh release create "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --generate-notes
+          fi
+          gh release upload "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --clobber dist/*
+
+  update-nix-hashes:
+    name: update nix/prebuilt-hashes.json
+    needs: release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: cachix/install-nix-action@v31
+      - name: Prefetch the tarballs
+        run: |
+          set -euo pipefail
+          version="${RELEASE_TAG#v}"
+          json="$(jq -n --arg v "$version" '{version: $v}')"
+          while read -r system target; do
+            for name in explicit explicit-full; do
+              url="https://github.com/$GITHUB_REPOSITORY/releases/download/$RELEASE_TAG/$name-$RELEASE_TAG-$target.tar.gz"
+              hash="$(nix store prefetch-file --json "$url" | jq -r .hash)"
+              echo "$system $name $hash"
+              json="$(jq --arg s "$system" --arg n "$name" --arg h "$hash" '.[$s][$n] = $h' <<< "$json")"
+            done
+          done <<'SYSTEMS'
+          x86_64-linux x86_64-unknown-linux-gnu
+          aarch64-linux aarch64-unknown-linux-gnu
+          x86_64-darwin x86_64-apple-darwin
+          aarch64-darwin aarch64-apple-darwin
+          SYSTEMS
+          jq . <<< "$json" > nix/prebuilt-hashes.json
+          cat nix/prebuilt-hashes.json
+      - name: Verify the prebuilt packages
+        run: |
+          nix build .#prebuilt --print-build-logs && ./result/bin/explicit --version
+          nix build .#prebuilt-full --print-build-logs --out-link result-full && ./result-full/bin/explicit --version
+      - name: Commit
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add nix/prebuilt-hashes.json
+          git diff --cached --quiet && { echo "hashes unchanged"; exit 0; }
+          git commit -m "nix: prebuilt hashes for $RELEASE_TAG"
+          git push origin HEAD:${{ github.event.repository.default_branch }}

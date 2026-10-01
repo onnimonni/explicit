@@ -1,0 +1,7 @@
+{
+  "version": "0.3.1",
+  "x86_64-linux": { "explicit": "", "explicit-full": "" },
+  "aarch64-linux": { "explicit": "", "explicit-full": "" },
+  "x86_64-darwin": { "explicit": "", "explicit-full": "" },
+  "aarch64-darwin": { "explicit": "", "explicit-full": "" }
+}

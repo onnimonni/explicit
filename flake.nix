@@ -28,6 +28,9 @@
         # With the Harper grammar engines, Finnish and Swedish (features `harper`, `voikko`, `swedish`).
         explicit-full = pkgs.callPackage ./nix/package.nix { full = true; };
         explicit-lite = explicit;
+        # Release tarballs from GitHub (`nix/prebuilt-hashes.json`): no cachix, no Rust toolchain.
+        prebuilt = pkgs.callPackage ./nix/prebuilt.nix { };
+        prebuilt-full = pkgs.callPackage ./nix/prebuilt.nix { full = true; };
         default = explicit;
       });
 
