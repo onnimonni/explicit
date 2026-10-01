@@ -407,9 +407,11 @@ hour). `--offline` and `--no-remote` use the cache only and never start `gh`. `g
 are the only programs explicit runs, never through a shell. Set
 `links.check_same_repo = false` to skip all of this.
 
-Files matched by `.gitignore`, `.explicitignore` or `general.exclude` are skipped, also when
-named on the command line (pass `--no-exclude` to check them anyway). Generated files are
-skipped too: code files with `@generated`, `DO NOT EDIT` or `auto-generated` in their first
+Files matched by `.gitignore`, `.explicitignore` or `general.exclude` are skipped, including
+directories named on the command line. `general.include` narrows the selection without
+overriding ignores. Pass `--no-exclude` to check an explicitly named ignored file; directory
+walks still honor ignores. Generated files are skipped too: code files with `@generated`,
+`DO NOT EDIT` or `auto-generated` in their first
 lines, and Markdown files with an HTML comment such as `<!-- This file is generated. Do not
 edit. -->` or `<!-- AUTO-GENERATED -->` in their first 10 lines.
 

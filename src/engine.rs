@@ -146,11 +146,7 @@ pub fn discover_with(
     exclude: bool,
 ) -> Result<Vec<PathBuf>, String> {
     let mut out = Vec::new();
-    let excluder = if exclude {
-        Some(Excluder::new(config)?)
-    } else {
-        None
-    };
+    let excluder = Excluder::new(config)?;
     let mut overrides = ignore::overrides::OverrideBuilder::new(&config.root);
     for inc in &config.general.include {
         overrides.add(inc).map_err(|e| e.to_string())?;
@@ -167,7 +163,7 @@ pub fn discover_with(
                 let c = p
                     .canonicalize()
                     .map_err(|e| format!("{}: {e}", p.display()))?;
-                if excluder.as_ref().is_none_or(|x| !x.is_excluded(&c)) {
+                if !exclude || !excluder.is_excluded(&c, false) {
                     out.push(c);
                 }
             }
@@ -175,6 +171,10 @@ pub fn discover_with(
         }
         // Canonical like the root, so include/exclude globs (relative to the root) match.
         let p = p.canonicalize().unwrap_or_else(|_| p.clone());
+        // WalkBuilder always admits an explicitly named root, even when Git ignores it.
+        if excluder.is_excluded(&p, true) {
+            continue;
+        }
         let walker = ignore::WalkBuilder::new(&p)
             .git_ignore(config.general.respect_gitignore)
             .git_global(config.general.respect_gitignore)
@@ -189,6 +189,8 @@ pub fn discover_with(
             if entry.file_type().is_some_and(|t| t.is_file())
                 && FileKind::detect(entry.path()).is_some()
                 && let Ok(c) = entry.path().canonicalize()
+                // Include globs narrow selection; ignored files must stay excluded.
+                && (config.general.include.is_empty() || !excluder.is_excluded(&c, false))
             {
                 out.push(c);
             }
@@ -251,13 +253,13 @@ impl Excluder {
     }
 
     /// `path` must be canonical.
-    fn is_excluded(&self, path: &Path) -> bool {
+    fn is_excluded(&self, path: &Path, is_dir: bool) -> bool {
         let Ok(rel) = path.strip_prefix(&self.root) else {
             return false;
         };
         if self
             .exclude
-            .matched_path_or_any_parents(rel, false)
+            .matched_path_or_any_parents(rel, is_dir)
             .is_ignore()
         {
             return true;
@@ -269,7 +271,7 @@ impl Excluder {
             }
             let sub = path.strip_prefix(dir).unwrap_or(path);
             for gi in self.ignore_files(dir).iter() {
-                let m = gi.matched_path_or_any_parents(sub, false);
+                let m = gi.matched_path_or_any_parents(sub, is_dir);
                 if !m.is_none() {
                     return m.is_ignore();
                 }
@@ -290,7 +292,7 @@ impl Excluder {
             [info, global]
         });
         git.iter()
-            .map(|gi| gi.matched_path_or_any_parents(rel, false))
+            .map(|gi| gi.matched_path_or_any_parents(rel, is_dir))
             .find(|m| !m.is_none())
             .is_some_and(|m| m.is_ignore())
     }
@@ -1250,6 +1252,39 @@ mod tests {
         assert_eq!(
             names(discover(&[dir.path().to_path_buf()], &c).unwrap()),
             ["a.md"]
+        );
+    }
+
+    #[test]
+    fn include_patterns_do_not_override_gitignore() {
+        let (dir, c) = project(
+            &[
+                ("keep.md", "# Keep\n"),
+                ("other.rs", "// Other\n"),
+                ("generated/hidden.md", "# Hidden\n"),
+                ("hidden.md", "# Hidden\n"),
+                (".gitignore", "/generated/\n/hidden.md\n"),
+            ],
+            "[general]\ninclude = [\"**/*.md\"]\n",
+        );
+        assert_eq!(
+            discover(&[dir.path().to_path_buf()], &c).unwrap(),
+            [c.root.join("keep.md")]
+        );
+    }
+
+    #[test]
+    fn explicitly_named_gitignored_directory_is_skipped() {
+        let (_dir, c) = project(
+            &[
+                ("generated/hidden.md", "# Hidden\n"),
+                (".gitignore", "/generated/\n"),
+            ],
+            "",
+        );
+        assert_eq!(
+            discover(&[c.root.join("generated")], &c).unwrap(),
+            Vec::<PathBuf>::new()
         );
     }
 
