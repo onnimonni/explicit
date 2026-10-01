@@ -464,6 +464,7 @@ fn bad_escape_keeps_value_and_bad_header() {
 }
 
 /// Words with spelling findings in a catalog, in file order.
+#[cfg(any(feature = "swedish", feature = "voikko"))]
 fn spelled(path: &str, src: &str) -> Vec<String> {
     let mut f: Vec<Finding> = all(path, src)
         .into_iter()
