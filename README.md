@@ -95,6 +95,17 @@ Finnish (`voikko` feature): `nix run github:onnimonni/explicit#explicit-full -- 
 prebuilt on the cache. The flake also exports `overlays.default`, which adds `pkgs.explicit` and
 `pkgs.explicit-full`.
 
+Without the cache (or on `x86_64-darwin`, which the cache doesn't cover), `packages.prebuilt`
+and `packages.prebuilt-full` install the release tarballs from GitHub instead of building:
+
+```console
+nix run github:onnimonni/explicit#prebuilt -- check
+```
+
+They point at the latest published release (the hashes live in `nix/prebuilt-hashes.json`,
+written by the release workflow), so they can lag the source packages right after a version bump.
+In devenv: `explicit.package = inputs.explicit.packages.${pkgs.stdenv.hostPlatform.system}.prebuilt;`.
+
 ### From source
 
 Only when you change explicit itself:

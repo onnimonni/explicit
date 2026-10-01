@@ -65,7 +65,8 @@ mermaid`, so gate Swedish-only tests with `#[cfg(feature = "swedish")]`.
   git worktrees.
 - **License:** GPL-3.0-or-later. List every piece of third-party code or data in `NOTICE`, with
   its license.
-- **Commits:** hooks run rustfmt, clippy and explicit itself. Never use `--no-verify`. Use
+- **Commits:** hooks run rustfmt, the three CI clippy builds (default, no optional features,
+  full) and explicit itself. Never use `--no-verify`. Use
   `--no-gpg-sign`. Push only when asked, with `git push origin HEAD`.
 - **Never bulk-copy files from outside the repo** (for example many files from
   `~/.cargo/registry`). macOS XProtect killed a session for it. Run explicit on those
@@ -132,6 +133,11 @@ Finnish 55%, Swedish 55%, English subject-verb agreement 30%.
 4. Check that both packages are on the cache:
    `curl https://onnimonni.cachix.org/<hash>.narinfo` should return 200 for
    `nix eval --raw .#packages.<system>.{default,explicit-full}.outPath`.
+5. The tag starts `release.yml`: it builds lite and full tarballs for four targets, uploads
+   them to the release, and commits their hashes and the version to `nix/prebuilt-hashes.json`
+   on `main` (the `prebuilt` and `prebuilt-full` packages read that file, so they follow the
+   last release, not `Cargo.toml`). Wait for that commit, then
+   `nix run github:onnimonni/explicit#prebuilt -- --version`.
 
 ## Known gaps and next steps
 
