@@ -464,6 +464,7 @@ fn bad_escape_keeps_value_and_bad_header() {
 }
 
 /// Words with spelling findings in a catalog, in file order.
+#[cfg(any(feature = "swedish", feature = "voikko"))]
 fn spelled(path: &str, src: &str) -> Vec<String> {
     let mut f: Vec<Finding> = all(path, src)
         .into_iter()
@@ -498,12 +499,4 @@ fn finnish_translations_get_finnish_spelling() {
     let src =
         fi("msgid \"Could not recieve the messages\"\nmsgstr \"Viestejä ei voitu vastanottaa\"\n");
     assert_eq!(spelled(FI_PATH, &src), ["recieve", "vastanottaa"]);
-}
-
-#[test]
-fn unsupported_translation_languages_are_skipped() {
-    let src = "msgid \"\"\nmsgstr \"\"\n\"Language: de\\n\"\n\nmsgid \"Save\"\nmsgstr \"Speichern Sie die Dateien\"\n";
-    let a = analyzed("po/de.po", src);
-    assert!(a.segments.iter().all(|s| !s.text.contains("Speichern")));
-    assert!(spelled("po/de.po", src).is_empty());
 }

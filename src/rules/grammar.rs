@@ -528,7 +528,9 @@ fn check_language_in(
     ranges: Option<&[std::ops::Range<usize>]>,
     out: &mut Out,
 ) {
-    if !ctx.enabled("spelling") || ranges.is_some_and(<[_]>::is_empty) {
+    if ranges.is_some_and(<[_]>::is_empty)
+        || (!ctx.enabled("spelling") && !ctx.family_enabled("grammar/"))
+    {
         return;
     }
     let is_code = ctx.a.md.is_none();
@@ -542,6 +544,12 @@ fn check_language_in(
         .filter_map(|s| match ranges {
             None => Some(std::borrow::Cow::Borrowed(s)),
             Some(rs) => {
+                if rs
+                    .iter()
+                    .any(|r| r.start <= s.range.start && s.range.end <= r.end)
+                {
+                    return Some(std::borrow::Cow::Borrowed(s));
+                }
                 let inside: Vec<_> = rs
                     .iter()
                     .filter(|r| r.start < s.range.end && s.range.start < r.end)
@@ -549,19 +557,35 @@ fn check_language_in(
                 if inside.is_empty() {
                     return None;
                 }
-                // Blank what lies outside the ranges.
+                // Blank other languages' words, but keep shared quotation context.
                 let mut gaps = Vec::new();
+                let mut blank_gap = |gap: std::ops::Range<usize>| {
+                    let mut start = gap.start;
+                    let local = gap.start - s.range.start..gap.end - s.range.start;
+                    for (offset, c) in s.text[local].char_indices() {
+                        if matches!(c, '"' | '“' | '”' | '«' | '»' | '„' | '‟') {
+                            let at = gap.start + offset;
+                            if start < at {
+                                gaps.push(start..at);
+                            }
+                            start = at + c.len_utf8();
+                        }
+                    }
+                    if start < gap.end {
+                        gaps.push(start..gap.end);
+                    }
+                };
                 let mut pos = s.range.start;
                 let mut sorted = inside;
                 sorted.sort_by_key(|r| r.start);
                 for r in sorted {
                     if r.start > pos {
-                        gaps.push(pos..r.start);
+                        blank_gap(pos..r.start);
                     }
                     pos = pos.max(r.end);
                 }
                 if pos < s.range.end {
-                    gaps.push(pos..s.range.end);
+                    blank_gap(pos..s.range.end);
                 }
                 let mut seg = s.clone();
                 seg.blank_all(&gaps);
@@ -583,9 +607,11 @@ fn check_language_in(
         .hash(&mut h);
     let key = h.finish();
     let mut file_names = Vec::new();
-    for seg in &segments {
-        let chars: Vec<char> = seg.text.chars().collect();
-        spell_lang::names(&*speller, code, &chars, &mut file_names);
+    if code != "de" {
+        for seg in &segments {
+            let chars: Vec<char> = seg.text.chars().collect();
+            spell_lang::names(&*speller, code, &chars, &mut file_names);
+        }
     }
     CHECKERS.with(|cell| {
         let mut cache = cell.borrow_mut();
@@ -816,6 +842,10 @@ impl Checker {
             let rules = match code {
                 "fi" if speller.voikko().is_some() => super::grammar_fi::RULES,
                 "sv" => super::grammar_sv::RULES,
+                "de" => super::grammar_de::RULES,
+                "fr" => super::grammar_fr::RULES,
+                "es" => super::grammar_es::RULES,
+                "pt" => super::grammar_pt::RULES,
                 _ => &[],
             };
             rules
@@ -976,22 +1006,29 @@ impl Checker {
     /// suggestions yet), overlaps removed.
     fn raw_lints(&mut self, text: &str, harper_ok: bool) -> RawLints {
         let (spell, harper, own) = if self.is_code == Some(true) {
-            (self.spell_code, self.harper_code, self.own_code.clone())
+            (self.spell_code, self.harper_code, self.own_code.as_slice())
         } else {
-            (self.spell_md, self.harper_md, self.own_md.clone())
+            (self.spell_md, self.harper_md, self.own_md.as_slice())
         };
         if let Some((code, sp)) = &self.lang {
             let mut lints = BTreeMap::new();
+            let chars: Vec<char> = text.chars().collect();
             if !own.is_empty() {
-                let chars: Vec<char> = text.chars().collect();
                 if let Some(v) = sp.voikko() {
-                    lints = super::grammar_fi::lints(v, &**sp, &chars, &own);
+                    lints = super::grammar_fi::lints(v, &**sp, &chars, own);
                 } else if code == "sv" {
-                    lints = super::grammar_sv::lints(&**sp, &chars, &own);
+                    lints = super::grammar_sv::lints(&**sp, &chars, own);
+                } else if code == "de" {
+                    lints = super::grammar_de::lints(&**sp, &chars, own);
+                } else if code == "fr" {
+                    lints = super::grammar_fr::lints(&**sp, &chars, own);
+                } else if code == "es" {
+                    lints = super::grammar_es::lints(&**sp, &chars, own);
+                } else if code == "pt" {
+                    lints = super::grammar_pt::lints(&**sp, &chars, own);
                 }
             }
             if spell {
-                let chars: Vec<char> = text.chars().collect();
                 let mut found = spell_lang::misspelled(&**sp, code, &chars);
                 if let Some(other) = &self.secondary {
                     found.retain(|l| {
@@ -1026,9 +1063,19 @@ impl Checker {
                     && matches!(r, "AnA" | "PronounVerbAgreement")
                     && self.harper.as_ref().is_some_and(|h| h.rule_on(r))
             };
-            let own: Vec<&str> = own.into_iter().filter(|r| !harper_has(r)).collect();
+            let filtered;
+            let own = if run_harper {
+                filtered = own
+                    .iter()
+                    .copied()
+                    .filter(|r| !harper_has(r))
+                    .collect::<Vec<_>>();
+                filtered.as_slice()
+            } else {
+                own
+            };
             let american = matches!(self.dialect, Dialect::American | Dialect::Canadian);
-            for (k, v) in patterns::lint(&chars, &tokens, &own, american) {
+            for (k, v) in patterns::lint(&chars, &tokens, own, american) {
                 lints.entry(k).or_insert_with(Vec::new).extend(v);
             }
         }
@@ -1224,7 +1271,8 @@ impl Checker {
                 }
                 if is_spell
                     && (jargon(seg, ctx, s, e, idents, self.lang.is_none())
-                        || idents.project_name(self.name_speller(), word)
+                        || (self.lang.as_ref().is_none_or(|(code, _)| code != "de")
+                            && idents.project_name(self.name_speller(), word))
                         || (self.lang.is_none()
                             && spell::foreign_name(self.name_speller(), &seg.text, s, e))
                         || emphasis_split(seg, ctx.src(), s, e)
@@ -1980,6 +2028,107 @@ mod tests {
         let mut out = Vec::new();
         check(&FileCtx { a: &a, config }, &mut out);
         out
+    }
+
+    fn run_native(src: &str, code: &str, kind: FileKind) -> Vec<Finding> {
+        let path = if kind == FileKind::Markdown {
+            "a.md"
+        } else {
+            "a.rs"
+        };
+        let a = Analyzed::new(SourceFile::new(path.into(), path.into(), kind, src.into()));
+        let config = Config::default();
+        let sp = spell_lang::speller(code, &config).expect("bundled dictionary");
+        let mut out = Vec::new();
+        check_language(
+            &FileCtx {
+                a: &a,
+                config: &config,
+            },
+            code,
+            sp,
+            None,
+            None,
+            &mut out,
+        );
+        out
+    }
+
+    #[test]
+    fn native_identifiers_do_not_hide_nearby_prose_typos() {
+        for (code, lead, typo, correct) in [
+            ("de", "Die Funktion", "Konfigurration", "Konfiguration"),
+            ("fr", "La fonction", "configurration", "configuration"),
+            ("es", "La función", "configurración", "configuración"),
+            ("pt", "A função", "configurração", "configuração"),
+        ] {
+            let prose = format!(
+                "{lead} reqwest_client, reqwest::blocking::Client, ReqwestClient42, \
+                 sha256sum, node_modules/reqwest, ./reqwest/blocking, reqwest/client.rs. \
+                 ({typo}) {typo}/{correct}.\n"
+            );
+            for kind in [
+                FileKind::Markdown,
+                FileKind::Code(crate::source::Lang::Rust),
+            ] {
+                let src = if kind == FileKind::Markdown {
+                    prose.clone()
+                } else {
+                    format!("/// {prose}fn main() {{}}\n")
+                };
+                let findings = run_native(&src, code, kind);
+                let spans: Vec<_> = findings
+                    .iter()
+                    .filter(|f| f.rule == "spelling")
+                    .map(|f| f.range.clone())
+                    .collect();
+                let expected: Vec<_> = src
+                    .match_indices(typo)
+                    .map(|(start, _)| start..start + typo.len())
+                    .collect();
+                assert_eq!(spans, expected, "{code} {kind:?}: {findings:?}");
+            }
+        }
+    }
+
+    #[test]
+    fn native_grammar_does_not_read_namespace_suffixes_as_pronouns() {
+        for (code, src, rule, verb) in [
+            (
+                "de",
+                "Das Symbol ns::wir ist bereit. Das Symbol ::wir ist bereit. Wir ist bereit.\n",
+                "grammar/GermanPronounVerbAgreement",
+                "ist",
+            ),
+            (
+                "fr",
+                "Le symbole ns::nous est disponible. Le symbole ::nous est disponible. Nous est disponible.\n",
+                "grammar/FrenchPronounVerbAgreement",
+                "est",
+            ),
+            (
+                "es",
+                "El símbolo ns::nosotros es correcto. El símbolo ::nosotros es correcto. Nosotros es correcto.\n",
+                "grammar/SpanishPronounVerbAgreement",
+                "es",
+            ),
+            (
+                "pt",
+                "O símbolo ns::nós é correto. O símbolo ::nós é correto. Nós é correto.\n",
+                "grammar/PortuguesePronounVerbAgreement",
+                "é",
+            ),
+        ] {
+            let findings = run_native(src, code, FileKind::Markdown);
+            let spans: Vec<_> = findings
+                .iter()
+                .filter(|f| f.rule == rule)
+                .map(|f| f.range.clone())
+                .collect();
+            let start = src.rfind(verb).expect("real agreement error");
+            assert_eq!(spans.len(), 1, "{code}: {findings:?}");
+            assert_eq!(spans[0], start..start + verb.len(), "{code}: {findings:?}");
+        }
     }
 
     #[cfg(feature = "harper")]

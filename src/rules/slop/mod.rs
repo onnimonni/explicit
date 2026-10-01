@@ -14,6 +14,7 @@
 pub mod catalogue;
 mod cliche;
 mod comments;
+pub(crate) mod languages;
 mod mannerisms;
 
 use std::collections::HashMap;

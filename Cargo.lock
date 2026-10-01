@@ -1821,6 +1821,7 @@ dependencies = [
  "harper-core",
  "ignore",
  "insta",
+ "libc",
  "merman-core",
  "mimalloc",
  "miniz_oxide",
@@ -1831,9 +1832,11 @@ dependencies = [
  "saphyr-parser",
  "serde",
  "serde_json",
+ "sha2",
  "spellbook",
  "tempfile",
  "toml 1.1.6+spec-1.1.0",
+ "unicode-normalization",
  "ureq",
 ]
 

@@ -3,9 +3,9 @@
 [general]
 exclude = ["vendor/**", "CHANGELOG.md"]
 fail_on = "warning" # info | warning | error
-language = "en"     # BCP 47 tag; "fi" / "sv" get Finnish / Swedish spelling (builds with the
-                    # `voikko` / default `swedish` features, e.g. explicit-full), others ("none") keep
-                    # only structure, link and style rules
+language = "en"     # BCP 47 tag; de/fr/es/pt have bundled spelling in every build.
+                    # fi needs `voikko` (explicit-full); sv is on by default.
+                    # Unsupported languages ("none") keep structure, link and style rules.
 detect_language = true # detect Finnish, Swedish and other-language files and stretches
 
 # Rule id or glob -> off | info | warn | error. Run `explicit rules` for the list.

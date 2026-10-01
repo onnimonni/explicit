@@ -4,8 +4,7 @@
 //! (placeholders, plural counts, markup, whitespace, untranslated, ...) only on PO files.
 //! The msgids are English source text, so [`prose`] turns them into prose segments for the
 //! spelling, grammar, slop and style rules. Translations are checked in the catalog's language
-//! (header Language, else the path's locale): English with the English rules, Finnish and
-//! Swedish with their spellers; other languages are skipped.
+//! (header Language, else the path's locale), using the configured or bundled speller.
 
 mod placeholders;
 #[cfg(test)]
@@ -59,8 +58,7 @@ pub fn prose(file: &SourceFile, po: &Catalog) -> (Vec<CommentBlock>, Vec<Segment
     // checked; its PO files would only repeat the same findings once per language.
     let from_template =
         !is_template(file) && template_path(&file.path).is_some_and(|p| p.is_file());
-    let checked_target =
-        target_language(file, po).is_some_and(|l| PROSE_TARGETS.contains(&l.as_str()));
+    let checked_target = target_language(file, po).is_some();
     let header = po.header.as_ref().map(|h| h.entry);
     let mut blocks = Vec::new();
     let mut segments = Vec::new();
@@ -130,10 +128,6 @@ pub fn prose(file: &SourceFile, po: &Catalog) -> (Vec<CommentBlock>, Vec<Segment
     (blocks, segments)
 }
 
-/// Translation languages whose msgstrs are prose segments: English with the English rules,
-/// Finnish and Swedish as marked regions ([`translation_regions`]) with their own spellers.
-const PROSE_TARGETS: &[&str] = &["en", "fi", "sv"];
-
 /// Primary language subtag of a PO file's translations: the header Language, else the locale
 /// the path names (`fi/LC_MESSAGES/x.po`); `None` for templates.
 pub fn target_language(file: &SourceFile, po: &Catalog) -> Option<String> {
@@ -162,9 +156,7 @@ fn checked_translations(e: &Entry, key: bool) -> impl Iterator<Item = &Field> {
 /// Non-English translations checked as prose, as regions in the catalog's language (see
 /// [`crate::lang_marks`]).
 pub fn translation_regions(file: &SourceFile, po: &Catalog) -> Vec<crate::lang_marks::Region> {
-    let Some(lang) =
-        target_language(file, po).filter(|l| l != "en" && PROSE_TARGETS.contains(&l.as_str()))
-    else {
+    let Some(lang) = target_language(file, po).filter(|l| l != "en") else {
         return Vec::new();
     };
     let header = po.header.as_ref().map(|h| h.entry);

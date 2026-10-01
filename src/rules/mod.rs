@@ -5,7 +5,11 @@ pub mod diagram;
 pub mod docs;
 pub mod gettext;
 pub mod grammar;
+pub mod grammar_de;
+pub mod grammar_es;
 pub mod grammar_fi;
+pub mod grammar_fr;
+pub mod grammar_pt;
 pub mod grammar_sv;
 pub mod lint;
 pub mod patterns;
@@ -357,11 +361,15 @@ fn harper_rows(config: &Config) -> Vec<RuleRow> {
             description: desc.to_string(),
         }
     }));
-    // Finnish and Swedish rules (with their dictionaries).
+    // Native grammar rules for the bundled languages.
     rows.extend(
         grammar_fi::RULES
             .iter()
             .chain(grammar_sv::RULES)
+            .chain(grammar_de::RULES)
+            .chain(grammar_fr::RULES)
+            .chain(grammar_es::RULES)
+            .chain(grammar_pt::RULES)
             .map(|(name, desc)| {
                 let on = !disabled.iter().any(|d| d == name);
                 RuleRow {

@@ -1,17 +1,26 @@
-//! Spelling for prose languages other than English: Finnish through the Voikko port
-//! ([`crate::voikko`], dictionary embedded with the `voikko` feature), Swedish through
-//! Hunspell (`spellbook`, dictionary embedded with the `swedish` feature), and any language
-//! whose Hunspell dictionary `[languages.<code>] dictionary_path` names.
+//! Spelling for non-English prose: Finnish through Voikko, Swedish and bundled German,
+//! French, Spanish and Portuguese through Hunspell, and configured Hunspell dictionaries.
 
+use std::borrow::Cow;
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, LazyLock, Mutex, PoisonError};
 
 use spellbook::Dictionary;
+use unicode_normalization::char::{compose, is_combining_mark};
+use unicode_normalization::{IsNormalized, UnicodeNormalization, is_nfc_quick};
 
 use super::lint::{Lint, LintKind, Span};
 use super::words::Dialect;
 use crate::config::Config;
+
+fn nfc(word: &str) -> Cow<'_, str> {
+    if word.is_ascii() || is_nfc_quick(word.chars()) == IsNormalized::Yes {
+        Cow::Borrowed(word)
+    } else {
+        Cow::Owned(word.nfc().collect())
+    }
+}
 
 /// A spell checker for one language.
 pub trait LangSpeller: Send + Sync {
@@ -45,25 +54,36 @@ fn english() -> &'static super::spell::Speller {
 
 /// [`LangSpeller::suggest`] shared by all threads; suggestions cost milliseconds per word.
 pub fn suggestions(sp: &dyn LangSpeller, word: &str) -> Arc<[String]> {
-    type Cache = HashMap<(usize, Box<str>), Arc<[String]>>;
+    type Words = HashMap<Box<str>, Arc<[String]>>;
+    #[derive(Default)]
+    struct Cache {
+        by_speller: HashMap<usize, Words>,
+        len: usize,
+    }
     static CACHE: LazyLock<Mutex<Cache>> = LazyLock::new(Default::default);
-    let key = (
-        std::ptr::from_ref(sp).cast::<()>() as usize,
-        Box::<str>::from(word),
-    );
+    let key = std::ptr::from_ref(sp).cast::<()>() as usize;
     if let Some(hit) = CACHE
         .lock()
         .unwrap_or_else(PoisonError::into_inner)
+        .by_speller
         .get(&key)
+        .and_then(|words| words.get(word))
     {
         return hit.clone();
     }
     let found: Arc<[String]> = sp.suggest(word).into();
     let mut cache = CACHE.lock().unwrap_or_else(PoisonError::into_inner);
-    if cache.len() >= 100_000 {
-        cache.clear();
+    if cache.len >= 100_000 {
+        cache.by_speller.clear();
+        cache.len = 0;
     }
-    cache.insert(key, found.clone());
+    let new_word = cache
+        .by_speller
+        .entry(key)
+        .or_default()
+        .insert(word.into(), found.clone())
+        .is_none();
+    cache.len += usize::from(new_word);
     found
 }
 
@@ -85,10 +105,10 @@ struct Finnish(&'static crate::voikko::Voikko);
 
 impl LangSpeller for Finnish {
     fn check(&self, word: &str) -> bool {
-        self.0.spell(word)
+        self.0.spell(&nfc(word))
     }
     fn suggest(&self, word: &str) -> Vec<String> {
-        self.0.suggest(word)
+        self.0.suggest(&nfc(word))
     }
     fn voikko(&self) -> Option<&'static crate::voikko::Voikko> {
         Some(self.0)
@@ -99,18 +119,68 @@ struct Hunspell(Dictionary);
 
 impl LangSpeller for Hunspell {
     fn check(&self, word: &str) -> bool {
-        self.0.check(word)
+        self.0.check(&nfc(word))
     }
     fn suggest(&self, word: &str) -> Vec<String> {
         let mut out = Vec::new();
         self.0
             .suggester()
             .with_ngram_suggestions(false)
-            .suggest(word, &mut out);
+            .suggest(&nfc(word), &mut out);
         // Compound fragments (`sjukvårdsystem-`) are no corrections.
         out.retain(|s| !s.starts_with('-') && !s.ends_with('-'));
         out
     }
+}
+
+/// Portuguese variants use incompatible affix flags; never merge their word lists.
+struct Portuguese(Hunspell, Hunspell);
+
+impl LangSpeller for Portuguese {
+    fn check(&self, word: &str) -> bool {
+        self.0.check(word) || self.1.check(word)
+    }
+
+    fn suggest(&self, word: &str) -> Vec<String> {
+        let mut out = self.0.suggest(word);
+        for suggestion in self.1.suggest(word) {
+            if !out.contains(&suggestion) {
+                out.push(suggestion);
+            }
+        }
+        out
+    }
+}
+
+/// Decode a bundled Hunspell dictionary only when its language is used.
+fn bundled_hunspell(code: &str) -> Result<Dictionary, String> {
+    let (aff, compressed): (&str, &[u8]) = match code {
+        "de" => (
+            include_str!("../../dictionaries/de/index.aff"),
+            include_bytes!("../../dictionaries/de/index.dic.zlib"),
+        ),
+        "fr" => (
+            include_str!("../../dictionaries/fr/index.aff"),
+            include_bytes!("../../dictionaries/fr/index.dic.zlib"),
+        ),
+        "es" => (
+            include_str!("../../dictionaries/es/index.aff"),
+            include_bytes!("../../dictionaries/es/index.dic.zlib"),
+        ),
+        "pt" => (
+            include_str!("../../dictionaries/pt/index.aff"),
+            include_bytes!("../../dictionaries/pt/index.dic.zlib"),
+        ),
+        "pt-BR" => (
+            include_str!("../../dictionaries/pt/brazil.aff"),
+            include_bytes!("../../dictionaries/pt/brazil.dic.zlib"),
+        ),
+        _ => return Err(format!("no bundled Hunspell dictionary for {code}")),
+    };
+    let dic = miniz_oxide::inflate::decompress_to_vec_zlib(compressed)
+        .map_err(|e| format!("bundled {code} dictionary: {e:?}"))?;
+    let dic = std::str::from_utf8(&dic).map_err(|e| e.to_string())?;
+    Dictionary::new(aff, dic).map_err(|e| format!("bundled {code} dictionary: {e}"))
 }
 
 /// Hunspell dictionary at `path`: an `.aff` file with its `.dic` beside it, or a directory
@@ -235,7 +305,7 @@ pub fn refresh_dictionaries() {
 
 /// Spellers by language, configured path and content hash of its files. Replaced spellers
 /// stay in the map, so the address of a live speller (a cache key elsewhere) is never reused.
-type Registry = HashMap<(String, Option<PathBuf>, u64), Option<Arc<dyn LangSpeller>>>;
+type Registry = HashMap<String, HashMap<(Option<PathBuf>, u64), Option<Arc<dyn LangSpeller>>>>;
 
 /// The speller for language `code` under `config`, built once per process and dictionary
 /// contents; `None` when the language has no dictionary in this build or config. English has
@@ -247,12 +317,12 @@ pub fn speller(code: &str, config: &Config) -> Option<Arc<dyn LangSpeller>> {
     }
     let path = configured_path(code, config);
     let hash = path.as_deref().map_or(0, dictionary_hash);
-    let key = (code.to_string(), path.clone(), hash);
+    let key = (path, hash);
     let mut reg = REGISTRY.lock().unwrap_or_else(PoisonError::into_inner);
-    if let Some(s) = reg.get(&key) {
+    if let Some(s) = reg.get(code).and_then(|variants| variants.get(&key)) {
         return s.clone();
     }
-    let built: Result<Option<Arc<dyn LangSpeller>>, String> = match (code, &path) {
+    let built: Result<Option<Arc<dyn LangSpeller>>, String> = match (code, &key.0) {
         ("fi", Some(p)) => crate::voikko::from_path_cached(p, hash)
             .map(|v| Some(Arc::new(Finnish(v)) as Arc<dyn LangSpeller>)),
         ("fi", None) => Ok(finnish_embedded()),
@@ -262,13 +332,23 @@ pub fn speller(code: &str, config: &Config) -> Option<Arc<dyn LangSpeller>> {
             Err(_) if cfg!(not(feature = "swedish")) => Ok(None),
             Err(e) => Err(e),
         },
+        ("pt", None) => bundled_hunspell("pt").and_then(|european| {
+            bundled_hunspell("pt-BR").map(|brazilian| {
+                Some(Arc::new(Portuguese(Hunspell(european), Hunspell(brazilian))) as _)
+            })
+        }),
+        ("de" | "fr" | "es", None) => {
+            bundled_hunspell(code).map(|d| Some(Arc::new(Hunspell(d)) as _))
+        }
         _ => Ok(None),
     };
     let s = built.unwrap_or_else(|e| {
         eprintln!("explicit: languages.{code}: {e}");
         None
     });
-    reg.insert(key, s.clone());
+    reg.entry(code.to_owned())
+        .or_default()
+        .insert(key, s.clone());
     s
 }
 
@@ -352,6 +432,42 @@ fn english_word(sp: &dyn LangSpeller, w: &str) -> bool {
     w.chars().count() >= 4 && super::spell::known(english(), w) && !umlaut_variant(sp, w)
 }
 
+/// Do not let an English homograph hide a native spelling with one missing accent.
+/// Work is bounded and stack-only; words already accepted by the native dictionary never enter.
+fn accent_variant(sp: &dyn LangSpeller, code: &str, word: &str) -> bool {
+    let marks: &[char] = match code {
+        "de" => &['\u{308}'],
+        "fr" => &['\u{301}', '\u{300}', '\u{302}', '\u{308}', '\u{327}'],
+        "es" => &['\u{301}', '\u{308}', '\u{303}'],
+        "pt" => &['\u{301}', '\u{300}', '\u{302}', '\u{303}', '\u{327}'],
+        _ => return false,
+    };
+    // Capitalized English terms may be names (a paper format or product), not native words.
+    if !word.is_ascii() || word.len() > 64 || word.starts_with(|c: char| c.is_ascii_uppercase()) {
+        return false;
+    }
+    let source = word.as_bytes();
+    let mut candidate = [0u8; 128];
+    for (i, &letter) in source.iter().enumerate() {
+        candidate[..i].copy_from_slice(&source[..i]);
+        for &mark in marks {
+            let Some(accented) = compose(char::from(letter), mark) else {
+                continue;
+            };
+            let end = i + accented.len_utf8();
+            accented.encode_utf8(&mut candidate[i..end]);
+            let len = end + source.len() - i - 1;
+            candidate[end..len].copy_from_slice(&source[i + 1..]);
+            let text =
+                std::str::from_utf8(&candidate[..len]).expect("composed text is valid UTF-8");
+            if sp.check(text) {
+                return true;
+            }
+        }
+    }
+    false
+}
+
 /// `word` (a token of [`tokens`], followed by `next`) is spelled right in `code`: as written,
 /// as an abbreviation before a dot, as an English word, or as a hyphenated compound whose
 /// leading parts are names, acronyms or English words and whose last part is right.
@@ -386,8 +502,9 @@ pub fn word_ok(sp: &dyn LangSpeller, code: &str, word: &str, next: Option<char>)
         };
         return stem.split('-').all(stem_ok);
     }
+    let loanword = |w: &str| english_word(sp, w) && !accent_variant(sp, code, w);
     if !word.contains('-') {
-        return english_word(sp, word)
+        return loanword(word)
             || (code == "fi"
                 && (finnish_inflection(sp, word, &|_| false) || finnish_extra(sp, word)))
             || (code == "sv"
@@ -400,7 +517,7 @@ pub fn word_ok(sp: &dyn LangSpeller, code: &str, word: &str, next: Option<char>)
         return true;
     };
     let extra = |p: &str| code == "fi" && finnish_extra(sp, p);
-    if !(neutral(last) || sp.check(last) || english_word(sp, last) || extra(last)) {
+    if !(neutral(last) || sp.check(last) || loanword(last) || extra(last)) {
         return false;
     }
     // A hyphen may mark the main boundary of a long compound (`yksityisyyssuoja-kalvo`), and
@@ -409,7 +526,7 @@ pub fn word_ok(sp: &dyn LangSpeller, code: &str, word: &str, next: Option<char>)
         neutral(p)
             || sp.check(p)
             || p.starts_with(char::is_uppercase)
-            || english_word(sp, p)
+            || loanword(p)
             || foreign_stem(sp, p)
             || extra(p)
             || p.chars().any(|c| c.is_ascii_digit())
@@ -929,7 +1046,7 @@ fn swedish_compound(sp: &dyn LangSpeller, word: &str) -> bool {
     !suggestions(sp, word).iter().any(|s| {
         let s = s.to_lowercase();
         let c: Vec<char> = s.chars().collect();
-        if s.contains([' ', '-']) || distance(&chars, &c, 1) > 1 {
+        if s.contains([' ', '-']) || !within_one_edit(&chars, &c) {
             return false;
         }
         if foreign_head && rest.chars().count() >= 5 && s.ends_with(&rest) && !s.starts_with(&head)
@@ -993,10 +1110,26 @@ fn swedish_head_form(sp: &dyn LangSpeller, rest: &str) -> bool {
         })
 }
 
+/// A slash-separated token needs code evidence; `entrada/salida` is ordinary prose.
+fn code_path(chars: &[char], start: usize, end: usize) -> bool {
+    let rooted =
+        start > 0 && chars[start - 1] == '/' && (start == 1 || !chars[start - 2].is_alphanumeric());
+    let word = &chars[start..end];
+    rooted
+        || word
+            .iter()
+            .any(|c| matches!(c, '_' | '.') || c.is_ascii_digit())
+        || word
+            .windows(2)
+            .any(|p| p == [':', ':'] || p[0].is_ascii_lowercase() && p[1].is_ascii_uppercase())
+}
+
 /// Words of `chars`: letter and digit runs joined by `-`, `'`, `’`, `:` (`EU:n`) and `.`
-/// (`t.ex`) between two of them. Char index ranges; tokens without a letter are dropped.
+/// (`t.ex`) between two of them. Keep interior underscores, namespaces and evidenced paths
+/// intact so spelling filters and grammar predicates see identifiers, not prose fragments.
+/// Outer Markdown underscores are not part of a word. Char index ranges; no number-only tokens.
 pub fn tokens(chars: &[char]) -> Vec<(usize, usize)> {
-    let joiner = |c: char| matches!(c, '-' | '\'' | '’' | ':' | '.');
+    let joiner = |c: char| matches!(c, '-' | '\'' | '’' | ':' | '.' | '/');
     let mut out = Vec::new();
     let mut i = 0;
     let n = chars.len();
@@ -1004,15 +1137,19 @@ pub fn tokens(chars: &[char]) -> Vec<(usize, usize)> {
         // Email addresses, URLs and key chords (`Ctrl+Q`) are no words.
         if (i == 0 || chars[i - 1].is_whitespace()) && !chars[i].is_whitespace() {
             let end = (i..n).find(|&j| chars[j].is_whitespace()).unwrap_or(n);
-            let chunk: String = chars[i..end].iter().collect();
-            let chord = chunk.contains('+')
-                && chunk.split('+').all(|p| {
-                    let p = p.trim_matches(|c: char| !c.is_alphanumeric());
-                    !p.is_empty() && p.chars().count() <= 6
+            let chunk = &chars[i..end];
+            let chord = chunk.contains(&'+')
+                && chunk.split(|&c| c == '+').all(|p| {
+                    let Some(first) = p.iter().position(|c| c.is_alphanumeric()) else {
+                        return false;
+                    };
+                    p.iter()
+                        .rposition(|c| c.is_alphanumeric())
+                        .is_some_and(|last| last - first < 6)
                 });
-            if (chunk.contains('@') && chunk.contains('.'))
-                || chunk.contains("://")
-                || chunk.starts_with("www.")
+            if (chunk.contains(&'@') && chunk.contains(&'.'))
+                || chunk.windows(3).any(|s| s == [':', '/', '/'])
+                || chunk.starts_with(&['w', 'w', 'w', '.'])
                 || chord
             {
                 i = end;
@@ -1023,47 +1160,68 @@ pub fn tokens(chars: &[char]) -> Vec<(usize, usize)> {
             i += 1;
             continue;
         }
-        let start = i;
-        while i < n
-            && (chars[i].is_alphanumeric()
-                || (joiner(chars[i])
-                    && i > start
-                    && chars.get(i + 1).is_some_and(|c| c.is_alphanumeric())))
-        {
-            i += 1;
+        let start = if i >= 2 && chars[i - 2..i] == [':', ':'] {
+            i - 2
+        } else {
+            i
+        };
+        while i < n {
+            if chars[i].is_alphanumeric() || (i > start && is_combining_mark(chars[i])) {
+                i += 1;
+            } else if chars[i] == '_' && i > start {
+                let end = (i..n).find(|&j| chars[j] != '_').unwrap_or(n);
+                if !chars.get(end).is_some_and(|c| c.is_alphanumeric()) {
+                    break;
+                }
+                i = end;
+            } else if chars[i..].starts_with(&[':', ':'])
+                && chars.get(i + 2).is_some_and(|c| c.is_alphanumeric())
+            {
+                i += 2;
+            } else if joiner(chars[i])
+                && i > start
+                && chars.get(i + 1).is_some_and(|c| c.is_alphanumeric())
+            {
+                i += 1;
+            } else {
+                break;
+            }
         }
-        if chars[start..i].iter().any(|c| c.is_alphabetic()) {
+        if chars[start..i].contains(&'/') && !code_path(chars, start, i) {
+            let mut part = start;
+            for end in (start..i).filter(|&j| chars[j] == '/').chain([i]) {
+                if chars[part..end].iter().any(|c| c.is_alphabetic()) {
+                    out.push((part, end));
+                }
+                part = end + 1;
+            }
+        } else if chars[start..i].iter().any(|c| c.is_alphabetic()) {
             out.push((start, i));
         }
     }
     out
 }
 
-/// Damerau-Levenshtein distance of `a` and `b`, up to `max + 1`.
-fn distance(a: &[char], b: &[char], max: usize) -> usize {
-    if a.len().abs_diff(b.len()) > max {
-        return max + 1;
+/// At most one insertion, deletion, substitution or adjacent transposition.
+fn within_one_edit(a: &[char], b: &[char]) -> bool {
+    if a.len().abs_diff(b.len()) > 1 {
+        return false;
     }
-    let (n, m) = (a.len(), b.len());
-    let mut d = vec![vec![0usize; m + 1]; n + 1];
-    for (i, row) in d.iter_mut().enumerate() {
-        row[0] = i;
+    let prefix = a.iter().zip(b).take_while(|(x, y)| x == y).count();
+    if prefix == a.len().min(b.len()) {
+        return true;
     }
-    for (j, cell) in d[0].iter_mut().enumerate() {
-        *cell = j;
+    if a.len() > b.len() {
+        a[prefix + 1..] == b[prefix..]
+    } else if b.len() > a.len() {
+        a[prefix..] == b[prefix + 1..]
+    } else {
+        a[prefix + 1..] == b[prefix + 1..]
+            || (prefix + 1 < a.len()
+                && a[prefix] == b[prefix + 1]
+                && a[prefix + 1] == b[prefix]
+                && a[prefix + 2..] == b[prefix + 2..])
     }
-    for i in 1..=n {
-        for j in 1..=m {
-            let cost = usize::from(a[i - 1] != b[j - 1]);
-            d[i][j] = (d[i - 1][j] + 1)
-                .min(d[i][j - 1] + 1)
-                .min(d[i - 1][j - 1] + cost);
-            if i > 1 && j > 1 && a[i - 1] == b[j - 2] && a[i - 2] == b[j - 1] {
-                d[i][j] = d[i][j].min(d[i - 2][j - 2] + 1);
-            }
-        }
-    }
-    d[n][m]
 }
 
 /// A capitalized word inside a sentence (not after `. ! ? :`, a quote, bracket or list
@@ -1090,7 +1248,7 @@ fn unknown_name(sp: &dyn LangSpeller, word: &str) -> bool {
             return false;
         }
         let c: Vec<char> = s.chars().collect();
-        distance(&w, &c, 1) <= 1 && !sp.check(&s.to_lowercase())
+        within_one_edit(&w, &c) && !sp.check(&s.to_lowercase())
     })
 }
 
@@ -1109,6 +1267,52 @@ fn english_glue(sp: &dyn LangSpeller, chars: &[char], toks: &[(usize, usize)], k
             let t = text(t);
             super::spell::known(english(), &t) && !sp.check(&t.to_lowercase())
         })
+    };
+    english_at(k.checked_sub(1)) || english_at(Some(k + 1))
+}
+
+/// English-only adjacent vocabulary establishes a loan phrase, not a missing native accent.
+fn english_phrase_loan(
+    sp: &dyn LangSpeller,
+    code: &str,
+    chars: &[char],
+    toks: &[(usize, usize)],
+    k: usize,
+    word: &str,
+) -> bool {
+    if !matches!(code, "de" | "fr" | "es" | "pt")
+        || word.len() < 4
+        || !word.bytes().all(|byte| byte.is_ascii_alphabetic())
+        || !super::spell::known(english(), word)
+    {
+        return false;
+    }
+    let (start, end) = toks[k];
+    let english_at = |i: Option<usize>| {
+        let Some(&(s, e)) = i.and_then(|i| toks.get(i)) else {
+            return false;
+        };
+        let gap = if e <= start {
+            &chars[e..start]
+        } else {
+            &chars[end..s]
+        };
+        if !(4..=64).contains(&(e - s))
+            || gap.is_empty()
+            || !gap.iter().all(|c| c.is_whitespace())
+            || gap.iter().filter(|&&c| c == '\n').count() >= 2
+            || !chars[s..e].iter().all(char::is_ascii_alphabetic)
+        {
+            return false;
+        }
+        let mut buffer = [0_u8; 64];
+        for (byte, &letter) in buffer.iter_mut().zip(&chars[s..e]) {
+            *byte = letter as u8;
+        }
+        let neighbor = std::str::from_utf8(&buffer[..e - s]).expect("ASCII word");
+        super::spell::known(english(), neighbor)
+            && !sp.check(neighbor)
+            && !accent_variant(sp, code, neighbor)
     };
     english_at(k.checked_sub(1)) || english_at(Some(k + 1))
 }
@@ -1141,6 +1345,10 @@ fn after_given_name(
 }
 
 pub fn names(sp: &dyn LangSpeller, code: &str, chars: &[char], out: &mut Vec<String>) {
+    // German capitalizes ordinary nouns too; capitalization is not name evidence.
+    if code == "de" {
+        return;
+    }
     let toks = tokens(chars);
     for (k, &(s, e)) in toks.iter().enumerate() {
         let word: String = chars[s..e].iter().collect();
@@ -1221,14 +1429,17 @@ pub fn misspelled(sp: &dyn LangSpeller, code: &str, chars: &[char]) -> Vec<Lint>
         {
             continue;
         }
-        if english_glue(sp, chars, &toks, k) {
+        if english_glue(sp, chars, &toks, k)
+            || english_phrase_loan(sp, code, chars, &toks, k, &word)
+        {
             continue;
         }
         // `App Storesta`: an English word capitalized inside a sentence is part of a name.
-        if mid_sentence(chars, s)
-            && (unknown_name(sp, &word)
-                || word.starts_with(char::is_uppercase) && foreign_stem(sp, &word))
-            || after_given_name(sp, chars, &toks, k)
+        if code != "de"
+            && (mid_sentence(chars, s)
+                && (unknown_name(sp, &word)
+                    || word.starts_with(char::is_uppercase) && foreign_stem(sp, &word))
+                || after_given_name(sp, chars, &toks, k))
         {
             continue;
         }
@@ -1264,6 +1475,41 @@ mod tests {
             .map(|(s, e)| text[s..e].iter().collect())
             .collect();
         assert_eq!(got, ["EU:n", "t.ex", "maa-alue", "kirjasto", "x"]);
+    }
+
+    #[test]
+    fn english_loan_phrase_keeps_native_accent_errors() {
+        for (code, typo) in [
+            ("de", "uber"),
+            ("fr", "decor"),
+            ("es", "tecnologia"),
+            ("pt", "voce"),
+        ] {
+            let sp = speller(code, &Config::default()).expect("bundled dictionary");
+            let chars: Vec<char> = format!("click and drag. {typo}.").chars().collect();
+            let spans: Vec<_> = misspelled(&*sp, code, &chars)
+                .iter()
+                .map(|l| (l.span.start, l.span.end))
+                .collect();
+            assert_eq!(spans, [(16, 16 + typo.chars().count())], "{code}");
+        }
+    }
+
+    #[test]
+    fn borrowed_accent_homographs_do_not_cross_sentences_or_paragraphs() {
+        let sp = speller("fr", &Config::default()).expect("bundled French");
+        let source = "creative\ncoding. creative\n\ncoding. creative; coding.";
+        let chars: Vec<_> = source.chars().collect();
+        let actual: Vec<_> = misspelled(&*sp, "fr", &chars)
+            .iter()
+            .map(|lint| (lint.span.start, lint.span.end))
+            .collect();
+        let expected: Vec<_> = source
+            .match_indices("creative")
+            .skip(1)
+            .map(|(start, _)| (start, start + "creative".len()))
+            .collect();
+        assert_eq!(actual, expected);
     }
 
     #[cfg(feature = "swedish")]

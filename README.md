@@ -22,6 +22,9 @@ A fast Rust linter for prose in Markdown files and code comments. It combines id
 - **Gettext catalogs:** PO/POT syntax, headers, plural forms, placeholders and markup kept in
   translations, and English msgids through the prose checks.
 
+Inline code directly joined to letters is excluded as one word in Markdown and code comments:
+`` `E`rror `` does not produce a spelling finding on `rror`. Nearby ordinary prose remains checked.
+
 ## Install
 
 Don't build explicit from source. Prebuilt binaries for Linux (`x86_64`, `aarch64`) and macOS
@@ -410,8 +413,52 @@ comes from, in order:
 
 1. front matter `lang:` or `language:` (a BCP 47 tag: `fi`, `fi-FI`, `sv-FI`, `en-GB`),
 2. a matching `[[overrides]]` entry's `language`, or `general.language`,
-3. detection (`general.detect_language`, on by default): prose of 80+ words with few English
-   stop words is Finnish or Swedish when it looks like it, else another language.
+3. detection (`general.detect_language`, on by default): prose of 80+ words with little English
+   evidence uses distinctive German, French, Spanish or Portuguese function words, then Nordic
+   evidence. Short or ambiguous passages need an explicit tag.
+
+German (`de`), French (`fr`), Spanish (`es`) and Portuguese (`pt`) have bundled Hunspell
+spelling and conservative native grammar in every build. Front matter, overrides and explicit
+language markers take precedence over detection.
+Portuguese accepts both European and Brazilian spelling through separate dictionaries with
+independent affix rules. Dictionaries load once per process, only when used.
+Spelling and native grammar reuse each segment's character buffer; token scans borrow character
+slices rather than allocating word chunks. Source offsets stay unchanged.
+Native checks keep underscore identifiers, qualified namespaces and code-shaped slash paths
+intact instead of reading their fragments as prose. Plain slash alternatives remain checked.
+Native near-name checks use allocation-free one-edit comparisons instead of full edit matrices.
+Repeated native suggestion lookups borrow cache keys without allocating; the cache stays bounded.
+Fully covered segments are borrowed rather than copied; partially marked regions stay masked.
+Dictionary lookups and these four grammars accept canonically decomposed accents without changing
+source offsets.
+English loanwords remain accepted. A native spelling with one missing accent remains an error
+unless a neighboring English-only dictionary word establishes a loan phrase (`creative coding`).
+Punctuation and paragraph boundaries end that phrase. Valid native homographs (Portuguese `por`
+and `pôr`) are not overridden; capitalized English terms may be names and are not forced into
+accented native spellings.
+Grammar checks use closed lexical paradigms for pronoun/noun agreement, auxiliaries and selected clause
+constructions; unknown words and ambiguous constructions are left unchecked. German noun
+capitalization does not turn recurring spelling errors into inferred project names. Agreement
+allows expletive `es` with a plural subject and both singular and plural/formal `sie`. UI action
+labels containing an object and infinitive are not treated as finite subject clauses.
+German modal constructions keep coordinated infinitives across commas; truncated context does
+not justify forcing a past participle.
+French mood checks separate `bien que` meaning “although” from reporting, comparison and noun
+readings, including result clauses with `si bien que`.
+French verb homographs can offer several corrections; the diagnostic makes the ambiguity explicit
+instead of treating the first matching paradigm as a unique answer.
+Context-bound homophone checks cover German `ihr seit` → `seid` and reporting-clause `das` → `dass`,
+French `allons a la page` → `à`, Spanish `tu eres` → `tú`, and Portuguese `ela esta disponível` →
+`está`. Possessives, relative pronouns, coordination and unclear tense remain unchanged.
+French contracts clear noun phrases (`à le bureau` → `au bureau`, `de les fichiers` → `des fichiers`)
+without changing object clitics (`de le faire`) or proper titles. Singular-only elision is checked
+too (`l’applications` → `les applications`). Portuguese checks missing `à`
+after clear motion forms (`vou a escola` → `vou à escola`); optional house/place names and
+ambiguous inverted subjects stay unchecked.
+`slop/phrase` also checks stacked promotional claims in these four languages, Finnish and
+Swedish. It flags empty promises, not evidence of AI authorship, and runs independently of spelling.
+Soft line wraps are supported without joining separate paragraphs, including code comments.
+Composed and decomposed accents both match, including mixed spellings, without rewriting the source.
 
 **Finnish** (`fi`, `voikko` feature) and **Swedish** (`sv`, `swedish` feature, on by default) files get
 spelling in their language with suggestions, plus a few rules where the orthography leaves no
@@ -463,21 +510,24 @@ compound flags allow, or is an English, developer or configured term, and whose 
 (`kalendervy`, `meddelandekö`, `pullförfrågan`; not `sårbar|eter` or `lösenordbyte`), weekday abbreviations, and quoted passages of three or more words
 (verbatim, often colloquial speech).
 
-With detection on, stretches in another language are checked with their own dictionary:
-English sentences, table cells and English clauses between commas in a Finnish or Swedish file
-get the English rules (in the configured `prose.dialect`, as do English words inside Finnish or
-Swedish sentences), a Swedish
-paragraph in a Finnish file (or the reverse) the Swedish speller, and Finnish or Swedish phrases,
-cells and quotes in an English file the Finnish or Swedish speller instead of being skipped.
-Files in other languages (and builds without the language's feature or dictionary) keep only
-the language-independent rules.
+With detection on, confident stretches of another supported language use their own dictionary
+and native rules; English stretches get English rules in the configured `prose.dialect`.
+Decisive phrase-local evidence overrides the surrounding paragraph's language; clearly English
+phrases do not inherit a foreign language from that paragraph.
+English dictionary homographs alone do not override a clear native function-word profile in a
+short sentence; English function words still license English crossover.
+French determiner context distinguishes native `un an` from embedded English articles.
+Sentence delimiters and quotation marks retain their grammar context across language boundaries.
+Nordic crossover retains its short-phrase handling, while Nordic text inside other languages
+needs longer evidence. Builds without a language's dictionary skip its spelling and grammar;
+language-independent rules and supported promotional-claim checks still run.
 
 A one- or two-word table cell unknown to English (`Valmis`, `Kesken`) takes the language of the
 Finnish or Swedish cells in its column or row (checked with that speller, or skipped in builds
 without it); near-misses of English words (`recieved`) stay English. Mark mixed passages
-explicitly when detection is not enough (a lone Finnish word, a quote that looks English). A marked region is checked in its language whatever detection says, with
-the English rules (`en`), the Finnish or Swedish speller (`fi`, `sv`), or only the
-language-independent rules (any other tag); detection of the rest of the file ignores it.
+explicitly when detection is not enough (a lone word or a quote that looks English). A marked
+region uses its declared language's available rules regardless of detection; detection of the
+rest of the file ignores it.
 
 ```markdown
 The button reads <span lang="fi">Tallenna</span>.
@@ -511,7 +561,7 @@ accept = ["Omakanta"]                   # words accepted only in Finnish text
 # dictionary_path = "dictionaries/sv_FI.aff"   # optional: a Hunspell .aff (its .dic beside it)
 
 [languages.de]
-dictionary_path = "dictionaries/de"     # any language with a Hunspell index.aff / index.dic
+# dictionary_path = "dictionaries/de"   # optional: replace the bundled German dictionary
 ```
 
 `dictionary_path` is relative to the config root; its contents are part of the results cache
@@ -573,9 +623,9 @@ placeholders, tags and escapes blanked. When a PO file has a POT template next t
 the same directory), msgids and extracted comments are checked in the template only, so each
 finding appears once. Translations (`msgstr`, `msgstr[N]`) are prose in the catalog's language,
 taken from the header `Language` or else the path (`fi/LC_MESSAGES/x.po`, `fi.po`): English
-catalogs get the English rules, Finnish and Swedish ones their spellers (placeholders and markup
-blanked as in msgids). Translations in other languages, and copies of the source text, are
-skipped.
+catalogs get the English rules; translations with a bundled or configured dictionary get
+their language's spelling and native grammar (placeholders and markup blanked as in msgids). Unsupported languages
+have no built-in prose checks. Copies of source text are skipped.
 
 ## Suppressing findings
 
@@ -626,6 +676,51 @@ cargo test --features harper,voikko,swedish           # the full build
 scripts/update-linguist.sh       # refresh the embedded GitHub language list
 scripts/update-harper-words.sh   # regenerate dictionaries/harper after bumping harper-core
 ```
+
+### Multilingual benchmark
+
+Run `bash autoresearch.sh` through the existing devenv environment. It builds both release
+benchmarks offline, then executes the real discovery, extraction and checking pipeline
+with the default features plus `voikko`. Build time and public-source downloads are excluded.
+
+`eval/multilingual/*.json` contains fixed public error/clean pairs for German, French,
+Spanish and Portuguese, with English, Finnish and Swedish controls. Each pair runs as
+a language-tagged Markdown document, a Rust comment with a language override, a marked
+region in English Markdown and a gettext translation. These are development fixtures,
+not unseen holdouts; they do not replace the existing language evaluations.
+
+The original `detection_score` remains a 0–100 language-macro score: 90% spelling/grammar F1
+and 10% slop F1. Diagnostics must overlap the planted byte span and match its category.
+Each label earns at most one true positive; duplicate, wrong-category and clean-text
+findings count as false positives. Unsupported languages score zero.
+
+`eval/public/annotations.json` records immutable source URLs, hashes and independently reviewed
+target spans from 47 randomly sampled GitHub READMEs. It contains 19 actual errors and 204
+correct-text traps, including names, identifiers and language boundaries. The original and
+corrected documents run in separate workspaces; corrections must not trigger a new finding.
+Only annotated spans and their rule families are scored. Findings elsewhere are unjudged,
+not presumed false positives, so this is not a whole-corpus precision or recall estimate.
+Optional style findings and intentional American-dialect normalization are excluded.
+
+The public language-macro score uses the same 90% error / 10% slop weighting. A clean-only
+language/category scores one when there are no findings, and zero when it has false positives.
+The primary `generalization_score` averages the original and public scores equally. Both
+component scores and per-language counts remain visible; existing-language regressions are
+checked against the original controls. These public annotations are development data,
+not unseen validation.
+
+Secondary metrics include original-workload cold milliseconds, median milliseconds over five
+uncached warm runs, source MiB/s and process peak RSS in MiB (macOS/Linux), plus public-workload
+time and RSS. The original workload and diagnostic signatures are checked on every run.
+Results and link caches, configured external dictionaries and git/gh lookups are disabled.
+No holdout sources or scores are read by rule authors.
+
+`scripts/prepare-public-benchmark.sh` requires `jq`, `curl` and `shasum`. It downloads pinned
+README bytes into a temporary-directory corpus cache outside the repository, verifies every
+SHA-256 hash on each invocation, and never executes their contents. The Rust runner verifies
+hashes again. Only provenance and annotations are committed; third-party README contents are
+not redistributed. Network access is limited to preparation, never timed checking.
+Timing and RSS vary with the machine and system load; compare on the same idle machine.
 
 The comment rules in `src/rules/slop/comments.rs` are ported from aislop (MIT); see [NOTICE](NOTICE).
 

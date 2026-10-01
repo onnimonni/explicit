@@ -115,23 +115,36 @@ pub fn decisive_nordic(text: &str) -> Option<&'static str> {
     }
 }
 
-/// Stretches of a Finnish or Swedish file (`lang`) written in the other language: segments or
-/// phrases whose evidence clearly points to it. File offsets with the language.
-pub fn other_nordic_ranges(segments: &[Segment], lang: &str) -> Vec<(Range<usize>, &'static str)> {
+/// Stretches whose evidence clearly points to another supported language.
+/// Nordic crossover keeps its existing threshold; other files require longer Nordic evidence.
+pub fn other_language_ranges(
+    segments: &[Segment],
+    lang: &str,
+) -> Vec<(Range<usize>, &'static str)> {
+    let detect = |text: &str, min_words| {
+        language_hint(text, min_words).or_else(|| {
+            (matches!(lang, "fi" | "sv") || looks_nordic(text, 8, true))
+                .then(|| decisive_nordic(text))
+                .flatten()
+        })
+    };
     let mut out = Vec::new();
     for s in segments {
-        match decisive_nordic(&s.text) {
+        match detect(&s.text, 6) {
             Some(l) if l != lang => {
                 // A mixed segment (a Finnish quote next to a Swedish one) splits by phrase.
                 for r in phrases(&s.text) {
-                    let own = decisive_nordic(&s.text[r.clone()]).unwrap_or(l);
+                    if s.text[r.clone()].trim().is_empty() {
+                        continue;
+                    }
+                    let own = detect(&s.text[r.clone()], 4).unwrap_or(l);
                     if own != lang {
                         out.push((s.abs(r), own));
                     }
                 }
             }
             _ => out.extend(phrases(&s.text).filter_map(|r| {
-                decisive_nordic(&s.text[r.clone()])
+                detect(&s.text[r.clone()], 4)
                     .filter(|l| *l != lang)
                     .map(|l| (s.abs(r), l))
             })),
@@ -375,15 +388,15 @@ pub fn foreign_ranges(segments: &[Segment], src: &str) -> Vec<Range<usize>> {
         .collect()
 }
 
-/// Phrases of `text` between sentence punctuation, quotes, brackets, pipes and line breaks,
-/// as local byte ranges.
+/// Phrases ending at punctuation, quotes, brackets, pipes and line breaks, as local byte ranges.
+/// Retain delimiters so language-specific grammar keeps sentence and clause boundaries.
 fn phrases(text: &str) -> impl Iterator<Item = Range<usize>> + '_ {
     let mut start = 0;
     text.match_indices(|c: char| ".!?;:|\"“”«»()[]\n".contains(c))
-        .map(|(i, m)| (i, i + m.len()))
-        .chain([(text.len(), text.len())])
-        .map(move |(end, next)| {
-            let r = start..end;
+        .map(|(i, m)| i + m.len())
+        .chain([text.len()])
+        .map(move |next| {
+            let r = start..next;
             start = next;
             r
         })
@@ -550,21 +563,35 @@ pub fn foreign_stretches(
         } else {
             2
         };
+        if let Some(language) = language_hint(&s.text, min_words) {
+            // Whole-segment evidence is only a fallback for a phrase without its own
+            // decisive profile; a Nordic sentence can share this segment.
+            for r in phrases(&s.text) {
+                if !s.text[r.clone()].trim().is_empty() {
+                    let phrase = &s.text[r.clone()];
+                    let own = language_hint(phrase, 4).or_else(|| decisive_nordic(phrase));
+                    if own.is_none() && looks_english(phrase, 3) {
+                        continue;
+                    }
+                    foreign.push((s.abs(r), Some(own.unwrap_or(language))));
+                }
+            }
+            continue;
+        }
         if looks_nordic(&s.text, min_words, true) {
-            // Phrases take the segment's language unless their own evidence says otherwise
-            // (a Swedish quote in a Finnish block quote).
+            // Phrases take the segment's language unless their own supported-language
+            // evidence says otherwise.
             let whole = nordic_language(&s.text);
-            let mut any = false;
             for r in phrases(&s.text) {
                 if s.text[r.clone()].trim().is_empty() {
                     continue;
                 }
-                let l = decisive_nordic(&s.text[r.clone()]).unwrap_or(whole);
-                foreign.push((s.abs(r), Some(l)));
-                any = true;
-            }
-            if !any {
-                foreign.push((s.range.clone(), Some(whole)));
+                let phrase = &s.text[r.clone()];
+                let own = language_hint(phrase, 4).or_else(|| decisive_nordic(phrase));
+                if own.is_none() && looks_english(phrase, 3) {
+                    continue;
+                }
+                foreign.push((s.abs(r), Some(own.unwrap_or(whole))));
             }
             continue;
         }
@@ -579,7 +606,9 @@ pub fn foreign_stretches(
         );
         for r in phrases(&s.text) {
             let phrase = &s.text[r.clone()];
-            if looks_nordic(phrase, 2, false) {
+            if let Some(language) = language_hint(phrase, 4) {
+                foreign.push((s.abs(r), Some(language)));
+            } else if looks_nordic(phrase, 2, false) {
                 foreign.push((s.abs(r), Some(nordic_language(phrase))));
             } else if looks_foreign(phrase, 3, 4) {
                 foreign.push((s.abs(r), None));
@@ -619,14 +648,15 @@ pub fn looks_english(text: &str, min_words: usize) -> bool {
     n >= min_words.max(1)
         && known * 5 >= n * 4
         && evidence
+        // Dictionary homographs alone do not outweigh a native function-word profile.
+        && (stop > 0 || function > 0 || language_hint(text, 4).is_none())
         && !words(text).any(|w| nordic_letters_or_ending(w) && !english_word(w))
 }
 
-/// Runs of English words inside a Finnish or Swedish phrase, between commas (`..., että the
-/// deployment pipeline is broken again, joten ...`): three or more ASCII words known to English
-/// and not Finnish or Swedish function words, one of them an English stopword and two of them
-/// longer words. Acronyms and single letters continue a run. Local byte ranges.
-fn english_runs(text: &str) -> Vec<Range<usize>> {
+/// Runs of English words inside native phrases: three ASCII dictionary words, a distinctive
+/// English function word and two longer words. French determiner context disambiguates native
+/// nouns such as `an` from English articles; isolated homographs remain eligible for English runs.
+fn english_runs(text: &str, lang: &str) -> Vec<Range<usize>> {
     #[derive(Default)]
     struct Run {
         range: Option<Range<usize>>,
@@ -637,6 +667,7 @@ fn english_runs(text: &str) -> Vec<Range<usize>> {
     let mut out = Vec::new();
     let mut run = Run::default();
     let mut prev_end = 0;
+    let mut previous_french_article = false;
     let flush = |run: &mut Run, out: &mut Vec<Range<usize>>| {
         let done = std::mem::take(run);
         if done.words >= 3 && done.stop > 0 && done.long >= 2 {
@@ -646,13 +677,27 @@ fn english_runs(text: &str) -> Vec<Range<usize>> {
     for (at, w) in words_at(text) {
         if text[prev_end..at].contains(|c: char| ",.!?;:|()[]\"“”«»".contains(c)) {
             flush(&mut run, &mut out);
+            previous_french_article = false;
         }
         prev_end = at + w.len();
-        if neutral(w) {
+        let is_neutral = neutral(w);
+        let french_noun = lang == "fr"
+            && previous_french_article
+            && ["an", "as", "or"].iter().any(|noun| eq_lower(w, noun));
+        previous_french_article = lang == "fr"
+            && !is_neutral
+            && ["un", "une", "le", "la", "du", "des"]
+                .iter()
+                .any(|article| eq_lower(w, article));
+        if is_neutral {
             continue;
         }
         let stop = w.is_ascii() && is_stopword(w);
-        let english = w.is_ascii() && !is_nordic_function_word(w) && (stop || english_word(w));
+        let english = w.is_ascii()
+            && !is_nordic_function_word(w)
+            && !previous_french_article
+            && !french_noun
+            && (stop || english_word(w));
         if !english {
             flush(&mut run, &mut out);
             continue;
@@ -669,7 +714,13 @@ fn english_runs(text: &str) -> Vec<Range<usize>> {
 
 /// English stretches of `segments` (file offsets): whole segments or phrases that
 /// [`looks_english`], and runs of English words inside other phrases ([`english_runs`]).
-pub fn english_ranges(segments: &[Segment]) -> Vec<Range<usize>> {
+/// A decisive function-word profile for the active language takes precedence over English
+/// dictionary homographs; unrelated language profiles do not globally veto English.
+pub fn english_ranges(segments: &[Segment], lang: &str) -> Vec<Range<usize>> {
+    let active_profile = matches!(lang, "de" | "fr" | "es" | "pt");
+    let english = |text: &str, min_words| {
+        looks_english(text, min_words) && (!active_profile || language_hint(text, 4) != Some(lang))
+    };
     let mut out = Vec::new();
     for s in segments {
         let min_words = if s.kind == SegmentKind::TableCell {
@@ -677,16 +728,16 @@ pub fn english_ranges(segments: &[Segment]) -> Vec<Range<usize>> {
         } else {
             3
         };
-        if looks_english(&s.text, min_words) {
+        if english(&s.text, min_words) {
             out.push(s.range.clone());
             continue;
         }
         for r in phrases(&s.text) {
-            if looks_english(&s.text[r.clone()], 3) {
+            if english(&s.text[r.clone()], 3) {
                 out.push(s.abs(r));
             } else {
                 out.extend(
-                    english_runs(&s.text[r.clone()])
+                    english_runs(&s.text[r.clone()], lang)
                         .into_iter()
                         .map(|x| s.abs(r.start + x.start..r.start + x.end)),
                 );
@@ -704,6 +755,94 @@ pub fn document_nordic(segments: &[Segment]) -> Option<&'static str> {
         .collect::<Vec<_>>()
         .join("\n");
     looks_nordic(&text, 20, false).then(|| nordic_language(&text))
+}
+
+/// A cheap German, French, Spanish or Portuguese hint from distinctive function words.
+/// At least two distinct markers, enough prose, little English evidence and a clear winner
+/// are required. Ambiguous and short stretches remain unclassified; no dictionary is loaded.
+pub fn language_hint(text: &str, min_words: usize) -> Option<&'static str> {
+    language_hint_words(words(text), min_words)
+}
+
+pub fn document_hint(segments: &[Segment]) -> Option<&'static str> {
+    language_hint_words(segments.iter().flat_map(|s| words(&s.text)), 80)
+}
+
+fn language_hint_words<'a>(
+    prose: impl Iterator<Item = &'a str>,
+    min_words: usize,
+) -> Option<&'static str> {
+    const PROFILES: &[(&str, &[&str])] = &[
+        (
+            "de",
+            &[
+                "der", "die", "das", "und", "nicht", "ist", "eine", "einen", "einer", "wird",
+                "werden", "mit", "auch", "sich", "auf", "für", "zum", "zur",
+            ],
+        ),
+        (
+            "fr",
+            &[
+                "le", "les", "une", "des", "dans", "avec", "pour", "est", "sont", "vous", "nous",
+                "cette", "cet", "aux", "du", "ne", "il", "elle", "ils", "elles",
+            ],
+        ),
+        (
+            "es",
+            &[
+                "el", "los", "las", "una", "unos", "unas", "del", "hay", "muy", "pero", "porque",
+                "también", "puede", "debe", "son", "sus",
+            ],
+        ),
+        (
+            "pt",
+            &[
+                "uma",
+                "um",
+                "não",
+                "são",
+                "dos",
+                "das",
+                "pelo",
+                "pela",
+                "os",
+                "ao",
+                "aos",
+                "você",
+                "também",
+                "ficheiro",
+                "utilizador",
+                "tem",
+            ],
+        ),
+    ];
+    let mut counts = [0usize; 4];
+    let mut seen = [0u32; 4];
+    let (mut total, mut english) = (0usize, 0usize);
+    for word in prose.filter(|w| !neutral(w)) {
+        total += 1;
+        english += usize::from(is_stopword(word));
+        for (index, (_, markers)) in PROFILES.iter().enumerate() {
+            if let Some(marker) = markers.iter().position(|m| eq_lower(word, m)) {
+                counts[index] += 1;
+                seen[index] |= 1 << marker;
+            }
+        }
+    }
+    if total < min_words.max(4) || english * 4 >= total {
+        return None;
+    }
+    let winner = (0..counts.len()).max_by_key(|&i| counts[i])?;
+    let runner_up = (0..counts.len())
+        .filter(|&i| i != winner)
+        .map(|i| counts[i])
+        .max()
+        .unwrap_or(0);
+    (counts[winner] >= 2
+        && seen[winner].count_ones() >= 2
+        && counts[winner] * 8 >= total
+        && counts[winner] >= 2 * runner_up.max(1))
+    .then_some(PROFILES[winner].0)
 }
 
 /// English-only rule families.
@@ -735,6 +874,149 @@ mod tests {
     use crate::rules::Analyzed;
     use crate::source::{FileKind, SourceFile};
     use std::path::PathBuf;
+
+    #[test]
+    fn function_word_hints_leave_english_and_ambiguous_text_alone() {
+        for (language, sentence) in [
+            (
+                "de",
+                "Der Bericht wird auf dem Server gespeichert und nicht gelöscht.",
+            ),
+            (
+                "fr",
+                "Le rapport est dans le dossier et les données sont disponibles.",
+            ),
+            (
+                "es",
+                "El informe contiene los datos pero las imágenes son nuevas.",
+            ),
+            ("pt", "O ficheiro tem uma imagem e os dados não são novos."),
+        ] {
+            assert_eq!(language_hint(sentence, 4), Some(language), "{sentence}");
+        }
+        assert_eq!(
+            language_hint("The die is cast and the report is ready.", 4),
+            None
+        );
+        assert_eq!(language_hint("Le de la que para da do.", 4), None);
+        assert_eq!(language_hint("Le fichier.", 4), None);
+        assert_eq!(language_hint("Der der der der.", 4), None);
+    }
+
+    #[test]
+    fn phrase_profiles_override_mixed_segment_inheritance() {
+        let first =
+            "Potilastiedot tallennetaan turvallisesti ja lokitiedot säilytetään palvelimella";
+        let second = "Potilastiedot käsitellään salattuna ja varmuuskopiot säilytetään erillisessä järjestelmässä";
+        for (language, phrase) in [
+            ("de", "Der Bericht wird nicht gespeichert"),
+            ("fr", "Les données sont correctement enregistrées"),
+            ("es", "El informe contiene los datos"),
+            ("pt", "Os relatórios são corretamente guardados"),
+        ] {
+            let text = format!("{first}. {second}. {phrase}.");
+            let a = md(&text);
+            let stretches: Vec<_> = foreign_stretches(&a.segments, &text)
+                .into_iter()
+                .map(|(r, l)| {
+                    (
+                        text[r].trim().trim_end_matches(['.', '!', '?']).to_string(),
+                        l,
+                    )
+                })
+                .collect();
+            assert_eq!(
+                stretches,
+                [
+                    (first.to_string(), Some("fi")),
+                    (second.to_string(), Some("fi")),
+                    (phrase.to_string(), Some(language)),
+                ],
+                "{text}"
+            );
+            let others: Vec<_> = other_language_ranges(&a.segments, "fi")
+                .into_iter()
+                .map(|(r, l)| {
+                    (
+                        text[r].trim().trim_end_matches(['.', '!', '?']).to_string(),
+                        l,
+                    )
+                })
+                .collect();
+            assert_eq!(others, [(phrase.to_string(), language)], "{text}");
+        }
+        let ambiguous = md("Der Bericht.");
+        assert!(other_language_ranges(&ambiguous.segments, "fi").is_empty());
+    }
+
+    #[test]
+    fn english_phrases_do_not_inherit_a_foreign_segment_language() {
+        let finnish = "Potilastiedot tallennetaan turvallisesti ja lokitiedot säilytetään palvelimella. \
+            Potilastiedot käsitellään salattuna ja varmuuskopiot säilytetään erillisessä järjestelmässä. \
+            Käyttäjän henkilöllisyys tarkistetaan ennen kirjautumista ja käyttäjälle näytetään henkilökohtaiset asetukset. \
+            Käyttöoikeudet myönnetään työtehtävien perusteella ja vanhentuneet oikeudet poistetaan automaattisesti. \
+            Ylläpitäjät tarkistavat lokitiedot säännöllisesti ja puutteet korjataan ennen seuraavaa päivitystä. \
+            Varmuuskopiot tarkistetaan päivittäin ja palautukset kokeillaan erillisessä testiympäristössä. \
+            Henkilötietojen käsittely dokumentoidaan huolellisesti ja turvallisuusvaatimukset arvioidaan vuosittain.";
+        for (native, word) in [
+            (finnish, "Potilastiedot"),
+            (
+                "Der Bericht wird nicht gespeichert und die Dokumentation wird nicht aktualisiert.",
+                "gespeichert",
+            ),
+        ] {
+            let text = format!(
+                "{native} Please ask your manager. The configuration is incorrect. \
+                The report is definately ready."
+            );
+            let a = md(&text);
+            let english_start = text.find("Please").unwrap();
+            assert!(
+                foreign_ranges(&a.segments, &text)
+                    .iter()
+                    .all(|r| r.end <= english_start),
+                "{text}"
+            );
+            assert_eq!(kept(&text, &[word, "definately"]), ["definately"]);
+        }
+    }
+
+    #[test]
+    fn active_profile_outweighs_english_homographs_without_hiding_crossover() {
+        let text = "Die Bank ist also modern. Die Bank ist so modern. \
+            Please ask your manager. The report is definately ready.";
+        let a = md(text);
+        let english: Vec<_> = english_ranges(&a.segments, "de")
+            .into_iter()
+            .map(|r| text[r].trim().trim_end_matches(['.', '!', '?']))
+            .collect();
+        assert_eq!(
+            english,
+            ["Please ask your manager", "The report is definately ready"]
+        );
+        let typo = md("Die Bank ist also mordern.");
+        assert!(english_ranges(&typo.segments, "de").is_empty());
+        // No global veto: the same dictionary homographs are still English candidates
+        // when the native profile does not match the active language.
+        let homographs = md("Die Bank ist also modern.");
+        assert!(!english_ranges(&homographs.segments, "fr").is_empty());
+        for (language, native) in [
+            ("fi", "Sauna on lämmin ja kala on tuore."),
+            ("sv", "Uppgifterna ska sparas och inte delas."),
+        ] {
+            assert!(english_ranges(&md(native).segments, language).is_empty());
+            assert!(!english_ranges(&md("Please ask your manager.").segments, language).is_empty());
+        }
+        let borrowed = "Le brief est creative. The creative brief is ready.";
+        let ranges = english_ranges(&md(borrowed).segments, "fr");
+        assert_eq!(
+            ranges
+                .iter()
+                .map(|r| borrowed[r.clone()].trim().trim_end_matches(['.', '!', '?']))
+                .collect::<Vec<_>>(),
+            ["The creative brief is ready"]
+        );
+    }
 
     fn md(text: &str) -> Analyzed {
         Analyzed::new(SourceFile::new(
@@ -808,13 +1090,13 @@ mod tests {
     fn english_run_inside_finnish_sentence() {
         let text = "Kokouksessa todettiin, että the deployment pipeline is broken again, joten \
             korjaus siirtyy.";
-        let runs = english_runs(text);
+        let runs = english_runs(text, "fi");
         assert_eq!(runs.len(), 1);
         assert_eq!(
             &text[runs[0].clone()],
             "the deployment pipeline is broken again"
         );
-        assert!(english_runs("Palvelu on auki ja sauna on lämmin.").is_empty());
+        assert!(english_runs("Palvelu on auki ja sauna on lämmin.", "fi").is_empty());
     }
 
     /// Short English sentences and British spellings inside Finnish text are English; Finnish
